@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: paas-ta-container-platform-webuser
+
+management:
+  security:
+    enabled: false
+
+cp:
+  url: K8S_API_ENDPOINT
+  cluster-name: "kubernetes"
+
+roleSet:
+  administratorCode: RS0001
+  regularUserCode: RS0002
+  initUserCode: RS0003
+  administratorName: Administrator
+  regularUserName: Regular User
+  initUserName: Init User
+
+private:
+  registry:
+    imageName: f9c10967-fdca-495e-a516-3ec406230944.private-image-repository.default.paasta-container-service.bosh:5000/registry:latest
+    url: PRIVATE_REGISTRY_URL
+---
+spring:
+  profiles:
+    active: local
+  freemarker:
+    template-loader-path: classpath:/templates/
+
+logging:
+  level:
+    ROOT: INFO
+  path: classpath:logback-spring.xml
+  file: logs/application.log
+
+server:
+  port: ${PORT:8091}
+
+cpApi:
+  url: http://localhost:3333
+  authorization:
+    id: SECURITY_USERNAME
+    password: SECURITY_PASSWORD
+
+commonApi:
+  url: http://localhost:3334
+  authorization:
+    id: SECURITY_USERNAME
+    password: SECURITY_PASSWORD
+
