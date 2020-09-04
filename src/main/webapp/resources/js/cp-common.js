@@ -1,15 +1,14 @@
 /**
  * API call function
- * @param reqUrl      : Request URL
- * @param reqMethod   : Request Method (GET POST PUT DELETE ..)
- * @param param       : Request Parameters
- * @param preFunc     : Pre function
- * @param callback    : after function
+ * @param reqUrl
+ * @param reqMethod
+ * @param param
+ * @param preFunc
+ * @param callback
  * @description
  *      async: false 동기 처리
- * @author CISS
- * @since 2018.10.23
- * @since 2018.10.30 Error 처리 수정
+ * @author jjy
+ * @since 2020.09.03
  */
 var procCallAjax = function(reqUrl, reqMethod, param, preFunc, callback) {
     var reqData = "";
@@ -85,7 +84,7 @@ var procSetSelector = function (requestMapString) {
 
 /**
  * 문자열이 빈 문자열인지 체크하여 빈값("") 또는 기본 문자열을 반환한다.
- * @param str           : 체크할 문자열
+ * @param str
  */
 function nvl(str, defaultStr){
     console.log("str >>> " + JSON.stringify(str) + " & " + JSON.stringify(defaultStr));
@@ -200,8 +199,8 @@ var procAlertMessage = function (value, result) {
 
 /**
  * 해당 리소스에 이벤트 데이터를 추가한다.
- * @param targetObject   : 해당 리소스의 리스트 JSON Object
- * @param selector       : 연관된 POD를 조회하기 위한 SELECTOR
+ * @param targetObject
+ * @param selector
  * @description
  *    해당 리소스(replicaSet, deployment)에 연관된 POD명을 조회하여,
  *    해당 POD의 이벤트를 조회후,
@@ -212,8 +211,8 @@ var procAlertMessage = function (value, result) {
  *
  *    ex) procAddPodsEvent(itemList, itemList.spec.selector.matchLabels); // event Data added to 'itemList'
  *
- * @author CISS
- * @since 2018.09.12
+ * @author jjy
+ * @since 2020.09.03
  */
 var procAddPodsEvent = function(targetObject, selector) {
 
@@ -444,14 +443,14 @@ var procSetAnnotationLayerpop = function(eventElement) {
 
 /**
  * 객체의 값을 비교한다.
- * @param object   : 대상 Object 1
- * @param object   : 대상 Object 2
+ * @param object
+ * @param object
  * @description
  *    label 비교용으로 사용
  *    ex use) procCompareObj( {"app":"wordpress","tier":"front"},{"tier":"front", "app":"wordpress"} )  => true
  *
- * @author CISS
- * @since 2018.10.23
+ * @author jjy
+ * @since 2020.09.03
  */
 var procCompareObj = function( a, b ){
     var type = typeof a, i, j;
