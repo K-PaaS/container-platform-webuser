@@ -87,7 +87,6 @@ var procSetSelector = function (requestMapString) {
  * @param str
  */
 function nvl(str, defaultStr){
-    console.log("str >>> " + JSON.stringify(str) + " & " + JSON.stringify(defaultStr));
     if(str == "undefined" || str === undefined || str == "null" || str === null || str == ""){
         if(defaultStr === undefined){
             str = "";
@@ -141,7 +140,6 @@ var procSetSortList = function(resultTableString, buttonObject, key) {
 
 
 var procCheckValidData = function (data) {
-    console.log("이얏호!!!!! : " + JSON.stringify(data));
     var ensureData;
     if ('' === nvl(data)) {
         ensureData = {};
