@@ -78,7 +78,7 @@ public class ReplicaSetsService {
      */
     ReplicaSetsList getReplicaSetsListLabelSelector(String namespace, String selectors) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_RESOURCES
-                     .replace("{namespace:.+}", namespace)
+                        .replace("{namespace:.+}", namespace)
                         .replace("{selector:.+}", selectors),
                 HttpMethod.GET, null, ReplicaSetsList.class);
     }

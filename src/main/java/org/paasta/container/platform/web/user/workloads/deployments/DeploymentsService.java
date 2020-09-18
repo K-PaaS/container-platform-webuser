@@ -45,8 +45,8 @@ public class DeploymentsService {
      */
     public Deployments getDeployments (String namespace, String deploymentName ) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_DETAIL
-                    .replace( "{namespace:.+}", namespace )
-                    .replace( "{deploymentName:.+}", deploymentName )
+                        .replace( "{namespace:.+}", namespace )
+                        .replace( "{deploymentName:.+}", deploymentName )
                 , HttpMethod.GET, null, Deployments.class);
     }
 
