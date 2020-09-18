@@ -104,7 +104,7 @@
 
         $("#title").html(NAME_SPACE);
 
-        var namespaceNameHtml = "<a href='javascript:void(0);' onclick='procMovePage(\"/cp/clusters/namespaces/" + NAME_SPACE + "\");'>" + NAME_SPACE + "</a>";
+        var namespaceNameHtml = "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.URI_CLUSTER_NAMESPACES %>/" + NAME_SPACE + "\");'>" + NAME_SPACE + "</a>";
 
         $("#nameSpaceName").html(namespaceNameHtml);
         $("#nameSpaceCreationTime").html(data.metadata.creationTimestamp);
