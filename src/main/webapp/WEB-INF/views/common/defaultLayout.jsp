@@ -22,24 +22,24 @@
 
 </head>
 <body>
-    <div class="wrap dashboard" id="dashboardWrap" style="display: none;">
-        <tiles:insertAttribute name="header"/>
-        <tiles:insertAttribute name="left-menu"/>
-        <div class="contain">
-            <tiles:insertAttribute name="body"/>
-            <tiles:insertAttribute name="footer"/>
-        </div>
+<div class="wrap dashboard" id="dashboardWrap" style="display: none;">
+    <tiles:insertAttribute name="header"/>
+    <tiles:insertAttribute name="left-menu"/>
+    <div class="contain">
+        <tiles:insertAttribute name="body"/>
+        <tiles:insertAttribute name="footer"/>
     </div>
-    <div>
-        <tiles:insertAttribute name="modal"/>
-    </div>
-    <textarea id="out_a" title="">
+</div>
+<div>
+    <tiles:insertAttribute name="modal"/>
+</div>
+<textarea id="out_a" title="">
         </textarea>
-    <div>
-        <tiles:insertAttribute name="alert"/>
-    </div>
-    <div>
-        <tiles:insertAttribute name="loadingSpinner"/>
-    </div>
+<div>
+    <tiles:insertAttribute name="alert"/>
+</div>
+<div>
+    <tiles:insertAttribute name="loadingSpinner"/>
+</div>
 </body>
 </html>

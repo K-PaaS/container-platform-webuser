@@ -17,20 +17,6 @@
     <div class="gnb search">
     </div>
 
-    <ul class="right_nav clearfix">
-        <li>
-            <div class="btn-group">
-                <button href="#" class="dropdown-toggle user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                </button>
-                <div id="r_user" class="dropdown-menu">
-                    <ul class="cp-user">
-                        <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
-                        <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
-                    </ul>
-                </div>
-            </div>
-        </li>
-    </ul>
     <div class="header_bottom">
         <p class="tit">Container Platform</p>
         <span class="nav_toggle">
@@ -56,7 +42,7 @@
                                         <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}/overview');">${cfn:camelCaseParser(path)}</a></li>
                                     </c:otherwise>
                                 </c:choose>
-                             </c:otherwise>
+                            </c:otherwise>
                         </c:choose>
                     </c:when>
                     <c:when test="${g.index eq 2}">

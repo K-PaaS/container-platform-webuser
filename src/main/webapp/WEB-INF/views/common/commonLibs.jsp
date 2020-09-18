@@ -49,9 +49,6 @@
 
     var USER_ID = "admin";
     var USER_NAME = "admin";
-    var SERVICE_INSTANCE_ID = "f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f";
-    var ORGANIZATION_GUID = "760c1505-b312-444e-ac41-f4865e40a60e";
-    var SPACE_GUID = "92542284-b473-42af-bfa7-afa1216314ad";
     var NAME_SPACE = "paas-f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f-caas";
 
 
