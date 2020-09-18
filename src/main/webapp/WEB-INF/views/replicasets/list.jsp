@@ -66,11 +66,11 @@
 
         if(nvl(selector) != ""){
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_RESOURCES %>"
-                    .replace("{namespace:.+}", NAME_SPACE)
-                    .replace("{selector:.+}", selector);
+                .replace("{namespace:.+}", NAME_SPACE)
+                .replace("{selector:.+}", selector);
         }else{
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_LIST %>"
-                    .replace("{namespace:.+}", NAME_SPACE);
+                .replace("{namespace:.+}", NAME_SPACE);
         }
         procCallAjax(reqUrl, "GET", null, null, callbackGetReplicaSetsList);
     };
@@ -148,17 +148,17 @@
                 //이벤트 관련 추가 END
 
                 resultArea.append(
-                        "<tr>"
-                        + "<td>"+statusIconHtml
-                        + "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.URI_WORKLOAD_REPLICA_SETS %>/" + replicaSetName + "\");'>" + replicaSetName + "</a>"
-                        + statusMessageHtml
-                        + "</td>"
-                        + "<td><a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.URI_CLUSTER_NAMESPACES %>/" + namespace + "\");'>" + namespace + "</td>"
-                        + "<td>" + procCreateSpans(labels, "LB") + "</td>"
-                        + "<td>" + pods + "</td>"
-                        + "<td>" + creationTimestamp+"</td>"
-                        + "<td>" + imageTags + "</td>"
-                        + "</tr>");
+                    "<tr>"
+                    + "<td>"+statusIconHtml
+                    + "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.URI_WORKLOAD_REPLICA_SETS %>/" + replicaSetName + "\");'>" + replicaSetName + "</a>"
+                    + statusMessageHtml
+                    + "</td>"
+                    + "<td><a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.URI_CLUSTER_NAMESPACES %>/" + namespace + "\");'>" + namespace + "</td>"
+                    + "<td>" + procCreateSpans(labels, "LB") + "</td>"
+                    + "<td>" + pods + "</td>"
+                    + "<td>" + creationTimestamp+"</td>"
+                    + "<td>" + imageTags + "</td>"
+                    + "</tr>");
 
                 checkListCount++;
 

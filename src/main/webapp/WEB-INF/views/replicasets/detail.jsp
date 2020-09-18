@@ -121,8 +121,8 @@
     // GET DETAIL
     var getDetail = function() {
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_DETAIL%>"
-                .replace("{namespace:.+}", NAME_SPACE)
-                .replace("{replicaSetName:.+}", '<c:out value="${replicaSetName}"/>');
+            .replace("{namespace:.+}", NAME_SPACE)
+            .replace("{replicaSetName:.+}", '<c:out value="${replicaSetName}"/>');
         procCallAjax(reqUrl, "GET", null, null, callbackGetDetail);
     };
 
@@ -182,8 +182,8 @@
             deploymentsInfo = "<a href='<%= Constants.URI_WORKLOAD_DEPLOYMENTS %>/"+deploymentName+"'>"+deploymentName+"</a>";
 
             var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_DETAIL %>"
-                    .replace("{namespace:.+}", NAME_SPACE)
-                    .replace("{deploymentName:.+}", deploymentName);
+                .replace("{namespace:.+}", NAME_SPACE)
+                .replace("{deploymentName:.+}", deploymentName);
             procCallAjax(reqUrl, "GET", null, null, callbackGetDeploymentsInfo);
         }
 
@@ -203,8 +203,8 @@
     // GET DETAIL FOR PODS LIST
     var getDetailForPodsList = function(selector) {
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>"
-                .replace("{namespace:.+}", NAME_SPACE)
-                .replace("{selector:.+}", selector);
+            .replace("{namespace:.+}", NAME_SPACE)
+            .replace("{selector:.+}", selector);
         getPodListUsingRequestURL(reqUrl);
     };
 
@@ -212,7 +212,7 @@
     var getServices = function() {
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SERVICES_LIST%>"
-                .replace("{namespace:.+}", NAME_SPACE);
+            .replace("{namespace:.+}", NAME_SPACE);
         procCallAjax(reqUrl, "GET", null, null, callbackGetServices);
     };
 
@@ -289,17 +289,17 @@
             }
 
             htmlString.push(
-                    "<tr>"
-                    + "<td><span class='green2'><i class='fas fa-check-circle'></i></span> "
-                    + "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.CP_BASE_URL %>/services/"
-                    + serviceName + "\");'>" + serviceName + "</a>"
-                    + "</td>"
-                    + "<td>" + procCreateSpans(labels, "LB") + "</td>"
-                    + "<td>" + items[i].spec.clusterIP + "</td>"
-                    + "<td>" + endpoints + "</td>"
-                    + "<td>" + externalEndpoints + "</td>"
-                    + "<td>" + items[i].metadata.creationTimestamp + "</td>"
-                    + "</tr>");
+                "<tr>"
+                + "<td><span class='green2'><i class='fas fa-check-circle'></i></span> "
+                + "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.CP_BASE_URL %>/services/"
+                + serviceName + "\");'>" + serviceName + "</a>"
+                + "</td>"
+                + "<td>" + procCreateSpans(labels, "LB") + "</td>"
+                + "<td>" + items[i].spec.clusterIP + "</td>"
+                + "<td>" + endpoints + "</td>"
+                + "<td>" + externalEndpoints + "</td>"
+                + "<td>" + items[i].metadata.creationTimestamp + "</td>"
+                + "</tr>");
             endpoints = "";
 
         }
