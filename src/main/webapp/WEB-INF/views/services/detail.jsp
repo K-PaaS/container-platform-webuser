@@ -59,12 +59,6 @@
                                 <th><i class="cWrapDot"></i> Internal endpoints</th>
                                 <td id="resultInternalEndpointsArea"> - </td>
                             </tr>
-                            <tr id="nodePortUrlLinkWrap" style="display: none;">
-                                <th><i class="cWrapDot"></i> URL</th>
-                                <td>
-                                    <button id="nodePortUrlLinkButton" class="btns4 colors4" data-toggle='tooltip' title="-">URL Link</button>
-                                </td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -114,29 +108,6 @@
 
 <script type="text/javascript">
 
-    // GET DETAIL
-    var getUserDetail = function () {
-        procViewLoading('show');
-
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_COMMON_API_USERS_DETAIL %>"
-            .replace("{serviceInstanceId:.+}", SERVICE_INSTANCE_ID)
-            .replace("{organizationGuid:.+}", ORGANIZATION_GUID)
-            .replace("{userId:.+}", USER_ID);
-
-        procCallAjax(reqUrl, "GET", null, null, callbackGetUserDetail);
-    };
-
-    // CALLBACK
-    var callbackGetUserDetail = function (data) {
-        if (!procCheckValidData(data)) {
-            procViewLoading('hide');
-            procAlertMessage();
-            return false;
-        }
-
-        $('#hiddenMasterUrl').val(data.cpUrl);
-        getDetail();
-    };
 
     // GET DETAIL
     var getDetail = function() {
@@ -222,7 +193,7 @@
                 var nodePortUrl = checkHttpString + masterUrlArray[0] + ':' + nodePort;
 
                 $('#hiddenNodePortUrl').val(nodePortUrl);
-                $('#nodePortUrlLinkButton').attr('title', nodePortUrl);
+                //$('#nodePortUrlLinkButton').attr('title', nodePortUrl);
                 $('#nodePortUrlLinkWrap').show();
             }
         }
@@ -387,15 +358,10 @@
     };
 
 
-    // BIND
-    $("#nodePortUrlLinkButton").on("click", function () {
-        window.open($('#hiddenNodePortUrl').val(), '_blank');
-    });
-
-
     // ON LOAD
     $(document.body).ready(function () {
-        getUserDetail();
+        //getUserDetail();
+        getDetail();
     });
 
 </script>
