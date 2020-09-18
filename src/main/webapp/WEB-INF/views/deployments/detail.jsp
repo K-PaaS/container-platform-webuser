@@ -99,16 +99,16 @@
     var getDetail = function() {
         procViewLoading('show');
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_DETAIL %>"
-                .replace("{namespace:.+}", NAME_SPACE)
-                .replace("{deploymentName:.+}", "<c:out value='${deploymentName}'/>");
+            .replace("{namespace:.+}", NAME_SPACE)
+            .replace("{deploymentName:.+}", "<c:out value='${deploymentName}'/>");
         procCallAjax(reqUrl, "GET", null, null, callbackGetDeployments);
     };
 
     // GET DETAIL FOR PODS LIST
     var getDetailForPodsList = function(selector) {
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>"
-                .replace("{namespace:.+}", NAME_SPACE)
-                .replace("{selector:.+}", selector);
+            .replace("{namespace:.+}", NAME_SPACE)
+            .replace("{selector:.+}", selector);
         getPodListUsingRequestURL(reqUrl);
         procViewLoading('hide');
     };

@@ -1,4 +1,3 @@
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%--
   Deployments main
   @author kjhoon
