@@ -1,11 +1,11 @@
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %><%--
+<%--
   Intro overview main
   @author kjhoon
   @version 1.0
   @since 2020.09.07
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <jsp:include page="../common/contentsTab.jsp"/>
     <div class="cluster_tabs clearfix"></div>
@@ -43,36 +43,6 @@
                     </div>
                 </div>
             </li>
-            <!-- Namespace 끝-->
-            <!-- Plan 시작-->
-            <li class="maT30">
-                <div class="sortable_wrap">
-                    <div class="sortable_top">
-                        <p>Plan</p>
-                    </div>
-                    <div class="account_table view">
-                        <table>
-                            <colgroup>
-                                <col style='width:20%'>
-                                <col style=".">
-                            </colgroup>
-                            <tbody>
-                            <tr>
-                                <th><i class="cWrapDot"></i> Type</th>
-                                <td id="planName"></td>
-                            </tr>
-                            <tr>
-                                <th><i class="cWrapDot"></i> Description</th>
-                                <td>
-                                    <p id="planDescription"></p>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </li>
-            <!-- Plan 끝-->
         </ul>
     </div>
     <!-- Intro 끝 -->
@@ -145,20 +115,6 @@
         procViewLoading('hide');
     };
 
-    var getPlan = function () {
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_COMMON_API_USERS_DETAIL %>"
-            .replace("{serviceInstanceId:.+}", SERVICE_INSTANCE_ID)
-            .replace("{organizationGuid:.+}", ORGANIZATION_GUID)
-            .replace("{userId:.+}", USER_ID);
-        
-        procCallAjax(reqUrl, "GET", null, null, callbackGetPlan);
-    };
-
-    var callbackGetPlan = function (data) {
-        $("#planName").text(data.planName);
-        $("#planDescription").text(data.planDescription);
-    };
-
 
     var getResourceQuotaList = function(namespace) {
         procViewLoading('show');
@@ -184,9 +140,9 @@
             return false;
         }
 
-        var skipResourceKey = [ 
-            'requests.storage', 
-            'limits.ephemeral-storage' 
+        var skipResourceKey = [
+            'requests.storage',
+            'limits.ephemeral-storage'
         ];
         var trHtml;
 
@@ -202,14 +158,14 @@
                 if ( skipResourceKey.includes(key) ) {
                     continue;
                 }
-                
+
                 trHtml += "<tr>"
                     + "<td>" + key + "</td>"
                     + "<td>" + hards[key] + "</td>"
                     + "<td>" + useds[key] + "</td>"
                     + "</tr>";
             }
-            
+
             htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
 
             htmlRe = htmlRe.replace("{{metadata.name}}", name);
@@ -224,7 +180,6 @@
 
     $(document.body).ready(function () {
         getDetail();
-        getPlan();
         getResourceQuotaList(NAME_SPACE);
     });
 
