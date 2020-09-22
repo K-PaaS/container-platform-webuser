@@ -1,9 +1,9 @@
 <%--
   Contents tab
 
-  @author kjhoon
-  @version 1.0
-  @since 2020.08.20
+  author: hrjin
+  version: 1.0
+  since: 2020.09.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
@@ -90,6 +90,9 @@
                             <li name="tab02" class="cluster_tabs_on">Deployments</li>
                             <li name="tab03" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_WORKLOAD_PODS%>');">Pods</li>
                             <li name="tab04" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_WORKLOAD_REPLICA_SETS%>');">Replica Sets</li>
+                            <jsp:include page="../common/commonCreateBtn.jsp">
+                                <jsp:param name="kind" value="deployments" />
+                            </jsp:include>
                         </c:when>
                         <c:otherwise>
                             <li name="tab01"
@@ -120,6 +123,9 @@
                             <li name="tab02" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_WORKLOAD_DEPLOYMENTS%>');">Deployments</li>
                             <li name="tab03" class="cluster_tabs_on">Pods</li>
                             <li name="tab04" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_WORKLOAD_REPLICA_SETS%>');">Replica Sets</li>
+                            <jsp:include page="../common/commonCreateBtn.jsp">
+                                <jsp:param name="kind" value="pods" />
+                            </jsp:include>
                         </c:when>
                         <c:otherwise>
                             <li name="tab01"
@@ -150,6 +156,9 @@
                             <li name="tab02" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_WORKLOAD_DEPLOYMENTS%>');">Deployments</li>
                             <li name="tab03" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_WORKLOAD_PODS%>');">Pods</li>
                             <li name="tab04" class="cluster_tabs_on">Replica Sets</li>
+                            <jsp:include page="../common/commonCreateBtn.jsp">
+                                <jsp:param name="kind" value="replicaSets" />
+                            </jsp:include>
                         </c:when>
                         <c:otherwise>
                             <li name="tab01"
@@ -230,10 +239,17 @@
             <c:choose>
                 <c:when test="${pathLevel3 eq 'overview'}">
                     <li name="tab01" class="cluster_tabs_on">Overview</li>
+                    <li name="tab02" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_INTRO_ACCESS_INFO%>');">Access</li>
+                    <li name="tab03" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_INTRO_PRIVATE_REGISTRY_INFO%>');">Private Registry</li>
+                </c:when>
+                <c:when test="${pathLevel3 eq 'accessInfo'}">
+                    <li name="tab01" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_INTRO_OVERVIEW%>');">Overview</li>
+                    <li name="tab02" class="cluster_tabs_on">Access</li>
                     <li name="tab03" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_INTRO_PRIVATE_REGISTRY_INFO%>');">Private Registry</li>
                 </c:when>
                 <c:when test="${pathLevel3 eq 'privateRegistryInfo'}">
                     <li name="tab01" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_INTRO_OVERVIEW%>');">Overview</li>
+                    <li name="tab02" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_INTRO_ACCESS_INFO%>');">Access</li>
                     <li name="tab03" class="cluster_tabs_on">Private Registry</li>
                 </c:when>
             </c:choose>

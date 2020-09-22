@@ -108,6 +108,55 @@ public class RestTemplateService {
         }
     }
 
+
+
+    /**
+     * Send t.
+     *
+     * @param <T>          the type parameter
+     * @param reqApi       the req api
+     * @param reqUrl       the req url
+     * @param httpMethod   the http method
+     * @param bodyObject   the body object
+     * @param responseType the response type
+     * @param contentType the content type
+     * @return the t
+     */
+    public <T> T sendYaml(String reqApi, String reqUrl, HttpMethod httpMethod, Object bodyObject, Class<T> responseType, String contentType) {
+
+        setApiUrlAuthorization(reqApi);
+
+        HttpHeaders reqHeaders = new HttpHeaders();
+        reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
+        reqHeaders.add(CONTENT_TYPE, contentType);
+
+        HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
+
+        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", httpMethod, baseUrl, reqUrl, reqHeaders.get(CONTENT_TYPE));
+
+        try {
+            ResponseEntity<T> resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
+            if (resEntity.getBody() != null) {
+                LOGGER.info("Response Type: {}", resEntity.getBody().getClass());
+                LOGGER.info(resEntity.getBody().toString());
+            } else {
+                LOGGER.info("Response Type: {}", "response body is null");
+            }
+
+            return resEntity.getBody();
+        } catch (Exception e) {
+            Map<String, Object> resultMap = new HashMap();
+            resultMap.put("resultCode", "FAIL");
+            resultMap.put("resultMessage", e.getMessage());
+            ObjectMapper mapper = new ObjectMapper();
+
+            LOGGER.error("Error resultMap : {}", resultMap);
+
+            return mapper.convertValue(resultMap, responseType);
+        }
+    }
+
+
     /**
      * Cf send t.
      *
