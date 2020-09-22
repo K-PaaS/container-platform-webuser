@@ -2,11 +2,9 @@ package org.paasta.container.platform.web.user.workloads.pods;
 
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
+import org.paasta.container.platform.web.user.workloads.replicaSets.ReplicaSets;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -167,5 +165,47 @@ public class PodsController {
     public PodsList getPodListByNode(@PathVariable(value = "namespace") String namespace,
                                      @PathVariable(value = "nodeName") String nodeName) {
         return podsService.getPodListNamespaceByNode(namespace, nodeName);
+    }
+
+    /**
+     * Pods을 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    @PostMapping(value = Constants.API_URL + Constants.URI_API_PODS_CREATE)
+    @ResponseBody
+    public Object createDeployments(@PathVariable(value = "namespace") String namespace, @RequestBody String yaml) {
+        return podsService.createPods(namespace, yaml);
+
+    }
+
+    /**
+     * Pods을 수정한다.
+     *
+     * @param namespace   the namespace
+     * @param podName the pod name
+     * @param yaml        the yaml
+     * @return
+     */
+    @PutMapping(value = Constants.API_URL + Constants.URI_API_POD_UPDATE)
+    @ResponseBody
+    public Object updatePods(@PathVariable(value = "namespace") String namespace, @PathVariable("podName") String podName, @RequestBody String yaml) {
+        return podsService.updatePods(namespace, podName, yaml);
+    }
+
+
+    /**
+     * Pods을 삭제한다.
+     *
+     * @param namespace the namespace
+     * @param podName the pod name
+     * @return
+     */
+    @DeleteMapping(value = Constants.API_URL + Constants.URI_API_POD_DELETE)
+    @ResponseBody
+    public Object deletePods(@PathVariable(value = "namespace") String namespace, @PathVariable("podName") String podName ){
+        return podsService.deletePods(namespace, podName);
     }
 }

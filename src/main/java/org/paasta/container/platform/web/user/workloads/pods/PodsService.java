@@ -2,6 +2,7 @@ package org.paasta.container.platform.web.user.workloads.pods;
 
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
+import org.paasta.container.platform.web.user.workloads.replicaSets.ReplicaSets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
  *
  * @author jjy
  * @version 1.0
- * @since 2020.09.08
+ * @since 2018.09.08
  */
 @Service
 public class PodsService {
@@ -84,5 +85,47 @@ public class PodsService {
     Pods getPodYaml(String namespace, String podName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PODS_YAML
                 .replace("{namespace:.+}", namespace).replace("{podName:.+}", podName), HttpMethod.GET, null, Pods.class);
+    }
+
+    /**
+     * Pods 생성한다.
+     *
+     * @param namespace
+     * @param yaml
+     * @return
+     */
+    public Object createPods(String namespace, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_PODS_CREATE
+                        .replace("{namespace:.+}", namespace),
+                HttpMethod.POST, yaml, Object.class, "application/yaml");
+    }
+
+    /**
+     * Pods를 수정한다.
+     *
+     * @param namespace the namespace
+     * @param podName the pods name
+     * @param yaml the yaml
+     * @return
+     */
+    public Object updatePods(String namespace, String podName, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_POD_UPDATE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{{podName:.:.+}", podName),
+                HttpMethod.PUT, yaml, Object.class, "application/yaml");
+    }
+
+    /**
+     * Pods 상세 정보를 삭제한다.
+     *
+     * @param namespace   the namespace
+     * @param podName   the pods name
+     * @return the Pods
+     */
+    public Object deletePods(String namespace, String podName) {
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_POD_DELETE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{podName:.+}", podName),
+                HttpMethod.DELETE, null, Object.class);
     }
 }

@@ -1,16 +1,15 @@
 <%--
   Pods details
-  @author kjhoon
+  @author jjyv
   @version 1.0
-  @since 2020.09.01
+  @since 2018.09.01
 --%>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="content">
-    <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span>
-        <c:out value="${podName}" default="-"/></h1>
+    <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span><c:out value="${podName}" default="-"/></h1>
 
     <jsp:include page="../common/contentsTab.jsp"/>
 
@@ -108,10 +107,18 @@
                 </div>
             </li>
             <!-- Containers 끝 -->
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
     <!-- Details  끝 -->
 </div>
+
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="pods" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
+
 <script type="text/javascript">
 
     // GET POD'S DETAIL
@@ -273,6 +280,8 @@
 
     // CALLBACK GET POD'S DETAIL
     var callbackGetDetail = function(data) {
+
+
         procViewLoading('show');
 
         if (!procCheckValidData(data)) {
@@ -329,6 +338,9 @@
             volumeName = '-';
         }
 
+        var podName      = data.metadata.name;
+        var namespace    = data.metadata.namespace;
+
         $('#name').html(data.metadata.name);
         $('#labels').html(procCreateSpans(labels));
         $('#creationTime').html(nvl(data.metadata.creationTimestamp, '-'));
@@ -343,6 +355,10 @@
         createContainerResultArea(data.status, data.spec.containers);
 
         procViewLoading('hide');
+
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(podName);
+
     };
 
     // ON LOAD
