@@ -1,8 +1,8 @@
 <%--
-  Deployments detail
-  @author kjhoon
+  Deployment main
+  @author hrjin
   @version 1.0
-  @since 2020.09.03
+  @since 2018.09.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -89,10 +89,16 @@
                 <jsp:include page="../pods/list.jsp"/>
             </li>
             <!-- Pods 끝 -->
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
     <!-- Details  끝 -->
 </div>
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="deployments" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">
 
@@ -120,12 +126,14 @@
             return false;
         }
 
+
         var metadata = data.metadata;
         var spec = data.spec;
         var status = data.status;
 
         var deployName = metadata.name;
-        var namespace = NAME_SPACE;
+        var namespace = data.metadata.namespace;
+
         var labels = procSetSelector(metadata.labels);
         var annotations = metadata.annotations;
         var creationTimestamp = metadata.creationTimestamp;
@@ -164,6 +172,9 @@
         $('#revisionHistoryLimit').html(revisionHistoryLimit);
         $('#rollingUpdateStrategy').html(rollingUpdateStrategy);
         $('#status').html(replicaStatus);
+
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(deployName);
 
         getReplicaSetsList(replaceLabels(selector));
         getDetailForPodsList(replaceLabels(selector));

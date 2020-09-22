@@ -2,6 +2,7 @@ package org.paasta.container.platform.web.user.workloads.deployments;
 
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
+import org.paasta.container.platform.web.user.workloads.pods.Pods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,48 @@ public class DeploymentsService {
                         .replace("{namespace:.+}", namespace)
                         .replace("{deploymentName:.+}", deploymentName),
                 HttpMethod.GET, null, Deployments.class);
+    }
+
+    /**
+     * Deployments를 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    public Object createDeployments(String namespace, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_CREATE
+                        .replace("{namespace:.+}", namespace),
+                HttpMethod.POST, yaml, Object.class, "application/yaml");
+    }
+
+    /**
+     * Deployments를 수정한다.
+     *
+     * @param namespace the namespace
+     * @param deploymentName the deployments name
+     * @param yaml the yaml
+     * @return
+     */
+    public Object updateDeployments(String namespace, String deploymentName, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_UPDATE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{deploymentName:.+}", deploymentName),
+                HttpMethod.PUT, yaml, Object.class, "application/yaml");
+    }
+
+    /**
+     * Deployments를 삭제한다.
+     *
+     * @param namespace the namespace
+     * @param deploymentName the deployments name
+     * @return
+     */
+    public Object deleteDeployments(String namespace, String deploymentName) {
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_DELETE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{deploymentName:.+}", deploymentName),
+                HttpMethod.DELETE, null, Object.class);
     }
 
 }

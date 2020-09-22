@@ -18,6 +18,7 @@ import java.util.Map;
 public class Deployments {
     private String resultCode;
     private String resultMessage;
+    private String nextActionUrl;
 
     private CommonMetaData metadata;
     private DeploymentsSpec spec;

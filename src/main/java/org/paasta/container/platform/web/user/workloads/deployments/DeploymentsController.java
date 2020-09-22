@@ -109,4 +109,42 @@ public class DeploymentsController {
         return deploymentsService.getDeploymentsYaml(namespace, deploymentName);
     }
 
+    /**
+     * Deployments를 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    @PostMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_CREATE)
+    @ResponseBody
+    public Object createDeployments(@PathVariable(value = "namespace") String namespace, @RequestBody String yaml) {
+        return deploymentsService.createDeployments(namespace, yaml);
+
+    }
+
+    /**
+     * Deployments를 수정한다.
+     *
+     * @param namespace the namespace
+     * @param deploymentName the deployments name
+     * @param yaml the yaml
+     * @return
+     */
+    @PutMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_UPDATE)
+    public Object updateDeployments(@PathVariable(value = "namespace") String namespace, @PathVariable("deploymentName") String deploymentName, @RequestBody String yaml) {
+        return deploymentsService.updateDeployments(namespace, deploymentName, yaml);
+    }
+
+    /**
+     * Deployments를 삭제한다.
+     *
+     * @param namespace the namespace
+     * @param deploymentName the deployments name
+     * @return
+     */
+    @DeleteMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_DELETE)
+    public Object deleteDeployments(@PathVariable(value = "namespace") String namespace, @PathVariable("deploymentName") String deploymentName) {
+        return deploymentsService.deleteDeployments(namespace, deploymentName);
+    }
 }
