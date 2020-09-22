@@ -4,9 +4,7 @@ import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -125,5 +123,51 @@ public class CustomServicesController {
     public CustomServices getCustomServicesYaml(@PathVariable(value = "namespace") String namespace, @PathVariable("serviceName") String serviceName) {
         return customServicesService.getCustomServicesYaml(namespace, serviceName);
     }
+
+
+    /**
+     * Services를 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    @PostMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_CREATE)
+    @ResponseBody
+    public Object createCustomServices(@PathVariable(value = "namespace") String namespace, @RequestBody String yaml) {
+        return customServicesService.createCustomServices(namespace,yaml);
+
+    }
+
+
+
+    /**
+     * Services를 수정한다.
+     *
+     * @param namespace   the namespace
+     * @param serviceName the service name
+     * @param yaml        the yaml
+     * @return
+     */
+    @PutMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_UPDATE)
+    @ResponseBody
+    public Object updateCustomServices(@PathVariable(value = "namespace") String namespace, @PathVariable("serviceName") String serviceName, @RequestBody String yaml) {
+        return customServicesService.updateCustomServices(namespace, serviceName, yaml);
+    }
+
+
+    /**
+     * Services를 삭제한다.
+     *
+     * @param namespace the namespace
+     * @param serviceName the service name
+     * @return
+     */
+    @DeleteMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DELETE)
+    @ResponseBody
+    public Object deleteCustomServices(@PathVariable(value = "namespace") String namespace, @PathVariable("serviceName") String serviceName ){
+        return customServicesService.deleteCustomServices(namespace, serviceName);
+    }
+
 
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  *
  * @author jjy
  * @version 1.0
- * @since 2020.09.10
+ * @since 2018.09.10
  */
 @Service
 public class CustomServicesService {
@@ -67,6 +67,52 @@ public class CustomServicesService {
                         .replace("{namespace:.+}", namespace)
                         .replace("{serviceName:.+}", serviceName),
                 HttpMethod.GET, null, CustomServices.class);
+    }
+
+
+
+    /**
+     * Services를 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    public Object createCustomServices(String namespace, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_CREATE
+                        .replace("{namespace:.+}", namespace),
+                HttpMethod.POST, yaml, Object.class, "application/yaml");
+    }
+
+
+    /**
+     * Services를 수정한다.
+     *
+     * @param namespace the namespace
+     * @param serviceName the service name
+     * @param yaml the yaml
+     * @return
+     */
+    public Object updateCustomServices(String namespace, String serviceName, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_UPDATE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{serviceName:.+}", serviceName),
+                HttpMethod.PUT, yaml, Object.class, "application/yaml");
+    }
+
+
+    /**
+     * Services를 삭제한다.
+     *
+     * @param namespace   the namespace
+     * @param serviceName   the service name
+     * @return
+     */
+    public Object deleteCustomServices(String namespace, String serviceName) {
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_DELETE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{serviceName:.+}", serviceName),
+                HttpMethod.DELETE, null, Object.class);
     }
 
 }

@@ -2,7 +2,7 @@
   Services detail
   @author kjhoon
   @version 1.0
-  @since 2020.08.27
+  @since 2018.09.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
@@ -59,6 +59,12 @@
                                 <th><i class="cWrapDot"></i> Internal endpoints</th>
                                 <td id="resultInternalEndpointsArea"> - </td>
                             </tr>
+                            <tr id="nodePortUrlLinkWrap" style="display: none;">
+                                <th><i class="cWrapDot"></i> URL</th>
+                                <td>
+                                    <button id="nodePortUrlLinkButton" class="btns4 colors4" data-toggle='tooltip' title="-">URL Link</button>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -67,7 +73,7 @@
             <li class="cluster_third_box">
                 <jsp:include page="../pods/list.jsp"/>
             </li>
-            <li class="cluster_fourth_box maB50">
+            <li class="cluster_fourth_box">
                 <div class="sortable_wrap">
                     <div class="sortable_top">
                         <p>Endpoints</p>
@@ -98,6 +104,9 @@
                     </div>
                 </div>
             </li>
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
     <!-- Services Details 끝 -->
@@ -106,8 +115,36 @@
 <input type="hidden" id="hiddenMasterUrl" name="hiddenMasterUrl" value="" />
 <input type="hidden" id="hiddenNodePortUrl" name="hiddenNodePortUrl" value="" />
 
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="services" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
+
+
 <script type="text/javascript">
 
+    // GET DETAIL
+    var getUserDetail = function () {
+        procViewLoading('show');
+
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_COMMON_API_USERS_DETAIL %>"
+            .replace("{serviceInstanceId:.+}", SERVICE_INSTANCE_ID)
+            .replace("{organizationGuid:.+}", ORGANIZATION_GUID)
+            .replace("{userId:.+}", USER_ID);
+
+        procCallAjax(reqUrl, "GET", null, null, callbackGetUserDetail);
+    };
+
+    // CALLBACK
+    var callbackGetUserDetail = function (data) {
+        if (!procCheckValidData(data)) {
+            procViewLoading('hide');
+            procAlertMessage();
+            return false;
+        }
+
+        $('#hiddenMasterUrl').val(data.cpUrl);
+        getDetail();
+    };
 
     // GET DETAIL
     var getDetail = function() {
@@ -182,6 +219,12 @@
         $('#resultClusterIp').html(nvl(dataSpec.clusterIP, '-'));
         $('#resultInternalEndpointsArea').html(nvl(endpoints, '-'));
 
+
+        //hidden값 추가
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(serviceName);
+
+
         var checkHttpString = 'http://';
 
         // SET URL LINK
@@ -193,7 +236,7 @@
                 var nodePortUrl = checkHttpString + masterUrlArray[0] + ':' + nodePort;
 
                 $('#hiddenNodePortUrl').val(nodePortUrl);
-                //$('#nodePortUrlLinkButton').attr('title', nodePortUrl);
+                $('#nodePortUrlLinkButton').attr('title', nodePortUrl);
                 $('#nodePortUrlLinkWrap').show();
             }
         }
@@ -358,10 +401,15 @@
     };
 
 
+    // BIND
+    $("#nodePortUrlLinkButton").on("click", function () {
+        window.open($('#hiddenNodePortUrl').val(), '_blank');
+    });
+
+
     // ON LOAD
     $(document.body).ready(function () {
-        //getUserDetail();
-        getDetail();
+        getUserDetail();
     });
 
 </script>

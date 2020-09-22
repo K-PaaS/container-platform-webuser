@@ -2,7 +2,7 @@
   Services main
   @author kjhoon
   @version 1.0
-  @since 2020.08.27
+  @since 2020.09.10
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
@@ -14,6 +14,9 @@
     <div class="cluster_content01 row two_line two_view">
         <ul>
             <li>
+                <jsp:include page="../common/commonCreateBtn.jsp">
+                    <jsp:param name="kind" value="services" />
+                </jsp:include>
                 <div class="sortable_wrap">
                     <div class="sortable_top">
                         <p>Services</p>
@@ -241,3 +244,15 @@
     });
 
 </script>
+
+
+
+
+
+
+<style>
+    #createBtn {
+        margin-top : -10px;
+    }
+
+</style>
