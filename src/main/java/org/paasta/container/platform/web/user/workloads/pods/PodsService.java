@@ -111,7 +111,7 @@ public class PodsService {
     public Object updatePods(String namespace, String podName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_POD_UPDATE
                         .replace("{namespace:.+}", namespace)
-                        .replace("{{podName:.:.+}", podName),
+                        .replace("{podName:.+}", podName),
                 HttpMethod.PUT, yaml, Object.class, "application/yaml");
     }
 
