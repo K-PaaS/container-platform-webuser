@@ -58,7 +58,7 @@ public class ReplicaSetsService {
      * ReplicaSets YAML을 조회한다.
      *
      * @param namespace   the namespace
-     * @param replicaSetName the service name
+     * @param replicaSetName the replicaSet name
      * @return the replicaSets yaml
      */
     ReplicaSets getReplicaSetsYaml(String namespace, String replicaSetName) {
@@ -83,4 +83,48 @@ public class ReplicaSetsService {
                 HttpMethod.GET, null, ReplicaSetsList.class);
     }
 
+
+    /**
+     * ReplicaSets을 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    public Object createReplicaSets(String namespace, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_CREATE
+                        .replace("{namespace:.+}", namespace),
+                HttpMethod.POST, yaml, Object.class, "application/yaml");
+    }
+
+
+    /**
+     * ReplicaSets을 수정한다.
+     *
+     * @param namespace the namespace
+     * @param replicaSetName the replicaSet name
+     * @param yaml the yaml
+     * @return
+     */
+    public Object updateReplicaSets(String namespace, String replicaSetName, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_UPDATE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{replicaSetName:.+}", replicaSetName),
+                HttpMethod.PUT, yaml, Object.class, "application/yaml");
+    }
+
+
+    /**
+     * ReplicaSets 상세 정보를 삭제한다.
+     *
+     * @param namespace   the namespace
+     * @param replicaSetName   the replicaSet name
+     * @return the replicaSets
+     */
+    public Object deleteReplicaSets(String namespace, String replicaSetName) {
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_DELETE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{replicaSetName:.+}", replicaSetName),
+                HttpMethod.DELETE, null, Object.class);
+    }
 }

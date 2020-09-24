@@ -4,9 +4,7 @@ import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -103,7 +101,7 @@ public class ReplicaSetsController {
      *
      * @param namespace the namespace
      * @param replicaSetName the replicaSet name
-     * @return the replicaSet
+     * @return the replicaSets
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DETAIL)
     @ResponseBody
@@ -138,5 +136,49 @@ public class ReplicaSetsController {
     public ReplicaSetsList getReplicaSetsListLabelSelector(@PathVariable("namespace") String namespace, @PathVariable("selector") String selector ){
         return replicaSetService.getReplicaSetsListLabelSelector(namespace, selector);
     }
+
+    /**
+     * ReplicaSets을 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    @PostMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_CREATE)
+    @ResponseBody
+    public Object createReplicaSets(@PathVariable(value = "namespace") String namespace, @RequestBody String yaml) {
+        return replicaSetService.createReplicaSets(namespace,yaml);
+
+    }
+
+
+
+    /**
+     * ReplicaSets을 수정한다.
+     *
+     * @param namespace   the namespace
+     * @param replicaSetName the replicaSetName name
+     * @param yaml        the yaml
+     * @return
+     */
+    @PutMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_UPDATE)
+    @ResponseBody
+    public Object updateCustomReplicaSets(@PathVariable(value = "namespace") String namespace, @PathVariable("replicaSetName") String replicaSetName, @RequestBody String yaml) {
+        return replicaSetService.updateReplicaSets(namespace, replicaSetName, yaml);
+    }
+
+    /**
+     * ReplicaSets을 삭제한다.
+     *
+     * @param namespace the namespace
+     * @param replicaSetName the replicaSetName name
+     * @return
+     */
+    @DeleteMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DELETE)
+    @ResponseBody
+    public Object deleteReplicaSets(@PathVariable("namespace") String namespace, @PathVariable("replicaSetName") String replicaSetName ){
+        return replicaSetService.deleteReplicaSets(namespace, replicaSetName);
+    }
+
 
 }

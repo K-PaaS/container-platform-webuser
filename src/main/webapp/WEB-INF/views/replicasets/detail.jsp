@@ -8,8 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+
 <div class="content">
-    <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${replicaSetName}"/></h1>
+    <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span><c:out value="${replicaSetName}"/></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
     <!-- Details 시작-->
     <div class="cluster_content01 row two_line two_view harf_view">
@@ -111,9 +113,17 @@
                 </div>
             </li>
             <!-- Services 끝 -->
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
 </div>
+
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="replicaSets" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
+
 <script type="text/javascript">
 
     var replicasetLabel = ""; // it label variable for Search Service List
@@ -128,6 +138,7 @@
 
     // CALLBACK
     var callbackGetDetail = function(data) {
+        console.log(data);
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
             procAlertMessage();
@@ -158,6 +169,9 @@
         $('#resultSelector').html(procCreateSpans(selector));
         $('#resultImage').html(images.join("<br>"));
         $('#resultPods').html(data.status.availableReplicas+" running");
+
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(replicaSetName);
 
         getDeploymentsInfo(data);
         getDetailForPodsList(selector);
@@ -325,6 +339,46 @@
         procViewLoading('hide');
 
     };
+
+    /*var G_DELETE_RESOURCE;
+
+    // BIND (DELETE RESOURCE MODAL)
+    $(document).on("click", "#delete", function(){
+        var index = $('.view-title').text();
+
+        G_DELETE_RESOURCE= index;
+        //var code = "<p class='account_modal_p'><span>" + G_DELETE_USER_ID + "</span> 님을 삭제하시겠습니까?<br>사용자를 삭제하면 복구할 수 없습니다.</p>";
+        var code = "<p class='account_modal_p'><span>" + G_DELETE_RESOURCE + "</span>리소스를 삭제하시겠습니까?</p>";
+        //var code = "<p class='account_modal_p'>리소스를 삭제하시겠습니까?</p>";
+
+        procSetLayerPopup('삭제확인', code, '확인', '취소', 'x', 'deleteResource("' + G_DELETE_RESOURCE + '");', null, null);
+
+
+    });
+
+
+    // SET DELETE RESOURCE
+    var deleteResource = function (resourceName) {
+        $("#commonLayerPopup").modal("hide");
+
+        var reqUrl = "<%= Constants.API_URL%><%=Constants.URI_API_REPLICA_SETS_DETAIL %>"
+            .replace("{namespace:.+}", NAME_SPACE)
+            .replace("{replicaSetName:.+}", resourceName)
+
+        procCallAjax(reqUrl, "DELETE", null, null, callbackDeleteResource);
+    };
+
+    // CALLBACK DELETE USER
+    var callbackDeleteResource = function (data) {
+        var resultString = '리소스가 삭제되었습니다.';
+
+        if (!procCheckValidData(data)) {
+            procViewLoading('hide');
+            resultString = '리소스 삭제를 실패하였습니다.'
+        }
+        procViewLoading('hide');
+        procSetLayerPopup('삭제확인', resultString, '확인', null, 'x', 'location.reload(true);', 'location.reload(true);', 'location.reload(true);');
+    };*/
 
     // ON LOAD
     $(document.body).ready(function () {
