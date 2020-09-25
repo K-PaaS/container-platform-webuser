@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2020.09.09
  */
 @Controller
+@RequestMapping
+//@RequestMapping("/clusters/{cluster:.+}/namespaces/{namespace:.+}/deployments")
 public class ReplicaSetsController {
 
     private static final String VIEW_URL = "/replicasets";

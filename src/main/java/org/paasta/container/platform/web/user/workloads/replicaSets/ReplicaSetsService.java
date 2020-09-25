@@ -24,7 +24,9 @@ public class ReplicaSetsService {
      * @param restTemplateService the rest template service
      */
     @Autowired
-    public ReplicaSetsService(RestTemplateService restTemplateService) {this.restTemplateService = restTemplateService;}
+    public ReplicaSetsService(RestTemplateService restTemplateService) {
+        this.restTemplateService = restTemplateService;
+    }
 
 
     /**

@@ -121,13 +121,11 @@
 </div>
 
 <input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
-<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="replicaSets" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="replicasets" />
 <input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">
-
     var replicasetLabel = ""; // it label variable for Search Service List
-
     // GET DETAIL
     var getDetail = function() {
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_DETAIL%>"
@@ -135,7 +133,6 @@
             .replace("{replicaSetName:.+}", '<c:out value="${replicaSetName}"/>');
         procCallAjax(reqUrl, "GET", null, null, callbackGetDetail);
     };
-
     // CALLBACK
     var callbackGetDetail = function(data) {
         console.log(data);
@@ -144,7 +141,6 @@
             procAlertMessage();
             return false;
         }
-
         var replicaSetName      = data.metadata.name;
         var namespace           = data.metadata.namespace;
         var labels              = procSetSelector(data.metadata.labels);
@@ -152,15 +148,12 @@
         var creationTimestamp   = data.metadata.creationTimestamp;
         var selector            = procSetSelector(data.spec.selector.matchLabels); // 필수값
         var images              = [];
-
         // 서비스 리스트를 조회하기 위한 replicaset label 참조
         replicasetLabel = data.metadata.labels;
-
         var containers = data.spec.template.spec.containers;
         for(var i=0; i < containers.length; i++){
             images.push(containers[i].image);
         }
-
         $('#resultResourceName').html(replicaSetName);
         $('#resultNamespace').html(namespace);
         $('#resultLabel').html(procCreateSpans(labels));
@@ -169,42 +162,32 @@
         $('#resultSelector').html(procCreateSpans(selector));
         $('#resultImage').html(images.join("<br>"));
         $('#resultPods').html(data.status.availableReplicas+" running");
-
         $('#hiddenNamespace').val(namespace);
         $('#hiddenResourceName').val(replicaSetName);
-
         getDeploymentsInfo(data);
         getDetailForPodsList(selector);
         getServices();
-
     };
-
     // GET DEPLOYMENTS INFO
     var getDeploymentsInfo = function(data) {
-
         // URI_API_DEPLOYMENTS_DETAIL
         /*
            Deployments 조회 : replicaset 상세에서 ownerReferences 를 참조(metadata.ownerReferences.name == deployment name).
         */
         var deploymentName = "";
         var deploymentsInfo = "";
-
         if(data.metadata.ownerReferences == null){
             deploymentsInfo = "-";
         }else{
             deploymentName = data.metadata.ownerReferences[0].name;
             deploymentsInfo = "<a href='<%= Constants.URI_WORKLOAD_DEPLOYMENTS %>/"+deploymentName+"'>"+deploymentName+"</a>";
-
             var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_DETAIL %>"
                 .replace("{namespace:.+}", NAME_SPACE)
                 .replace("{deploymentName:.+}", deploymentName);
             procCallAjax(reqUrl, "GET", null, null, callbackGetDeploymentsInfo);
         }
-
         $('#resultDeployment').append(deploymentsInfo);
-
     };
-
     // CALLBACK
     var callbackGetDeploymentsInfo = function(data) {
         if (!procCheckValidData(data)) {
@@ -213,7 +196,6 @@
             return false;
         }
     };
-
     // GET DETAIL FOR PODS LIST
     var getDetailForPodsList = function(selector) {
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>"
@@ -221,16 +203,12 @@
             .replace("{selector:.+}", selector);
         getPodListUsingRequestURL(reqUrl);
     };
-
     // GET SERVICE LIST
     var getServices = function() {
-
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SERVICES_LIST%>"
             .replace("{namespace:.+}", NAME_SPACE);
         procCallAjax(reqUrl, "GET", null, null, callbackGetServices);
     };
-
-
     // CALLBACK
     var callbackGetServices = function(data) {
         if (!procCheckValidData(data)) {
@@ -238,7 +216,6 @@
             procAlertMessage();
             return false;
         }
-
         var serviceName,
             selector,
             endpointsPreString,
@@ -248,60 +225,47 @@
             endpointProtocol,
             endpointWithSpecPort,
             endpointWithNodePort;
-
         var resultArea       = $('#resultAreaForService');
         var resultHeaderArea = $('#resultHeaderAreaForService');
         var noResultArea     = $('#noResultAreaForServices');
         var resultTable      = $('#resultTableForServices');
-
         var items = data.items;
         var listLength = items.length;
         var endpoints = "";
         var htmlString = [];
-
         // replicaset에서 자동으로 생성되는 hash label은 비교 대상에서 삭제한다.
         if(replicasetLabel["pod-template-hash"] !== undefined){
             delete replicasetLabel["pod-template-hash"];
         }
-
         for (var i = 0; i < listLength; i++) {
-
             // replicaset 과 service의 spec.selector 를 비교해서 같은 항목의 서비스만 출력하도록 한다.
             if(!procCompareObj(items[i].spec.selector, replicasetLabel)){
                 continue;
             }
-
             serviceName = items[i].metadata.name;
             selector = procSetSelector(items[i].spec.selector);
             endpointsPreString = serviceName + "." + items[i].metadata.namespace + ":";
             nodePort = items[i].spec.ports.nodePort;
-
             var labels = procSetSelector(items[i].metadata.labels);
             specPortsList = items[i].spec.ports;
-
             if (nvl(specPortsList) !== '') {
                 specPortsListLength = specPortsList.length;
-
                 for (var j = 0; j < specPortsListLength; j++) {
                     nodePort = nvl(specPortsList[j].nodePort, '0');
                     endpointProtocol = specPortsList[j].protocol;
                     endpointWithSpecPort = endpointsPreString + specPortsList[j].port + " " + endpointProtocol;
                     endpointWithNodePort = endpointsPreString + nodePort + " " + endpointProtocol;
-
                     endpoints += '<p>' + endpointWithSpecPort + '</p>' + '<p>' + endpointWithNodePort + '</p>';
                 }
             }
-
             //External Endpoints
             var externalEndpoints = [];
             externalEndpoints = items[i].spec.externalIPs;
-
             if( (externalEndpoints != null) && (externalEndpoints.length > 0) ){
                 externalEndpoints = externalEndpoints.join('</BR>')
             }else{
                 externalEndpoints = "-";
             }
-
             htmlString.push(
                 "<tr>"
                 + "<td><span class='green2'><i class='fas fa-check-circle'></i></span> "
@@ -315,9 +279,7 @@
                 + "<td>" + items[i].metadata.creationTimestamp + "</td>"
                 + "</tr>");
             endpoints = "";
-
         }
-
         if (listLength < 1) {
             resultHeaderArea.hide();
             resultArea.hide();
@@ -327,62 +289,16 @@
             resultHeaderArea.show();
             resultArea.show();
             resultArea.html(htmlString);
-
             resultTable.tablesorter({
                 sortList: [[5, 1]] // 0 = ASC, 1 = DESC
             });
-
             resultTable.trigger("update");
         }
-
         procSetToolTipForTableTd('resultAreaForService');
         procViewLoading('hide');
-
     };
-
-    /*var G_DELETE_RESOURCE;
-
-    // BIND (DELETE RESOURCE MODAL)
-    $(document).on("click", "#delete", function(){
-        var index = $('.view-title').text();
-
-        G_DELETE_RESOURCE= index;
-        //var code = "<p class='account_modal_p'><span>" + G_DELETE_USER_ID + "</span> 님을 삭제하시겠습니까?<br>사용자를 삭제하면 복구할 수 없습니다.</p>";
-        var code = "<p class='account_modal_p'><span>" + G_DELETE_RESOURCE + "</span>리소스를 삭제하시겠습니까?</p>";
-        //var code = "<p class='account_modal_p'>리소스를 삭제하시겠습니까?</p>";
-
-        procSetLayerPopup('삭제확인', code, '확인', '취소', 'x', 'deleteResource("' + G_DELETE_RESOURCE + '");', null, null);
-
-
-    });
-
-
-    // SET DELETE RESOURCE
-    var deleteResource = function (resourceName) {
-        $("#commonLayerPopup").modal("hide");
-
-        var reqUrl = "<%= Constants.API_URL%><%=Constants.URI_API_REPLICA_SETS_DETAIL %>"
-            .replace("{namespace:.+}", NAME_SPACE)
-            .replace("{replicaSetName:.+}", resourceName)
-
-        procCallAjax(reqUrl, "DELETE", null, null, callbackDeleteResource);
-    };
-
-    // CALLBACK DELETE USER
-    var callbackDeleteResource = function (data) {
-        var resultString = '리소스가 삭제되었습니다.';
-
-        if (!procCheckValidData(data)) {
-            procViewLoading('hide');
-            resultString = '리소스 삭제를 실패하였습니다.'
-        }
-        procViewLoading('hide');
-        procSetLayerPopup('삭제확인', resultString, '확인', null, 'x', 'location.reload(true);', 'location.reload(true);', 'location.reload(true);');
-    };*/
-
     // ON LOAD
     $(document.body).ready(function () {
         getDetail();
     });
-
 </script>
