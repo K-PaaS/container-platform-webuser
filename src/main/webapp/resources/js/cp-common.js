@@ -492,3 +492,36 @@ var procCompareObj = function( a, b ){
 var procCreateMovePageAnchorTag = function(movePageUrl, content) {
     return '<a href="javascript:void(0);" onclick="procMovePage(\'' + movePageUrl + '\');">' + content + '</a>';
 };
+
+var commonUtils = {
+    isEmpty: function(object) {
+        if (object == undefined || object == null) {
+            return true;
+        }
+        return false;
+    },
+    isBlank: function(value) {
+        if (value == undefined || value == null || value == "") {
+            return true;
+        }
+        return false;
+    },
+    contains: function(contents, findString) {
+        if (this.isBlank(contents) || this.isBlank(findString)) {
+            return false;
+        }
+        return contents.includes(findString);
+    },
+    regexIdPwd: function (value) {
+        var re = /^[a-z]+[a-z0-9]{0,7}$/g; // 아이디와 패스워드가 적합한지 검사할 정규식
+        if(!re.test(value)) {
+            return true;
+        }
+    },
+    regexEmail: function (value) {
+        var re = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일이 적합한지 검사할 정규식
+        if(!re.test(value)) {
+            return true;
+        }
+    }
+};

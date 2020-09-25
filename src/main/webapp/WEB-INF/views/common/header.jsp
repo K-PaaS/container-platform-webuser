@@ -17,6 +17,20 @@
     <div class="gnb search">
     </div>
 
+    <ul class="right_nav">
+        <li>
+            <div class="btn-group">
+                <button href="#" class="dropdown-toggle user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div id="r_user" class="dropdown-menu">
+                    <ul class="cp-user">
+                        <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
+                        <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
     <div class="header_bottom">
         <p class="tit">Container Platform</p>
         <span class="nav_toggle">
@@ -32,6 +46,9 @@
                         <c:choose>
                             <c:when test="${(path eq 'services') || (path eq 'users') || (path eq 'roles') || (path eq 'storages')}" >
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}');">${cfn:camelCaseParser(path)}</a></li>
+                            </c:when>
+                            <c:when test="${(path eq 'common')}" >
+                                <li><a class="cont-parent-link">${cfn:camelCaseParser(path)}</a></li>
                             </c:when>
                             <c:otherwise>
                                 <c:choose>
@@ -67,6 +84,8 @@
                                 <%-- nodes main : summary --%>
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}/${pathArray[2]}/${pathArray[3]}/summary');"> ${cfn:camelCaseParser(path)}</a></li>
                             </c:when>
+                            <c:when test="${(path eq 'resource')}" >
+                            </c:when>
                             <c:otherwise>
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}/${pathArray[2]}');">${cfn:camelCaseParser(path)}</a></li>
                             </c:otherwise>
@@ -81,5 +100,29 @@
                 </c:if>
             </c:forEach>
         </div>
+        <select id="namespacesList" class="right_nav">
+        </select>
     </div>
 </header>
+
+<script type="text/javascript">
+
+    var getNamespacesList = function() {
+        var html = '';
+
+        for (var i=0; i < namespacesList.length; i++) {
+            html += "<option value='" + namespacesList[i] + "'>" + namespacesList[i] + "</option>";
+        };
+
+        $("#namespacesList").html(html);
+    };
+
+    $("#namespacesList option:selected").val();
+
+    $(document.body).ready(function () {
+        getNamespacesList();
+
+    });
+
+
+</script>

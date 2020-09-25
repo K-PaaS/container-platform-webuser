@@ -52,6 +52,9 @@
     var NAME_SPACE = "paas-f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f-caas";
 
 
+    // Todo ::: 사용자가 로그인 시
+    var namespacesList = ["cp-namespace", "test-namespace"];
+
 </script>
 
 <script type="text/javascript" src='<c:url value="/resources/js/common.js"/>'></script>

@@ -217,3 +217,10 @@ select:focus {
     text-align: center;
     margin-bottom: 30px;
 }
+
+.info_box {
+    margin-top: 9px;
+    font-size: 12px;
+    color: red;
+    display: none;
+}
