@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webuser-deployment
+  labels:
+    app: webuser
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webuser
+  template:
+    metadata:
+      labels:
+        app: webuser
+    spec:
+      containers:
+      - name: webuser
+        image: 3.34.129.44:5000/container-platform-webuser:latest
+        ports:
+        - containerPort: 8091
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webuser-deployment
+  labels:
+    app: webuser
+  namespace: default
+spec:
+  ports:
+  - nodePort: 32091
+    port: 8091
+    protocol: TCP
+    targetPort: 8091
+  selector:
+    app: webuser
+  type: NodePort
