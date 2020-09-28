@@ -29,6 +29,7 @@ metadata:
     app: webuser
   namespace: default
 spec:
+  clusterIP: 10.96.106.149
   ports:
   - nodePort: 32091
     port: 8091
