@@ -35,12 +35,20 @@ var procCallAjax = function(reqUrl, reqMethod, param, preFunc, callback) {
             xhr.setRequestHeader("X-Container-Platform-Ajax-call", "true");
         },
         success: function(data) {
-
-            if(data.resultCode == "FAIL"){
-                procViewLoading('hide');
-                procAlertMessage(data.detailMessage);
-            }else{
-                callback(data);
+            // 공통 레이아웃을 사용하지 않는 화면일 경우
+            if(preFunc === 'singleView') {
+                if(data.resultCode == "FAIL"){
+                    alert(data.detailMessage)
+                }else{
+                    callback(data);
+                }
+            } else {
+                if(data.resultCode == "FAIL"){
+                    procViewLoading('hide');
+                    procAlertMessage(data.detailMessage);
+                }else{
+                    callback(data);
+                }
             }
 
         },
@@ -513,7 +521,7 @@ var commonUtils = {
         return contents.includes(findString);
     },
     regexIdPwd: function (value) {
-        var re = /^[a-z]+[a-z0-9]{0,7}$/g; // 아이디와 패스워드가 적합한지 검사할 정규식
+        var re = /^[a-z]+[a-z0-9]{3,11}$/g; // 아이디와 패스워드가 적합한지 검사할 정규식
         if(!re.test(value)) {
             return true;
         }
@@ -521,6 +529,11 @@ var commonUtils = {
     regexEmail: function (value) {
         var re = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일이 적합한지 검사할 정규식
         if(!re.test(value)) {
+            return true;
+        }
+    },
+    duplicatedId: function (value) {
+        if($.inArray(value, users) != -1){
             return true;
         }
     }
