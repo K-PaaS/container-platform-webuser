@@ -1,14 +1,20 @@
 package org.paasta.container.platform.web.user.users;
 
+import org.paasta.container.platform.web.user.common.Constants;
+import org.paasta.container.platform.web.user.common.model.ResultStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.paasta.container.platform.web.user.common.CommonUtils.stringNullCheck;
 
 /**
  * User Controller 클래스
@@ -19,12 +25,14 @@ import java.util.List;
  **/
 @RestController
 public class UsersController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsersController.class);
     private final UsersService usersService;
+    private final AdminService adminService;
 
     @Autowired
-    public UsersController(UsersService usersService) {
+    public UsersController(UsersService usersService, AdminService adminService) {
         this.usersService = usersService;
+        this.adminService = adminService;
     }
 
     @GetMapping("/signUp")
@@ -38,17 +46,35 @@ public class UsersController {
 
     // 사용자 회원가입
     @PostMapping("/register")
-    public String registerUser(@Valid @RequestBody Users users) {
-        usersService.registerUser(users);
-        return "redirect:/container-platform/intro/overview";
+    @ResponseBody
+    public ResultStatus registerUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            List<String> errFieldList = new ArrayList<>();
+
+            for (FieldError err : bindingResult.getFieldErrors()) {
+                errFieldList.add(err.getField());
+            }
+
+            return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_FAIL)
+                    .detailMessage("Failed Sign Up. Re Confirm " + errFieldList.toString()).build();
+        }
+
+        return usersService.registerUser(users);
     }
 
 
 
     // 운영자 회원가입
     @PostMapping("/admin/register")
-    public Users registerAdminUser(@Valid @RequestBody Users users) {
-        return usersService.registerAdminUser(users);
+    public Users registerAdminUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
+        //clusterName, clusterApiUrl, clusterToken, cpNamespace, cpAccountTokenName
+        if(bindingResult.hasErrors() || !stringNullCheck(users.getClusterName(), users.getClusterApiUrl(), users.getClusterToken(), users.getCpNamespace(), users.getCpAccountTokenName())) {
+            Users failUser = new Users();
+            failUser.setResultCode(Constants.RESULT_STATUS_FAIL);
+            return failUser;
+        }
+
+        return adminService.registerAdmin(users);
     }
 
 //    @GetMapping("/container-platform/users")

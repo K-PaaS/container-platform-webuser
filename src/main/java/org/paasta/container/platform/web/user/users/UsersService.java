@@ -1,6 +1,7 @@
 package org.paasta.container.platform.web.user.users;
 
 import org.paasta.container.platform.web.user.common.RestTemplateService;
+import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -26,12 +27,8 @@ public class UsersService {
         this.restTemplateService = restTemplateService;
     }
 
-    public Users registerUser(Users users) {
-        return restTemplateService.send(TARGET_CP_API, "/users", HttpMethod.POST, users, Users.class);
-    }
-
-    public Users registerAdminUser(Users users) {
-        return null;
+    public ResultStatus registerUser(Users users) {
+        return restTemplateService.send(TARGET_CP_API, "/users", HttpMethod.POST, users, ResultStatus.class);
     }
 
     public UsersList getUsersList() {
