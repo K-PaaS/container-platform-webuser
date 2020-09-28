@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: webuser
-        image: 3.34.129.44:5000/container-platform-webuser:latest
+        image: 15.164.129.57:5000/container-platform-webuser:latest
         ports:
         - containerPort: 8091
 ---
