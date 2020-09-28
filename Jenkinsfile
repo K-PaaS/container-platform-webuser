@@ -27,7 +27,7 @@ pipeline {
         }
 		stage('copy config') {
 			steps {
-				sh 'cp /var/lib/jenkins/workspace/config/webuser/application.yml /src/main/resources/application.yml'
+				sh 'cp /var/lib/jenkins/workspace/config/webuser/application.yml src/main/resources/application.yml'
 			}
 		}
 		stage('Clean Build') {
