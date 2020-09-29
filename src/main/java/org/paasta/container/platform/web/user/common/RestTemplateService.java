@@ -1,6 +1,5 @@
 package org.paasta.container.platform.web.user.common;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.paasta.container.platform.web.user.common.model.CommonStatusCode;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.slf4j.Logger;
@@ -10,12 +9,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Rest Template Service 클래스
@@ -89,8 +86,10 @@ public class RestTemplateService {
 
         LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", httpMethod, baseUrl, reqUrl, reqHeaders.get(CONTENT_TYPE));
 
+        ResponseEntity<T> resEntity = null;
+
         try {
-            ResponseEntity<T> resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
+            resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
             if (resEntity.getBody() != null) {
                 LOGGER.info("Response Type: {}", resEntity.getBody().getClass());
                 LOGGER.info(resEntity.getBody().toString());
@@ -99,16 +98,21 @@ public class RestTemplateService {
             }
 
             return resEntity.getBody();
+        } catch (HttpStatusCodeException exception) {
+            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", reqUrl, exception.getRawStatusCode(), exception.getMessage());
+
+            for (CommonStatusCode code : CommonStatusCode.class.getEnumConstants()) {
+                if (code.getCode() == exception.getRawStatusCode()) {
+                    return (T) new ResultStatus(Constants.RESULT_STATUS_FAIL, exception.getStatusText(), code.getCode(), code.getMsg());
+                }
+            }
+
         } catch (Exception e) {
-            Map<String, Object> resultMap = new HashMap();
-            resultMap.put("resultCode", "FAIL");
-            resultMap.put("resultMessage", e.getMessage());
-            ObjectMapper mapper = new ObjectMapper();
-
-            LOGGER.error("Error resultMap : {}", resultMap);
-
-            return mapper.convertValue(resultMap, responseType);
+            return (T) new ResultStatus(Constants.RESULT_STATUS_FAIL, e.getMessage(), CommonStatusCode.INTERNAL_SERVER_ERROR.getCode(), CommonStatusCode.INTERNAL_SERVER_ERROR.getMsg());
         }
+
+        return resEntity.getBody();
+
     }
 
 
@@ -137,8 +141,10 @@ public class RestTemplateService {
 
         LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", httpMethod, baseUrl, reqUrl, reqHeaders.get(CONTENT_TYPE));
 
+        ResponseEntity<T> resEntity = null;
+
         try {
-            ResponseEntity<T> resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
+            resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
             if (resEntity.getBody() != null) {
                 LOGGER.info("Response Type: {}", resEntity.getBody().getClass());
                 LOGGER.info(resEntity.getBody().toString());
@@ -147,52 +153,28 @@ public class RestTemplateService {
             }
 
             return resEntity.getBody();
-        } catch (HttpClientErrorException e) {
-            ResultStatus resultStatus = new ResultStatus();
+        } catch (HttpStatusCodeException exception) {
+            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", reqUrl, exception.getRawStatusCode(), exception.getMessage());
 
             for (CommonStatusCode code : CommonStatusCode.class.getEnumConstants()) {
-                if(code.getCode() == e.getRawStatusCode()) {
-                    resultStatus = new ResultStatus(Constants.RESULT_STATUS_FAIL, e.getMessage(), code.getCode(), code.getMsg());
+                if (code.getCode() == exception.getRawStatusCode()) {
+                    return (T) new ResultStatus(Constants.RESULT_STATUS_FAIL, exception.getStatusText(), code.getCode(), code.getMsg());
                 }
             }
 
-            return (T) resultStatus;
+        } catch (Exception e) {
+            return (T) new ResultStatus(Constants.RESULT_STATUS_FAIL, e.getMessage(), CommonStatusCode.INTERNAL_SERVER_ERROR.getCode(), CommonStatusCode.INTERNAL_SERVER_ERROR.getMsg());
         }
-    }
-
-
-    /**
-     * Cf send t.
-     *
-     * @param <T>          the type parameter
-     * @param reqToken     the req token
-     * @param reqUrl       the req url
-     * @param httpMethod   the http method
-     * @param bodyObject   the body object
-     * @param responseType the response type
-     * @return the t
-     */
-    public <T> T cfSend(String reqToken, String reqUrl, HttpMethod httpMethod, Object bodyObject, Class<T> responseType) {
-
-        HttpHeaders reqHeaders = new HttpHeaders();
-        reqHeaders.add(AUTHORIZATION_HEADER_KEY, "bearer " + reqToken);
-        reqHeaders.add(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-
-        HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
-
-        LOGGER.info("<T> T send :: Request : {} {baseUrl} : {}, Content-Type: {}", httpMethod, reqUrl, reqHeaders.get(CONTENT_TYPE));
-        ResponseEntity<T> resEntity = restTemplate.exchange(reqUrl, httpMethod, reqEntity, responseType);
-        if (resEntity.getBody() != null) {
-            LOGGER.info("Response Type: {}", resEntity.getBody().getClass());
-        } else {
-            LOGGER.info("Response Type: {}", "response body is null");
-        }
-
 
         return resEntity.getBody();
     }
 
 
+    /**
+     * Set Authorization according to Target API
+     *
+     * @param reqApi the reqApi
+     */
     private void setApiUrlAuthorization(String reqApi) {
 
         String apiUrl = "";
