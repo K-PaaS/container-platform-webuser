@@ -1,6 +1,8 @@
 package org.paasta.container.platform.web.user.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.paasta.container.platform.web.user.common.model.CommonStatusCode;
+import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.StandardCharsets;
@@ -144,15 +147,16 @@ public class RestTemplateService {
             }
 
             return resEntity.getBody();
-        } catch (Exception e) {
-            Map<String, Object> resultMap = new HashMap();
-            resultMap.put("resultCode", "FAIL");
-            resultMap.put("resultMessage", e.getMessage());
-            ObjectMapper mapper = new ObjectMapper();
+        } catch (HttpClientErrorException e) {
+            ResultStatus resultStatus = new ResultStatus();
 
-            LOGGER.error("Error resultMap : {}", resultMap);
+            for (CommonStatusCode code : CommonStatusCode.class.getEnumConstants()) {
+                if(code.getCode() == e.getRawStatusCode()) {
+                    resultStatus = new ResultStatus(Constants.RESULT_STATUS_FAIL, e.getMessage(), code.getCode(), code.getMsg());
+                }
+            }
 
-            return mapper.convertValue(resultMap, responseType);
+            return (T) resultStatus;
         }
     }
 
