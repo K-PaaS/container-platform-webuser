@@ -42,7 +42,7 @@ public class PersistentVolumeClaimsController {
      * @param httpServletRequest the http servlet request
      * @return the storages main
      */
-    @GetMapping(value = Constants.URI_STORAGES)
+    @GetMapping(value = Constants.URI_STORAGES_PERSISTENT_VOLUME_CLAIMS)
     public ModelAndView getStoragesMain(HttpServletRequest httpServletRequest) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/main", new ModelAndView());
     }
@@ -54,7 +54,7 @@ public class PersistentVolumeClaimsController {
      * @param httpServletRequest the http servlet request
      * @return the storages detail
      */
-    @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}")
+    @GetMapping(value = Constants.URI_STORAGES_PERSISTENT_VOLUME_CLAIMS + "/{persistentVolumeClaimName:.+}")
     public ModelAndView getStoragesDetail(HttpServletRequest httpServletRequest, @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/detail", new ModelAndView());
     }
@@ -66,7 +66,7 @@ public class PersistentVolumeClaimsController {
      * @param httpServletRequest the http servlet request
      * @return the persistentVolumeClaim detail events
      */
-    @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}/events")
+    @GetMapping(value = Constants.URI_STORAGES_PERSISTENT_VOLUME_CLAIMS + "/{persistentVolumeClaimName:.+}/events")
     public ModelAndView getPersistentVolumeClaimEvent(HttpServletRequest httpServletRequest, @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/events", new ModelAndView());
     }
@@ -78,7 +78,7 @@ public class PersistentVolumeClaimsController {
      * @param httpServletRequest the http servlet request
      * @return the persistentVolumeClaim detail yaml
      */
-    @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}/yaml")
+    @GetMapping(value = Constants.URI_STORAGES_PERSISTENT_VOLUME_CLAIMS + "/{persistentVolumeClaimName:.+}/yaml")
     public ModelAndView getPersistentVolumeClaimYaml(HttpServletRequest httpServletRequest, @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/yaml", new ModelAndView());
     }
@@ -90,7 +90,7 @@ public class PersistentVolumeClaimsController {
      * @param namespace the namespace
      * @return the persistent volumes list
      */
-    @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_LIST)
+    @GetMapping(value = Constants.API_URL + Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_LIST)
     @ResponseBody
     public PersistentVolumeClaimsList getPersistentVolumeClaimsList(@PathVariable(value = "namespace") String namespace) {
         return persistentVolumeClaimsService.getPersistentVolumeClaimsList(namespace);
@@ -103,7 +103,7 @@ public class PersistentVolumeClaimsController {
      * @param persistentVolumeClaimName the persistent volume claim name
      * @return the PersistentVolumeClaims
      */
-    @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_DETAIL)
+    @GetMapping(value = Constants.API_URL + Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_DETAIL)
     public PersistentVolumeClaims getPersistentVolumeClaims(@PathVariable(value = "namespace") String namespace, @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
         return persistentVolumeClaimsService.getPersistentVolumeClaims(namespace, persistentVolumeClaimName);
     }
@@ -116,9 +116,50 @@ public class PersistentVolumeClaimsController {
      * @param persistentVolumeClaimName the persistent volume claim name
      * @return the PersistentVolumeClaims
      */
-    @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_YAML)
+    @GetMapping(value = Constants.API_URL + Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_YAML)
     public PersistentVolumeClaims getPersistentVolumeClaimYaml(@PathVariable(value = "namespace") String namespace,
                                                                @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
         return persistentVolumeClaimsService.getPersistentVolumeClaimYaml(namespace, persistentVolumeClaimName);
+    }
+
+    /**
+     * PersistentVolumeClaims를 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    @PostMapping(value = Constants.API_URL + Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_CREATE)
+    @ResponseBody
+    public Object createPersistentVolumeClaims(@PathVariable(value = "namespace") String namespace, @RequestBody String yaml) {
+        return persistentVolumeClaimsService.createPersistentVolumeClaims(namespace,yaml);
+
+    }
+
+    /**
+     * PersistentVolumeClaims를 수정한다.
+     *
+     * @param namespace   the namespace
+     * @param persistentVolumeClaimName the persistentVolumeClaim name
+     * @param yaml        the yaml
+     * @return
+     */
+    @PutMapping(value = Constants.API_URL + Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_UPDATE)
+    @ResponseBody
+    public Object updatePersistentVolumeClaims(@PathVariable(value = "namespace") String namespace, @PathVariable("persistentVolumeClaimName") String persistentVolumeClaimName, @RequestBody String yaml) {
+        return persistentVolumeClaimsService.updatePersistentVolumeClaims(namespace, persistentVolumeClaimName, yaml);
+    }
+
+    /**
+     * PersistentVolumeClaims를 삭제한다.
+     *
+     * @param namespace the namespace
+     * @param persistentVolumeClaimName the persistentVolumeClaim name
+     * @return
+     */
+    @DeleteMapping(value = Constants.API_URL + Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_DELETE)
+    @ResponseBody
+    public Object deletePersistentVolumeClaims(@PathVariable(value = "namespace") String namespace, @PathVariable("persistentVolumeClaimName") String persistentVolumeClaimName ){
+        return persistentVolumeClaimsService.deletePersistentVolumeClaims(namespace, persistentVolumeClaimName);
     }
 }

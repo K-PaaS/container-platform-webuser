@@ -51,7 +51,7 @@
                     </dd>
                 </dl>
             </li>
-            <li id="left-menu-storages" onclick="procMovePage('<%= Constants.URI_STORAGES %>');">
+            <li id="left-menu-storages" onclick="procMovePage('<%= Constants.URI_STORAGES_PERSISTENT_VOLUME_CLAIMS %>');">
                 <dl>
                     <dt>
                         <div id="lnbimg20" class="">
