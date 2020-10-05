@@ -36,7 +36,7 @@ public class PersistentVolumeClaimsService {
      * @return the Persistent Volume Claims List
      */
     PersistentVolumeClaimsList getPersistentVolumeClaimsList(String namespace) {
-        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_LIST
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_LIST
                         .replace("{namespace:.+}", namespace),
                 HttpMethod.GET, null, PersistentVolumeClaimsList.class);
     }
@@ -49,7 +49,7 @@ public class PersistentVolumeClaimsService {
      * @return the Persistent Volume Claims
      */
     PersistentVolumeClaims getPersistentVolumeClaims(String namespace, String persistentVolumeClaimName) {
-        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_DETAIL
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_DETAIL
                         .replace("{namespace:.+}", namespace)
                         .replace("{persistentVolumeClaimName:.+}", persistentVolumeClaimName),
                 HttpMethod.GET, null, PersistentVolumeClaims.class);
@@ -64,9 +64,52 @@ public class PersistentVolumeClaimsService {
      * @return the Persistent Volume Claims
      */
     public PersistentVolumeClaims getPersistentVolumeClaimYaml(String namespace, String persistentVolumeClaimName) {
-        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_YAML
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_YAML
                         .replace("{namespace:.+}", namespace)
                         .replace("{persistentVolumeClaimName:.+}", persistentVolumeClaimName),
                 HttpMethod.GET, null, PersistentVolumeClaims.class);
+    }
+
+
+    /**
+     * PersistentVolumeClaims를 생성한다.
+     *
+     * @param namespace the namespace
+     * @param yaml the yaml
+     * @return
+     */
+    public Object createPersistentVolumeClaims(String namespace, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_CREATE
+                        .replace("{namespace:.+}", namespace),
+                HttpMethod.POST, yaml, Object.class, "application/yaml");
+    }
+
+    /**
+     * PersistentVolumeClaims를 수정한다.
+     *
+     * @param namespace the namespace
+     * @param persistentVolumeClaimName the persistentVolumeClaim name
+     * @param yaml the yaml
+     * @return
+     */
+    public Object updatePersistentVolumeClaims(String namespace, String persistentVolumeClaimName, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_UPDATE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{persistentVolumeClaimName:.+}", persistentVolumeClaimName),
+                HttpMethod.PUT, yaml, Object.class, "application/yaml");
+    }
+
+    /**
+     * PersistentVolumeClaims를 삭제한다.
+     *
+     * @param namespace   the namespace
+     * @param persistentVolumeClaimName   the persistentVolumeClaim name
+     * @return
+     */
+    public Object deletePersistentVolumeClaims(String namespace, String persistentVolumeClaimName) {
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_DELETE
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{persistentVolumeClaimName:.+}", persistentVolumeClaimName),
+                HttpMethod.DELETE, null, Object.class);
     }
 }

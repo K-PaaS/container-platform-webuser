@@ -88,10 +88,17 @@
                 </div>
             </li>
             <!-- Details 끝 -->
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
     <!-- Details  끝 -->
 </div>
+
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="persistentvolumeclaims" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">
 
@@ -99,7 +106,7 @@
     var getPersistentVolumeClaimDetail = function () {
         procViewLoading('show');
 
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_STORAGES_DETAIL %>"
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_DETAIL %>"
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{persistentVolumeClaimName:.+}", "<c:out value='${persistentVolumeClaimName}'/>");
 
@@ -159,6 +166,10 @@
         $('#capacity').html(capacity);
         $('#storageClassName').html(storageClassName);
         $('#status').html(status);
+
+        //hidden값 추가
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(persistentVolumeName);
 
         procViewLoading('hide');
     };

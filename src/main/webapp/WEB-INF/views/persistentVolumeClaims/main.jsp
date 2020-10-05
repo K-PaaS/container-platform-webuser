@@ -15,6 +15,9 @@
     <div class="cluster_content01 row two_line two_view">
         <ul>
             <li>
+                <jsp:include page="../common/commonCreateBtn.jsp">
+                    <jsp:param name="kind" value="persistentvolumeclaims" />
+                </jsp:include>
                 <div class="sortable_wrap">
                     <div class="sortable_top">
                         <p>Volumes</p>
@@ -68,7 +71,7 @@
     var getPersistentVolumeClaimsList = function () {
         procViewLoading('show');
 
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_STORAGES_LIST %>"
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_LIST %>"
             .replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetList);
@@ -155,7 +158,7 @@
                 htmlString.push(
                     '<tr>'
                     + statusIconHtml
-                    + '<a href="javascript:void(0);" onclick="procMovePage(\'<%= Constants.URI_STORAGES %>/' + persistentVolumeClaimName + '\');">' + persistentVolumeClaimName + '</a></td>'
+                    + '<a href="javascript:void(0);" onclick="procMovePage(\'<%= Constants.URI_STORAGES_PERSISTENT_VOLUME_CLAIMS %>/' + persistentVolumeClaimName + '\');">' + persistentVolumeClaimName + '</a></td>'
                     + '<td><p>' + nvl(itemsMetadata.label, '-') + '</p></td>'
                     + '<td><p>' + nvl(specCollection, '-') + '</p></td>'
                     + '<td>' + nvl(itemStatus.phase, '-') + "</td>"
