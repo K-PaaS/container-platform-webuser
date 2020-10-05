@@ -37,7 +37,7 @@ public class UsersController {
      *
      * @return
      */
-    @GetMapping("/signUp")
+    @GetMapping(value = "/signUp")
     public ModelAndView signUpView() {
         ModelAndView model = new ModelAndView();
 
@@ -53,7 +53,7 @@ public class UsersController {
      * @param bindingResult
      * @return
      */
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     @ResponseBody
     public ResultStatus registerUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
@@ -82,8 +82,8 @@ public class UsersController {
      *
      * @return the Map
      */
-    @GetMapping("/container-platform/users")
-    public Map<String, List> getUsersList() {
+    @GetMapping(value = "/container-platform/users/names")
+    public Map<String, List> getUsersNameList() {
         return usersService.getUsersNameList();
     }
 

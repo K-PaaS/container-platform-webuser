@@ -48,6 +48,6 @@ public class UsersService {
      * @return the Map
      */
     public Map<String, List> getUsersNameList() {
-        return restTemplateService.send(TARGET_CP_API, "/users", HttpMethod.GET, null, Map.class);
+        return restTemplateService.send(TARGET_CP_API, "/users/names", HttpMethod.GET, null, Map.class);
     }
 }

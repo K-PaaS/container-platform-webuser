@@ -41,6 +41,7 @@ public class Constants {
     public static final String URI_STORAGES = "/container-platform/storages";
 
     public static final String URI_USERS = "/container-platform/users";
+    public static final String URI_USERS_NAME_LIST = "/container-platform/users/names";
 
     public static final String URI_ROLES = "/container-platform/roles";
 
