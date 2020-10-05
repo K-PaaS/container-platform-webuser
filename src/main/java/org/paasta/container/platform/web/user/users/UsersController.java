@@ -27,12 +27,10 @@ import static org.paasta.container.platform.web.user.common.CommonUtils.stringNu
 public class UsersController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsersController.class);
     private final UsersService usersService;
-    private final AdminService adminService;
 
     @Autowired
-    public UsersController(UsersService usersService, AdminService adminService) {
+    public UsersController(UsersService usersService) {
         this.usersService = usersService;
-        this.adminService = adminService;
     }
 
     @GetMapping("/signUp")
@@ -62,20 +60,6 @@ public class UsersController {
         return usersService.registerUser(users);
     }
 
-
-
-    // 운영자 회원가입
-    @PostMapping("/admin/register")
-    public Users registerAdminUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
-        //clusterName, clusterApiUrl, clusterToken, cpNamespace, cpAccountTokenName
-        if(bindingResult.hasErrors() || !stringNullCheck(users.getClusterName(), users.getClusterApiUrl(), users.getClusterToken(), users.getCpNamespace(), users.getCpAccountTokenName())) {
-            Users failUser = new Users();
-            failUser.setResultCode(Constants.RESULT_STATUS_FAIL);
-            return failUser;
-        }
-
-        return adminService.registerAdmin(users);
-    }
 
 //    @GetMapping("/container-platform/users")
 //    public UsersList getUsersList() {
