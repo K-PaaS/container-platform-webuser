@@ -13,8 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.paasta.container.platform.web.user.common.CommonUtils.stringNullCheck;
+import java.util.Map;
 
 /**
  * User Controller 클래스
@@ -33,6 +32,11 @@ public class UsersController {
         this.usersService = usersService;
     }
 
+    /**
+     * 사용자 회원가입 페이지로 이동한다.
+     *
+     * @return
+     */
     @GetMapping("/signUp")
     public ModelAndView signUpView() {
         ModelAndView model = new ModelAndView();
@@ -42,7 +46,13 @@ public class UsersController {
     }
 
 
-    // 사용자 회원가입
+    /**
+     * 사용자 회원가입
+     *
+     * @param users
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/register")
     @ResponseBody
     public ResultStatus registerUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
@@ -66,8 +76,14 @@ public class UsersController {
 //        return usersService.getUsersList();
 //    }
 
+
+    /**
+     * 등록돼있는 사용자들의 이름 목록 조회
+     *
+     * @return the Map
+     */
     @GetMapping("/container-platform/users")
-    public List<String> getUsersList() {
+    public Map<String, List> getUsersList() {
         return usersService.getUsersNameList();
     }
 

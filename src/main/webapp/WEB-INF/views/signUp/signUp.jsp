@@ -59,7 +59,7 @@
     };
 
     var callbackGetUsersList = function (data) {
-        users = data;
+        users = data.users;
         console.log("userList ::: " + users);
     };
 
