@@ -1,11 +1,12 @@
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %><%--
+<%--
   Footer
 
   author: hrjin
   version: 1.0
-  since: 2018.09.15
+  since: 2020.09.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 
 <div class="common-cu">
     <button id="deleteBtn" class="colors2 common-btn pull-left" title="deleteBtn">삭제</button>

@@ -1,8 +1,8 @@
 <%--
   Pods details
-  @author jjyv
+  @author jjy
   @version 1.0
-  @since 2018.09.01
+  @since 2020.09.01
 --%>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>

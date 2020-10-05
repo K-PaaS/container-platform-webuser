@@ -62,7 +62,7 @@ $(document).ready(function() {
          //else {}
     }
 
-    //20180312 내계정
+    // 내 계정
     function resize_big() {
         var Whight = $(window).height() - 137;
         var Whight2 = $(window).height() - 76;
@@ -79,7 +79,6 @@ $(document).ready(function() {
         }
 
         /*
-        //201803
         if( scNav >= Whight ){
             $(".nav_2d").css({'left' : 108+'px'});
         } else {
@@ -137,7 +136,7 @@ $(document).ready(function() {
         catalogIcons();
     };
 
-    //20180307 play
+
     $(".monitoring > ul > li").on("click" , function(){
         var Monitoring = $(".monitoring ul li").index(this);
         var MonitoringLength = Monitoring;
@@ -164,7 +163,7 @@ $(document).ready(function() {
         });
     }
 
-    //20180308
+
     var name_inputTitleSW = true;
     $(".name_inputTitle").on("click" , function(){
         var MainTitle = $(".headTH2 span").text();
@@ -316,7 +315,7 @@ $(document).ready(function() {
     });
     */
 
-    //20180312
+
     $("th .fa-edit,.table_edit .fa-edit").on("click" , function(){
         $("body > div").addClass('account_modify');
         $(this).toggleClass("on");
@@ -330,7 +329,7 @@ $(document).ready(function() {
         $(this).parents("tr").toggleClass("on");
     });
 
-    // 20180313 세부사항 보기,닫기
+    // 세부사항 보기,닫기
     $(".organization_sw").on("click" , function(){
         var wrap_line = $(".organization_wrap");
         $(this).parents(wrap_line).toggleClass("on");
@@ -424,7 +423,7 @@ $(document).ready(function() {
     });
     */
 
-    //20180314
+
     /*
     $(".name_inputTitle2").on("click" , function(){
         //var asd123 = $(".organization_title_wrap");
@@ -465,7 +464,7 @@ $(document).ready(function() {
     */
 
 
-    //20180307 아이콘 정렬
+    // 아이콘 정렬
     function catalogIcons(){
         var InicoDiv = $(".cWrap_line > ul.icon > li").innerWidth();
         $(".cWrap_line > ul.icon > li").css("min-height" , InicoDiv );
@@ -499,7 +498,7 @@ $(document).ready(function() {
         }
     }
 
-    // 20180323 아이콘 텍스트
+    // 아이콘 텍스트
     $(".icon li div img").on("mouseenter", function(){
         var IcoTitle = $(this).attr("alt");
         var IcoCopy = $(this).attr("title");
@@ -546,7 +545,7 @@ $(document).ready(function() {
         $(this).toggleClass("on");
     });
 
-	//180403 탭 추가
+	// 탭 추가
 	$('.monitor_tabs li').click(function(){
 		var tab_c = $(this).attr('name');
 		var content = tab_c.substr(4, 1);
@@ -595,7 +594,7 @@ $(document).ready(function() {
 		$('.space_pop_submenu').toggle();
 	});
 
-    /*180409 alert layer*/
+    /*alert layer*/
     // alert page
     $(".errorWrap").each( function(){
         var Whight = $(window).height() / 2;
@@ -615,7 +614,7 @@ $(document).ready(function() {
         $(this).parents(".alertLayer").removeClass("moveAlert");
     });
 
-    /* 180807 cluster*/
+    /*cluster*/
     $('.cluster_tabs li').click(function(){
 		var tab_c = $(this).attr('name');
 		var content = tab_c.substr(4, 1);

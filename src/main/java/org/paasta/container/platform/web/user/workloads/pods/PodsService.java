@@ -2,7 +2,6 @@ package org.paasta.container.platform.web.user.workloads.pods;
 
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
-import org.paasta.container.platform.web.user.workloads.replicaSets.ReplicaSets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
  *
  * @author jjy
  * @version 1.0
- * @since 2018.09.08
+ * @since 2020.09.08
  */
 @Service
 public class PodsService {
