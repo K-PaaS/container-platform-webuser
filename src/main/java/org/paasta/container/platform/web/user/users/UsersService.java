@@ -38,18 +38,17 @@ public class UsersService {
         return restTemplateService.send(TARGET_CP_API, "/signUp", HttpMethod.POST, users, ResultStatus.class);
     }
 
+
+    /**
+     * 각 namespace별 사용자 목록 조회
+     *
+     * @param namespace
+     * @return
+     */
     public UsersList getUsersList(String namespace) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST.replace("{namespace:.+}", namespace), HttpMethod.GET, null, UsersList.class);
     }
 
-    /**
-     * 등록돼있는 사용자들의 이름 목록 조회
-     *
-     * @return the Map
-     */
-    public Map<String, List> getUsersNameList() {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_NAME_LIST, HttpMethod.GET, null, Map.class);
-    }
 
 
     /**

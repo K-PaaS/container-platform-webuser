@@ -113,15 +113,6 @@ public class UsersController {
     }
 
 
-    /**
-     * 등록돼있는 사용자들의 이름 목록 조회
-     *
-     * @return the Map
-     */
-    @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_NAME_LIST)
-    public Map<String, List> getUsersNameList() {
-        return usersService.getUsersNameList();
-    }
 
     /**
      * 각 namespace별 등록돼있는 사용자들의 이름 목록 조회
