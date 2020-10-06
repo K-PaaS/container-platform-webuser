@@ -36,8 +36,8 @@
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/>
     </definition>
 
-    <definition name="/admin/*/*" extends="layout.admin">
-        <put-attribute name="body" value="/WEB-INF/views/admin/{1}/{2}.jsp"/>
+    <definition name="/managements/*/*" extends="layout.admin">
+        <put-attribute name="body" value="/WEB-INF/views/managements/{1}/{2}.jsp"/>
     </definition>
 
     <!-- Service 메뉴 이외 3 depth menu -->

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
-import static org.paasta.container.platform.web.user.common.Constants.TARGET_CP_API;
+import static org.paasta.container.platform.web.user.common.Constants.*;
 
 /**
  * User Service 클래스
@@ -38,8 +38,8 @@ public class UsersService {
         return restTemplateService.send(TARGET_CP_API, "/users", HttpMethod.POST, users, ResultStatus.class);
     }
 
-    public UsersList getUsersList() {
-        return restTemplateService.send(TARGET_CP_API, "/users", HttpMethod.GET, null, UsersList.class);
+    public UsersList getUsersList(String namespace) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST.replace("{namespace:.+}", namespace), HttpMethod.GET, null, UsersList.class);
     }
 
     /**
@@ -48,6 +48,16 @@ public class UsersService {
      * @return the Map
      */
     public Map<String, List> getUsersNameList() {
-        return restTemplateService.send(TARGET_CP_API, "/users/names", HttpMethod.GET, null, Map.class);
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_NAME_LIST, HttpMethod.GET, null, Map.class);
+    }
+
+
+    /**
+     * 등록돼있는 사용자들의 이름 목록 조회
+     *
+     * @return the Map
+     */
+    public Map<String, List> getUsersNameListByNamespace(String namespace) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_NAMES_LIST_BY_NAMESPACE.replace("{namespace:.+}", namespace), HttpMethod.GET, null, Map.class);
     }
 }

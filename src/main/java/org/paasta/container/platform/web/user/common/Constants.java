@@ -44,7 +44,6 @@ public class Constants {
     public static final String URI_STORAGES_PERSISTENT_VOLUME_CLAIMS = "/container-platform/storages/persistentvolumeclaims";
 
     public static final String URI_USERS = "/container-platform/users";
-    public static final String URI_USERS_NAME_LIST = "/container-platform/users/names";
 
     public static final String URI_ROLES = "/container-platform/roles";
 
@@ -88,6 +87,9 @@ public class Constants {
     public static final String URI_API_SERVICES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services";
     public static final String URI_API_SERVICES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}";
 
+    public static final String URI_API_USERS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/users";
+    public static final String URI_API_USERS_NAMES_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users/names";
+
     public static final String URI_API_ENDPOINTS_DETAIL = "/namespaces/{namespace:.+}/endpoints/{serviceName:.+}";
 
     public static final String URI_API_EVENTS_LIST = "/namespaces/{namespace:.+}/events/resources/{resourceUid:.+}";
@@ -108,7 +110,7 @@ public class Constants {
     public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims";
     public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims/{persistentVolumeClaimName:.+}";
 
-
+    public static final String URI_API_USERS_NAME_LIST = "/users/names";
 
 
     public static final String URI_API_COMMON_RESOURCE_CREATE_VIEW= "/common/resource/{namespace:.+}/{resourceKind:.+}/create";
