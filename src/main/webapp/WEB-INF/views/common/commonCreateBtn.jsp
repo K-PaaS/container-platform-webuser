@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-
+<jsp:include page="header.jsp" flush="true"/>
 <div class="common-cu">
     <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="createResource();">생성</button>
 </div>
@@ -18,8 +18,6 @@
 <script type="text/javascript">
 
     var createResource = function () {
-        console.log("namespace ::: " + NAME_SPACE);
-
         procMovePage("<%=Constants.CP_BASE_URL%><%=Constants.URI_API_COMMON_RESOURCE_CREATE_VIEW%>"
             .replace("{namespace:.+}", $("#hiddenNamespace").val())
             .replace("{resourceKind:.+}", $("#hiddenResourceKind").val()));
