@@ -14,7 +14,7 @@
     <div class="logo">
         <a href="javascript:void(0);" onclick="procMovePage('<%= Constants.CP_INIT_URI %>');" class="custom_border_none"><h1><img src="<c:url value="/resources/images/main/logo.png"/>" alt=""/></h1></a>
     </div>
-    <select id="namespacesList" style="width: 200px;">
+    <select id="namespacesList" style="width: 200px;" onchange="changeNamespace()">
     </select>
     <div class="gnb search">
     </div>
@@ -107,17 +107,37 @@
 
 <script type="text/javascript">
 
-    var getNamespacesList = function() {
-        var html = '';
+    var NAME_SPACE;
+    var first_selected;
+    var PREVIOUS_SELECTED;
 
-        for (var i=0; i < namespacesList.length; i++) {
-            html += "<option value='" + namespacesList[i] + "'>" + namespacesList[i] + "</option>";
+    var getNamespacesList = function() {
+        var html = "<option selected value='" + namespacesList[0] + "' id='ns0'>" + namespacesList[0] + "</option>";
+        first_selected = $("#ns0");
+
+        for (var i = 1; i < namespacesList.length; i++) {
+            html += "<option value='" + namespacesList[i] + "'" + "id='ns" + i + "'>" + namespacesList[i] + "</option>";
         };
 
         $("#namespacesList").html(html);
+        NAME_SPACE = $("#namespacesList option:selected").val();
+
     };
 
-    $("#namespacesList option:selected").val();
+
+    // todo : 페이지 이동 시에도 selected 고정
+    var changeNamespace = function() {
+        NAME_SPACE = $("#namespacesList option:selected").val();
+
+        for (var i = 0; i < namespacesList.length; i++) {
+            if(namespacesList[i] === NAME_SPACE) {
+                //$('#ns' + i).attr('selected','selected');
+                first_selected = $('#ns' + i);
+                first_selected.attr('selected','selected');
+            }
+        };
+    };
+
 
     $(document.body).ready(function () {
         getNamespacesList();

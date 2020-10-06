@@ -50,11 +50,11 @@
     var USER_ID = "admin";
     var USER_NAME = "admin";
     //var NAME_SPACE = "paas-f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f-caas";
-    var NAME_SPACE = "temp-namespace";
+    //var NAME_SPACE = "temp-namespace";
 
 
     // Todo ::: 사용자가 로그인 시
-    var namespacesList = ["temp-namespace", "cp-namespace"];
+    var namespacesList = ["temp-namespace", "cp-namespace", "paas-f10e7e88-48a5-4e2c-8b99-6abb3cfc7f6f-caas"];
 
 </script>
 
