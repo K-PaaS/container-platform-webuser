@@ -60,4 +60,13 @@ public class UsersService {
     public Map<String, List> getUsersNameListByNamespace(String namespace) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_NAMES_LIST_BY_NAMESPACE.replace("{namespace:.+}", namespace), HttpMethod.GET, null, Map.class);
     }
+
+    /**
+     * 사용자 로그인
+     *
+     * @return the ResultStatus
+     */
+    public ResultStatus loginUser(Users users) {
+        return restTemplateService.send(TARGET_CP_API, "/login", HttpMethod.POST, users, ResultStatus.class);
+    }
 }
