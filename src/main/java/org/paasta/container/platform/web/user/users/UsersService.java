@@ -35,7 +35,7 @@ public class UsersService {
      * @return the ResultStatus
      */
     public ResultStatus registerUser(Users users) {
-        return restTemplateService.send(TARGET_CP_API, "/users", HttpMethod.POST, users, ResultStatus.class);
+        return restTemplateService.send(TARGET_CP_API, "/signUp", HttpMethod.POST, users, ResultStatus.class);
     }
 
     public UsersList getUsersList(String namespace) {

@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ include file="../common/alert.jsp" %>
 <html>
 <head>
     <meta charset="utf-8">
@@ -16,6 +16,8 @@
     <title>Container Platform Sign Up</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel='stylesheet' type='text/css' href='<c:url value="/resources/css/cp-common.css"/>'>
+    <link rel='stylesheet' type='text/css' href='<c:url value="/resources/css/gspinner.min.css"/>'>
     <link rel="stylesheet" href="/resources/css/style-signUp.css">
     <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/resources/images/favicon.ico"/>">
 </head>
@@ -51,18 +53,6 @@
 </body>
 </html>
 <script type="text/javascript">
-    var users = [];
-
-    var getUsersList = function () {
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_NAME_LIST %>";
-        procCallAjax(reqUrl, "GET", null, null, callbackGetUsersList);
-    };
-
-    var callbackGetUsersList = function (data) {
-        users = data.users;
-        console.log("userList ::: " + users);
-    };
-
 
     $('#registerBtn').click(function(){
 
@@ -81,11 +71,6 @@
         // user id 정규식 검사
         if(!manCheck && commonUtils.regexIdPwd(userId)) {
             msg = "아이디는 영문 소문자로 시작하는 4~12자 이내의 영문 소문자, 숫자만 혼합하여 사용 가능합니다.";
-            manCheck = true;
-        }
-        // user id 중복 검사
-        if(!manCheck && commonUtils.duplicatedId(userId)) {
-            msg = "중복된 아이디는 사용하실 수 없습니다.";
             manCheck = true;
         }
         // 비밀번호
@@ -122,7 +107,7 @@
 
         // 알림 노출
         if(manCheck) {
-            alert(msg);
+            procAlertMessage(msg);
             return;
         }
 
@@ -148,22 +133,6 @@
     };
 
     $(function(){
-        $('#userId').keyup(function(){
-            $('#isExistUserId').html('');
-
-        });
-
-        $('#userId').keyup(function(){
-            if(($.inArray($('#userId').val(), users) != -1) || commonUtils.regexIdPwd($('#userId').val())){
-                $('#isExistUserId').html('사용할 수 없는 아이디입니다.<br>');
-                $('#isExistUserId').attr('style', 'color: #f82a2aa3');
-            } else{
-                $('#isExistUserId').html('사용 가능한 아이디입니다.');
-                $('#isExistUserId').attr('style', 'color: #199894b3');
-            }
-
-        });
-
         $('#password').keyup(function(){
             $('#chkNotice').html('');
         });
@@ -182,7 +151,7 @@
     });
 
     $(document.body).ready(function () {
-        getUsersList();
+
     });
 
 </script>
