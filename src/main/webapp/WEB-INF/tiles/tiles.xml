@@ -59,4 +59,9 @@
         <put-attribute name="body" value="/WEB-INF/views/signUp/signUp.jsp" />
     </definition>
 
+    <definition name="/signUp/login" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/signUp/login.jsp" />
+    </definition>
+
+
 </tiles-definitions>

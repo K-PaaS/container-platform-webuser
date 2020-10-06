@@ -12,6 +12,8 @@ import org.springframework.util.Base64Utils;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -33,6 +35,15 @@ public class RestTemplateService {
     private final PropertyService propertyService;
     private String base64Authorization;
     private String baseUrl;
+    private HttpServletRequest request;
+
+    @Value("${access.token-name}")
+    private String tokenName;
+
+    public void setTokenName(String tokenName) {
+        this.tokenName = tokenName;
+    }
+
 
     /**
      * Instantiates a new Rest template service.
@@ -43,6 +54,7 @@ public class RestTemplateService {
      * @param commonApiAuthorizationPassword the common api authorization password
      * @param restTemplate                   the rest template
      * @param propertyService                the property service
+     * @param request                        the HttpServletRequest
      */
     @Autowired
     public RestTemplateService(@Value("${cpApi.authorization.id}") String cpApiAuthorizationId,
@@ -50,13 +62,12 @@ public class RestTemplateService {
                                @Value("${commonApi.authorization.id}") String commonApiAuthorizationId,
                                @Value("${commonApi.authorization.password}") String commonApiAuthorizationPassword,
                                RestTemplate restTemplate,
-                               PropertyService propertyService) {
+                               PropertyService propertyService,
+                               HttpServletRequest request) {
         this.restTemplate = restTemplate;
         this.propertyService = propertyService;
-
-        cpApiBase64Authorization = "Basic "
-                + Base64Utils.encodeToString(
-                (cpApiAuthorizationId + ":" + cpApiAuthorizationPassword).getBytes(StandardCharsets.UTF_8));
+        this.request = request ;
+        cpApiBase64Authorization = "Bearer ";
         commonApiBase64Authorization = "Basic "
                 + Base64Utils.encodeToString(
                 (commonApiAuthorizationId + ":" + commonApiAuthorizationPassword).getBytes(StandardCharsets.UTF_8));
@@ -183,7 +194,7 @@ public class RestTemplateService {
         // CONTAINER PLATFORM API
         if (Constants.TARGET_CP_API.equals(reqApi)) {
             apiUrl = propertyService.getCpApiUrl();
-            authorization = cpApiBase64Authorization;
+            authorization = cpApiBase64Authorization + getAccessToken(request, tokenName);
         }
 
         // COMMON API
@@ -194,5 +205,18 @@ public class RestTemplateService {
 
         base64Authorization = authorization;
         baseUrl = apiUrl;
+    }
+
+
+    public static String getAccessToken(HttpServletRequest request, String name) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(name)) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
     }
 }

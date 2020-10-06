@@ -28,6 +28,7 @@
                     <ul class="cp-user">
                         <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
                         <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
+                        <li id="header-menu-logout"><a href="javascript:void(0);" onclick="procMovePage('/logout');">Logout</a></li>
                     </ul>
                 </div>
             </div>

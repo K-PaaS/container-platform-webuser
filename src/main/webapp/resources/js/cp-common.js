@@ -44,6 +44,12 @@ var procCallAjax = function(reqUrl, reqMethod, param, preFunc, callback) {
                 }
             } else {
                 if(data.resultCode == "FAIL"){
+
+                    if(data.resultMessage == "TOKEN_FAILED") {
+                        location.href="/login";
+                        return false;
+                    }
+
                     procViewLoading('hide');
                     procAlertMessage(data.detailMessage);
                 }else{
