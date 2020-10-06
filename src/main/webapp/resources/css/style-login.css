@@ -11,8 +11,8 @@ body {
 #loginForm {
     margin: 0 auto;
     background-color: #fff;
-    height: 380px;
-    width: 500px;
+    height: 400px;
+    width: 520px;
     padding: 50px 70px;
     border-radius: 30px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
@@ -20,7 +20,7 @@ body {
 
 #loginBtn {
     width: 100%;
-    margin: 0px;
+    margin-top: 15px;
     border-radius: 20px;
     padding: 10px 20px;
     font-size: 18px;
@@ -34,7 +34,7 @@ body {
 .panel-image {
     width: 55px;
     height: 55px;
-    margin-bottom: 10px;
+    margin : -10px 0 10px 0;
 }
 
 .form-icon{
