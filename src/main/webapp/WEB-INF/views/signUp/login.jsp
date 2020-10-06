@@ -33,12 +33,15 @@
             <h4>Container Platform Login</h4>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control item" id="userId" placeholder="User Id" maxlength="12">
+            <input type="text" class="form-control item" id="userId" placeholder="아이디를 입력하세요">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control item" id="password" placeholder="Password" maxlength="12">
+            <input type="password" class="form-control item" id="password" placeholder="비밀번호를 입력하세요">
         </div>
-
+        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+            <input type="checkbox" class="custom-control-input" id="rememberMe">
+            <label class="custom-control-label" for="rememberMe">Remember me</label>
+        </div>
         <div class="form-group">
             <button type="button" class="btn" id="loginBtn">Login</button>
         </div>
@@ -46,11 +49,35 @@
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src='<c:url value="/resources/js/cp-common.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/jquery.cookie.js"/>'></script>
 <script>
+    $(document).ready(function () {
+        var rememberID = $.cookie("cp-user-id");
+
+        if (rememberID) {
+            $("#userId").val(rememberID);
+            $("#rememberMe").prop("checked", true);
+        }
+
+    });
+</script>
+<script>
+
+    //ID 저장 시 Alert 띄우기
+    $("#rememberMe").click(function (e) {
+        if ($(this).is(":checked")) {
+            if (!confirm("공용 PC에서 로그인정보를 저장할 경우, 타인에게 노출될 위험이 있습니다. 아이디를 저장하시겠습니까?")) {
+                $("#rememberMe").prop("checked", false);
+            }
+        }
+    });
+
+
     $("#loginBtn").on('click', function (event) {
 
         var userId = $("#userId").val();
         var password = $("#password").val();
+
         var loginObj = {userId: userId, password: password};
         var loginJson = JSON.stringify(loginObj);
 
@@ -58,9 +85,21 @@
     });
 
     var resourceloginCallback = function (data) {
+
+        //rememberme
+        var rememberMe = $("#rememberMe").is(":checked");
+        var userId = $("#userId").val();
+
+        if (rememberMe) {
+            $.cookie("cp-user-id", userId, {
+                "expires": 30
+            });
+        } else {
+            $.removeCookie("cp-user-id");
+        }
+
         procMovePage('<%=Constants.URI_WORKLOAD_OVERVIEW%>');
     };
-
 </script>
 </body>
 </html>
