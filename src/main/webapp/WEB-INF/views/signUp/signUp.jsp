@@ -54,7 +54,7 @@
     var users = [];
 
     var getUsersList = function () {
-        var reqUrl = "<%= Constants.URI_USERS_NAME_LIST %>";
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_NAME_LIST %>";
         procCallAjax(reqUrl, "GET", null, null, callbackGetUsersList);
     };
 
