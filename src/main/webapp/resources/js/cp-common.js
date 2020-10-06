@@ -517,8 +517,14 @@ var commonUtils = {
         }
         return contents.includes(findString);
     },
-    regexIdPwd: function (value) {
-        var re = /^[a-z]+[a-z0-9]{3,11}$/g; // 아이디와 패스워드가 적합한지 검사할 정규식
+    regexId: function (value) {
+        var re = /^[a-z0-9]+[-a-z0-9]*[a-z0-9]{3,11}$/g; // 아이디가 적합한지 검사할 정규식
+        if(!re.test(value)) {
+            return true;
+        }
+    },
+    regexPwd: function (value) {
+        var re = /^[a-z]+[a-z0-9]{3,11}$/g; // 패스워드가 적합한지 검사할 정규식
         if(!re.test(value)) {
             return true;
         }

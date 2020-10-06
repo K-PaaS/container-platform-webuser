@@ -70,8 +70,8 @@
             manCheck = true;
         }
         // user id 정규식 검사
-        if(!manCheck && commonUtils.regexIdPwd(userId)) {
-            msg = "아이디는 영문 소문자로 시작하는 4~12자 이내의 영문 소문자, 숫자만 혼합하여 사용 가능합니다.";
+        if(!manCheck && commonUtils.regexId(userId)) {
+            msg = "아이디는 영문 소문자 또는 숫자로 시작하는 4~12자 이내의 영문 소문자, 특수문자 '-', 숫자만 혼합하여 사용 가능합니다.";
             manCheck = true;
         }
         // 비밀번호
@@ -80,7 +80,7 @@
             manCheck = true;
         }
         // 비밀번호 정규식 검사
-        if (!manCheck && commonUtils.regexIdPwd(password)) {
+        if (!manCheck && commonUtils.regexPwd(password)) {
             msg = "비밀번호는 영문 소문자로 시작하는 4~12자 이내의 영문 소문자, 숫자만 혼합하여 사용 가능합니다.";
             manCheck = true;
         }
