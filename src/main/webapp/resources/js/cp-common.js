@@ -524,7 +524,7 @@ var commonUtils = {
         }
     },
     regexPwd: function (value) {
-        var re = /^[a-z]+[a-z0-9]{3,11}$/g; // 패스워드가 적합한지 검사할 정규식
+        var re = /^[a-z]+(?=.*\d)(?=.*[$@$!%*#?&])[a-z\d$@$!%*#?&]{3,11}$/g; // 패스워드가 적합한지 검사할 정규식
         if(!re.test(value)) {
             return true;
         }
