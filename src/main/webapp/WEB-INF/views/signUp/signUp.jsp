@@ -119,17 +119,13 @@
             "email": email
         };
 
-        console.log("form data >>> " + JSON.stringify(userListParam));
-
-        procCallAjax("/register", "POST", JSON.stringify(userListParam), 'singleView', callbackRegisterUser);
+        procCallAjax("/register", "POST", JSON.stringify(userListParam), false, callbackRegisterUser);
 
 
     });
 
     var callbackRegisterUser = function(data) {
         console.log("data >>> " + JSON.stringify(data));
-
-        // todo :: 회원가입 성공하면 어디로? 우선 /intro/overview
         procMovePage(data.nextActionUrl);
     };
 
