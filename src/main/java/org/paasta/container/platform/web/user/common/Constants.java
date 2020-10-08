@@ -39,9 +39,6 @@ public class Constants {
     public static final String URI_SERVICES = "/container-platform/services";
 
     public static final String URI_STORAGES = "/container-platform/storages";
-    public static final String URI_STORAGES_OVERVIEW = "/container-platform/storages/overview";
-    public static final String URI_STORAGES_PERSISTENT_VOLUMES = "/container-platform/storages/persistentvolumes";
-    public static final String URI_STORAGES_PERSISTENT_VOLUME_CLAIMS = "/container-platform/storages/persistentvolumeclaims";
 
     public static final String URI_USERS = "/container-platform/users";
 
@@ -109,6 +106,13 @@ public class Constants {
     public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims/{persistentVolumeClaimName:.+}";
     public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims";
     public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims/{persistentVolumeClaimName:.+}";
+
+    public static final String URI_API_STORAGES_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims";
+    public static final String URI_API_STORAGES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims/{persistentVolumeClaimName:.+}";
+    public static final String URI_API_STORAGES_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims/{persistentVolumeClaimName:.+}/yaml";
+    public static final String URI_API_STORAGES_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims/{persistentVolumeClaimName:.+}";
+    public static final String URI_API_STORAGES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims";
+    public static final String URI_API_STORAGES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentvolumeclaims/{persistentVolumeClaimName:.+}";
 
     public static final String URI_API_USERS_NAME_LIST = "/users/names";
 

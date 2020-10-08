@@ -106,7 +106,7 @@
     var getPersistentVolumeClaimDetail = function () {
         procViewLoading('show');
 
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PERSISTENT_VOLUME_CLAIMS_DETAIL %>"
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_STORAGES_DETAIL %>"
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{persistentVolumeClaimName:.+}", "<c:out value='${persistentVolumeClaimName}'/>");
 
