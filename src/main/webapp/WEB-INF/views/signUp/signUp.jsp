@@ -33,7 +33,7 @@
             <span class="info_box" id="isExistUserId" style="font-size: medium; font-variant: small-caps;"></span>
         </div>
         <div class="form-group">
-            <input type="password" class="form-control item" id="password" placeholder="Password" maxlength="12">
+            <input type="password" class="form-control item" id="password" placeholder="Password" maxlength="40">
         </div>
         <div class="form-group">
             <input type="password" class="form-control item" id="passwordConfirm" placeholder="Password Confirm">
@@ -81,7 +81,7 @@
         }
         // 비밀번호 정규식 검사
         if (!manCheck && commonUtils.regexPwd(password)) {
-            msg = "비밀번호는 영문 소문자로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~12자 이내로 사용 가능합니다.";
+            msg = "비밀번호는 영문으로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~40자 이내로 사용 가능합니다.";
             manCheck = true;
         }
         // 비밀번호 확인

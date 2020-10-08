@@ -26,8 +26,8 @@ public class Users {
     private String userId;
 
     @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
-    @Pattern(regexp="(^[a-z]+(?=.*\\d)(?=.*[$@$!%*#?&])[a-z\\d$@$!%*#?&]{3,11}$)",
-            message = "비밀번호는 영문 소문자로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~12자 이내로 사용 가능합니다.")
+    @Pattern(regexp="(^[a-zA-Z]+(?=.*\\d)(?=.*[-$@$!%*#?&])[a-zA-Z\\d-$@$!%*#?&]{3,39}$)",
+            message = "비밀번호는 영문으로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~40자 이내로 사용 가능합니다.")
     private String password;
 
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
