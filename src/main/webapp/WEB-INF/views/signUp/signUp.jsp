@@ -36,7 +36,7 @@
         </div>
         <div class="form-group">
             <input type="password" class="form-control item" id="passwordConfirm" placeholder="Password Confirm">
-            <span class="info_box" id="chkNotice" style="font-size: medium; font-variant: small-caps; color: #003eff"></span>
+            <span class="info_box" id="chkNotice" style="font-size: medium; font-variant: small-caps;"></span>
         </div>
         <div class="form-group">
             <input type="text" class="form-control item" id="email" placeholder="E-mail" maxlength="50">
