@@ -20,7 +20,7 @@
                 </jsp:include>
                 <div class="sortable_wrap">
                     <div class="sortable_top">
-                        <p>Volumes</p>
+                        <p>Persistent Volume Claims</p>
                         <ul class="colright_btn">
                             <li>
                                 <input type="text" id="table-search-01" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {setList(this.value);}" maxlength="100" />
@@ -200,3 +200,9 @@
     });
 
 </script>
+<style>
+    #createBtn {
+        margin-top : -10px;
+    }
+
+</style>
