@@ -44,7 +44,7 @@
         </div>
         <div class="form-group">
             <button type="button" class="btn btn-size register" id="registerBtn">Register</button>
-            <button type="button" class="btn btn-size cancel">Cancel</button>
+            <button type="button" class="btn btn-size cancel" id="cancelBtn">Cancel</button>
         </div>
     </form>
 </div>
@@ -128,6 +128,10 @@
         console.log("data >>> " + JSON.stringify(data));
         procMovePage(data.nextActionUrl);
     };
+
+    $("#cancelBtn").on("click", function () {
+        procMovePage("/");
+    });
 
     $(function(){
         $('#password').keyup(function(){
