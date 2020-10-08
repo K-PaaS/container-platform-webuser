@@ -30,14 +30,13 @@
         </div>
         <div class="form-group">
             <input type="text" class="form-control item" id="userId" placeholder="User Id" maxlength="12">
-            <span class="info_box" id="isExistUserId" style="font-size: medium; font-variant: small-caps;"></span>
         </div>
         <div class="form-group">
             <input type="password" class="form-control item" id="password" placeholder="Password" maxlength="40">
         </div>
         <div class="form-group">
             <input type="password" class="form-control item" id="passwordConfirm" placeholder="Password Confirm">
-            <span class="info_box" id="chkNotice" style="font-size: medium; font-variant: small-caps;"></span>
+            <span class="info_box" id="chkNotice" style="font-size: medium; font-variant: small-caps; color: #003eff"></span>
         </div>
         <div class="form-group">
             <input type="text" class="form-control item" id="email" placeholder="E-mail" maxlength="50">
@@ -125,34 +124,34 @@
     });
 
     var callbackRegisterUser = function(data) {
-        console.log("data >>> " + JSON.stringify(data));
-        procMovePage(data.nextActionUrl);
+        procAlertMessage("회원 가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+        setTimeout(function(){procMovePage(data.nextActionUrl)}, 1500);
     };
 
     $("#cancelBtn").on("click", function () {
         procMovePage("/");
     });
 
-    $(function(){
+    $(document).ready(function() {
         $('#password').keyup(function(){
             $('#chkNotice').html('');
         });
 
         $('#passwordConfirm').keyup(function(){
-
             if($('#password').val() != $('#passwordConfirm').val()){
                 $('#chkNotice').html('비밀번호가 일치하지 않습니다.<br>');
                 $('#chkNotice').attr('style', 'color: #f82a2aa3');
+                $('.info_box').show();
+
             } else{
                 $('#chkNotice').html('비밀번호가 일치합니다.');
                 $('#chkNotice').attr('style', 'color: #199894b3');
+                $('.info_box').show();
             }
 
         });
     });
 
-    $(document.body).ready(function () {
 
-    });
 
 </script>
