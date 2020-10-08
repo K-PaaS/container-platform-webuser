@@ -43,7 +43,11 @@
             <label class="custom-control-label" for="rememberMe">Remember me</label>
         </div>
         <div class="form-group">
-            <button type="button" class="btn" id="loginBtn">Login</button>
+            <button type="button" class="btn login-form-btn" id="loginBtn">로그인</button>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn login-form-btn" id="registerBtn">사용자 등록</button>
         </div>
     </form>
 </div>
@@ -72,7 +76,20 @@
         }
     });
 
+   // 사용자 등록페이지 이동
+    $("#registerBtn").on('click', function (event) {
+        procMovePage('/signUp');
+    });
 
+
+    // Enter Key 입력 시 로그인 버튼 이벤트 실행
+    $("#password").keyup(function (event) {
+        if (event.keyCode === 13) {
+            $("#loginBtn").click();
+        }
+    });
+
+    // 로그인 요청
     $("#loginBtn").on('click', function (event) {
 
         var userId = $("#userId").val();
