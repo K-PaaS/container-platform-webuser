@@ -14,7 +14,7 @@
     <div class="logo">
         <a href="javascript:void(0);" onclick="procMovePage('<%= Constants.CP_INIT_URI %>');" class="custom_border_none"><h1><img src="<c:url value="/resources/images/main/logo.png"/>" alt=""/></h1></a>
     </div>
-    <select id="namespacesList" style="width: 200px;" onchange="changeNamespace()">
+    <select id="namespacesList" style="width: 200px;" onchange="changeNamespace(this.value)">
     </select>
     <div class="gnb search">
     </div>
@@ -28,7 +28,8 @@
                     <ul class="cp-user">
                         <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
                         <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
-                        <li id="header-menu-logout"><a href="javascript:void(0);" onclick="procMovePage('/logout');">Logout</a></li>
+                        <%--<li id="header-menu-logout"><a href="javascript:void(0);" onclick="procMovePage('/logout');">Logout</a></li>--%>
+                        <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logout();">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -123,19 +124,22 @@
 
 
     // 페이지 이동 시에도 selected 고정
-    var changeNamespace = function() {
-        console.log("2");
+    var changeNamespace = function(value) {
+        console.log("선택된 값 ::: " + value);
         NAME_SPACE = $("#namespacesList option:selected").val();
-        setCookie(cookieName, NAME_SPACE, null);
+        setCookie(cookieName, value, null);
 
-        location.reload();
+        setTimeout(function(){procMovePage(location.reload())}, 6000);
+
+        //location.reload();
     };
 
 
     // 1. cookie 처음 값은 namespace  목록의 첫 번째 값으로 1시간 셋팅
     // 2. namespace change 후에 cookie 값 갱신
     // 3. cookie 조회
-    function checkChkCookie(cookieName, splitStr, basketId){
+    var checkChkCookie = function(cookieName, splitStr, basketId){
+        console.log("2");
         var cookiesStr = getCookie(cookieName);
 
         console.log("znzlznznl ::: " + cookiesStr);
@@ -153,36 +157,45 @@
             $("#namespacesList option[value='" + cookiesStr + "']").attr('selected', 'selected');
             NAME_SPACE = cookiesStr;
         }
-    }
+    };
 
-    function setCookie(cookieName, value, requireTime){
+    var setCookie = function(cookieName, value, requireTime){
         var time = new Date();
         time.setTime(time.getTime() + 1 * 3600 * 1000);  // 1시간
         var cookieValue = escape(value) + ((requireTime==null) ? "" : "; expires=" + time.toUTCString());
         console.log("쿠키 밸류 ::: " + cookieValue);
         document.cookie = cookieName + "=" + cookieValue;
         console.log("쿠키 cookie ::: " + document.cookie);
-    }
+    };
 
-    function deleteCookie(cookieName){
+    var deleteCookie = function(cookieName){
         var expireDate = new Date();
         expireDate.setDate(expireDate.getDate() - 1);
-        document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
-    }
+        document.cookie = cookieName + "= " + "; expires=" + expireDate.toUTCString();
+    };
 
-    function getCookie(cookieName) {
+    var getCookie = function(cookieName) {
         cookieName = cookieName + '=';
         var cookieData = document.cookie;
+        console.log("cookieData ::: " + cookieData);
         var start = cookieData.indexOf(cookieName);
         var cookieValue = '';
         if(start != -1){
             start += cookieName.length;
+            console.log("start ::: " + start);
             var end = cookieData.indexOf(';', start);
             if(end == -1)end = cookieData.length;
+            console.log("end ::: " + end);
             cookieValue = cookieData.substring(start, end);
         }
         return unescape(cookieValue);
-    }
+    };
+
+    var logout = function() {
+        deleteCookie(cookieName);
+        procMovePage('/logout');
+
+    };
 
     $(document.body).ready(function () {
         getNamespacesList();
