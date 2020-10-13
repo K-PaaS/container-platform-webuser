@@ -58,9 +58,9 @@
 <script type="text/javascript">
     // ON LOAD
     $(window).bind("load", function () {
-        getDeploymentsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
-        getPodsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
-        getReplicaSetsList(null,<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
+        getDeploymentsList(<%= Constants.OVERVIEW_LIMIT_COUNT %>,"");
+        getPodsList(<%= Constants.OVERVIEW_LIMIT_COUNT %>,"");
+        getReplicaSetsList(null,<%= Constants.OVERVIEW_LIMIT_COUNT %>,"");
         createChart();
     });
 

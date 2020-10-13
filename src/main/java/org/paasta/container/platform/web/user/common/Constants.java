@@ -133,8 +133,8 @@ public class Constants {
 
     public static final String URI_COMMON_API_ROLES_LIST = "/roles/{roleSetCode:.+}";
 
-    public static final Integer DEFAULT_LIMIT_COUNT = 5;
-
+    public static final Integer OVERVIEW_LIMIT_COUNT = 5;
+    public static final Integer DEFAULT_LIMIT_COUNT = 10;
 
     private Constants() {
         throw new IllegalStateException();
