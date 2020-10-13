@@ -12,10 +12,10 @@
         <p>Replica Sets</p>
         <ul class="colright_btn">
             <li>
-                <input type="text" id="table-search-rs" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {setReplicaSetsList(this.value);}" maxlength="100" />
+               <%-- <input type="text" id="table-search-rs" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {setReplicaSetsList(this.value);}" maxlength="100" />
                 <button name="button" class="btn table-search-on" type="button">
                     <i class="fas fa-search"></i>
-                </button>
+                </button>--%>
             </li>
         </ul>
     </div>
@@ -44,6 +44,7 @@
             </tbody>
         </table>
     </div>
+    <div><button id="replicaSetsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
 </div>
 
 <script type="text/javascript">
@@ -57,9 +58,11 @@
     var G_REPLICA_SETS_CHART_FAILED_CNT = 0;
     var G_REPLICA_SETS_CHART_PENDDING_CNT = 0;
     var G_REPLICA_SETS_CHART_SUCCEEDED_CNT = 0;
+    var G_REPLICA_SETS_LIST_CONTINUE_TOKEN = "";
+    var G_REPLICA_SETS_LIST_GET_FIRST = true;
 
     // GET LIST
-    var getReplicaSetsList = function(selector) {
+    var getReplicaSetsList = function(selector,limit, continue_token) {
         procViewLoading('show');
 
         var reqUrl;
@@ -71,7 +74,17 @@
         }else{
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_LIST %>"
                 .replace("{namespace:.+}", NAME_SPACE);
+
+            if(limit > 0 ) {
+                reqUrl = reqUrl + "?limit=" + limit;
+             }
+
+            if (continue_token.length > 1) {
+                reqUrl = reqUrl + "&continue=" + continue_token;
+            }
+
         }
+
         procCallAjax(reqUrl, "GET", null, null, callbackGetReplicaSetsList);
     };
 
@@ -84,6 +97,15 @@
         }
 
         G_REPLICA_SETS_LIST = data;
+
+        if(data.metadata.hasOwnProperty('continue')){
+            G_REPLICA_SETS_LIST_CONTINUE_TOKEN = data.metadata.continue;
+        }
+
+        if(!data.metadata.hasOwnProperty('remainingItemCount')){
+            $('#replicaSetsMoreDetailBtn').css("display", "none");
+        }
+
         procViewLoading('hide');
 
         setReplicaSetsList("");
@@ -97,12 +119,12 @@
         var resultHeaderArea = $('#resultHeaderAreaForReplicaSets');
         var noResultArea     = $('#noResultAreaForReplicaSets');
         var resultTable      = $('#resultTableForReplicaSets');
+        var htmlString = [];
+
 
         var items = G_REPLICA_SETS_LIST.items;
         var checkListCount = 0;
         G_REPLICA_SETS_LIST_LENGTH = items.length;
-
-        resultArea.html("");
 
         $.each(items, function (index, itemList) {
 
@@ -147,7 +169,7 @@
                 }
                 //이벤트 관련 추가 END
 
-                resultArea.append(
+                htmlString.push(
                     "<tr>"
                     + "<td>"+statusIconHtml
                     + "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.URI_WORKLOAD_REPLICA_SETS %>/" + replicaSetName + "\");'>" + replicaSetName + "</a>"
@@ -169,9 +191,11 @@
             resultHeaderArea.hide();
             resultArea.hide();
             noResultArea.show();
-        } else {
+        }
+        else if(G_REPLICA_SETS_LIST_GET_FIRST == true) {
             noResultArea.hide();
             resultHeaderArea.show();
+            resultArea.html(htmlString);
             resultArea.show();
 
             resultTable.tablesorter({
@@ -181,10 +205,22 @@
             resultTable.trigger("update");
             $('.headerSortFalse > td').unbind();
         }
+        else if(G_REPLICA_SETS_LIST_GET_FIRST == false) {
+            $('#resultAreaForReplicaSets tr:last').after(htmlString);
+        }
 
         procSetToolTipForTableTd('resultAreaForReplicaSets');
         procViewLoading('hide');
 
     };
+
+</script>
+<script>
+
+    $(document).on("click", "#replicaSetsMoreDetailBtn", function(){
+        G_REPLICA_SETS_LIST_GET_FIRST = false;
+        getReplicaSetsList("",<%= Constants.DEFAULT_LIMIT_COUNT %> ,G_REPLICA_SETS_LIST_CONTINUE_TOKEN);
+
+    });
 
 </script>

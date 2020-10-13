@@ -11,10 +11,10 @@
         <p>Pods</p>
         <ul id="pod-list-search-form" class="colright_btn">
             <li>
-                <input type="text" id="table-search-01" name="table-search" class="table-search" placeholder="search"  onkeypress="if (event.keyCode === 13) { setPodsList(this.value); }" maxlength="100"/>
-                <button name="button" class="btn table-search-on" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
+<%--                <input type="text" id="table-search-01" name="table-search" class="table-search" placeholder="search"  onkeypress="if (event.keyCode === 13) { setPodsList(this.value); }" maxlength="100"/>--%>
+<%--                <button name="button" class="btn table-search-on" type="button">--%>
+<%--                    <i class="fas fa-search"></i>--%>
+<%--                </button>--%>
             </li>
         </ul>
     </div>
@@ -55,6 +55,7 @@
             </tbody>
         </table>
     </div>
+    <div><button id="podsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
 </div>
 <script type="text/javascript">
 
@@ -66,6 +67,8 @@
     var G_PODS_CHART_FAILED_CNT = 0;
     var G_PODS_CHART_PENDING_CNT = 0;
     var G_PODS_CHART_SUCCEEDED_CNT = 0;
+    var G_PODS_LIST_CONTINUE_TOKEN = "";
+    var G_PODS_LIST_GET_FIRST = true;
 
     // GET PODS' LIST USING REQUEST URL FOR OTHER WORKLOADS
     var getPodListUsingRequestURL = function(reqUrl) {
@@ -73,9 +76,16 @@
     }
 
     // GET PODS' LIST FOR OTHER PAGES
-    var getPodsList = function() {
+    var getPodsList = function(limit, continue_token) {
         procViewLoading('show');
-        var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST %>'.replace('{namespace:.+}', NAME_SPACE);
+
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST %>" + "?limit=" + limit;
+
+        if (continue_token.length > 1) {
+            reqUrl = reqUrl + "&continue=" + continue_token;
+        }
+        var reqUrl = reqUrl.replace('{namespace:.+}', NAME_SPACE);
+
         procCallAjax(reqUrl, 'GET', null, null, callbackGetPodList);
     };
 
@@ -87,8 +97,18 @@
             return false;
         }
 
+
         G_PODS_LIST = data;
         G_PODS_LIST_LENGTH = data.items.length;
+
+        if(data.metadata.hasOwnProperty('continue')){
+            G_PODS_LIST_CONTINUE_TOKEN = data.metadata.continue;
+        }
+
+        if(!data.metadata.hasOwnProperty('remainingItemCount')){
+            $('#podsMoreDetailBtn').css("display", "none");
+        }
+
         setPodsList("");
     };
 
@@ -163,7 +183,9 @@
             resultHeaderArea.hide();
             resultArea.hide();
             noResultArea.show();
-        } else {
+        }
+
+        else if(G_PODS_LIST_GET_FIRST == true) {
             noResultArea.hide();
             resultHeaderArea.show();
             resultArea.html(htmlString);
@@ -177,6 +199,11 @@
             resultTable.trigger("update");
             $('.headerSortFalse > td').unbind();
         }
+
+        else if(G_PODS_LIST_GET_FIRST == false) {
+            $('#podListResultArea tr:last').after(htmlString);
+        }
+
 
         procSetToolTipForTableTd('podListResultArea');
         $('[data-toggle="tooltip"]').tooltip();
@@ -366,4 +393,14 @@
         G_EVENT_STR =  statusIconHtml +  '{podLink}'+  statusMessageHtml;
         procViewLoading('hide');
     };
+</script>
+
+<script>
+
+    $(document).on("click", "#podsMoreDetailBtn", function(){
+        G_PODS_LIST_GET_FIRST = false;
+        getPodsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,G_PODS_LIST_CONTINUE_TOKEN);
+
+    });
+
 </script>

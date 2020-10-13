@@ -30,11 +30,18 @@ public class DeploymentsService {
      * @param namespace   the namespace
      * @return the deployments list
      */
-    public DeploymentsList getDeploymentsList (String namespace ) {
+    public DeploymentsList getDeploymentsList (String namespace ,int limit, String continueToken ) {
+
+        String param = "";
+
+        if(continueToken != null) {
+            param = "&continue=" + continueToken;
+        }
+
         return restTemplateService.send( Constants.TARGET_CP_API,
                 Constants.URI_API_DEPLOYMENTS_LIST
-                        .replace( "{namespace:.+}", namespace ),
-                HttpMethod.GET, null, DeploymentsList.class);
+                        .replace( "{namespace:.+}", namespace ) + "?limit=" + limit + param
+                ,HttpMethod.GET, null, DeploymentsList.class);
     }
 
     /**

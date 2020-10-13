@@ -12,10 +12,11 @@
         <p>Deployments</p>
         <ul class="colright_btn">
             <li>
-                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {setDeploymentsList(this.value);}" maxlength="100" />
-                <button name="button" class="btn table-search-on" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
+<%--                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search"--%>
+<%--                       onkeypress="if(event.keyCode===13) {setDeploymentsList(this.value);}" maxlength="100"/>--%>
+<%--                <button name="button" class="btn table-search-on" type="button">--%>
+<%--                    <i class="fas fa-search"></i>--%>
+<%--                </button>--%>
             </li>
         </ul>
     </div>
@@ -30,19 +31,28 @@
                 <col style="width:25%;">
             </colgroup>
             <thead>
-            <tr id="noResultDeploymentsArea" style="display: none;"><td colspan='6'><p class='service_p'>실행 중인 Deployment가 없습니다.</p></td></tr>
+            <tr id="noResultDeploymentsArea" style="display: none;">
+                <td colspan='6'><p class='service_p'>실행 중인 Deployment가 없습니다.</p></td>
+            </tr>
             <tr id="resultDeploymentsHeaderArea" class="headerSortFalse">
-                <td>Name<button class="sort-arrow" onclick="procSetSortList('resultDeploymentsTable', this, '0')"><i class="fas fa-caret-down"></i></button></td>
+                <td>Name
+                    <button class="sort-arrow" onclick="procSetSortList('resultDeploymentsTable', this, '0')"><i
+                            class="fas fa-caret-down"></i></button>
+                </td>
                 <td>Namespace</td>
                 <td>Labels</td>
                 <td>Pods</td>
-                <td>Created on<button class="sort-arrow" onclick="procSetSortList('resultDeploymentsTable', this, '4')"><i class="fas fa-caret-down"></i></button></td>
+                <td>Created on
+                    <button class="sort-arrow" onclick="procSetSortList('resultDeploymentsTable', this, '4')"><i
+                            class="fas fa-caret-down"></i></button>
+                </td>
                 <td>Images</td>
             </tr>
             </thead>
             <tbody id="deploymentsListArea"></tbody>
         </table>
     </div>
+    <div><button id="deploymentsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
 </div>
 
 
@@ -54,10 +64,18 @@
     var G_DEV_CHART_FAILED_CNT = 0;
     var G_DEV_CHART_SUCCEEDEDCNT = 0;
     var G_DEV_CHART_PENDDING_CNT = 0;
-
-    var getDeploymentsList = function() {
+    var G_DEPLOYMENTS_LIST_CONTINUE_TOKEN = "";
+    var G_DEPLOYMENTS_LIST_GET_FIRST = true;
+    var getDeploymentsList = function (limit, continue_token) {
         procViewLoading('show');
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_LIST %>".replace("{namespace:.+}", NAME_SPACE);
+
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_LIST %>" + "?limit=" + limit;
+
+        if (continue_token.length > 1) {
+            reqUrl = reqUrl + "&continue=" + continue_token;
+        }
+        var reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
+
         procCallAjax(reqUrl, "GET", null, null, callbackGetDeploymentsList);
 
     };
@@ -70,8 +88,19 @@
             return false;
         }
 
+
         G_DEPLOYMENTS_LIST = data;
         G_DEPLOYMENTS_LIST_LENGTH = data.items.length;
+
+
+        if(data.metadata.hasOwnProperty('continue')){
+            G_DEPLOYMENTS_LIST_CONTINUE_TOKEN = data.metadata.continue;
+        }
+
+        if(!data.metadata.hasOwnProperty('remainingItemCount')){
+            $('#deploymentsMoreDetailBtn').css("display", "none");
+        }
+
         setDeploymentsList("");
 
     };
@@ -113,18 +142,18 @@
                 var statusIconHtml;
                 var statusMessageHtml = [];
 
-                if(itemList.type == 'Warning'){ // [Warning]과 [Warning] 외 두 가지 상태로 분류
-                    statusIconHtml    = "<span class='red2 tableTdToolTipFalse'><i class='fas fa-exclamation-circle'></i> </span>";
-                    $.each(itemList.message , function (index, eventMessage) {
+                if (itemList.type == 'Warning') { // [Warning]과 [Warning] 외 두 가지 상태로 분류
+                    statusIconHtml = "<span class='red2 tableTdToolTipFalse'><i class='fas fa-exclamation-circle'></i> </span>";
+                    $.each(itemList.message, function (index, eventMessage) {
                         statusMessageHtml += "<p class='red2 custom-content-overflow'>" + eventMessage + "</p>";
                     });
-                }else{
-                    statusIconHtml    = "<span class='green2 tableTdToolTipFalse'><i class='fas fa-check-circle'></i> </span>";
+                } else {
+                    statusIconHtml = "<span class='green2 tableTdToolTipFalse'><i class='fas fa-check-circle'></i> </span>";
                 }
 
-                if(itemList.type == "normal") {
+                if (itemList.type == "normal") {
                     G_DEV_CAHRT_RUNNING_CNT += 1;
-                } else if(itemList.type == "Warning") {
+                } else if (itemList.type == "Warning") {
                     G_DEV_CHART_FAILED_CNT += 1;
                 } else {
                     G_DEV_CHART_FAILED_CNT += 1;
@@ -138,7 +167,7 @@
                     '</td>' +
                     "<td><a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.URI_CLUSTER_NAMESPACES %>/" + namespace + "\");'>" + namespace + "</td>" +
                     '<td>' + procCreateSpans(labels, "LB") + '</td>' +
-                    '<td>' + runningPods +" / " + totalPods + '</td>' +
+                    '<td>' + runningPods + " / " + totalPods + '</td>' +
                     '<td>' + creationTimestamp + '</td>' +
                     "<td>" + imageTags + "</td>" +
                     '</tr>');
@@ -151,7 +180,8 @@
             resultHeaderArea.hide();
             resultArea.hide();
             noResultArea.show();
-        } else {
+        }
+        else if(G_DEPLOYMENTS_LIST_GET_FIRST == true) {
             noResultArea.hide();
             resultHeaderArea.show();
             resultArea.html(htmlString);
@@ -166,9 +196,23 @@
             $('.headerSortFalse > td').unbind();
         }
 
+        else if(G_DEPLOYMENTS_LIST_GET_FIRST == false) {
+            $('#deploymentsListArea tr:last').after(htmlString);
+        }
+
         procSetToolTipForTableTd('resultDeploymentsTable');
         procViewLoading('hide');
 
     };
+
+</script>
+
+<script>
+
+    $(document).on("click", "#deploymentsMoreDetailBtn", function(){
+        G_DEPLOYMENTS_LIST_GET_FIRST = false;
+        getDeploymentsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,G_DEPLOYMENTS_LIST_CONTINUE_TOKEN);
+
+    });
 
 </script>

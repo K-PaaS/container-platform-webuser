@@ -2,6 +2,7 @@ package org.paasta.container.platform.web.user.workloads.replicaSets;
 
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
+import org.paasta.container.platform.web.user.workloads.deployments.DeploymentsList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -31,14 +32,24 @@ public class ReplicaSetsService {
 
     /**
      * ReplicaSets 목록을 조회한다.
-     * @param namespace   the namespace
+     * @param namespace the namespace
+     * @param limit the limit
+     * @param continueToken the continueToken
      * @return the replicaSets list
      */
-    ReplicaSetsList getReplicaSetsList(String namespace) {
+    ReplicaSetsList getReplicaSetsList(String namespace , int limit, String continueToken) {
+
+        String param = "";
+
+        if(continueToken != null) {
+            param = "&continue=" + continueToken;
+        }
+
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_LIST
-                        .replace("{namespace:.+}", namespace),
-                HttpMethod.GET, null, ReplicaSetsList.class);
+                        .replace("{namespace:.+}", namespace) + "?limit=" + limit + param
+                ,HttpMethod.GET, null, ReplicaSetsList.class);
     }
+
 
 
     /**

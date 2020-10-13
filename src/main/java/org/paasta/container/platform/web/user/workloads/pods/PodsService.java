@@ -45,9 +45,17 @@ public class PodsService {
      * @param namespace the namespace
      * @return the pods list
      */
-    PodsList getPodList(String namespace) {
-        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PODS_LIST
-                .replace("{namespace:.+}", namespace), HttpMethod.GET, null, PodsList.class);
+    PodsList getPodList(String namespace ,int limit, String continueToken) {
+        String param = "";
+
+        if(continueToken != null) {
+            param = "&continue=" + continueToken;
+        }
+
+        return restTemplateService.send(Constants.TARGET_CP_API,
+                Constants.URI_API_PODS_LIST
+                        .replace( "{namespace:.+}", namespace ) + "?limit=" + limit + param
+                        ,HttpMethod.GET, null, PodsList.class);
     }
 
     /**

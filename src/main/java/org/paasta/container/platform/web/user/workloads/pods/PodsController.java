@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Pods 관련 CONTAINER PLATFORM API 를 호출 하는 컨트롤러이다.
+ * Pods Controller 클래스
  *
  * @author jjy
  * @version 1.0
@@ -88,8 +88,10 @@ public class PodsController {
      * @return the pods list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST)
-    public PodsList getPodList(@PathVariable(value = "namespace") String namespace) {
-        return podsService.getPodList(namespace);
+    public PodsList getPodList(@PathVariable String namespace,
+                               @RequestParam(required = false, defaultValue = "0") int limit,
+                               @RequestParam(required = false, name = "continue") String continueToken) {
+        return podsService.getPodList(namespace, limit, continueToken);
     }
 
     /**

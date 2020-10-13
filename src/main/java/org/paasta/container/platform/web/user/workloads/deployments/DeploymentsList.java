@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Deployments List Model 클래스
@@ -16,6 +17,6 @@ import java.util.List;
 public class DeploymentsList {
     private String resultCode;
     private String resultMessage;
-
+    private Map<String,Object> metadata;
     private List<Deployments> items = new ArrayList<>();
 }

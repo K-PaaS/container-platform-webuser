@@ -80,8 +80,11 @@ public class DeploymentsController {
      * @return the deployments list
      */
     @GetMapping( value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_LIST )
-    public DeploymentsList getDeploymentsList(@PathVariable String namespace) {
-        return deploymentsService.getDeploymentsList(namespace);
+    public DeploymentsList getDeploymentsList(@PathVariable String namespace,
+                                              @RequestParam(required = false, defaultValue = "0") int limit,
+                                              @RequestParam(required = false, name = "continue") String continueToken)
+    {
+        return deploymentsService.getDeploymentsList(namespace, limit, continueToken);
     }
 
     /**

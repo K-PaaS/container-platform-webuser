@@ -5,6 +5,7 @@
   @since 2020.09.01
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <jsp:include page="../common/contentsTab.jsp"/>
 
@@ -20,7 +21,7 @@
     // ON LOAD
     $(document.body).ready(function() {
         procViewLoading('show');
-        getPodsList();
+        getPodsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
         procViewLoading('hide');
     });
 </script>

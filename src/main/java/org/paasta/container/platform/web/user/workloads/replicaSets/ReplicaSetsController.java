@@ -89,12 +89,17 @@ public class ReplicaSetsController {
      * ReplicaSets 목록을 조회한다.
      *
      * @param namespace the namespace
+     * @param limit the limit
+     * @param continueToken the continueToken
      * @return the replicaSets list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_LIST)
     @ResponseBody
-    public ReplicaSetsList getReplicaSetsList(@PathVariable("namespace") String namespace){
-        return replicaSetService.getReplicaSetsList(namespace);
+    public ReplicaSetsList getReplicaSetsList(@PathVariable String namespace,
+                                              @RequestParam(required = false, defaultValue = "0") int limit,
+                                              @RequestParam(required = false, name = "continue") String continueToken){
+
+        return replicaSetService.getReplicaSetsList(namespace, limit, continueToken);
     }
 
 
