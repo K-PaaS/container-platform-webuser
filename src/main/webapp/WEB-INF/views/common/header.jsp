@@ -105,44 +105,88 @@
         </div>
     </div>
 </header>
-
+<input type="hidden" id="chkValue" name="chkValue">
 <script type="text/javascript">
 
     var NAME_SPACE;
-    var first_selected;
-    var PREVIOUS_SELECTED;
+    var cookieName = "selectedNs";
 
     var getNamespacesList = function() {
-        var html = "<option selected value='" + namespacesList[0] + "' id='ns0'>" + namespacesList[0] + "</option>";
-        first_selected = $("#ns0");
-
-        for (var i = 1; i < namespacesList.length; i++) {
+        var html = "";
+        for (var i = 0; i < namespacesList.length; i++) {
             html += "<option value='" + namespacesList[i] + "'" + "id='ns" + i + "'>" + namespacesList[i] + "</option>";
         };
 
         $("#namespacesList").html(html);
-        NAME_SPACE = $("#namespacesList option:selected").val();
-
+        console.log("1");
     };
 
 
-    // todo : 페이지 이동 시에도 selected 고정
+    // 페이지 이동 시에도 selected 고정
     var changeNamespace = function() {
+        console.log("2");
         NAME_SPACE = $("#namespacesList option:selected").val();
+        setCookie(cookieName, NAME_SPACE, null);
 
-        for (var i = 0; i < namespacesList.length; i++) {
-            if(namespacesList[i] === NAME_SPACE) {
-                //$('#ns' + i).attr('selected','selected');
-                first_selected = $('#ns' + i);
-                first_selected.attr('selected','selected');
-            }
-        };
+        location.reload();
     };
 
+
+    // 1. cookie 처음 값은 namespace  목록의 첫 번째 값으로 1시간 셋팅
+    // 2. namespace change 후에 cookie 값 갱신
+    // 3. cookie 조회
+    function checkChkCookie(cookieName, splitStr, basketId){
+        var cookiesStr = getCookie(cookieName);
+
+        console.log("znzlznznl ::: " + cookiesStr);
+
+        if(cookiesStr == null || cookiesStr === "") {
+            setCookie(cookieName, namespacesList[0], null);
+            cookiesStr = getCookie(cookieName);
+
+            NAME_SPACE = cookiesStr;
+            console.log("znzlznznl 222::: " + NAME_SPACE);
+        }
+
+        $("#"+basketId).val(cookiesStr);
+        if(cookiesStr != ""){
+            $("#namespacesList option[value='" + cookiesStr + "']").attr('selected', 'selected');
+            NAME_SPACE = cookiesStr;
+        }
+    }
+
+    function setCookie(cookieName, value, requireTime){
+        var time = new Date();
+        time.setTime(time.getTime() + 1 * 3600 * 1000);  // 1시간
+        var cookieValue = escape(value) + ((requireTime==null) ? "" : "; expires=" + time.toUTCString());
+        console.log("쿠키 밸류 ::: " + cookieValue);
+        document.cookie = cookieName + "=" + cookieValue;
+        console.log("쿠키 cookie ::: " + document.cookie);
+    }
+
+    function deleteCookie(cookieName){
+        var expireDate = new Date();
+        expireDate.setDate(expireDate.getDate() - 1);
+        document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+    }
+
+    function getCookie(cookieName) {
+        cookieName = cookieName + '=';
+        var cookieData = document.cookie;
+        var start = cookieData.indexOf(cookieName);
+        var cookieValue = '';
+        if(start != -1){
+            start += cookieName.length;
+            var end = cookieData.indexOf(';', start);
+            if(end == -1)end = cookieData.length;
+            cookieValue = cookieData.substring(start, end);
+        }
+        return unescape(cookieValue);
+    }
 
     $(document.body).ready(function () {
         getNamespacesList();
-
+        checkChkCookie(cookieName, "/", "chkValue");
     });
 
 
