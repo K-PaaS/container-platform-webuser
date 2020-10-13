@@ -518,7 +518,7 @@ var commonUtils = {
         return contents.includes(findString);
     },
     regexId: function (value) {
-        var re = /^[a-z0-9]+[-a-z0-9]*[a-z0-9]{3,11}$/g; // 아이디가 적합한지 검사할 정규식
+        var re = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/g; // 아이디가 적합한지 검사할 정규식
         if(!re.test(value)) {
             return true;
         }
