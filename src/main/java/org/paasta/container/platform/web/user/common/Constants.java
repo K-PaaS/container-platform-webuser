@@ -18,6 +18,11 @@ public class Constants {
     public static final String TARGET_CP_API = "cpApi";
     public static final String TARGET_COMMON_API = "commonApi";
 
+    public static final String DEFAULT_NAMESPACE_NAME = "temp-namespace";
+    public static final String NOT_ASSIGNED_ROLE = "NOT_ASSIGNED_ROLE";
+    public static final String DEFAULT_INIT_ROLE = "init-role";
+    public static final String DEFAULT_CLUSTER_ADMIN_ROLE = "cluster-admin"; // k8s default cluster role's name
+
     public static final String API_URL = "/api";
     public static final String CP_BASE_URL = "/container-platform";
     public static final String CP_INIT_URI = "/container-platform/intro/overview";
@@ -41,6 +46,7 @@ public class Constants {
     public static final String URI_STORAGES = "/container-platform/storages";
 
     public static final String URI_USERS = "/container-platform/users";
+    public static final String URI_USERS_DETAIL = "/container-platform/users/{userId:.+}";
 
     public static final String URI_ROLES = "/container-platform/roles";
 

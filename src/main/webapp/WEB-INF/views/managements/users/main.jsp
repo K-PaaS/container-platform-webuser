@@ -8,7 +8,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
-    <div class="cluster_tabs clearfix"></div>
+    <div class="cluster_tabs_user_config clearfix">
+        <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="createResource();">설정</button>
+    </div>
     <div class="cluster_content01 row two_line two_view">
         <ul>
             <li>
@@ -56,16 +58,18 @@
 </div>
 
 <script type="text/javascript">
-    var G_USERS_LIST;
+    // var G_USERS_LIST;
     var G_ROLE_SEARCH_NAME;
 
-    var G_ADMIN_CODE = '<c:out value="${roleSetCodeList.administratorCode}" />';
-    var G_REGULAR_USER_CODE = '<c:out value="${roleSetCodeList.regularUserCode}" />';
-    var G_INIT_USER_CODE = '<c:out value="${roleSetCodeList.initUserCode}" />';
+    var NONE_CODE = "NONE";
 
-    var G_ADMIN_NAME = '<c:out value="${roleSetNameList.administratorName}" />';
-    var G_REGULAR_USER_NAME = '<c:out value="${roleSetNameList.regularUserName}" />';
-    var G_INIT_USER_NAME = '<c:out value="${roleSetNameList.initUserName}" />';
+    <%--var G_ADMIN_CODE = '<c:out value="${roleSetCodeList.administratorCode}" />';--%>
+    <%--var G_REGULAR_USER_CODE = '<c:out value="${roleSetCodeList.regularUserCode}" />';--%>
+    <%--var G_INIT_USER_CODE = '<c:out value="${roleSetCodeList.initUserCode}" />';--%>
+
+    <%--var G_ADMIN_NAME = '<c:out value="${roleSetNameList.administratorName}" />';--%>
+    <%--var G_REGULAR_USER_NAME = '<c:out value="${roleSetNameList.regularUserName}" />';--%>
+    <%--var G_INIT_USER_NAME = '<c:out value="${roleSetNameList.initUserName}" />';--%>
 
     // GET LIST
     var getUsersList = function() {
@@ -102,15 +106,12 @@
         var items = [];
 
         for(var k = 0; k < G_USERS_LIST.length; k++){
-            var rc = G_USERS_LIST[k].roleSetCode;
+        <%--    var rc = G_USERS_LIST[k].roleSetCode;--%>
+        <%--    console.log("rc :: " + rc);--%>
 
-            if(rc === G_ADMIN_CODE){
-                rc = G_ADMIN_NAME;
-            }else if(rc === G_REGULAR_USER_CODE){
-                rc = G_REGULAR_USER_NAME;
-            }else{
-                rc = G_INIT_USER_NAME;
-            }
+        <%--    if(rc === '<%= Constants.NOT_ASSIGNED_ROLE %>'){--%>
+        <%--        rc = NONE_CODE;--%>
+        <%--    }--%>
 
 
             var defaultSelectRole = $(".user-filter option:selected").val();
@@ -134,6 +135,10 @@
             var option = '';
             selectBox = '';
             userId = items[i].userId;
+            var rc = items[i].roleSetCode;
+            if(rc === '<%= Constants.NOT_ASSIGNED_ROLE %>'){
+                rc = NONE_CODE;
+            }
 
             if ((nvl(searchKeyword) === "") || userId.indexOf(searchKeyword) > -1) {
                 htmlString.push(
@@ -141,10 +146,7 @@
                     + "<td class='userId'>" + items[i].userId + "</td>"
                     + "<td>" + items[i].created + "</td>"
                     + "<td>" + items[i].lastModified + "</td>"
-                    + "<td>" + "<select name='role-filter' data-user-id='"+ items[i].userId +"'></select>"
-                    + "<span class='usersSaveRole'><i class='fas fa-save'></i></span>"
-                    + "<span class='usersDeleteUser' ><i class='fas fa-trash-alt'></i></span>"
-                    + "</td>"
+                    + "<td>" + rc + "</td>"
                     + "</tr>");
 
                 checkListCount++;
