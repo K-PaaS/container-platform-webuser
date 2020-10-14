@@ -120,7 +120,6 @@
         };
 
         $("#namespacesList").html(html);
-        console.log("1");
     };
 
 
@@ -134,7 +133,6 @@
     // cookie 삭제
     var deleteCookie = function (cookieName) {
         $.removeCookie(cookieName, { path: '/' });
-        console.log("쿠키 있니??? 없어야할텐데... " + $.removeCookie('name'));
     };
 
 
@@ -147,12 +145,9 @@
 
         // 쿠키 없을 때
         if(cookieValue == null || cookieValue === "" || cookieValue === "undefined") {
-            console.log("쿠키 없엉!! ::: " + cookieValue);
             $.cookie(cookieName, namespacesList[0], { expires: hour, path: '/' });
-
         }
         cookieValue = $.cookie(cookieName);
-        console.log("이제 쿠키 생겼엉!! ::: " + cookieValue);
 
         // 페이지 이동 시에도 selected 고정
         $("#namespacesList option[value='" + cookieValue + "']").attr('selected', 'selected');
@@ -166,7 +161,7 @@
         var hour = new Date();
         hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간
         var changedCookie = $.cookie(cookieName, value, { expires: hour, path : '/' });
-        console.log("바뀐 쿠키 ::: " + $.cookie(cookieName) + " & 맞는지 한 번 더 체크 ::: " + changedCookie);
+
         NAME_SPACE = value;
 
         location.reload();
