@@ -90,6 +90,14 @@ public class Constants {
     public static final String URI_API_SERVICES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services";
     public static final String URI_API_SERVICES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}";
 
+    public static final String URI_API_ROLES_LIST =   "/clusters/cp-cluster/namespaces/{namespace:.+}/roles";
+    public static final String URI_API_ROLES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}";
+    public static final String URI_API_ROLES_YAML =   "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}/yaml";
+    public static final String URI_API_ROLES_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}";
+    public static final String URI_API_ROLES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles";
+    public static final String URI_API_ROLES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}";
+
+
     public static final String URI_API_USERS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/users";
     public static final String URI_API_USERS_NAMES_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users/names";
 
@@ -97,8 +105,6 @@ public class Constants {
 
     public static final String URI_API_EVENTS_LIST = "/namespaces/{namespace:.+}/events/resources/{resourceUid:.+}";
     public static final String URI_API_NAMESPACE_EVENTS_LIST    = "/namespaces/{namespace:.+}/events";
-
-    public static final String URI_API_ROLES_DETAIL = "/namespaces/{namespace:.+}/roles/{roleName:.+}";
 
     public static final String URI_API_ROLE_BINDINGS_DETAIL = "/namespaces/{namespace:.+}/roleBindings/{roleBindingName:.+}";
 
