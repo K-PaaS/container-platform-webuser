@@ -33,7 +33,7 @@
             <h4>Container Platform Login</h4>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control item" id="userId" placeholder="아이디를 입력하세요">
+            <input type="text" autofocus="autofocus" class="form-control item" id="userId" placeholder="아이디를 입력하세요">
         </div>
         <div class="form-group">
             <input type="password" class="form-control item" id="password" placeholder="비밀번호를 입력하세요">
