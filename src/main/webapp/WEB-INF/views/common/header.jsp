@@ -107,6 +107,7 @@
     </div>
 </header>
 <input type="hidden" id="chkValue" name="chkValue">
+<script type="text/javascript" src='<c:url value="/resources/js/jquery.cookie.js"/>'></script>
 <script type="text/javascript">
 
     var NAME_SPACE;
@@ -123,83 +124,57 @@
     };
 
 
-    // 페이지 이동 시에도 selected 고정
-    var changeNamespace = function(value) {
-        console.log("선택된 값 ::: " + value);
-        NAME_SPACE = $("#namespacesList option:selected").val();
-        setCookie(cookieName, value, null);
-
-        setTimeout(function(){procMovePage(location.reload())}, 6000);
-
-        //location.reload();
-    };
-
-
-    // 1. cookie 처음 값은 namespace  목록의 첫 번째 값으로 1시간 셋팅
-    // 2. namespace change 후에 cookie 값 갱신
-    // 3. cookie 조회
-    var checkChkCookie = function(cookieName, splitStr, basketId){
-        console.log("2");
-        var cookiesStr = getCookie(cookieName);
-
-        console.log("znzlznznl ::: " + cookiesStr);
-
-        if(cookiesStr == null || cookiesStr === "") {
-            setCookie(cookieName, namespacesList[0], null);
-            cookiesStr = getCookie(cookieName);
-
-            NAME_SPACE = cookiesStr;
-            console.log("znzlznznl 222::: " + NAME_SPACE);
-        }
-
-        $("#"+basketId).val(cookiesStr);
-        if(cookiesStr != ""){
-            $("#namespacesList option[value='" + cookiesStr + "']").attr('selected', 'selected');
-            NAME_SPACE = cookiesStr;
-        }
-    };
-
-    var setCookie = function(cookieName, value, requireTime){
-        var time = new Date();
-        time.setTime(time.getTime() + 1 * 3600 * 1000);  // 1시간
-        var cookieValue = escape(value) + ((requireTime==null) ? "" : "; expires=" + time.toUTCString());
-        console.log("쿠키 밸류 ::: " + cookieValue);
-        document.cookie = cookieName + "=" + cookieValue;
-        console.log("쿠키 cookie ::: " + document.cookie);
-    };
-
-    var deleteCookie = function(cookieName){
-        var expireDate = new Date();
-        expireDate.setDate(expireDate.getDate() - 1);
-        document.cookie = cookieName + "= " + "; expires=" + expireDate.toUTCString();
-    };
-
-    var getCookie = function(cookieName) {
-        cookieName = cookieName + '=';
-        var cookieData = document.cookie;
-        console.log("cookieData ::: " + cookieData);
-        var start = cookieData.indexOf(cookieName);
-        var cookieValue = '';
-        if(start != -1){
-            start += cookieName.length;
-            console.log("start ::: " + start);
-            var end = cookieData.indexOf(';', start);
-            if(end == -1)end = cookieData.length;
-            console.log("end ::: " + end);
-            cookieValue = cookieData.substring(start, end);
-        }
-        return unescape(cookieValue);
-    };
-
+    // 로그아웃 시 쿠키 제거
     var logout = function() {
         deleteCookie(cookieName);
         procMovePage('/logout');
+    };
 
+
+    // cookie 삭제
+    var deleteCookie = function (cookieName) {
+        $.removeCookie(cookieName, { path: '/' });
+        console.log("쿠키 있니??? 없어야할텐데... " + $.removeCookie('name'));
+    };
+
+
+    // cookie 처음 값은 namespace 목록의 첫 번째 값으로 1시간 셋팅
+    var checkChkCookie = function(cookieName) {
+        var cookieValue = $.cookie(cookieName);
+
+        var hour = new Date();
+        hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간
+
+        // 쿠키 없을 때
+        if(cookieValue == null || cookieValue === "" || cookieValue === "undefined") {
+            console.log("쿠키 없엉!! ::: " + cookieValue);
+            $.cookie(cookieName, namespacesList[0], { expires: hour, path: '/' });
+
+        }
+        cookieValue = $.cookie(cookieName);
+        console.log("이제 쿠키 생겼엉!! ::: " + cookieValue);
+
+        // 페이지 이동 시에도 selected 고정
+        $("#namespacesList option[value='" + cookieValue + "']").attr('selected', 'selected');
+        NAME_SPACE = cookieValue;
+
+    };
+
+    // namespace change 후에 cookie 값 갱신
+    var changeNamespace = function(value) {
+        deleteCookie(cookieName);
+        var hour = new Date();
+        hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간
+        var changedCookie = $.cookie(cookieName, value, { expires: hour, path : '/' });
+        console.log("바뀐 쿠키 ::: " + $.cookie(cookieName) + " & 맞는지 한 번 더 체크 ::: " + changedCookie);
+        NAME_SPACE = value;
+
+        location.reload();
     };
 
     $(document.body).ready(function () {
         getNamespacesList();
-        checkChkCookie(cookieName, "/", "chkValue");
+        checkChkCookie(cookieName);
     });
 
 
