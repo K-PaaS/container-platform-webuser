@@ -47,7 +47,7 @@ public class Constants {
     public static final String URI_API_CREATE_RESOURCE = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}";
 
     // API URI
-    public static final String URI_API_NAME_SPACES_DETAIL = "/namespaces/{namespace:.+}";
+    public static final String URI_API_NAME_SPACES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}";
     public static final String URI_API_NAME_SPACES_RESOURCE_QUOTAS = "/namespaces/{namespace:.+}/resourceQuotas";
 
     public static final String URI_API_NODES_LIST = "/nodes/{nodeName:.+}";
