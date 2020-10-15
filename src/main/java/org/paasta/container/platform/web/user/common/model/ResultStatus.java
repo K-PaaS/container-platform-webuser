@@ -3,6 +3,8 @@ package org.paasta.container.platform.web.user.common.model;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * ResultStatus model 클래스
  *
@@ -20,6 +22,7 @@ public class ResultStatus {
     private String nextActionUrl;
     private String userId;
     private String token;
+    private List namespace;
 
     public ResultStatus() {
     }
@@ -38,7 +41,7 @@ public class ResultStatus {
         this.detailMessage = detailMessage;
         this.nextActionUrl = nextActionUrl;
     }
-    public ResultStatus(String resultCode, String resultMessage, int httpStatusCode, String detailMessage, String nextActionUrl, String userId, String token) {
+    public ResultStatus(String resultCode, String resultMessage, int httpStatusCode, String detailMessage, String nextActionUrl, String userId, String token, List namespace) {
         this.resultCode = resultCode;
         this.resultMessage = resultMessage;
         this.httpStatusCode = httpStatusCode;
@@ -46,6 +49,7 @@ public class ResultStatus {
         this.nextActionUrl = nextActionUrl;
         this.userId = userId;
         this.token = token;
+        this.namespace = namespace;
     }
 
 

@@ -140,6 +140,12 @@ public class UsersController {
         cookie.setCookieMaxAge(0);
         cookie.addCookie(response, null);
 
+
+        cookie.setCookieName("namespace");
+        cookie.setCookieMaxAge(0);
+        cookie.addCookie(response, null);
+
+
         ModelAndView model = new ModelAndView();
         model.setViewName("/signUp/login");
         return model;
@@ -179,12 +185,17 @@ public class UsersController {
      * @return the view
      */
     @GetMapping("/logout")
-    public RedirectView loginUser(HttpServletRequest request, HttpServletResponse response) {
+    public RedirectView logoutUser(HttpServletRequest request, HttpServletResponse response) {
 
         //remove stored token
         CookieGenerator cookie = new CookieGenerator();
 
         cookie.setCookieName(tokenName);
+        cookie.setCookieMaxAge(0);
+        cookie.addCookie(response, null);
+
+
+        cookie.setCookieName("namespace");
         cookie.setCookieMaxAge(0);
         cookie.addCookie(response, null);
 

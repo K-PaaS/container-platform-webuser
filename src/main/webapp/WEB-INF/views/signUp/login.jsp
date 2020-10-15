@@ -106,7 +106,16 @@
         //rememberme
         var rememberMe = $("#rememberMe").is(":checked");
         var userId = $("#userId").val();
+        var namespace = data.namespace ;
 
+        var namespace_json = JSON.stringify(namespace);
+
+        //namespace List
+        $.cookie("namespace", namespace_json, {
+            "expires" : new Date(+new Date() + (60 * 60 * 1000))
+        });
+
+        //remember me
         if (rememberMe) {
             $.cookie("cp-user-id", userId, {
                 "expires": 30
