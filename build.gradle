@@ -44,6 +44,7 @@ ext {
 	gsonVersion = '2.8.6'
 	apacheTilesJspVersion = '3.0.8'
 	lombokVersion = '1.18.12'
+	swaggerVersion = '2.9.2'
 }
 
 dependencyManagement {
@@ -61,7 +62,8 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-aop"
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
 	runtime "mysql:mysql-connector-java:8.0.11"
-
+	compile "io.springfox:springfox-swagger2:${swaggerVersion}"
+	compile "io.springfox:springfox-swagger-ui:${swaggerVersion}"
 	compile "org.springframework.security:spring-security-taglibs:${springSecurityTagLibsVersion}"
 	compile "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatEmbedJasperVersion}"
 	compile "javax.servlet:jstl:${jstlVersion}"
