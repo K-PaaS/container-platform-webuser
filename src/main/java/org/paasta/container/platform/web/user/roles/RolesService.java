@@ -32,12 +32,21 @@ public class RolesService {
      * Roles 목록을 조회한다.
      *
      * @param namespace the namespace
+     * @param limit the limit
+     * @param continueToken the continueToken
      * @return the roles list
      */
-    RolesList getRolesList(String namespace) {
+    RolesList getRolesList(String namespace, int limit, String continueToken) {
+
+        String param = "";
+
+        if(continueToken != null) {
+            param = "&continue=" + continueToken;
+        }
+
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_ROLES_LIST
-                        .replace("{namespace:.+}", namespace),
-                HttpMethod.GET, null, RolesList.class);
+                        .replace("{namespace:.+}", namespace) + "?limit=" + limit + param
+                ,HttpMethod.GET, null, RolesList.class);
     }
 
 

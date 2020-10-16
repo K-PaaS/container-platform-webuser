@@ -88,13 +88,18 @@ public class RolesController {
      * Roles 목록을 조회한다.
      *
      * @param namespace the namespace
+     * @param limit the limit
+     * @param continueToken the continueToken
      * @return the roles list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_LIST)
     @ResponseBody
-    public RolesList getRolesList(@PathVariable(value = "namespace") String namespace) {
-        return rolesService.getRolesList(namespace);
+    public RolesList getRolesList(@PathVariable String namespace,
+                                  @RequestParam(required = false, defaultValue = "0") int limit,
+                                  @RequestParam(required = false, name = "continue") String continueToken) {
+        return rolesService.getRolesList(namespace,limit,continueToken);
     }
+
 
 
     /**
