@@ -8,7 +8,9 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+<style>
+    #createBtn {margin-top : -10px;}
+</style>
 <div class="content">
     <div class="cluster_tabs clearfix"></div>
     <div class="cluster_content01 row two_line two_view">
@@ -22,10 +24,10 @@
                         <p>Services</p>
                         <ul class="colright_btn">
                             <li>
-                                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {setList(this.value);}" maxlength="100" />
-                                <button name="button" class="btn table-search-on" type="button">
-                                    <i class="fas fa-search"></i>
-                                </button>
+<%--                                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {setServiceList(this.value);}" maxlength="100" />--%>
+<%--                                <button name="button" class="btn table-search-on" type="button">--%>
+<%--                                    <i class="fas fa-search"></i>--%>
+<%--                                </button>--%>
                             </li>
                         </ul>
                     </div>
@@ -59,6 +61,7 @@
                     </div>
                 </div>
             </li>
+            <div><button id="servicesMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
         </ul>
     </div>
 </div>
@@ -67,34 +70,55 @@
 <script type="text/javascript">
 
     var G_SERVICE_LIST;
+    var G_SERVICE_LIST_LENGTH;
+    var G_SERVICE_LIST_CONTINUE_TOKEN = "";
+    var G_SERVICE_LIST_GET_FIRST = true;
 
     // GET LIST
-    var getList = function () {
+    var getServiceList = function(limit, continue_token) {
         procViewLoading('show');
 
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SERVICES_LIST %>"
-            .replace("{namespace:.+}", NAME_SPACE);
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SERVICES_LIST %>" + "?limit=" + limit;
 
-        procCallAjax(reqUrl, "GET", null, null, callbackGetList);
+        if (continue_token.length > 1) {
+            reqUrl = reqUrl + "&continue=" + continue_token;
+        }
+
+        var reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
+
+        procCallAjax(reqUrl, "GET", null, null, callbackGetServiceList);
     };
 
 
+
     // CALLBACK
-    var callbackGetList = function (data) {
+    var callbackGetServiceList = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
+            procAlertMessage();
             return false;
         }
 
         G_SERVICE_LIST = data;
+        G_SERVICE_LIST_LENGTH = data.items.length;
+
         procViewLoading('hide');
 
-        setList("");
+        if(data.metadata.hasOwnProperty('continue')){
+            G_SERVICE_LIST_CONTINUE_TOKEN = data.metadata.continue;
+        }
+
+        if(!data.metadata.hasOwnProperty('remainingItemCount')){
+            $('#servicesMoreDetailBtn').css("display", "none");
+        }
+
+        setServiceList("");
     };
 
 
+
     // SET LIST
-    var setList = function (searchKeyword) {
+    var setServiceList = function (searchKeyword) {
         procViewLoading('show');
 
         var resultArea = $('#resultArea');
@@ -173,7 +197,8 @@
             resultHeaderArea.hide();
             resultArea.hide();
             noResultArea.show();
-        } else {
+        }
+        else if(G_SERVICE_LIST_GET_FIRST == true){
             noResultArea.hide();
             resultHeaderArea.show();
             resultArea.html(htmlString);
@@ -185,6 +210,10 @@
 
             resultTable.trigger("update");
             $('.headerSortFalse > td').unbind();
+        }
+
+        else if(G_SERVICE_LIST_GET_FIRST == false) {
+            $('#resultArea tr:last').after(htmlString);
         }
 
         procSetToolTipForTableTd('resultArea');
@@ -237,22 +266,19 @@
         procViewLoading('hide');
     };
 
-
     // ON LOAD
     $(document.body).ready(function () {
-        getList();
+        getServiceList(<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
     });
-
+</script>
+<script>
+    $(document).on("click", "#servicesMoreDetailBtn", function(){
+        G_SERVICE_LIST_GET_FIRST = false;
+        getServiceList(<%= Constants.DEFAULT_LIMIT_COUNT %>,G_SERVICE_LIST_CONTINUE_TOKEN);
+    });
 </script>
 
 
 
 
 
-
-<style>
-    #createBtn {
-        margin-top : -10px;
-    }
-
-</style>

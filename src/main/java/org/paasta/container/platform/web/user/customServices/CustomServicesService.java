@@ -31,12 +31,21 @@ public class CustomServicesService {
      * Services 목록을 조회한다.
      *
      * @param namespace the namespace
+     * @param limit the limit
+     * @param continueToken the continueToken
      * @return the custom services list
      */
-    CustomServicesList getCustomServicesList(String namespace) {
+    CustomServicesList getCustomServicesList(String namespace, int limit, String continueToken) {
+
+        String param = "";
+
+        if(continueToken != null) {
+            param = "&continue=" + continueToken;
+        }
+
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_LIST
-                        .replace("{namespace:.+}", namespace),
-                HttpMethod.GET, null, CustomServicesList.class);
+                        .replace("{namespace:.+}", namespace) + "?limit=" + limit + param
+                ,HttpMethod.GET, null, CustomServicesList.class);
     }
 
 

@@ -88,12 +88,17 @@ public class CustomServicesController {
      * Services 목록을 조회한다.
      *
      * @param namespace the namespace
+     * @param limit the limit
+     * @param continueToken the continueToken
      * @return the custom services list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_LIST)
     @ResponseBody
-    public CustomServicesList getCustomServicesList(@PathVariable(value = "namespace") String namespace) {
-        return customServicesService.getCustomServicesList(namespace);
+    public CustomServicesList getCustomServicesList(@PathVariable String namespace,
+                                                    @RequestParam(required = false, defaultValue = "0") int limit,
+                                                    @RequestParam(required = false, name = "continue") String continueToken) {
+
+        return customServicesService.getCustomServicesList(namespace,limit,continueToken);
     }
 
 

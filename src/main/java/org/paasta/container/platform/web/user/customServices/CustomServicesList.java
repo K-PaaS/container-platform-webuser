@@ -3,6 +3,7 @@ package org.paasta.container.platform.web.user.customServices;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Custom Services List Model 클래스
@@ -16,7 +17,7 @@ class CustomServicesList {
 
     private String resultCode;
     private String resultMessage;
-
+    private Map<String,Object> metadata;
     private List<CustomServices> items;
 
 }
