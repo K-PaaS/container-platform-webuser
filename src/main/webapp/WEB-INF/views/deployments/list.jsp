@@ -74,7 +74,7 @@
         if (continue_token.length > 1) {
             reqUrl = reqUrl + "&continue=" + continue_token;
         }
-        var reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
+        reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetDeploymentsList);
 

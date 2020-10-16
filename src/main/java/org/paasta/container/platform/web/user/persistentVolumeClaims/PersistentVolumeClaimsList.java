@@ -3,6 +3,7 @@ package org.paasta.container.platform.web.user.persistentVolumeClaims;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * PersistentVolumeClaims List Model 클래스
@@ -14,5 +15,7 @@ import java.util.List;
 @Data
 public class PersistentVolumeClaimsList {
     private String resultCode;
+    private String resultMessage;
+    private Map<String,Object> metadata;
     private List<PersistentVolumeClaims> items;
 }

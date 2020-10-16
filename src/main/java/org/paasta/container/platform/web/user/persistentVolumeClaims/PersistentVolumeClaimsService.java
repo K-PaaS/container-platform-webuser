@@ -33,13 +33,23 @@ public class PersistentVolumeClaimsService {
      * PersistentVolumeClaims 목록을 조회한다.
      *
      * @param namespace the namespace
+     * @param limit the limit
+     * @param continueToken the continueToken
      * @return the Persistent Volume Claims List
      */
-    PersistentVolumeClaimsList getPersistentVolumeClaimsList(String namespace) {
+    PersistentVolumeClaimsList getPersistentVolumeClaimsList(String namespace,int limit, String continueToken) {
+
+        String param = "";
+
+        if(continueToken != null) {
+            param = "&continue=" + continueToken;
+        }
+
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_LIST
-                        .replace("{namespace:.+}", namespace),
-                HttpMethod.GET, null, PersistentVolumeClaimsList.class);
+                        .replace("{namespace:.+}", namespace) + "?limit=" + limit + param
+                ,HttpMethod.GET, null, PersistentVolumeClaimsList.class);
     }
+
 
     /**
      * PersistentVolumeClaims 상세 정보를 조회한다.

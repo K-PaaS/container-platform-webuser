@@ -17,6 +17,7 @@ import java.util.Map;
 @Data
 public class PersistentVolumeClaims {
     private String resultCode;
+    private String resultMessage;
     private String nextActionUrl;
 
     private CommonMetaData metadata;
@@ -25,4 +26,5 @@ public class PersistentVolumeClaims {
 
     private Map<String, Object> source;
     private String sourceTypeYaml;
+
 }

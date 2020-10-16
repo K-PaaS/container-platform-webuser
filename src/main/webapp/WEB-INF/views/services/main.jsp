@@ -84,7 +84,7 @@
             reqUrl = reqUrl + "&continue=" + continue_token;
         }
 
-        var reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
+        reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetServiceList);
     };
