@@ -1,5 +1,6 @@
 package org.paasta.container.platform.web.user.users;
 
+import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
@@ -70,6 +71,7 @@ public class UsersController {
      * @param bindingResult
      * @return
      */
+    @ApiOperation(value = "사용자 회원가입", httpMethod = "POST", hidden = true)
     @PostMapping(value = "/register")
     @ResponseBody
     public ResultStatus registerUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
