@@ -80,4 +80,10 @@
         procMovePage(-1);
     };
 
+
+    // ON LOAD
+    $(document.body).ready(function () {
+        $("#namespacesList").hide();
+    });
+
 </script>
