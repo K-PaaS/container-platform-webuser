@@ -3,9 +3,12 @@ package org.paasta.container.platform.web.user.users;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.CookieGenerator;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +25,20 @@ import static org.paasta.container.platform.web.user.common.Constants.*;
 public class UsersService {
 
     private final RestTemplateService restTemplateService;
+
+
+    @Value("${access.token-name}")
+    private String tokenName;
+
+    @Value("${access.user-id}")
+    private String cpUserId;
+
+    public void setTokenName(String tokenName) {
+        this.tokenName = tokenName;
+    }
+    public void setCpUserId(String cpUserId)  {
+        this.cpUserId = cpUserId;
+    }
 
     @Autowired
     public UsersService(RestTemplateService restTemplateService) {
@@ -81,5 +98,52 @@ public class UsersService {
      */
     public UsersList getUsersList() {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST, HttpMethod.GET, null, UsersList.class);
+    }
+
+
+
+    /**
+     * 사용자 접속정보 쿠키 등록
+     *
+     * @return
+     */
+    public void addCookies(ResultStatus rs, HttpServletResponse response){
+
+        String token = rs.getToken();
+        String userId = rs.getUserId();
+
+        CookieGenerator cookie = new CookieGenerator();
+        cookie.setCookieName(tokenName);
+        cookie.setCookieMaxAge(60 * 60); // 1hours
+        cookie.setCookieHttpOnly(true);
+        cookie.addCookie(response, token);
+
+        cookie.setCookieName(cpUserId);
+        cookie.setCookieMaxAge(60 * 60); // 1hours
+        cookie.addCookie(response, userId);
+    }
+
+
+    /**
+     * 사용자 접속정보 쿠키 삭제
+     *
+     * @return
+     */
+    public void removeCookies(HttpServletResponse response){
+
+        CookieGenerator cookie = new CookieGenerator();
+
+        cookie.setCookieName(tokenName);
+        cookie.setCookieMaxAge(0);
+        cookie.addCookie(response, null);
+
+
+        cookie.setCookieName("namespace");
+        cookie.setCookieMaxAge(0);
+        cookie.addCookie(response, null);
+
+        cookie.setCookieName(cpUserId);
+        cookie.setCookieMaxAge(0);
+        cookie.addCookie(response, null);
     }
 }

@@ -37,17 +37,11 @@ public class UsersController {
     private final UsersService usersService;
     private final CommonService commonService;
 
-    @Value("${access.token-name}")
-    private String tokenName;
 
     @Autowired
     public UsersController(UsersService usersService, CommonService commonService) {
         this.usersService = usersService;
         this.commonService = commonService;
-    }
-
-    public void setTokenName(String tokenName) {
-        this.tokenName = tokenName;
     }
 
     /**
@@ -75,7 +69,7 @@ public class UsersController {
     @PostMapping(value = "/register")
     @ResponseBody
     public ResultStatus registerUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             List<String> errFieldList = new ArrayList<>();
 
             for (FieldError err : bindingResult.getFieldErrors()) {
@@ -156,19 +150,7 @@ public class UsersController {
     @GetMapping("/login")
     public ModelAndView loginView(HttpServletResponse response) {
 
-        //remove stored token
-        CookieGenerator cookie = new CookieGenerator();
-
-        cookie.setCookieName(tokenName);
-        cookie.setCookieMaxAge(0);
-        cookie.addCookie(response, null);
-
-
-        cookie.setCookieName("namespace");
-        cookie.setCookieMaxAge(0);
-        cookie.addCookie(response, null);
-
-
+        usersService.removeCookies(response);
         ModelAndView model = new ModelAndView();
         model.setViewName("/signUp/login");
         return model;
@@ -187,15 +169,7 @@ public class UsersController {
         ResultStatus rs = usersService.loginUser(users);
 
         if (rs.getResultCode().equals(Constants.RESULT_STATUS_SUCCESS)) {
-
-            String token = rs.getToken();
-
-            CookieGenerator cookie = new CookieGenerator();
-            cookie.setCookieName(tokenName);
-            cookie.setCookieMaxAge(60 * 60); // 1hours
-            cookie.setCookieHttpOnly(true);
-            cookie.addCookie(response, token);
-
+            usersService.addCookies(rs, response);
         }
 
         return rs;
@@ -210,18 +184,7 @@ public class UsersController {
     @GetMapping("/logout")
     public RedirectView logoutUser(HttpServletRequest request, HttpServletResponse response) {
 
-        //remove stored token
-        CookieGenerator cookie = new CookieGenerator();
-
-        cookie.setCookieName(tokenName);
-        cookie.setCookieMaxAge(0);
-        cookie.addCookie(response, null);
-
-
-        cookie.setCookieName("namespace");
-        cookie.setCookieMaxAge(0);
-        cookie.addCookie(response, null);
-
+        usersService.removeCookies(response);
         return new RedirectView("/login");
 
 
@@ -239,7 +202,6 @@ public class UsersController {
     }
 
 
-
     /**
      * 사용자 마이 페이지로 이동한다.
      *
@@ -254,4 +216,6 @@ public class UsersController {
         mv.addObject("user", userId);
         return commonService.setPathVariables(httpServletRequest, BASE_URL + "/info", mv);
     }
+
+
 }
