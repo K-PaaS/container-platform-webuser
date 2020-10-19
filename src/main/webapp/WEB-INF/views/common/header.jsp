@@ -26,9 +26,9 @@
                 </button>
                 <div id="r_user" class="dropdown-menu">
                     <ul class="cp-user">
+                        <li id="header-menu-users-info"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">My info</a></li>
                         <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
                         <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
-                        <%--<li id="header-menu-logout"><a href="javascript:void(0);" onclick="procMovePage('/logout');">Logout</a></li>--%>
                         <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logout();">Logout</a></li>
                     </ul>
                 </div>
@@ -115,6 +115,12 @@
 
     var getNamespacesList = function() {
         var html = "";
+
+        if(namespace === null || namespace === "" || namespace === undefined) {
+            console.log("token expired.....");
+            return procMovePage('/');
+        }
+
         for (var i = 0; i < namespacesList.length; i++) {
             html += "<option value='" + namespacesList[i] + "'" + "id='ns" + i + "'>" + namespacesList[i] + "</option>";
         };

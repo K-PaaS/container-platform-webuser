@@ -46,14 +46,13 @@
     var URI_API_PODS_RESOURCES = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>";
     var URI_WORKLOADS_PODS     = "<%= Constants.URI_WORKLOAD_PODS %>";
 
-
+    // todo remove :: accessInfo.jsp
     var USER_ID = "admin";
     var USER_NAME = "admin";
 
     var namespace = $.cookie('namespace');
     namespace = JSON.parse(namespace);
 
-    // Todo ::: 사용자가 로그인 시
     var namespacesList = namespace;
 
 </script>

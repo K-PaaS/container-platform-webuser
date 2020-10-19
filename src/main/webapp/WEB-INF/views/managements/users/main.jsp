@@ -9,7 +9,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <div class="cluster_tabs_user_config clearfix">
-        <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="createResource();">설정</button>
+        <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="updateUsersRolePage();">설정</button>
     </div>
     <div class="cluster_content01 row two_line two_view">
         <ul>
@@ -24,18 +24,11 @@
                             <button name="button" class="btn" id="userSearchBtn" type="button">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <select class="user-filter" onchange="changeRoleSearch()">
-                                <option selected>Total</option>
-                                <option value="Administrator">Administrator</option>
-                                <option value="Regular User">Regular User</option>
-                                <option value="Init User">Init User</option>
-                            </select>
                         </div>
                         <table class="table_event condition alignL user">
                             <colgroup>
                                 <col style='width:auto;'>
-                                <col style='width:20%;'>
-                                <col style='width:20%;'>
+                                <col style='width:30%;'>
                                 <col style='width:30%;'>
                             </colgroup>
                             <thead>
@@ -44,7 +37,6 @@
                                 <td>User ID</td>
                                 <td>생성일</td>
                                 <td>수정일</td>
-                                <td>Role</td>
                             </tr>
                             </thead>
                             <tbody id="resultArea">
@@ -58,23 +50,12 @@
 </div>
 
 <script type="text/javascript">
-    // var G_USERS_LIST;
-    var G_ROLE_SEARCH_NAME;
-
-    var NONE_CODE = "NONE";
-
-    <%--var G_ADMIN_CODE = '<c:out value="${roleSetCodeList.administratorCode}" />';--%>
-    <%--var G_REGULAR_USER_CODE = '<c:out value="${roleSetCodeList.regularUserCode}" />';--%>
-    <%--var G_INIT_USER_CODE = '<c:out value="${roleSetCodeList.initUserCode}" />';--%>
-
-    <%--var G_ADMIN_NAME = '<c:out value="${roleSetNameList.administratorName}" />';--%>
-    <%--var G_REGULAR_USER_NAME = '<c:out value="${roleSetNameList.regularUserName}" />';--%>
-    <%--var G_INIT_USER_NAME = '<c:out value="${roleSetNameList.initUserName}" />';--%>
+    var G_USERS_LIST;
 
     // GET LIST
     var getUsersList = function() {
         procViewLoading('show');
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_LIST %>".replace("{namespace:.+}", "temp-namespace");
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_LIST_BY_NAMESPACE %>".replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetUsersList);
     };
@@ -103,42 +84,15 @@
         var resultHeaderArea = $('#resultHeaderArea');
         var noResultArea = $('#noResultArea');
 
-        var items = [];
-
-        for(var k = 0; k < G_USERS_LIST.length; k++){
-        <%--    var rc = G_USERS_LIST[k].roleSetCode;--%>
-        <%--    console.log("rc :: " + rc);--%>
-
-        <%--    if(rc === '<%= Constants.NOT_ASSIGNED_ROLE %>'){--%>
-        <%--        rc = NONE_CODE;--%>
-        <%--    }--%>
-
-
-            var defaultSelectRole = $(".user-filter option:selected").val();
-
-            if(defaultSelectRole === "Total" || G_ROLE_SEARCH_NAME === "Total"){
-                items = G_USERS_LIST;
-                break;
-            }else if(G_ROLE_SEARCH_NAME === rc){
-                items.push(G_USERS_LIST[k]);
-            }
-        }
-
+        var items = G_USERS_LIST;
         var listLength = items.length;
 
         var checkListCount = 0;
         var htmlString = [];
 
-        var selectBox = '';
 
         for (var i = 0; i < listLength; i++) {
-            var option = '';
-            selectBox = '';
             userId = items[i].userId;
-            var rc = items[i].roleSetCode;
-            if(rc === '<%= Constants.NOT_ASSIGNED_ROLE %>'){
-                rc = NONE_CODE;
-            }
 
             if ((nvl(searchKeyword) === "") || userId.indexOf(searchKeyword) > -1) {
                 htmlString.push(
@@ -146,7 +100,7 @@
                     + "<td class='userId'>" + items[i].userId + "</td>"
                     + "<td>" + items[i].created + "</td>"
                     + "<td>" + items[i].lastModified + "</td>"
-                    + "<td>" + rc + "</td>"
+                    // + "<td>" + rc + "</td>"
                     + "</tr>");
 
                 checkListCount++;
@@ -173,6 +127,10 @@
         setUsersList(keyword);
     });
 
+
+    var updateUsersRolePage = function() {
+      procMovePage("<%= Constants.URI_USERS_CONFIG %>");
+    };
 
     // ON LOAD
     $(document.body).ready(function () {
