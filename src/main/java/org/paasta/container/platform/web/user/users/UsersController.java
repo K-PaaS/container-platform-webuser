@@ -2,6 +2,7 @@ package org.paasta.container.platform.web.user.users;
 
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
+import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.slf4j.Logger;
@@ -36,6 +37,15 @@ public class UsersController {
     private static final String BASE_URL = "/managements/users";
     private final UsersService usersService;
     private final CommonService commonService;
+
+    @Value("${access.cp-token}")
+    private String cpToken;
+
+    @Value("${access.cp-user-id}")
+    private String cpUserId;
+
+    @Value("${access.cp-namespace}")
+    private String cpNamespace;
 
 
     @Autowired
@@ -150,7 +160,10 @@ public class UsersController {
     @GetMapping("/login")
     public ModelAndView loginView(HttpServletResponse response) {
 
-        usersService.removeCookies(response);
+        CommonUtils.removeCookies(response,cpToken);
+        CommonUtils.removeCookies(response,cpUserId);
+        CommonUtils.removeCookies(response,cpNamespace);
+
         ModelAndView model = new ModelAndView();
         model.setViewName("/signUp/login");
         return model;
@@ -169,7 +182,8 @@ public class UsersController {
         ResultStatus rs = usersService.loginUser(users);
 
         if (rs.getResultCode().equals(Constants.RESULT_STATUS_SUCCESS)) {
-            usersService.addCookies(rs, response);
+            CommonUtils.addCookies(response,cpToken, rs.getToken() );
+            CommonUtils.addCookies(response,cpUserId, rs.getUserId() );
         }
 
         return rs;
@@ -184,9 +198,10 @@ public class UsersController {
     @GetMapping("/logout")
     public RedirectView logoutUser(HttpServletRequest request, HttpServletResponse response) {
 
-        usersService.removeCookies(response);
+        CommonUtils.removeCookies(response,cpToken);
+        CommonUtils.removeCookies(response,cpUserId);
+        CommonUtils.removeCookies(response,cpNamespace);
         return new RedirectView("/login");
-
 
     }
 
@@ -209,7 +224,8 @@ public class UsersController {
      * @return
      */
     @GetMapping(value = Constants.URI_USERS_INFO)
-    public ModelAndView getUserInfo(@PathVariable String userId, HttpServletRequest httpServletRequest) {
+    public ModelAndView getUserInfo(HttpServletRequest httpServletRequest) {
+        String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
         Users user = usersService.getUsers(userId).get(0);
 
         ModelAndView mv = new ModelAndView();

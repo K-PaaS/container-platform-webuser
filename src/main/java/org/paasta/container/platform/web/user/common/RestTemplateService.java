@@ -37,7 +37,7 @@ public class RestTemplateService {
     private String baseUrl;
     private HttpServletRequest request;
 
-    @Value("${access.token-name}")
+    @Value("${access.cp-token}")
     private String tokenName;
 
     public void setTokenName(String tokenName) {

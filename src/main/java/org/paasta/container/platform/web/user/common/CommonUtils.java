@@ -1,8 +1,13 @@
 package org.paasta.container.platform.web.user.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.springframework.util.StringUtils;
+import org.springframework.web.util.CookieGenerator;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,12 +45,61 @@ public class CommonUtils {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> map = objectMapper.convertValue(obj, Map.class);
 
-        for(String key : map.keySet()) {
-            if(StringUtils.hasText(map.get(key))) {
+        for (String key : map.keySet()) {
+            if (StringUtils.hasText(map.get(key))) {
                 checkParamList.add(key);
             }
         }
 
         return checkParamList;
     }
+
+
+    /**
+     * Cookies 추가 (HttpOnly = true, 만료 1시간 )
+     */
+    public static void addCookies(HttpServletResponse response, String name, String value) {
+
+        CookieGenerator cookie = new CookieGenerator();
+        cookie.setCookieName(name);
+        cookie.setCookieMaxAge(60 * 60); // 1hours
+        cookie.setCookieHttpOnly(true);
+        cookie.addCookie(response, value);
+    }
+
+
+    /**
+     * Cookies 삭제
+     */
+    public static void removeCookies(HttpServletResponse response, String name) {
+
+        CookieGenerator cookie = new CookieGenerator();
+
+        cookie.setCookieName(name);
+        cookie.setCookieMaxAge(0);
+        cookie.addCookie(response, null);
+
+    }
+
+
+    /**
+     * Cookies 가져오기
+     */
+    public static String getCookie(HttpServletRequest request, String name) {
+
+        String cookieValue = null;
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return null;
+        }
+
+        for (int i = 0; i < cookies.length; i++) {
+            if (name.equals(cookies[i].getName())) {
+                cookieValue = cookies[i].getValue();
+            }
+        }
+        return cookieValue;
+    }
+
 }
