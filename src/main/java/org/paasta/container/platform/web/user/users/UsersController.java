@@ -102,6 +102,28 @@ public class UsersController {
         return commonService.setPathVariables(httpServletRequest, BASE_URL + "/main", mv);
     }
 
+    /**
+     * 사용자 설정 페이지로 이동한다. (todo ::: Namespace 관리자만 접근 가능하도록)
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping(value = Constants.URI_USERS_CONFIG)
+    public ModelAndView getUserDetail(HttpServletRequest httpServletRequest) {
+        ModelAndView mv = new ModelAndView();
+        return commonService.setPathVariables(httpServletRequest, BASE_URL + "/config", mv);
+    }
+
+
+    /**
+     * 전체 사용자 목록을 조회한다.
+     *
+     * @return
+     */
+    @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST)
+    public UsersList getUsersList() {
+        return usersService.getUsersList();
+    }
 
     /**
      * 각 namespace별 사용자 목록을 조회한다.
@@ -109,11 +131,10 @@ public class UsersController {
      * @param namespace
      * @return
      */
-    @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST)
-    public UsersList getUsersList(@PathVariable(value = "namespace") String namespace) {
-        return usersService.getUsersList(namespace);
+    @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST_BY_NAMESPACE)
+    public UsersList getUsersListByNamespace(@PathVariable(value = "namespace") String namespace) {
+        return usersService.getUsersListByNamespace(namespace);
     }
-
 
 
     /**
@@ -219,4 +240,18 @@ public class UsersController {
 
 
 
+    /**
+     * 사용자 마이 페이지로 이동한다.
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    @GetMapping(value = Constants.URI_USERS_INFO)
+    public ModelAndView getUserInfo(@PathVariable String userId, HttpServletRequest httpServletRequest) {
+        Users user = usersService.getUsers(userId).get(0);
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("user", userId);
+        return commonService.setPathVariables(httpServletRequest, BASE_URL + "/info", mv);
+    }
 }

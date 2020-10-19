@@ -45,8 +45,8 @@ public class UsersService {
      * @param namespace
      * @return
      */
-    public UsersList getUsersList(String namespace) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST.replace("{namespace:.+}", namespace), HttpMethod.GET, null, UsersList.class);
+    public UsersList getUsersListByNamespace(String namespace) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST_BY_NAMESPACE.replace("{namespace:.+}", namespace), HttpMethod.GET, null, UsersList.class);
     }
 
 
@@ -67,5 +67,19 @@ public class UsersService {
      */
     public ResultStatus loginUser(Users users) {
         return restTemplateService.send(TARGET_CP_API, "/login", HttpMethod.POST, users, ResultStatus.class);
+    }
+
+    public List<Users> getUsers(String userId) {
+        return restTemplateService.send(TARGET_CP_API, "",HttpMethod.GET, null, List.class);
+    }
+
+
+    /**
+     * 전체 사용자 목록을 조회한다.
+     *
+     * @return
+     */
+    public UsersList getUsersList() {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST, HttpMethod.GET, null, UsersList.class);
     }
 }
