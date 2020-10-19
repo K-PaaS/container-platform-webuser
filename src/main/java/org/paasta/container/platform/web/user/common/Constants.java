@@ -46,7 +46,8 @@ public class Constants {
     public static final String URI_STORAGES = "/container-platform/storages";
 
     public static final String URI_USERS = "/container-platform/users";
-    public static final String URI_USERS_DETAIL = "/container-platform/users/{userId:.+}";
+    public static final String URI_USERS_CONFIG = "/container-platform/users/config";
+    public static final String URI_USERS_INFO = "/container-platform/users/{userId:.+}";
 
     public static final String URI_ROLES = "/container-platform/roles";
 
@@ -97,8 +98,8 @@ public class Constants {
     public static final String URI_API_ROLES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles";
     public static final String URI_API_ROLES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}";
 
-
-    public static final String URI_API_USERS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/users";
+    public static final String URI_API_USERS_LIST = "/clusters/cp-cluster/users";
+    public static final String URI_API_USERS_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users";
     public static final String URI_API_USERS_NAMES_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users/names";
 
     public static final String URI_API_ENDPOINTS_DETAIL = "/namespaces/{namespace:.+}/endpoints/{serviceName:.+}";
