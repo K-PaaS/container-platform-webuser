@@ -25,8 +25,8 @@
                 <button href="#" class="dropdown-toggle user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div id="r_user" class="dropdown-menu">
-                    <ul class="cp-user">
-                        <li id="header-menu-users-info"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">My info</a></li>
+                    <ul class="cp-user" style="width: 150px;">
+                        <li id="header-menu-info"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">My info</a></li>
                         <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
                         <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
                         <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logout();">Logout</a></li>

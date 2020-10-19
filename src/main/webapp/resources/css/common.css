@@ -404,9 +404,9 @@ nav .tit{ height: 61px; line-height: 61px; text-align: center; color:#454545; fo
 #lnbimg9{ width: 50px; height: 50px; background-image: url('../../resources/images/main/lnb_9.png');}
 
 /* 내계정 */
-#lnbimg10{ width: 36px; height: 43px; background-image: url('../../resources/images/main/lnb_10.png');}
-#lnbimg11{ width: 46px; height: 44px; background-image: url('../../resources/images/main/lnb_11.png');}
-#lnbimg12{ width: 44px; height: 46px; background-image: url('../../resources/images/main/lnb_12.png');}
+#lnbimg10{ width: 50px; height: 50px; background-image: url('../../resources/images/main/lnb_9.png');}
+#lnbimg11{ width: 36px; height: 43px; background-image: url('../../resources/images/main/lnb_10.png');}
+#lnbimg12{ width: 46px; height: 44px; background-image: url('../../resources/images/main/lnb_11.png');}
 #lnbimg13{ width: 42px; height: 48px; background-image: url('../../resources/images/main/lnb_13.png');}
 
 .nav_1d li > dl > dt > div{background-position: center top; }

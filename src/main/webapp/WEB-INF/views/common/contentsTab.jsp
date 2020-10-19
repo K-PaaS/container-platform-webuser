@@ -15,7 +15,7 @@
 <c:forEach var="path" items="${pathArray}" varStatus="g">
 
     <c:choose>
-        <c:when test="${g.index eq 0}"><!-- cass -->
+        <c:when test="${g.index eq 0}"><!-- container-platform -->
             <c:set var="pathLevel1" value="${path}" />
         </c:when>
         <c:when test="${g.index eq 1}"><!-- clusters / workloads / services  -->
