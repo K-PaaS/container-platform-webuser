@@ -250,3 +250,32 @@ select:focus {
     margin-right: 20px;
     position:relative;
 }
+
+/* 20.10.16 추가 */
+.update_wrap{
+    height: 600px;
+    background:#fff;
+}
+
+.update-form{
+    width:500px;
+    height: 50px;
+    display: block;
+    margin: 20px auto 10px auto
+}
+
+.update-form-image{
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 30px auto 50px;
+}
+
+.update-content{
+    width: 98%;
+    margin: 20px auto;
+}
+
+.empty-margin{
+    margin: 60px;
+}

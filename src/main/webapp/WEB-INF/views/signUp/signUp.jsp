@@ -133,6 +133,7 @@
     });
 
     $(document).ready(function() {
+        $('#userId').focus();
         $('#password').keyup(function(){
             $('#chkNotice').html('');
         });

@@ -102,4 +102,16 @@ public class CommonUtils {
         return cookieValue;
     }
 
+
+    /**
+     * 쌍따옴표 및 대괄호 제거
+     *
+     * @param str
+     * @return
+     */
+    public static String stringReplace(String str){
+        String match = "\\\"";
+        str = str.replaceAll(match, "").replaceAll("[\\[\\]]", "");
+        return str;
+    }
 }

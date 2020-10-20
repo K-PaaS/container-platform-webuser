@@ -14,11 +14,12 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import org.springframework.web.util.CookieGenerator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -224,12 +225,16 @@ public class UsersController {
      * @return
      */
     @GetMapping(value = Constants.URI_USERS_INFO)
-    public ModelAndView getUserInfo(HttpServletRequest httpServletRequest) {
+    public ModelAndView getUserInfoMain(HttpServletRequest httpServletRequest) throws UnsupportedEncodingException {
         String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
-        Users user = usersService.getUsers(userId).get(0);
+        String nsListString = CommonUtils.getCookie(httpServletRequest, cpNamespace);
+        String decodeNsListStr = URLDecoder.decode(nsListString, "euc-kr");
+        String[] nsList = CommonUtils.stringReplace(decodeNsListStr).split(",");
+
+        Users user = usersService.getUsers(nsList[0], userId);
 
         ModelAndView mv = new ModelAndView();
-        mv.addObject("user", userId);
+        mv.addObject("user", user);
         return commonService.setPathVariables(httpServletRequest, BASE_URL + "/info", mv);
     }
 
