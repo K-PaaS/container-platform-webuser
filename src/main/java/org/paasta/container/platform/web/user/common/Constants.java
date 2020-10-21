@@ -102,6 +102,7 @@ public class Constants {
     public static final String URI_API_USERS_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users";
     public static final String URI_API_USERS_NAMES_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users/names";
     public static final String URI_API_USERS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/users/{userId:.+}";
+    public static final String URI_API_USERS_INFO = "/clusters/cp-cluster/users/{userId:.+}";
 
     public static final String URI_API_ENDPOINTS_DETAIL = "/namespaces/{namespace:.+}/endpoints/{serviceName:.+}";
 

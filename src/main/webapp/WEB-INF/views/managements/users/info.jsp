@@ -6,6 +6,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <link rel="stylesheet" href="/resources/css/cp-common.css">
 <div class="update-content">
         <div class="update_wrap">
@@ -36,16 +37,30 @@
 <script type="text/javascript">
 
     $("#updateBtn").on('click', function () {
-        var code = "<p class='account_modal_p'>사용자 정보를 수정하시겠습니까?</p>";
-        procSetLayerPopup('사용자 정보 수정', code, '확인', '취소', 'x', 'createUpdateUserInfo()', null, null);
+        var code = "<p class='account_modal_p'>회원 정보를 수정하시겠습니까?</p>";
+        procSetLayerPopup('회원 정보 수정', code, '확인', '취소', 'x', 'createUpdateUserInfo()', null, null);
     });
 
     var createUpdateUserInfo = function () {
         $("#commonLayerPopup").modal("hide");
 
-        var reqUrl = "";
+        var userId = $("#userId").val();
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_INFO %>".replace("{userId:.+}", userId);
 
-        //procCallAjax(reqUrl, "PUT", yaml, true, callbackUpdateUserInfo);
+        var param = {
+            "userId": $("#userId").val(),
+            "password": $("#password").val(),
+            "email": $("#email").val()
+        };
+
+        procCallAjax(reqUrl, "PUT", JSON.stringify(param), false, callbackUpdateUserInfo);
+    };
+
+
+    var callbackUpdateUserInfo = function (data) {
+        procAlertMessage("회원 정보 수정이 완료되었습니다. 이전 페이지로 이동합니다.");
+        setTimeout(function(){procMovePage(-1)}, 1500);
+
     };
 
     var cancelBtn = function () {

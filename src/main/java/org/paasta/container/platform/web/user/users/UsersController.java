@@ -239,4 +239,15 @@ public class UsersController {
     }
 
 
+    /**
+     * 사용자 정보를 수정한다.
+     *
+     * @param userId  the userId
+     * @param users   the users
+     * @return        the ResultStatus
+     */
+    @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_INFO)
+    public ResultStatus updateUsers(@PathVariable(value = "userId") String userId, @RequestBody Users users) {
+        return usersService.updateUsers(userId, users);
+    }
 }

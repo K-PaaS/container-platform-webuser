@@ -94,4 +94,15 @@ public class UsersService {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST, HttpMethod.GET, null, UsersList.class);
     }
 
+
+    /**
+     * 사용자 정보를 수정한다.
+     *
+     * @param userId  the userId
+     * @param users   the users
+     * @return        the ResultStatus
+     */
+    public ResultStatus updateUsers(String userId, Users users) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_INFO.replace("{userId:.+}", userId), HttpMethod.PUT, users, ResultStatus.class);
+    }
 }
