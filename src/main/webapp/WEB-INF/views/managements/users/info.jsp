@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <input type="password" class="update-form" id="passwordConfirm" placeholder="Password Confirm">
-                <span class="info_box" id="chkNotice" style="font-size: medium; font-variant: small-caps;"></span>
+                <span class="update_info_box" id="chkNotice" style="font-size: large; font-variant: small-caps;"></span>
             </div>
             <div class="form-group">
                 <input type="text" class="update-form" id="email" placeholder="E-mail" maxlength="50" value="${user.email}">
@@ -71,5 +71,23 @@
     $(document.body).ready(function () {
         procViewLoading('hide');
         $('#password').focus();
+
+        $('#password').keyup(function(){
+            $('#chkNotice').html('');
+        });
+
+        $('#passwordConfirm').keyup(function(){
+            if($('#password').val() != $('#passwordConfirm').val()){
+                $('#chkNotice').html('비밀번호가 일치하지 않습니다.<br>');
+                $('#chkNotice').attr('style', 'color: #f82a2aa3');
+                $('.update_info_box').show();
+
+            } else{
+                $('#chkNotice').html('비밀번호가 일치합니다.');
+                $('#chkNotice').attr('style', 'color: #199894b3');
+                $('.update_info_box').show();
+            }
+
+        });
     });
 </script>

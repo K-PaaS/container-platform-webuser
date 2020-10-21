@@ -225,6 +225,14 @@ select:focus {
     display: none;
 }
 
+.update_info_box {
+    margin-top: 9px;
+    margin-left: 440px;
+    font-size: 15px;
+    color: red;
+    display: none;
+}
+
 
 /* 20.10.13 추가 */
 .resourceMoreDetailBtn {
