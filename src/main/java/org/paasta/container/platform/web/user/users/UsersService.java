@@ -90,8 +90,8 @@ public class UsersService {
      *
      * @return the UsersList
      */
-    public UsersList getUsersList() {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST, HttpMethod.GET, null, UsersList.class);
+    public UsersList getUsersList(String namespace) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST + "?namespace=" + namespace, HttpMethod.GET, null, UsersList.class);
     }
 
 

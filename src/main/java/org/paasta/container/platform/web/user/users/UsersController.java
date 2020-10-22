@@ -123,11 +123,11 @@ public class UsersController {
     /**
      * 전체 사용자 목록을 조회한다.
      *
-     * @return
+     * @return the UsersList
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST)
-    public UsersList getUsersList() {
-        return usersService.getUsersList();
+    public UsersList getUsersList(@RequestParam(name = "namespace") String namespace) {
+        return usersService.getUsersList(namespace);
     }
 
     /**
