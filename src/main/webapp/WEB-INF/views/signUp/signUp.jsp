@@ -30,9 +30,11 @@
         </div>
         <div class="form-group">
             <input type="text" class="form-control item" id="userId" placeholder="User Id" maxlength="12">
+            <span style="margin-top: 2px; margin-left:15px; color: blue; font-size: x-small; font-variant: small-caps;"> * User ID는 시작과 끝이 영(소문자)/숫자로 253자 이하, 특수문자는 '-' 또는 '.'만 사용 가능</span>
         </div>
         <div class="form-group">
             <input type="password" class="form-control item" id="password" placeholder="Password" maxlength="40">
+            <span style="margin-top: 2px; margin-left:15px; color: blue; font-size: x-small; font-variant: small-caps;"> * Password 는 4~40자 이하로 영문(소문자)으로 시작, 최소 하나 이상의 숫자와 특수 문자 혼합</span>
         </div>
         <div class="form-group">
             <input type="password" class="form-control item" id="passwordConfirm" placeholder="Password Confirm">
