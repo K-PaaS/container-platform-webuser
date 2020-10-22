@@ -19,7 +19,7 @@ public class CustomServicesService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Custom services service.
+     * Instantiates a new Custom services service
      *
      * @param restTemplateService the rest template service
      */
@@ -28,7 +28,7 @@ public class CustomServicesService {
 
 
     /**
-     * Services 목록을 조회한다.
+     * Services 목록 조회(Get Services list)
      *
      * @param namespace the namespace
      * @param limit the limit
@@ -50,11 +50,11 @@ public class CustomServicesService {
 
 
     /**
-     * Services 상세 정보를 조회한다.
+     * Services 상세 조회(Get Services detail)
      *
-     * @param namespace   the namespace
-     * @param serviceName the service name
-     * @return the custom services
+     * @param namespace the namespace
+     * @param serviceName the services name
+     * @return the custom services detail
      */
     CustomServices getCustomServices(String namespace, String serviceName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_DETAIL
@@ -65,10 +65,10 @@ public class CustomServicesService {
 
 
     /**
-     * Services YAML을 조회한다.
+     * Services YAML 조회(Get Services yaml)
      *
-     * @param namespace   the namespace
-     * @param serviceName the service name
+     * @param namespace the namespace
+     * @param serviceName the services name
      * @return the custom services yaml
      */
     CustomServices getCustomServicesYaml(String namespace, String serviceName) {
@@ -78,10 +78,8 @@ public class CustomServicesService {
                 HttpMethod.GET, null, CustomServices.class);
     }
 
-
-
     /**
-     * Services를 생성한다.
+     * Services 생성(Create Services)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -95,10 +93,10 @@ public class CustomServicesService {
 
 
     /**
-     * Services를 수정한다.
+     * Services 수정(Update Services)
      *
      * @param namespace the namespace
-     * @param serviceName the service name
+     * @param serviceName the services name
      * @param yaml the yaml
      * @return
      */
@@ -111,10 +109,10 @@ public class CustomServicesService {
 
 
     /**
-     * Services를 삭제한다.
+     * Services 삭제(Delete Services)
      *
-     * @param namespace   the namespace
-     * @param serviceName   the service name
+     * @param namespace the namespace
+     * @param serviceName the services name
      * @return
      */
     public Object deleteCustomServices(String namespace, String serviceName) {

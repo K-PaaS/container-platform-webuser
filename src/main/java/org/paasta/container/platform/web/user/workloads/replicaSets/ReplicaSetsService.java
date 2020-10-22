@@ -20,7 +20,7 @@ public class ReplicaSetsService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new ReplicaSets service.
+     * Instantiates a new ReplicaSets service
      *
      * @param restTemplateService the rest template service
      */
@@ -31,7 +31,7 @@ public class ReplicaSetsService {
 
 
     /**
-     * ReplicaSets 목록을 조회한다.
+     * ReplicaSets 목록 조회(Get ReplicaSets node)
      * @param namespace the namespace
      * @param limit the limit
      * @param continueToken the continueToken
@@ -53,11 +53,11 @@ public class ReplicaSetsService {
 
 
     /**
-     * ReplicaSets 상세 정보를 조회한다.
+     * ReplicaSets 상세 조회(Get ReplicaSets detail)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param replicaSetName the replicaSet name
-     * @return the replicaSets
+     * @return the replicaSets detail
      */
     ReplicaSets getReplicaSets(String namespace, String replicaSetName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_DETAIL
@@ -68,9 +68,9 @@ public class ReplicaSetsService {
 
 
     /**
-     * ReplicaSets YAML을 조회한다.
+     * ReplicaSets YAML 조회(Get ReplicaSets yaml)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param replicaSetName the replicaSet name
      * @return the replicaSets yaml
      */
@@ -83,10 +83,10 @@ public class ReplicaSetsService {
 
 
     /**
-     * ReplicaSets 목록을 조회한다. (Label Selector)
+     * ReplicaSets 목록 조회(Get ReplicaSets selector)
      *
      * @param namespace the namespace
-     * @param selectors the selectors
+     * @param selectors the selector
      * @return the replicaSets list
      */
     ReplicaSetsList getReplicaSetsListLabelSelector(String namespace, String selectors) {
@@ -98,7 +98,7 @@ public class ReplicaSetsService {
 
 
     /**
-     * ReplicaSets을 생성한다.
+     * ReplicaSets 생성(Create ReplicaSets)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -112,7 +112,7 @@ public class ReplicaSetsService {
 
 
     /**
-     * ReplicaSets을 수정한다.
+     * ReplicaSets 수정(Update ReplicaSets)
      *
      * @param namespace the namespace
      * @param replicaSetName the replicaSet name
@@ -128,9 +128,9 @@ public class ReplicaSetsService {
 
 
     /**
-     * ReplicaSets 상세 정보를 삭제한다.
+     * ReplicaSets 삭제(Delete ReplicaSets)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param replicaSetName   the replicaSet name
      * @return the replicaSets
      */

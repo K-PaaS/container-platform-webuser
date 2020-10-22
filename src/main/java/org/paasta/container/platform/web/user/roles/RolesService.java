@@ -19,7 +19,7 @@ public class RolesService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Roles service.
+     * Instantiates a new Roles service
      *
      * @param restTemplateService the rest template service
      */
@@ -29,7 +29,7 @@ public class RolesService {
 
 
     /**
-     * Roles 목록을 조회한다.
+     * Roles 목록 조회(Get Roles list)
      *
      * @param namespace the namespace
      * @param limit the limit
@@ -51,11 +51,11 @@ public class RolesService {
 
 
     /**
-     * Roles 상세 정보를 조회한다.
+     * Roles 상세 조회(Get Roles detail)
      *
      * @param namespace the namespace
-     * @param roleName the role name
-     * @return the roles
+     * @param roleName the roles name
+     * @return the roles detail
      */
     Roles getRoles(String namespace, String roleName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_ROLES_DETAIL
@@ -66,11 +66,11 @@ public class RolesService {
 
 
     /**
-     * Roles YAML을 조회한다.
+     * Roles YAML 조회(Get Roles yaml)
      *
-     * @param namespace  the namespace
-     * @param roleName the role name
-     * @return the  Roles yaml
+     * @param namespace the namespace
+     * @param roleName the roles name
+     * @return the roles yaml
      */
     Roles getRolesYaml(String namespace, String roleName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_ROLES_YAML
@@ -78,7 +78,5 @@ public class RolesService {
                         .replace("{roleName:.+}", roleName),
                 HttpMethod.GET, null, Roles.class);
     }
-
-
 
 }

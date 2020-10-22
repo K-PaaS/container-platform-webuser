@@ -23,7 +23,7 @@ public class PodsController {
     private final PodsService podsService;
 
     /**
-     * Instantiates a new Pods controller.
+     * Instantiates a new Pods controller
      *
      * @param commonService the common service
      * @param podsService   the pods service
@@ -35,7 +35,7 @@ public class PodsController {
     }
 
     /**
-     * Pods main 페이지로 이동한다.
+     * Pods main 페이지 이동(Move Pods main page)
      *
      * @param httpServletRequest the http servlet request
      * @return the pods main
@@ -46,11 +46,11 @@ public class PodsController {
     }
 
     /**
-     * Pods details 페이지로 이동한다.
+     * Pods details 페이지 이동(Move Pods detail page)
      *
      * @param httpServletRequest the http servlet request
-     * @param podName            the pods name
-     * @return the pods details
+     * @param podName the pods name
+     * @return the pods detail
      */
     @GetMapping(value = Constants.URI_WORKLOAD_PODS + "/{podName:.+}")
     public ModelAndView getPodDetails(HttpServletRequest httpServletRequest, @PathVariable(value = "podName") String podName) {
@@ -58,11 +58,11 @@ public class PodsController {
     }
 
     /**
-     * Pods events 페이지로 이동한다.
+     * Pods event 페이지 이동(Move Pods event page)
      *
      * @param httpServletRequest the http servlet request
-     * @param podName            the pods name
-     * @return the pods events
+     * @param podName the pods name
+     * @return the pods event
      */
     @GetMapping(value = Constants.URI_WORKLOAD_PODS + "/{podName:.+}/events")
     public ModelAndView getPodEvents(HttpServletRequest httpServletRequest, @PathVariable(value = "podName") String podName) {
@@ -70,10 +70,10 @@ public class PodsController {
     }
 
     /**
-     * Pods yaml 페이지로 이동한다.
+     * Pods yaml 페이지 이동(Move Pods yaml page)
      *
      * @param httpServletRequest the http servlet request
-     * @param podName            the pods name
+     * @param podName the pods name
      * @return the pods yaml
      */
     @GetMapping(value = Constants.URI_WORKLOAD_PODS + "/{podName:.+}/yaml")
@@ -82,7 +82,7 @@ public class PodsController {
     }
 
     /**
-     * Pods 목록을 조회한다.
+     * Pods 목록 조회(Get Pods list)
      *
      * @param namespace the namespace
      * @return the pods list
@@ -95,7 +95,7 @@ public class PodsController {
     }
 
     /**
-     * Pods 상세 정보를 조회한다.
+     * Pods 상세 조회(Get Pods detail)
      *
      * @param namespace the namespace
      * @param podName   the pods name
@@ -108,11 +108,11 @@ public class PodsController {
     }
 
     /**
-     * Pods YAML을 조회한다.
+     * Pods YAML 조회(Get Pods yaml)
      *
      * @param namespace the namespace
-     * @param podName   the pods name
-     * @return the pods
+     * @param podName the pods name
+     * @return the pods yaml
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_YAML)
     public Pods getPodYaml(@PathVariable(value = "namespace") String namespace,
@@ -121,7 +121,7 @@ public class PodsController {
     }
 
     /**
-     * Selector를 이용해 Pods 목록을 조회한다.
+     * Pods 목록 조회(Get Pods selector)
      *
      * @param namespace the namespace
      * @param selector  the selector
@@ -136,7 +136,7 @@ public class PodsController {
 
 
     /**
-     * Selector와 Service 이름을 이용해 Pods 목록을 조회한다.
+     * Pods 목록 조회(Get Pods selector, service)
      *
      * @param namespace   the namespace
      * @param serviceName the service name
@@ -156,7 +156,7 @@ public class PodsController {
     }
 
     /**
-     * Node 이름을 이용해 Pods 목록을 조회한다.
+     * Pods 목록 조회(Get Pods node)
      *
      * @param namespace the namespace
      * @param nodeName  the node name
@@ -170,7 +170,7 @@ public class PodsController {
     }
 
     /**
-     * Pods을 생성한다.
+     * Pods 생성(Create Pods)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -184,7 +184,7 @@ public class PodsController {
     }
 
     /**
-     * Pods을 수정한다.
+     * Pods 수정(Update Pods)
      *
      * @param namespace   the namespace
      * @param podName the pod name
@@ -199,7 +199,7 @@ public class PodsController {
 
 
     /**
-     * Pods을 삭제한다.
+     * Pods 삭제(Delete Pods)
      *
      * @param namespace the namespace
      * @param podName the pod name

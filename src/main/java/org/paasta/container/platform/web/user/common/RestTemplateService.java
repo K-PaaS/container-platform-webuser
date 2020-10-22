@@ -46,7 +46,7 @@ public class RestTemplateService {
 
 
     /**
-     * Instantiates a new Rest template service.
+     * Instantiates a new Rest template service
      *
      * @param cpApiAuthorizationId         the container platform api authorization id
      * @param cpApiAuthorizationPassword   the container platform api authorization password
@@ -75,7 +75,7 @@ public class RestTemplateService {
 
 
     /**
-     * Send t.
+     * Send t
      *
      * @param <T>          the type parameter
      * @param reqApi       the req api
@@ -129,7 +129,7 @@ public class RestTemplateService {
 
 
     /**
-     * Send t.
+     * Send t
      *
      * @param <T>          the type parameter
      * @param reqApi       the req api

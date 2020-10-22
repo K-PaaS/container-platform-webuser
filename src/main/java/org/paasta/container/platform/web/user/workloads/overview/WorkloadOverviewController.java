@@ -23,7 +23,7 @@ public class WorkloadOverviewController {
     private final CommonService commonService;
 
     /**
-     * Instantiates a new Workload overview controller.
+     * Instantiates a new Workload overview controller
      *
      * @param commonService the common service
      */
@@ -32,7 +32,7 @@ public class WorkloadOverviewController {
 
 
     /**
-     * Workload Overview 페이지로 이동한다.
+     * Workload Overview 페이지 이동(Move Workload Overview page)
      *
      * @param httpServletRequest the http servlet request
      * @return the workload overview

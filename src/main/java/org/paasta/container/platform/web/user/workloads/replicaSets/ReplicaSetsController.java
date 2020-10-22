@@ -26,7 +26,7 @@ public class ReplicaSetsController {
     private final ReplicaSetsService replicaSetService;
 
     /**
-     * Instantiates a new ReplicaSets controller.
+     * Instantiates a new ReplicaSets controller
      *
      * @param commonService      the common service
      * @param replicaSetsService the replicaSet service
@@ -38,7 +38,7 @@ public class ReplicaSetsController {
     }
 
     /**
-     * ReplicaSets main 페이지로 이동한다.
+     * ReplicaSets main 페이지 이동(Move ReplicaSets main page)
      *
      * @param httpServletRequest the http servlet request
      * @return the replicaSets main
@@ -50,7 +50,7 @@ public class ReplicaSetsController {
 
 
     /**
-     * ReplicaSets detail 페이지로 이동한다.
+     * ReplicaSets detail 페이지 이동(Move ReplicaSets detail page)
      *
      * @param httpServletRequest the http servlet request
      * @return the replicaSets detail
@@ -62,10 +62,10 @@ public class ReplicaSetsController {
 
 
     /**
-     * ReplicaSets events 페이지로 이동한다.
+     * ReplicaSets event 페이지 이동(Move ReplicaSets event page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the replicaSets detail events
+     * @return the replicaSets event
      */
     @GetMapping(value = Constants.URI_WORKLOAD_REPLICA_SETS + "/{replicaSetName:.+}/events")
     public ModelAndView getReplicaSetsDetailEvents(HttpServletRequest httpServletRequest, @PathVariable("replicaSetName") String replicaSetName) {
@@ -74,10 +74,10 @@ public class ReplicaSetsController {
 
 
     /**
-     * ReplicaSets yaml 페이지로 이동한다.
+     * ReplicaSets yaml 페이지 이동(Move ReplicaSets yaml page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the replicaSets detail yaml
+     * @return the replicaSets yaml
      */
     @GetMapping(value = Constants.URI_WORKLOAD_REPLICA_SETS + "/{replicaSetName:.+}/yaml")
     public ModelAndView getReplicaSetsDetailYaml(HttpServletRequest httpServletRequest, @PathVariable("replicaSetName") String replicaSetName) {
@@ -86,7 +86,7 @@ public class ReplicaSetsController {
 
 
     /**
-     * ReplicaSets 목록을 조회한다.
+     * ReplicaSets 목록 조회(Get ReplicaSets list)
      *
      * @param namespace the namespace
      * @param limit the limit
@@ -104,11 +104,11 @@ public class ReplicaSetsController {
 
 
     /**
-     * ReplicaSets 상세 정보를 조회한다.
+     * ReplicaSets 상세 조회(Get ReplicaSets detail)
      *
      * @param namespace the namespace
      * @param replicaSetName the replicaSet name
-     * @return the replicaSets
+     * @return the replicaSets detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DETAIL)
     @ResponseBody
@@ -118,7 +118,7 @@ public class ReplicaSetsController {
 
 
     /**
-     * ReplicaSets YAML 정보를 조회한다.
+     * ReplicaSets YAML 조회(Get ReplicaSets yaml)
      *
      * @param namespace the namespace
      * @param replicaSetName the replicaSetName name
@@ -132,10 +132,10 @@ public class ReplicaSetsController {
 
 
     /**
-     * ReplicaSets 목록을 조회한다. (Label Selector)
+     * ReplicaSets 목록 조회 (Get ReplicaSets selector)
      *
      * @param namespace the namespace
-     * @param selector the selector for filter
+     * @param selector the selector
      * @return the replicaSets list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_RESOURCES)
@@ -145,7 +145,7 @@ public class ReplicaSetsController {
     }
 
     /**
-     * ReplicaSets을 생성한다.
+     * ReplicaSets 생성(Create ReplicaSets)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -158,14 +158,12 @@ public class ReplicaSetsController {
 
     }
 
-
-
     /**
-     * ReplicaSets을 수정한다.
+     * ReplicaSets 수정(Update ReplicaSets)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param replicaSetName the replicaSetName name
-     * @param yaml        the yaml
+     * @param yaml the yaml
      * @return
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_UPDATE)
@@ -175,7 +173,7 @@ public class ReplicaSetsController {
     }
 
     /**
-     * ReplicaSets을 삭제한다.
+     * ReplicaSets 삭제(Delete ReplicaSets)
      *
      * @param namespace the namespace
      * @param replicaSetName the replicaSetName name

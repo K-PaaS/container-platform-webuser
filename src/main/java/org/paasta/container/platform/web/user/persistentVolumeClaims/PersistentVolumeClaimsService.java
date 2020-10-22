@@ -19,7 +19,7 @@ public class PersistentVolumeClaimsService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new deployments service.
+     * Instantiates a new deployments service
      *
      * @param restTemplateService the rest template service
      */
@@ -30,12 +30,12 @@ public class PersistentVolumeClaimsService {
 
 
     /**
-     * PersistentVolumeClaims 목록을 조회한다.
+     * PersistentVolumeClaims 목록 조회(Get PersistentVolumeClaims list)
      *
      * @param namespace the namespace
      * @param limit the limit
      * @param continueToken the continueToken
-     * @return the Persistent Volume Claims List
+     * @return the persistentVolumeClaims list
      */
     PersistentVolumeClaimsList getPersistentVolumeClaimsList(String namespace,int limit, String continueToken) {
 
@@ -52,11 +52,11 @@ public class PersistentVolumeClaimsService {
 
 
     /**
-     * PersistentVolumeClaims 상세 정보를 조회한다.
+     * PersistentVolumeClaims 상세 정보(Get PersistentVolumeClaims detail)
      *
-     * @param namespace                     the namespace
-     * @param persistentVolumeClaimName  the Persistent Volume Claim name
-     * @return the Persistent Volume Claims
+     * @param namespace the namespace
+     * @param persistentVolumeClaimName the persistentVolumeClaims name
+     * @return the persistentVolumeClaims detail
      */
     PersistentVolumeClaims getPersistentVolumeClaims(String namespace, String persistentVolumeClaimName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_DETAIL
@@ -67,11 +67,11 @@ public class PersistentVolumeClaimsService {
 
 
     /**
-     * PersistentVolumeClaims YAML 을 조회한다.
+     * PersistentVolumeClaims YAML 조회(Get PersistentVolumeClaims yaml)
      *
-     * @param namespace                    the namespace
-     * @param persistentVolumeClaimName the Persistent Volume Claim name
-     * @return the Persistent Volume Claims
+     * @param namespace the namespace
+     * @param persistentVolumeClaimName the persistentVolumeClaims name
+     * @return the persistentVolumeClaims yaml
      */
     public PersistentVolumeClaims getPersistentVolumeClaimYaml(String namespace, String persistentVolumeClaimName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_YAML
@@ -82,7 +82,7 @@ public class PersistentVolumeClaimsService {
 
 
     /**
-     * PersistentVolumeClaims 를 생성한다.
+     * PersistentVolumeClaims 생성(Create PersistentVolumeClaims)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -95,10 +95,10 @@ public class PersistentVolumeClaimsService {
     }
 
     /**
-     * PersistentVolumeClaims 를 수정한다.
+     * PersistentVolumeClaims 수정(Update PersistentVolumeClaims)
      *
      * @param namespace the namespace
-     * @param persistentVolumeClaimName the persistentVolumeClaim name
+     * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @param yaml the yaml
      * @return
      */
@@ -110,10 +110,10 @@ public class PersistentVolumeClaimsService {
     }
 
     /**
-     * PersistentVolumeClaims 를 삭제한다.
+     * PersistentVolumeClaims 삭제(Delete PersistentVolumeClaims)
      *
-     * @param namespace   the namespace
-     * @param persistentVolumeClaimName   the persistentVolumeClaim name
+     * @param namespace the namespace
+     * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return
      */
     public Object deletePersistentVolumeClaims(String namespace, String persistentVolumeClaimName) {

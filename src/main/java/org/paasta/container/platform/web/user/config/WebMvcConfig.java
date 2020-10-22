@@ -32,7 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * View resolver view resolver.
+     * View resolver view resolver
      *
      * @return the view resolver
      */
@@ -47,7 +47,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * Custom interceptor custom interceptor.
+     * Custom interceptor custom interceptor
      *
      * @return the custom interceptor
      */

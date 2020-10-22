@@ -24,7 +24,7 @@ public class RolesController {
     private final RolesService rolesService;
 
     /**
-     * Instantiates a new roles Roles controller.
+     * Instantiates a new roles Roles controller
      *
      * @param commonService  the common service
      * @param rolesService  the roles service
@@ -37,7 +37,7 @@ public class RolesController {
 
 
     /**
-     * Roles main 페이지로 이동한다.
+     * Roles main 페이지 이동(Move Roles main page)
      *
      * @param httpServletRequest the http servlet request
      * @return the roles main
@@ -49,7 +49,7 @@ public class RolesController {
 
 
     /**
-     * Roles detail 페이지로 이동한다.
+     * Roles detail 페이지 이동(Move Roles detail page)
      *
      * @param httpServletRequest the http servlet request
      * @return the roles detail
@@ -61,10 +61,10 @@ public class RolesController {
 
 
     /**
-     * Roles events 페이지로 이동한다.
+     * Roles event 페이지 이동(Move Roles event page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the roles detail events
+     * @return the roles event
      */
     @GetMapping(value = Constants.URI_ROLES + "/{roleName:.+}/events")
     public ModelAndView getRolesDetailEvents(HttpServletRequest httpServletRequest, @PathVariable(value = "roleName") String roleName) {
@@ -73,10 +73,10 @@ public class RolesController {
 
 
     /**
-     * Roles yaml 페이지로 이동한다.
+     * Roles yaml 페이지 이동(Move Roles yaml page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the roles detail yaml
+     * @return the roles yaml
      */
     @GetMapping(value = Constants.URI_ROLES + "/{roleName:.+}/yaml")
     public ModelAndView getRolesDetailYaml(HttpServletRequest httpServletRequest, @PathVariable(value = "roleName") String roleName) {
@@ -85,7 +85,7 @@ public class RolesController {
 
 
     /**
-     * Roles 목록을 조회한다.
+     * Roles 목록 조회(Get Roles list)
      *
      * @param namespace the namespace
      * @param limit the limit
@@ -103,11 +103,11 @@ public class RolesController {
 
 
     /**
-     * Roles 상세 정보를 조회한다.
+     * Roles 상세 조회(Get Roles detail)
      *
-     * @param namespace   the namespace
-     * @param roleName the role name
-     * @return the roles
+     * @param namespace the namespace
+     * @param roleName the roles name
+     * @return the roles detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_DETAIL)
     @ResponseBody
@@ -117,10 +117,10 @@ public class RolesController {
 
 
     /**
-     * Roles YAML 정보를 조회한다.
+     * Roles YAML 조회(Get Roles yaml)
      *
-     * @param namespace   the namespace
-     * @param roleName the role name
+     * @param namespace the namespace
+     * @param roleName the roles name
      * @return the roles yaml
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_YAML)

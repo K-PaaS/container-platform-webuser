@@ -24,7 +24,7 @@ public class CustomServicesController {
     private final CustomServicesService customServicesService;
 
     /**
-     * Instantiates a new Custom services controller.
+     * Instantiates a new Custom services controller
      *
      * @param commonService         the common service
      * @param customServicesService the custom services service
@@ -37,7 +37,7 @@ public class CustomServicesController {
 
 
     /**
-     * Services main 페이지로 이동한다.
+     * Services main 페이지 이동(Move Services main page)
      *
      * @param httpServletRequest the http servlet request
      * @return the custom services main
@@ -49,7 +49,7 @@ public class CustomServicesController {
 
 
     /**
-     * Services detail 페이지로 이동한다.
+     * Services detail 페이지 이동(Move Services detail page)
      *
      * @param httpServletRequest the http servlet request
      * @return the custom services detail
@@ -61,10 +61,10 @@ public class CustomServicesController {
 
 
     /**
-     * Services events 페이지로 이동한다.
+     * Services event 페이지 이동(Move Services event page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the custom services detail events
+     * @return the custom services event
      */
     @GetMapping(value = Constants.URI_SERVICES + "/{serviceName:.+}/events")
     public ModelAndView getCustomServicesDetailEvents(HttpServletRequest httpServletRequest) {
@@ -73,10 +73,10 @@ public class CustomServicesController {
 
 
     /**
-     * Services yaml 페이지로 이동한다.
+     * Services yaml 페이지 이동(Move Services yaml page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the custom services detail yaml
+     * @return the custom services yaml
      */
     @GetMapping(value = Constants.URI_SERVICES + "/{serviceName:.+}/yaml")
     public ModelAndView getCustomServicesDetailYaml(HttpServletRequest httpServletRequest) {
@@ -85,7 +85,7 @@ public class CustomServicesController {
 
 
     /**
-     * Services 목록을 조회한다.
+     * Services 목록 조회(Get Services list)
      *
      * @param namespace the namespace
      * @param limit the limit
@@ -103,11 +103,11 @@ public class CustomServicesController {
 
 
     /**
-     * Services 상세 정보를 조회한다.
+     * Services 상세 조회(Get Services detail)
      *
      * @param namespace   the namespace
-     * @param serviceName the service name
-     * @return the custom service
+     * @param serviceName the services name
+     * @return the custom service detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DETAIL)
     @ResponseBody
@@ -117,10 +117,10 @@ public class CustomServicesController {
 
 
     /**
-     * Services YAML 정보를 조회한다.
+     * Services YAML 조회(Get Services yaml)
      *
      * @param namespace   the namespace
-     * @param serviceName the service name
+     * @param serviceName the services name
      * @return the custom services yaml
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_YAML)
@@ -131,7 +131,7 @@ public class CustomServicesController {
 
 
     /**
-     * Services를 생성한다.
+     * Services 생성(Create Services)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -147,11 +147,11 @@ public class CustomServicesController {
 
 
     /**
-     * Services를 수정한다.
+     * Services 수정(Update Services)
      *
-     * @param namespace   the namespace
-     * @param serviceName the service name
-     * @param yaml        the yaml
+     * @param namespace the namespace
+     * @param serviceName the services name
+     * @param yaml the yaml
      * @return
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_UPDATE)
@@ -162,10 +162,10 @@ public class CustomServicesController {
 
 
     /**
-     * Services를 삭제한다.
+     * Services 삭제(Delete Services)
      *
      * @param namespace the namespace
-     * @param serviceName the service name
+     * @param serviceName the services name
      * @return
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DELETE)

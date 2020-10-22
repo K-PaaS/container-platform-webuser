@@ -26,8 +26,8 @@ public class DeploymentsService {
 
 
     /**
-     * Deployments 목록을 조회한다.
-     * @param namespace   the namespace
+     * Deployments 목록 조회(Get Deployments list)
+     * @param namespace the namespace
      * @return the deployments list
      */
     public DeploymentsList getDeploymentsList (String namespace ,int limit, String continueToken ) {
@@ -45,11 +45,11 @@ public class DeploymentsService {
     }
 
     /**
-     * Deployments 상세 정보를 조회한다.
+     * Deployments 상세 조회(Get Deployments detail)
      *
      * @param namespace   the namespace
      * @param deploymentName the deployments name
-     * @return the deployments
+     * @return the deployments detail
      */
     public Deployments getDeployments (String namespace, String deploymentName ) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_DETAIL
@@ -59,9 +59,9 @@ public class DeploymentsService {
     }
 
     /**
-     * Deployments YAML을 조회한다.
+     * Deployments YAML 조회(Get Deployments yaml)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param deploymentName the deployments name
      * @return the deployments yaml
      */
@@ -73,7 +73,7 @@ public class DeploymentsService {
     }
 
     /**
-     * Deployments를 생성한다.
+     * Deployments 생성(Create Deployments)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -86,7 +86,7 @@ public class DeploymentsService {
     }
 
     /**
-     * Deployments를 수정한다.
+     * Deployments 수정(Update Deployments)
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name
@@ -101,7 +101,7 @@ public class DeploymentsService {
     }
 
     /**
-     * Deployments를 삭제한다.
+     * Deployments 삭제(Delete Deployments)
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name

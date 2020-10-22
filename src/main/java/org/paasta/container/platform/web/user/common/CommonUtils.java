@@ -24,7 +24,7 @@ public class CommonUtils {
 
     /**
      * 요청 파라미터들의 빈값 또는 null값 확인을 하나의 메소드로 처리할 수 있도록 생성한 메소드
-     * 요청 파라미터 중 빈값 또는 null값인 파라미터가 있는 경우, false를 리턴한다.
+     * 요청 파라미터 중 빈값 또는 null값인 파라미터가 있는 경우, false를 리턴
      *
      * @return boolean
      */
@@ -34,7 +34,7 @@ public class CommonUtils {
 
 
     /**
-     * 요청 파라미터들 중 빈 값 또는 null인 파라미터를 추출한다.
+     * 요청 파라미터들 중 빈 값 또는 null인 파라미터를 추출
      *
      * @param obj the Object
      * @return the List<String>

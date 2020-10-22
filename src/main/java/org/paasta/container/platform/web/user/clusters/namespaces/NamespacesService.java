@@ -28,10 +28,10 @@ public class NamespacesService {
     public NamespacesService(RestTemplateService restTemplateService) {this.restTemplateService = restTemplateService;}
 
     /**
-     * Namespaces 상세 정보를 조회한다.
+     * Namespaces 상세 조회(Get Namespaces detail)
      *
      * @param namespace the namespaces
-     * @return the Namespaces
+     * @return the namespaces detail
      */
     Namespaces getNamespaces(String namespace) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_NAME_SPACES_DETAIL
@@ -39,10 +39,10 @@ public class NamespacesService {
     }
 
     /**
-     * Namespaces ResourceQuotas 정보를 조회한다.
+     * Namespaces ResourceQuotas 조회(Get Namespaces resourceQuotas)
      *
      * @param namespace the namespaces
-     * @return the ResourceQuotaList
+     * @return the resourceQuotas list
      */
     ResourceQuotaList getResourceQuotasList(String namespace) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS

@@ -16,7 +16,7 @@ public class DashboardController {
 
 
     /**
-     * 권한없음 페이지로 이동한다.
+     * 권한없음 페이지로 이동
      */
     @RequestMapping(value = "/common/error/unauthorized")
     public ModelAndView pageError401() {

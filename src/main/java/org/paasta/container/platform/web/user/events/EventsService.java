@@ -19,7 +19,7 @@ public class EventsService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Events service.
+     * Instantiates a new Events service
      *
      * @param restTemplateService the rest template service
      */
@@ -27,7 +27,7 @@ public class EventsService {
     public EventsService(RestTemplateService restTemplateService) {this.restTemplateService = restTemplateService;}
 
     /**
-     * Events 목록을 조회한다.
+     * Events 목록 조회(Get Events list)
      *
      * @param namespace the namespace Name
      * @param resourceUid the resource Uid
@@ -41,7 +41,7 @@ public class EventsService {
     }
 
     /**
-     * Events 목록을 조회한다.(for namespace)
+     * Events 목록을 조회(Get Events namespace)
      *
      * @param namespace the namespace Name
      * @return the events list

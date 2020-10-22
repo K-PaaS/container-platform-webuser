@@ -24,7 +24,7 @@ public class PersistentVolumeClaimsController {
     private final PersistentVolumeClaimsService persistentVolumeClaimsService;
 
     /**
-     * Instantiates a new persistentVolumeClaims controller.
+     * Instantiates a new persistentVolumeClaims controller
      *
      * @param commonService                     the common service
      * @param persistentVolumeClaimsService  the persistentVolumeClaims Service
@@ -37,10 +37,10 @@ public class PersistentVolumeClaimsController {
 
 
     /**
-     * PersistentVolumeClaim main 페이지로 이동한다.
+     * PersistentVolumeClaim main 페이지 이동(Move PersistentVolumeClaim main page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the storages main
+     * @return the persistentVolumeClaims main
      */
     @GetMapping(value = Constants.URI_STORAGES)
     public ModelAndView getStoragesMain(HttpServletRequest httpServletRequest) {
@@ -49,10 +49,10 @@ public class PersistentVolumeClaimsController {
 
 
     /**
-     * PersistentVolumeClaim detail 페이지로 이동한다.
+     * PersistentVolumeClaim detail 페이지 이동(Move PersistentVolumeClaim detail page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the storages detail
+     * @return the persistentVolumeClaims detail
      */
     @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}")
     public ModelAndView getStoragesDetail(HttpServletRequest httpServletRequest, @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
@@ -61,10 +61,10 @@ public class PersistentVolumeClaimsController {
 
 
     /**
-     * PersistentVolumeClaim events 페이지로 이동한다.
+     * PersistentVolumeClaim event 페이지 이동(Move PersistentVolumeClaim event page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the persistentVolumeClaim detail events
+     * @return the persistentVolumeClaims event
      */
     @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}/events")
     public ModelAndView getPersistentVolumeClaimEvent(HttpServletRequest httpServletRequest, @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
@@ -73,10 +73,10 @@ public class PersistentVolumeClaimsController {
 
 
     /**
-     * PersistentVolumeClaim yaml 페이지로 이동한다.
+     * PersistentVolumeClaim yaml 페이지 이동(Move PersistentVolumeClaim event yaml)
      *
      * @param httpServletRequest the http servlet request
-     * @return the persistentVolumeClaim detail yaml
+     * @return the persistentVolumeClaims yaml
      */
     @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}/yaml")
     public ModelAndView getPersistentVolumeClaimYaml(HttpServletRequest httpServletRequest, @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
@@ -85,12 +85,12 @@ public class PersistentVolumeClaimsController {
 
 
     /**
-     * Persistent Volume Claims 목록을 조회한다.
+     * PersistentVolumeClaims 목록 조회(Get PersistentVolumeClaims list)
      *
      * @param namespace the namespace
      * @param limit the limit
      * @param continueToken the continueToken
-     * @return the persistent volumes list
+     * @return the persistentVolumeClaims list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_LIST)
     @ResponseBody
@@ -103,11 +103,11 @@ public class PersistentVolumeClaimsController {
 
 
     /**
-     * PersistentVolumeClaims 를 상세 정보를 조회한다.
+     * PersistentVolumeClaims 상세 조회(Get PersistentVolumeClaims detail)
      *
-     * @param namespace                    the namespace
-     * @param persistentVolumeClaimName the persistent volume claim name
-     * @return the PersistentVolumeClaims
+     * @param namespace the namespace
+     * @param persistentVolumeClaimName the persistentVolumeClaims name
+     * @return the persistentVolumeClaims detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_DETAIL)
     public PersistentVolumeClaims getPersistentVolumeClaims(@PathVariable(value = "namespace") String namespace, @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
@@ -116,11 +116,11 @@ public class PersistentVolumeClaimsController {
 
 
     /**
-     * PersistentVolumeClaims YAML을 조회한다.
+     * PersistentVolumeClaims YAML 조회(Get PersistentVolumeClaims yaml)
      *
      * @param namespace                    the namespace
-     * @param persistentVolumeClaimName the persistent volume claim name
-     * @return the PersistentVolumeClaims
+     * @param persistentVolumeClaimName the persistentVolumeClaims name
+     * @return the persistentVolumeClaims yaml
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_YAML)
     public PersistentVolumeClaims getPersistentVolumeClaimYaml(@PathVariable(value = "namespace") String namespace,
@@ -129,7 +129,7 @@ public class PersistentVolumeClaimsController {
     }
 
     /**
-     * PersistentVolumeClaims 를 생성한다.
+     * PersistentVolumeClaims 생성(Create PersistentVolumeClaims)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -143,11 +143,11 @@ public class PersistentVolumeClaimsController {
     }
 
     /**
-     * PersistentVolumeClaims 를 수정한다.
+     * PersistentVolumeClaims 수정(Update PersistentVolumeClaims)
      *
-     * @param namespace   the namespace
-     * @param persistentVolumeClaimName the persistentVolumeClaim name
-     * @param yaml        the yaml
+     * @param namespace the namespace
+     * @param persistentVolumeClaimName the persistentVolumeClaims name
+     * @param yaml the yaml
      * @return
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_UPDATE)
@@ -157,10 +157,10 @@ public class PersistentVolumeClaimsController {
     }
 
     /**
-     * PersistentVolumeClaims 를 삭제한다.
+     * PersistentVolumeClaims 삭제(Delete PersistentVolumeClaims)
      *
      * @param namespace the namespace
-     * @param persistentVolumeClaimName the persistentVolumeClaim name
+     * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_DELETE)

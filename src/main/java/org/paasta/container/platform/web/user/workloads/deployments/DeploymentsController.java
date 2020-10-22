@@ -30,7 +30,7 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments main 페이지로 이동한다.
+     * Deployments main 페이지 이동(Move Deployments main page)
      *
      * @param httpServletRequest the http servlet request
      * @return the deployments main
@@ -41,7 +41,7 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments detail 페이지로 이동한다.
+     * Deployments detail 페이지 이동(Move Deployments detail page)
      *
      * @param httpServletRequest the http servlet request
      * @return the deployments detail
@@ -52,10 +52,10 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments events 페이지로 이동한다.
+     * Deployments event 페이지 이동(Move Deployments event page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the deployments detail events
+     * @return the deployments detail event
      */
     @GetMapping(value = Constants.CP_BASE_URL + "/workloads/deployments/{deploymentName}/events")
     public ModelAndView getDashboardEvent(HttpServletRequest httpServletRequest, @PathVariable(value = "deploymentName") String deploymentName) {
@@ -63,10 +63,10 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments yaml 페이지로 이동한다.
+     * Deployments yaml 페이지 이동(Move Deployments yaml page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the replicaSets detail yaml
+     * @return the deployments detail yaml
      */
     @GetMapping(value = Constants.CP_BASE_URL + "/workloads/deployments/{deploymentName}/yaml")
     public ModelAndView getDashboardYaml(HttpServletRequest httpServletRequest, @PathVariable(value = "deploymentName") String deploymentName) {
@@ -74,7 +74,7 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments 목록을 조회한다.
+     * Deployments 목록 조회(Get Deployments list)
      *
      * @param namespace the namespace
      * @return the deployments list
@@ -88,11 +88,11 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments 상세 정보를 조회한다.
+     * Deployments 상세 조회(Get Deployments detail)
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name
-     * @return the deployments
+     * @return the deployments detail
      */
     @GetMapping( value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_DETAIL )
     public Deployments getDeployments(@PathVariable String namespace, @PathVariable String deploymentName) {
@@ -100,7 +100,7 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments YAML 정보를 조회한다.
+     * Deployments YAML 정보 조회(Get Deployments yaml)
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name
@@ -113,7 +113,7 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments를 생성한다.
+     * Deployments 생성(Create Deployments)
      *
      * @param namespace the namespace
      * @param yaml the yaml
@@ -127,7 +127,7 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments를 수정한다.
+     * Deployments 수정(Update Deployments)
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name
@@ -140,7 +140,7 @@ public class DeploymentsController {
     }
 
     /**
-     * Deployments를 삭제한다.
+     * Deployments 삭제(Delete Deployments)
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name

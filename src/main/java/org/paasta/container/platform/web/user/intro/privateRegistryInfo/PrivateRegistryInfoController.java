@@ -25,7 +25,7 @@ public class PrivateRegistryInfoController {
     private final PropertyService propertyService;
 
     /**
-     * Instantiates a new Access info controller.
+     * Instantiates a new Access info controller
      * @param commonService     the common service
      * @param propertyService the property service
      */
@@ -37,7 +37,7 @@ public class PrivateRegistryInfoController {
 
 
     /**
-     * Private Registry info 페이지로 이동한다.
+     * Private Registry info 페이지 이동(Move Private Registry info page)
      *
      * @param httpServletRequest the http servlet request
      * @return the model and view

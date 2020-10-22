@@ -39,7 +39,7 @@ public class NamespacesController {
     }
 
     /**
-     * Namespaces detail 페이지로 이동한다.
+     * Namespaces 상세 조회(Get Namespaces detail)
      *
      * @param httpServletRequest the http servlet request
      * @return the namespaces detail
@@ -50,10 +50,10 @@ public class NamespacesController {
     }
 
     /**
-     * Namespaces 상세 정보를 조회한다.
+     * Namespaces 상세 조회(Get Namespaces detail)
      *
      * @param namespace the namespaces
-     * @return the Namespaces
+     * @return the namespaces detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_DETAIL)
     public Namespaces getNamespaces(@PathVariable String namespace) {
@@ -61,10 +61,10 @@ public class NamespacesController {
     }
 
     /**
-     * Namespaces ResourceQuotas 정보를 조회한다.
+     * Namespaces resourceQuotas 정보 조회(Get Namespaces resourceQuotas)
      *
      * @param namespace the namespaces
-     * @return the ResourceQuotaList
+     * @return the resourceQuotas list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS)
     public ResourceQuotaList getResourceQuotasList(@PathVariable String namespace) {
@@ -72,10 +72,10 @@ public class NamespacesController {
     }
 
     /**
-     * Namespaces events 페이지로 이동한다.
+     * Namespaces event 페이지 이동(Move Namespaces event page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the namespaces events
+     * @return the namespaces event
      */
     @GetMapping(value = Constants.URI_CLUSTER_NAMESPACES + "/{namespace:.+}/events")
     public ModelAndView getNamespaceEvents(HttpServletRequest httpServletRequest, @PathVariable String namespace) {

@@ -36,11 +36,11 @@ public class NodesController {
     }
 
     /**
-     * Nodes detail 페이지로 이동한다.
+     * Nodes detail 페이지 이동(Move Namespaces detail page)
      *
      * @param httpServletRequest the http servlet request
-     * @param nodeName           the nodes name
-     * @return the nodes details
+     * @param nodeName the nodes name
+     * @return the nodes detail
      */
     @GetMapping(value = Constants.URI_CLUSTER_NODES + "/{nodeName:.+}")
     public ModelAndView getNodesDetails(HttpServletRequest httpServletRequest, @PathVariable(value = "nodeName") String nodeName) {
@@ -48,10 +48,10 @@ public class NodesController {
     }
 
     /**
-     * Nodes summary 페이지로 이동한다.
+     * Nodes summary 페이지 이동(Move Nodes summary page)
      *
      * @param httpServletRequest the http servlet request
-     * @param nodeName           the nodes name
+     * @param nodeName the nodes name
      * @return the nodes summary
      */
     @GetMapping(value = Constants.URI_CLUSTER_NODES + "/{nodeName:.+}/summary")
@@ -60,11 +60,11 @@ public class NodesController {
     }
 
     /**
-     * Nodes events 페이지로 이동한다.
+     * Nodes events 페이지 이동(Move Nodes event page)
      *
      * @param httpServletRequest the http servlet request
-     * @param nodeName           the nodes name
-     * @return the nodes events
+     * @param nodeName the nodes name
+     * @return the nodes event
      */
     @GetMapping(value = Constants.URI_CLUSTER_NODES + "/{nodeName:.+}/events")
     public ModelAndView getNodesEvents(HttpServletRequest httpServletRequest, @PathVariable("nodeName") String nodeName) {
@@ -72,10 +72,10 @@ public class NodesController {
     }
 
     /**
-     * Nodes 상세 정보를 조회한다.
+     * Nodes 상세 조회(Get Nodes detail)
      *
      * @param nodeName the nodes name
-     * @return the nodes
+     * @return the nodes detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NODES_LIST)
     public Nodes getNodes(@PathVariable("nodeName") String nodeName) {

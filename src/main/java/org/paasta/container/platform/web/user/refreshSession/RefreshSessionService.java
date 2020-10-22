@@ -18,8 +18,8 @@ public class RefreshSessionService {
 
     public void removeRolesSession(HttpServletRequest request){
 
-        // refresh session -> controller 로 만들어서 javascript 에서 호출.
-        // 롤 변경해주는 시점에 변경 후 호출한 다음 callback 해줄 때 화면 reload.
+        // refresh session -> controller 로 만들어서 javascript 에서 호출
+        // 롤 변경해주는 시점에 변경 후 호출한 다음 callback 해줄 때 화면 reload
         HttpSession session = request.getSession();
 
         Enumeration se = session.getAttributeNames();

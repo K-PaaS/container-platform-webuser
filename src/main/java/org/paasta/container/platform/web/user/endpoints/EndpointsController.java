@@ -20,7 +20,7 @@ public class EndpointsController {
     private final EndpointsService endpointsService;
 
     /**
-     * Instantiates a new Endpoints controller.
+     * Instantiates a new Endpoints controller
      *
      * @param endpointsService the endpoints service
      */
@@ -31,11 +31,11 @@ public class EndpointsController {
 
 
     /**
-     * Endpoints 상세 정보를 조회한다.
+     * Endpoints 상세 조회(Get Endpoints detail)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param serviceName the service name
-     * @return the endpoints
+     * @return the endpoints detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ENDPOINTS_DETAIL)
     @ResponseBody

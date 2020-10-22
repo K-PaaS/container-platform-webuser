@@ -28,7 +28,7 @@ public class IntroOverviewController {
 
 
     /**
-     * Instantiates a new Intro overview controller.
+     * Instantiates a new Intro overview controller
      *
      * @param commonService the common service
      */
@@ -39,7 +39,7 @@ public class IntroOverviewController {
 
 
     /**
-     * Intro overview 페이지로 이동한다.
+     * Intro overview 페이지 이동(Move Intro overview page)
      *
      * @param httpServletRequest the http servlet request
      * @return the intro overview

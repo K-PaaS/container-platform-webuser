@@ -18,7 +18,7 @@ public class NodesService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Nodes service.
+     * Instantiates a new Nodes service
      *
      * @param restTemplateService the rest template service
      */
@@ -29,10 +29,10 @@ public class NodesService {
 
 
     /**
-     * Nodes 상세 정보를 조회한다.
+     * Nodes 상세 조회(Get Nodes detail)
      *
-     * @param nodeName the node name
-     * @return the node
+     * @param nodeName the nodes name
+     * @return the nodes detail
      */
     Nodes getNodes(String nodeName) {
         return restTemplateService.send(Constants.TARGET_CP_API,

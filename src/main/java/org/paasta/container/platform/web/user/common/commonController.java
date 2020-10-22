@@ -24,7 +24,7 @@ public class commonController {
 
 
     /**
-     * Instantiates a new User controller.
+     * Instantiates a new User controller
      *
      * @param commonService the common service
      */
@@ -36,10 +36,10 @@ public class commonController {
 
 
     /**
-     * 리소스 생성화면으로 이동한다.
+     * Resources create 페이지 이동(Move Resources create page)
      *
      * @param httpServletRequest the http servlet request
-     * @return the common resource create page
+     * @return the common resources create page
      */
     @GetMapping(value = Constants.CP_BASE_URL + Constants.URI_API_COMMON_RESOURCE_CREATE_VIEW)
     public ModelAndView createResource(HttpServletRequest httpServletRequest,
@@ -53,7 +53,7 @@ public class commonController {
 
 
     /**
-     * 리소스 수정화면으로 이동한다.
+     * Resources update 페이지 이동(Move Resources update page)
      *
      * @param httpServletRequest the http servlet request
      * @return the common resource update page
@@ -71,8 +71,5 @@ public class commonController {
 
         return commonService.setPathVariables(httpServletRequest, BASE_URL + "/resourceUpdate", mv);
     }
-
-
-
 
 }

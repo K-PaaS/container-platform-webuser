@@ -18,7 +18,7 @@ public class PodsService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Pods service.
+     * Instantiates a new Pods service
      *
      * @param restTemplateService the rest template service
      */
@@ -28,7 +28,7 @@ public class PodsService {
     }
 
     /**
-     * Selector를 이용해 Pods 목록을 조회한다.
+     * Pods 목록 조회(Get Pods selector)
      *
      * @param namespace the namespace
      * @param selector  the selector
@@ -40,7 +40,7 @@ public class PodsService {
     }
 
     /**
-     * Pods 목록을 조회한다. (특정 네임스페이스)
+     * Pods 목록 조회(Get Pods namespace)
      *
      * @param namespace the namespace
      * @return the pods list
@@ -59,7 +59,7 @@ public class PodsService {
     }
 
     /**
-     * Node 이름을 이용해 Pods 목록을 조회한다.
+     * Pods 목록 조회(Get Pods node)
      *
      * @param namespace the namespace
      * @param nodeName  the node name
@@ -71,7 +71,7 @@ public class PodsService {
     }
 
     /**
-     * Pods 상세 정보를 조회한다.
+     * Pods 상세 조회(Get Pods detail)
      *
      * @param namespace the namespace
      * @param podName   the pods name
@@ -83,7 +83,7 @@ public class PodsService {
     }
 
     /**
-     * Pods YAML을 조회한다.
+     * Pods YAML 조회(Get Pods yaml)
      *
      * @param namespace the namespace
      * @param podName   the pods name
@@ -95,7 +95,7 @@ public class PodsService {
     }
 
     /**
-     * Pods 생성한다.
+     * Pods 생성(Create Pods)
      *
      * @param namespace
      * @param yaml
@@ -108,7 +108,7 @@ public class PodsService {
     }
 
     /**
-     * Pods를 수정한다.
+     * Pods 수정(Update Pods)
      *
      * @param namespace the namespace
      * @param podName the pods name
@@ -123,10 +123,10 @@ public class PodsService {
     }
 
     /**
-     * Pods 상세 정보를 삭제한다.
+     * Pods 삭제(Delete Pods)
      *
-     * @param namespace   the namespace
-     * @param podName   the pods name
+     * @param namespace the namespace
+     * @param podName the pods name
      * @return the Pods
      */
     public Object deletePods(String namespace, String podName) {
