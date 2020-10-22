@@ -45,7 +45,7 @@
     </div>
 </div>
 <div class="common-cu center">
-    <button id="createBtn" type="button" class="colors8 common-btn" style="margin-right: 20px;">저장</button>
+    <button id="saveBtn" type="button" class="colors8 common-btn" style="margin-right: 20px;">저장</button>
     <button id="cancel" type="button" class="colors5 common-btn" onclick="cancelBtn();">이전</button>
 </div>
 
@@ -57,7 +57,7 @@
     // GET LIST
     var getUsersList = function() {
         procViewLoading('show');
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_LIST %>";
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_LIST %>" + "?namespace=" + NAME_SPACE;
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetUsersList);
     };
@@ -94,9 +94,9 @@
 
         for (var i = 0; i < listLength; i++) {
             if(NAME_SPACE === G_USERS_LIST[i].cpNamespace) {
-                checkBox = "<input type='checkbox' style='opacity: 1; position: static' checked>"
+                checkBox = "<input type='checkbox' name='checkbox_name' style='opacity: 1; position: static' checked>"
             } else {
-                checkBox = "<input type='checkbox' style='opacity: 1; position: static'>"
+                checkBox = "<input type='checkbox' name='checkbox_name' style='opacity: 1; position: static'>"
             }
 
             var selectRole = "<option>-----선택-----</option>";
@@ -105,9 +105,9 @@
                 var roleName = G_ROLES_LIST[j].metadata.name;
 
                 if(roleName === G_USERS_LIST[i].roleSetCode) {
-                    selectRole  += "<option selected value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
+                    selectRole  += "<option selected name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
                 } else {
-                    selectRole  += "<option value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
+                    selectRole  += "<option name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
                 }
             }
 
@@ -148,6 +148,30 @@
         procViewLoading('hide');
     };
 
+
+    // User namespace include/exclude
+    $("#saveBtn").on('click', function () {
+        // 체크된 총 개수
+        var checkedLength = $('input:checkbox[name="checkbox_name"]:checked').length;
+
+        // 체크된 행의 값 추출
+        var checkbox = $('input[name="checkbox_name"]:checked');
+
+        var sa = "";
+        var role = "";
+
+        checkbox.each(function(i) {
+            var tr = checkbox.parent().parent().eq(i);
+            var td = tr.children();
+
+            sa = td.eq(2).text();
+            role = td.eq(3).text();
+
+        });
+
+
+
+    });
 
     var cancelBtn = function () {
         procMovePage(-1);
