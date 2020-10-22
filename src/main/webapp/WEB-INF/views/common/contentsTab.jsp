@@ -149,7 +149,7 @@
                         </c:otherwise>
                     </c:choose>
                 </c:when>
-                <c:when test="${pathLevel3 eq 'replicasets'}">
+                <c:when test="${pathLevel3 eq 'replicaSets'}">
                     <c:choose>
                         <c:when test="${empty pathLevel4}">
                             <li name="tab01" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_WORKLOAD_OVERVIEW%>');">Overview</li>
@@ -157,7 +157,7 @@
                             <li name="tab03" class="cluster_tabs_right" onclick="procMovePage('<%=Constants.URI_WORKLOAD_PODS%>');">Pods</li>
                             <li name="tab04" class="cluster_tabs_on">Replica Sets</li>
                             <jsp:include page="../common/commonCreateBtn.jsp">
-                                <jsp:param name="kind" value="replicasets" />
+                                <jsp:param name="kind" value="replicaSets" />
                             </jsp:include>
                         </c:when>
                         <c:otherwise>

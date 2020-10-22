@@ -121,7 +121,7 @@
 </div>
 
 <input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
-<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="replicasets" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="replicaSets" />
 <input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">

@@ -97,7 +97,7 @@
 </div>
 
 <input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
-<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="persistentvolumeclaims" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="persistentVolumeClaims" />
 <input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">

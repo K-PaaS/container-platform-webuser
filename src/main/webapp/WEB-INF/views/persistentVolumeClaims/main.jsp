@@ -18,7 +18,7 @@
         <ul>
             <li>
                 <jsp:include page="../common/commonCreateBtn.jsp">
-                    <jsp:param name="kind" value="persistentvolumeclaims" />
+                    <jsp:param name="kind" value="persistentVolumeClaims" />
                 </jsp:include>
                 <div class="sortable_wrap">
                     <div class="sortable_top">
