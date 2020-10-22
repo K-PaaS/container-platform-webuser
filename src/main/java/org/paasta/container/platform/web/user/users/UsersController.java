@@ -161,10 +161,6 @@ public class UsersController {
     @GetMapping("/login")
     public ModelAndView loginView(HttpServletResponse response) {
 
-        CommonUtils.removeCookies(response,cpToken);
-        CommonUtils.removeCookies(response,cpUserId);
-        CommonUtils.removeCookies(response,cpNamespace);
-
         ModelAndView model = new ModelAndView();
         model.setViewName("/signUp/login");
         return model;
@@ -197,13 +193,15 @@ public class UsersController {
      * @return the view
      */
     @GetMapping("/logout")
-    public RedirectView logoutUser(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView logout(HttpServletResponse response) {
 
         CommonUtils.removeCookies(response,cpToken);
         CommonUtils.removeCookies(response,cpUserId);
         CommonUtils.removeCookies(response,cpNamespace);
-        return new RedirectView("/login");
 
+        ModelAndView model = new ModelAndView();
+        model.setViewName("/signUp/login");
+        return model;
     }
 
 

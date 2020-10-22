@@ -38,7 +38,7 @@ var procCallAjax = function(reqUrl, reqMethod, param, preFunc, callback) {
             if(data.resultCode == "FAIL"){
 
                 if(data.resultMessage == "TOKEN_FAILED") {
-                    location.href="/login";
+                    location.href="/logout";
                     return false;
                 }
 

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class RolesController {
 
-    private static final String VIEW_URL = "/roles";
+    private static final String VIEW_URL = "/managements/roles";
     private final CommonService commonService;
     private final RolesService rolesService;
 
