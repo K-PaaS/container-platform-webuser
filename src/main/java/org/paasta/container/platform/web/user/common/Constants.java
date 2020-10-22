@@ -32,6 +32,7 @@ public class Constants {
 
 
     // DASHBOARD URI
+    public static final String URI_LOGIN = "/signUp/login";
     public static final String URI_INTRO_OVERVIEW = "/container-platform/intro/overview";
     public static final String URI_INTRO_ACCESS_INFO = "/container-platform/intro/accessInfo";
     public static final String URI_INTRO_PRIVATE_REGISTRY_INFO = "/container-platform/intro/privateRegistryInfo";

@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -159,10 +158,18 @@ public class UsersController {
      * @return the view
      */
     @GetMapping("/login")
-    public ModelAndView loginView(HttpServletResponse response) {
+    public ModelAndView loginView(HttpServletRequest request, HttpServletResponse response) {
+
+        String userToken = null;
+        userToken = CommonUtils.getCookie(request, cpToken);
 
         ModelAndView model = new ModelAndView();
-        model.setViewName("/signUp/login");
+        model.setViewName(Constants.URI_LOGIN);
+
+        if(userToken != null) {
+            model.setViewName("redirect:"+ Constants.URI_INTRO_OVERVIEW);
+        }
+
         return model;
     }
 
@@ -200,21 +207,9 @@ public class UsersController {
         CommonUtils.removeCookies(response,cpNamespace);
 
         ModelAndView model = new ModelAndView();
-        model.setViewName("/signUp/login");
+        model.setViewName("redirect:/login");
         return model;
     }
-
-
-    /**
-     * 로그인 페이지 이동
-     *
-     * @return the view
-     */
-    @GetMapping("/")
-    public RedirectView indexView() {
-        return new RedirectView("/login");
-    }
-
 
     /**
      * 사용자 마이 페이지로 이동한다.

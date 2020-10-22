@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,6 +38,15 @@ public class IntroOverviewController {
         this.commonService = commonService;
     }
 
+    /**
+     * Intro overview 페이지로 이동한다.
+     *
+     * @return the view
+     */
+    @GetMapping("/")
+    public RedirectView indexView() {
+        return new RedirectView(Constants.URI_INTRO_OVERVIEW);
+    }
 
     /**
      * Intro overview 페이지 이동(Move Intro overview page)

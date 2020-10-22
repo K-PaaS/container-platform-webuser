@@ -118,7 +118,7 @@
 
         if(namespace === null || namespace === "" || namespace === undefined) {
             console.log("token expired.....");
-            return procMovePage('/');
+            return procMovePage('/logout');
         }
 
         for (var i = 0; i < namespacesList.length; i++) {
