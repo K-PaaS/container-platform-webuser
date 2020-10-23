@@ -156,6 +156,14 @@
 
     // User namespace include/exclude
     $("#saveBtn").on('click', function () {
+        var code = "<p class='account_modal_p'>사용자 권한 변경을 저장하시겠습니까?</p>";
+        procSetLayerPopup('사용자 권한 변경', code, '확인', '취소', 'x', 'updateUserConfig()', null, null);
+    });
+
+
+    var updateUserConfig = function () {
+        $("#commonLayerPopup").modal("hide");
+
         var checkbox = $('input[name="checkbox_name"]:checked');
 
         var sa = "";
@@ -176,8 +184,7 @@
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_CONFIG %>".replace("{namespace:.+}", NAME_SPACE);
         procCallAjax(reqUrl, "PUT", JSON.stringify(array), false, callbackUpdateUserConfig);
-
-    });
+    };
 
 
     var callbackUpdateUserConfig = function (data) {
