@@ -105,4 +105,16 @@ public class UsersService {
     public ResultStatus updateUsers(String userId, Users users) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_INFO.replace("{userId:.+}", userId), HttpMethod.PUT, users, ResultStatus.class);
     }
+
+
+    /**
+     * 사용자 권한 설정
+     *
+     * @param namespace the namespace
+     * @param users the users
+     * @return the resultStatus
+     */
+    public ResultStatus modifyUsersConfig(String namespace, List<Users> users) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_CONFIG.replace("{namespace:.+}", namespace), HttpMethod.PUT, users, ResultStatus.class);
+    }
 }
