@@ -56,7 +56,7 @@
 <script type="text/javascript" src='<c:url value="/resources/js/jquery.cookie.js"/>'></script>
 <script>
     $(document).ready(function () {
-        var rememberID = $.cookie("cp-user-id");
+        var rememberID = $.cookie('<%=Constants.CP_REMEMBER_ME_KEY%>');
 
         if (rememberID) {
             $("#userId").val(rememberID);
@@ -117,11 +117,11 @@
 
         //remember me
         if (rememberMe) {
-            $.cookie("cp-rememberMe", userId, {
+            $.cookie('<%=Constants.CP_REMEMBER_ME_KEY%>', userId, {
                 "expires": 30
             });
         } else {
-            $.removeCookie("cp-rememberMe");
+            $.removeCookie('<%=Constants.CP_REMEMBER_ME_KEY%>');
         }
 
         procMovePage('<%=Constants.URI_WORKLOAD_OVERVIEW%>');

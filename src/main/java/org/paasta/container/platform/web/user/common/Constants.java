@@ -155,6 +155,8 @@ public class Constants {
     public static final Integer OVERVIEW_LIMIT_COUNT = 5;
     public static final Integer DEFAULT_LIMIT_COUNT = 10;
 
+    public static final String CP_REMEMBER_ME_KEY = "cp-rememberme";
+
     private Constants() {
         throw new IllegalStateException();
     }
