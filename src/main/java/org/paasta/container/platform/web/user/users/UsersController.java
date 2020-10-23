@@ -120,6 +120,19 @@ public class UsersController {
 
 
     /**
+     * 사용자 권한 설정
+     *
+     * @param namespace the namespace
+     * @param users the users
+     * @return the resultStatus
+     */
+    @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_CONFIG)
+    public ResultStatus modifyUsersConfig(@PathVariable(value = "namespace") String namespace, @RequestBody List<Users> users) {
+        return usersService.modifyUsersConfig(namespace, users);
+    }
+
+
+    /**
      * 전체 사용자 목록을 조회한다.
      *
      * @return the UsersList

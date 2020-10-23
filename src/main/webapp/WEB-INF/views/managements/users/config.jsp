@@ -53,6 +53,8 @@
     var G_USERS_LIST;
     var G_ROLES_LIST;
     var ROLE_SELECT_BOX_HTML;
+    var NOT_ASSIGNED_ROLE = "<%= Constants.NOT_ASSIGNED_ROLE%>";
+    var NAMESPACE_ADMIN = "<%= Constants.NAMESPACE_ADMIN%>";
 
     // GET LIST
     var getUsersList = function() {
@@ -93,18 +95,21 @@
         var checkBox = '';
 
         for (var i = 0; i < listLength; i++) {
-            if(NAME_SPACE === G_USERS_LIST[i].cpNamespace) {
+            if((NAME_SPACE === G_USERS_LIST[i].cpNamespace) && (NAMESPACE_ADMIN === G_USERS_LIST[i].userType)) {
+                checkBox = "<input type='checkbox' name='checkbox_name' style='opacity: 1; position: static' checked disabled>"
+            } else if(NAME_SPACE === G_USERS_LIST[i].cpNamespace) {
                 checkBox = "<input type='checkbox' name='checkbox_name' style='opacity: 1; position: static' checked>"
             } else {
                 checkBox = "<input type='checkbox' name='checkbox_name' style='opacity: 1; position: static'>"
             }
 
-            var selectRole = "<option>-----선택-----</option>";
+            var selectRole = "<option>" + NOT_ASSIGNED_ROLE + "</option>";
 
             for(var j = 0; j < G_ROLES_LIST.length; j++) {
                 var roleName = G_ROLES_LIST[j].metadata.name;
-
-                if(roleName === G_USERS_LIST[i].roleSetCode) {
+                if((NAME_SPACE === G_USERS_LIST[i].roleSetCode) && (NAMESPACE_ADMIN === G_USERS_LIST[i].userType)) {
+                    selectRole  += "<option name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
+                } else if(roleName === G_USERS_LIST[i].roleSetCode) {
                     selectRole  += "<option selected name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
                 } else {
                     selectRole  += "<option name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
@@ -151,27 +156,42 @@
 
     // User namespace include/exclude
     $("#saveBtn").on('click', function () {
-        // 체크된 총 개수
-        var checkedLength = $('input:checkbox[name="checkbox_name"]:checked').length;
-
-        // 체크된 행의 값 추출
         var checkbox = $('input[name="checkbox_name"]:checked');
 
         var sa = "";
         var role = "";
+        var array = [];
+        var map = new Map();
 
         checkbox.each(function(i) {
             var tr = checkbox.parent().parent().eq(i);
             var td = tr.children();
 
             sa = td.eq(2).text();
-            role = td.eq(3).text();
+            role = td.eq(3).find('select :selected').text();
 
+            map = makeMap(sa, role);
+            array.push(map);
         });
 
-
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_CONFIG %>".replace("{namespace:.+}", NAME_SPACE);
+        procCallAjax(reqUrl, "PUT", JSON.stringify(array), false, callbackUpdateUserConfig);
 
     });
+
+
+    var callbackUpdateUserConfig = function (data) {
+        procMovePage(data.nextActionUrl);
+    };
+
+    var makeMap = function (sa, roleName) {
+        var param = {
+            "serviceAccountName": sa,
+            "roleSetCode": roleName
+        };
+
+        return param;
+    };
 
     var cancelBtn = function () {
         procMovePage(-1);
