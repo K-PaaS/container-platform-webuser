@@ -45,7 +45,7 @@ public class IntroOverviewController {
      */
     @GetMapping("/")
     public RedirectView indexView() {
-        return new RedirectView(Constants.URI_INTRO_OVERVIEW);
+        return new RedirectView("/login");
     }
 
     /**
