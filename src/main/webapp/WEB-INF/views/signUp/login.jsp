@@ -117,11 +117,11 @@
 
         //remember me
         if (rememberMe) {
-            $.cookie("cp-user-id", userId, {
+            $.cookie("cp-rememberMe", userId, {
                 "expires": 30
             });
         } else {
-            $.removeCookie("cp-user-id");
+            $.removeCookie("cp-rememberMe");
         }
 
         procMovePage('<%=Constants.URI_WORKLOAD_OVERVIEW%>');
