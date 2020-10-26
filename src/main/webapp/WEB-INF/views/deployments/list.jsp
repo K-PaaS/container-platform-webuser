@@ -12,11 +12,11 @@
         <p>Deployments</p>
         <ul class="colright_btn">
             <li>
-<%--                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search"--%>
-<%--                       onkeypress="if(event.keyCode===13) {setDeploymentsList(this.value);}" maxlength="100"/>--%>
-<%--                <button name="button" class="btn table-search-on" type="button">--%>
-<%--                    <i class="fas fa-search"></i>--%>
-<%--                </button>--%>
+                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search"
+                       onkeypress="if(event.keyCode===13) {searchDeploymentsList(this.value);}" maxlength="100"/>
+                <button name="button" class="btn table-search-on" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
             </li>
         </ul>
     </div>
@@ -52,7 +52,9 @@
             <tbody id="deploymentsListArea"></tbody>
         </table>
     </div>
-    <div><button id="deploymentsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
+    <div>
+        <button id="deploymentsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button>
+    </div>
 </div>
 
 
@@ -64,16 +66,17 @@
     var G_DEV_CHART_FAILED_CNT = 0;
     var G_DEV_CHART_SUCCEEDEDCNT = 0;
     var G_DEV_CHART_PENDDING_CNT = 0;
-    var G_DEPLOYMENTS_LIST_CONTINUE_TOKEN = "";
     var G_DEPLOYMENTS_LIST_GET_FIRST = true;
-    var getDeploymentsList = function (limit, continue_token) {
+    var G_DEPLOYMENTS_LIST_OFFSET = 0;
+    var G_DEPLOYMENTS_LIST_SEARCH_KEYWORD = null;
+    var G_DEPLOYMENTS_MORE_BTN_ID = 'deploymentsMoreDetailBtn';
+
+    //GET LIST
+    var getDeploymentsList = function (offset, limit, searchName) {
         procViewLoading('show');
 
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_LIST %>" + "?limit=" + limit;
-
-        if (continue_token.length > 1) {
-            reqUrl = reqUrl + "&continue=" + continue_token;
-        }
+        var param = makeResourceListParamQuery(offset, limit, searchName);
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_LIST %>" + param;
         reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetDeploymentsList);
@@ -88,20 +91,12 @@
             return false;
         }
 
-
         G_DEPLOYMENTS_LIST = data;
         G_DEPLOYMENTS_LIST_LENGTH = data.items.length;
 
-
-        if(data.metadata.hasOwnProperty('continue')){
-            G_DEPLOYMENTS_LIST_CONTINUE_TOKEN = data.metadata.continue;
-        }
-
-        if(!data.metadata.hasOwnProperty('remainingItemCount')){
-            $('#deploymentsMoreDetailBtn').css("display", "none");
-        }
-
+        resourceListMoreBtnDisplay('<%= Constants.REMAIN_ITEM_COUNT_KEY %>', data, G_DEPLOYMENTS_MORE_BTN_ID);
         setDeploymentsList("");
+        procViewLoading('hide');
 
     };
 
@@ -180,23 +175,20 @@
             resultHeaderArea.hide();
             resultArea.hide();
             noResultArea.show();
-        }
-        else if(G_DEPLOYMENTS_LIST_GET_FIRST == true) {
+        } else if (G_DEPLOYMENTS_LIST_GET_FIRST == true) {
             noResultArea.hide();
             resultHeaderArea.show();
             resultArea.html(htmlString);
             resultArea.show();
 
-            resultTable.tablesorter({
+    /*        resultTable.tablesorter({
                 sortList: [[4, 1]] // 0 = ASC, 1 = DESC
             });
-
+     */
             resultTable.tablesorter();
             resultTable.trigger("update");
             $('.headerSortFalse > td').unbind();
-        }
-
-        else if(G_DEPLOYMENTS_LIST_GET_FIRST == false) {
+        } else if (G_DEPLOYMENTS_LIST_GET_FIRST == false) {
             $('#deploymentsListArea tr:last').after(htmlString);
         }
 
@@ -209,10 +201,26 @@
 
 <script>
 
-    $(document).on("click", "#deploymentsMoreDetailBtn", function(){
+    $(document).on("click", "#"+ G_DEPLOYMENTS_MORE_BTN_ID, function () {
         G_DEPLOYMENTS_LIST_GET_FIRST = false;
-        getDeploymentsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,G_DEPLOYMENTS_LIST_CONTINUE_TOKEN);
+        G_DEPLOYMENTS_LIST_OFFSET++;
+        alert(G_DEPLOYMENTS_LIST_OFFSET);
+        getDeploymentsList(G_DEPLOYMENTS_LIST_OFFSET, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_DEPLOYMENTS_LIST_SEARCH_KEYWORD);
 
     });
+
+    var searchDeploymentsList = function (searchName) {
+
+        searchName = searchName.trim();
+        if (searchName == null || searchName.lengh == 0) {
+            searchName = null;
+        }
+        G_DEPLOYMENTS_LIST_GET_FIRST = true;
+        G_DEPLOYMENTS_LIST_SEARCH_KEYWORD = searchName;
+        G_DEPLOYMENTS_LIST_OFFSET = 0;
+        $("#"+ G_DEPLOYMENTS_MORE_BTN_ID).css("display", "block");
+        getDeploymentsList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_DEPLOYMENTS_LIST_SEARCH_KEYWORD);
+
+    };
 
 </script>

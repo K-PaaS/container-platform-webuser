@@ -10,14 +10,14 @@
  * @author jjy
  * @since 2020.09.03
  */
-var procCallAjax = function(reqUrl, reqMethod, param, preFunc, callback) {
+var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
     var reqData = "";
     var contentTypeValue = 'application/json';
     if (param != null) {
         reqData = param;
     }
 
-    if(preFunc != null && preFunc === true) {
+    if (preFunc != null && preFunc === true) {
         contentTypeValue = 'text/plain';
     }
 
@@ -28,38 +28,38 @@ var procCallAjax = function(reqUrl, reqMethod, param, preFunc, callback) {
         dataType: 'json',
         async: false,
         contentType: contentTypeValue,
-        beforeSend: function(xhr){
+        beforeSend: function (xhr) {
             // preFunc
             //xhr.setRequestHeader(_csrf_header, _csrf_token);
             // CONTAINER-PLATFORM-API Ajax request header setting
             xhr.setRequestHeader("X-Container-Platform-Ajax-call", "true");
         },
-        success: function(data) {
-            if(data.resultCode == "FAIL"){
+        success: function (data) {
+            if (data.resultCode == "FAIL") {
 
-                if(data.resultMessage == "TOKEN_FAILED") {
-                    location.href="/logout";
+                if (data.resultMessage == "TOKEN_FAILED") {
+                    location.href = "/logout";
                     return false;
                 }
 
                 procViewLoading('hide');
                 procAlertMessage(data.detailMessage);
-            }else{
+            } else {
                 callback(data);
             }
 
         },
-        error: function(jqXHR, exception) {
-            console.log("jqXHR.status::::"+jqXHR.status+" exception:::"+exception);
+        error: function (jqXHR, exception) {
+            console.log("jqXHR.status::::" + jqXHR.status + " exception:::" + exception);
             procViewLoading('hide');
 
-            if(jqXHR.status == 401){
+            if (jqXHR.status == 401) {
                 procAlertMessage('API unauthorized.', false);
-            }else if (jqXHR.status == 500){
+            } else if (jqXHR.status == 500) {
                 procAlertMessage();
             }
         },
-        complete : function(data) {
+        complete: function (data) {
             // SKIP
             console.log("COMPLETE :: data :: ", data);
         }
@@ -97,11 +97,11 @@ var procSetSelector = function (requestMapString) {
  * 문자열이 빈 문자열인지 체크하여 빈값("") 또는 기본 문자열을 반환한다.
  * @param str           : 체크할 문자열
  */
-function nvl(str, defaultStr){
-    if(str == "undefined" || str === undefined || str == "null" || str === null || str == ""){
-        if(defaultStr === undefined){
+function nvl(str, defaultStr) {
+    if (str == "undefined" || str === undefined || str == "null" || str === null || str == "") {
+        if (defaultStr === undefined) {
             str = "";
-        }else{
+        } else {
             str = defaultStr;
         }
     }
@@ -110,7 +110,7 @@ function nvl(str, defaultStr){
 
 // SET MENU CURSOR
 var procSetMenuCursor = function () {
-    var leftMenuList = ["intro", "workloads", "services", "storages","info", "users", "roles"];
+    var leftMenuList = ["intro", "workloads", "services", "storages", "info", "users", "roles"];
     var headerMenuList = ["info", "users", "roles"];
     var leftMenuListLength = leftMenuList.length;
     var calledMenu = leftMenuList[0];
@@ -137,7 +137,7 @@ var procSetMenuCursor = function () {
 
 
 // SET SORT LIST
-var procSetSortList = function(resultTableString, buttonObject, key) {
+var procSetSortList = function (resultTableString, buttonObject, key) {
     $(buttonObject).toggleClass('sort');
 
     var resultTable = $('#' + resultTableString);
@@ -169,7 +169,7 @@ var procCheckValidData = function (data) {
     }
 };
 
-var procViewLoading = function(type) {
+var procViewLoading = function (type) {
     var dashboardWrap = $("#dashboardWrap");
     var loader = $("#loadingSpinner");
 
@@ -177,7 +177,7 @@ var procViewLoading = function(type) {
         loader.show().gSpinner();
     } else {
         dashboardWrap.show();
-        setTimeout(function(){
+        setTimeout(function () {
             loader.gSpinner("hide").hide();
         }, 1000);
     }
@@ -221,7 +221,7 @@ var procAlertMessage = function (value, result) {
  *    ex) procAddPodsEvent(itemList, itemList.spec.selector.matchLabels); // event Data added to 'itemList'
  *
  */
-var procAddPodsEvent = function(targetObject, selector) {
+var procAddPodsEvent = function (targetObject, selector) {
 
     selector = procSetSelector(selector);
 
@@ -232,23 +232,23 @@ var procAddPodsEvent = function(targetObject, selector) {
     var reqPodsUrl = URI_API_PODS_RESOURCES
         .replace("{namespace:.+}", NAME_SPACE)
         .replace("{selector:.+}", selector);
-    procCallAjax(reqPodsUrl, "GET", null, null, function(podsData){
+    procCallAjax(reqPodsUrl, "GET", null, null, function (podsData) {
         $.each(podsData.items, function (index, itemList) {
             var podsName = itemList.metadata.uid;
             var podPhase = nvl(itemList.status.phase).toLowerCase();
 
             // 해당조건일시 이벤트에서 제외
-            if(podPhase == "running" || podPhase.includes("succeeded") || podPhase == "terminated"){
+            if (podPhase == "running" || podPhase.includes("succeeded") || podPhase == "terminated") {
                 return true;  // continue;
             }
 
             var reqEventsUrl = URI_API_EVENTS_LIST
                 .replace("{namespace:.+}", NAME_SPACE)
                 .replace("{resourceUid:.+}", podsName);
-            procCallAjax(reqEventsUrl, "GET", null, null, function(eventData){
+            procCallAjax(reqEventsUrl, "GET", null, null, function (eventData) {
                 $.each(eventData.items, function (index, eData) {
                     var eType = eData.type;
-                    if(eType == 'Warning' && !(eventMessage.indexOf(eData.message) > -1) ){
+                    if (eType == 'Warning' && !(eventMessage.indexOf(eData.message) > -1)) {
                         eventType = eType;
                         eventMessage.push(eData.message);
                     }
@@ -319,7 +319,7 @@ var procSetToolTipAttributes = function (tagObject) {
 
 // CREATE SPANS FOR LABELS, ANNOTATIONS
 var procCreateSpans = function (data, type) {
-    if( !data || data == "null") {
+    if (!data || data == "null") {
         return "-";
     }
     var datas = data.replace(/=/g, ':').split(',');
@@ -440,7 +440,7 @@ var procSetAnnotations = function (extAnnotations) {
 };
 
 // CONTENT SETTING FOR POP-UP MODAL
-var procSetAnnotationLayerpop = function(eventElement) {
+var procSetAnnotationLayerpop = function (eventElement) {
     var select = $(eventElement);
     var title = JSON.stringify(select.data('title')).replace(/^"|"$/g, '');
     var content = JSON.stringify(select.data('content')).replace(/^"|"$/g, '');
@@ -457,33 +457,33 @@ var procSetAnnotationLayerpop = function(eventElement) {
  *    ex use) procCompareObj( {"app":"wordpress","tier":"front"},{"tier":"front", "app":"wordpress"} )  => true
  *
  */
-var procCompareObj = function( a, b ){
+var procCompareObj = function (a, b) {
     var type = typeof a, i, j;
-    if( type == "object" ){
-        if( a === null ){
+    if (type == "object") {
+        if (a === null) {
             return a === b;
-        }else if( Array.isArray(a) ){
-            if( !Array.isArray(b) || a.length != b.length ){
+        } else if (Array.isArray(a)) {
+            if (!Array.isArray(b) || a.length != b.length) {
                 return false;
             }
-            for( i = 0, j = a.length ; i < j ; i++ ){
-                if(!procCompareObj(a[i], b[i])){
+            for (i = 0, j = a.length; i < j; i++) {
+                if (!procCompareObj(a[i], b[i])) {
                     return false;
                 }
             }
             return true;
-        }else{ //일반 오브젝트인 경우
+        } else { //일반 오브젝트인 경우
 
             // b의 키 갯수를 카운트 한다.
             j = 0;
-            for( i in b ){
-                if( b.hasOwnProperty(i) ) j++;
+            for (i in b) {
+                if (b.hasOwnProperty(i)) j++;
             }
 
             //a의 각 키와 비교하면서 카운트를 제거한다.
-            for( i in a ){
-                if( a.hasOwnProperty(i) ){
-                    if( !procCompareObj( a[i], b[i] ) ) return false;
+            for (i in a) {
+                if (a.hasOwnProperty(i)) {
+                    if (!procCompareObj(a[i], b[i])) return false;
                     j--;
                 }
             }
@@ -494,24 +494,24 @@ var procCompareObj = function( a, b ){
     return a === b;
 };
 
-var procCreateMovePageAnchorTag = function(movePageUrl, content) {
+var procCreateMovePageAnchorTag = function (movePageUrl, content) {
     return '<a href="javascript:void(0);" onclick="procMovePage(\'' + movePageUrl + '\');">' + content + '</a>';
 };
 
 var commonUtils = {
-    isEmpty: function(object) {
+    isEmpty: function (object) {
         if (object == undefined || object == null) {
             return true;
         }
         return false;
     },
-    isBlank: function(value) {
+    isBlank: function (value) {
         if (value == undefined || value == null || value == "") {
             return true;
         }
         return false;
     },
-    contains: function(contents, findString) {
+    contains: function (contents, findString) {
         if (this.isBlank(contents) || this.isBlank(findString)) {
             return false;
         }
@@ -519,20 +519,43 @@ var commonUtils = {
     },
     regexId: function (value) {
         var re = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/g; // 아이디가 적합한지 검사할 정규식
-        if(!re.test(value)) {
+        if (!re.test(value)) {
             return true;
         }
     },
     regexPwd: function (value) {
         var re = /^[a-zA-Z]+(?=.*\d)(?=.*[-$@$!%*#?&])[a-zA-Z\d-$@$!%*#?&]{3,39}$/g; // 패스워드가 적합한지 검사할 정규식
-        if(!re.test(value)) {
+        if (!re.test(value)) {
             return true;
         }
     },
     regexEmail: function (value) {
         var re = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일이 적합한지 검사할 정규식
-        if(!re.test(value)) {
+        if (!re.test(value)) {
             return true;
         }
+    }
+};
+
+
+var makeResourceListParamQuery = function (offset, limit, searchName) {
+
+    var param = "?offset=" + offset + "&limit=" + limit;
+    if (searchName != null) {
+        param += "&searchName=" + searchName;
+    }
+    return param;
+};
+
+
+var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
+
+    if (data.itemMetaData.hasOwnProperty(remainItemCountKey)) {
+
+        var remainingItemCount = data.itemMetaData.remainingItemCount;
+        if (remainingItemCount <= 0) {
+            $('#' + buttonID).css("display", "none");
+        }
+
     }
 };

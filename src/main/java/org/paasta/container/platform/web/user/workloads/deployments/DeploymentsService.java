@@ -1,5 +1,6 @@
 package org.paasta.container.platform.web.user.workloads.deployments;
 
+import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
 import org.paasta.container.platform.web.user.workloads.pods.Pods;
@@ -30,17 +31,13 @@ public class DeploymentsService {
      * @param namespace the namespace
      * @return the deployments list
      */
-    public DeploymentsList getDeploymentsList (String namespace ,int limit, String continueToken ) {
+    public DeploymentsList getDeploymentsList (String namespace, int offset, int limit, String orderBy, String order, String searchName) {
 
-        String param = "";
-
-        if(continueToken != null) {
-            param = "&continue=" + continueToken;
-        }
+        String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
         return restTemplateService.send( Constants.TARGET_CP_API,
                 Constants.URI_API_DEPLOYMENTS_LIST
-                        .replace( "{namespace:.+}", namespace ) + "?limit=" + limit + param
+                        .replace( "{namespace:.+}", namespace ) + param
                 ,HttpMethod.GET, null, DeploymentsList.class);
     }
 

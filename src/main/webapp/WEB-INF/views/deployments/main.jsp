@@ -23,6 +23,6 @@
 
 <script type="text/javascript">
     $(document.body).ready(function () {
-        getDeploymentsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
+        getDeploymentsList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
     });
 </script>

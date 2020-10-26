@@ -109,9 +109,21 @@ public class CommonUtils {
      * @param str
      * @return
      */
-    public static String stringReplace(String str){
+    public static String stringReplace(String str) {
         String match = "\\\"";
         str = str.replaceAll(match, "").replaceAll("[\\[\\]]", "");
         return str;
+    }
+
+
+    /**
+     * 리소스 리스트 조회 시 파라미터 쿼리 생성
+     */
+    public static String makeResourceListParamQuery(int offset, int limit, String orderBy, String order, String searchName) {
+        String param = "?offset=" + offset + "&limit=" + limit + "&orderBy=" + orderBy + "&order=" + order;
+        if (searchName != null) {
+            param += "&searchName=" + searchName;
+        }
+        return param;
     }
 }
