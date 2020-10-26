@@ -1,4 +1,4 @@
-package org.paasta.container.platform.web.user.managements.resourceQuotas;
+package org.paasta.container.platform.web.user.clusters.resourceQuotas;
 
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;

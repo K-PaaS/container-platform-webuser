@@ -1,6 +1,8 @@
-package org.paasta.container.platform.web.user.managements.resourceQuotas;
+package org.paasta.container.platform.web.user.clusters.resourceQuotas;
 
 import lombok.Data;
+import org.paasta.container.platform.web.user.clusters.resourceQuotas.support.ResourceQuotasSpec;
+import org.paasta.container.platform.web.user.clusters.resourceQuotas.support.ResourceQuotasStatus;
 import org.paasta.container.platform.web.user.common.model.CommonMetaData;
 
 /**

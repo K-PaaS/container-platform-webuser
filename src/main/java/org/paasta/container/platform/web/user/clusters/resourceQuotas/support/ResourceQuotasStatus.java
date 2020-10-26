@@ -1,4 +1,4 @@
-package org.paasta.container.platform.web.user.managements.resourceQuotas;
+package org.paasta.container.platform.web.user.clusters.resourceQuotas.support;
 
 import lombok.Data;
 
