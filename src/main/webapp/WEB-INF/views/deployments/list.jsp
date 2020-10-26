@@ -204,7 +204,6 @@
     $(document).on("click", "#"+ G_DEPLOYMENTS_MORE_BTN_ID, function () {
         G_DEPLOYMENTS_LIST_GET_FIRST = false;
         G_DEPLOYMENTS_LIST_OFFSET++;
-        alert(G_DEPLOYMENTS_LIST_OFFSET);
         getDeploymentsList(G_DEPLOYMENTS_LIST_OFFSET, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_DEPLOYMENTS_LIST_SEARCH_KEYWORD);
 
     });
