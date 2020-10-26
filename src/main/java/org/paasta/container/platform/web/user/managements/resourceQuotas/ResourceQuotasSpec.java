@@ -1,4 +1,4 @@
-package org.paasta.container.platform.web.user.managements;
+package org.paasta.container.platform.web.user.managements.resourceQuotas;
 
 import lombok.Data;
 
@@ -13,7 +13,7 @@ import java.util.Map;
  * @since 2020.09.03
  */
 @Data
-public class ResourceQuotaSpec {
+public class ResourceQuotasSpec {
 
   private Map<String, String> hard;
   private List<String> scopes;

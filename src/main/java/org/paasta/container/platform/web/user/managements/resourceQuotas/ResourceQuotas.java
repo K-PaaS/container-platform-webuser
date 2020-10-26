@@ -1,4 +1,4 @@
-package org.paasta.container.platform.web.user.managements;
+package org.paasta.container.platform.web.user.managements.resourceQuotas;
 
 import lombok.Data;
 import org.paasta.container.platform.web.user.common.model.CommonMetaData;
@@ -11,7 +11,7 @@ import org.paasta.container.platform.web.user.common.model.CommonMetaData;
  * @since 2020.09.03
  */
 @Data
-public class ResourceQuota {
+public class ResourceQuotas {
 
   private String resultCode;
   private String resultMessage;
@@ -19,8 +19,8 @@ public class ResourceQuota {
   private String apiVersion;
   private String kind;
   private CommonMetaData metadata;
-  private ResourceQuotaSpec spec;
-  private ResourceQuotaStatus status;
+  private ResourceQuotasSpec spec;
+  private ResourceQuotasStatus status;
 
 }
 

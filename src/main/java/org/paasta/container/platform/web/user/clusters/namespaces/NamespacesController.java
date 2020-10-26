@@ -2,7 +2,6 @@ package org.paasta.container.platform.web.user.clusters.namespaces;
 
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
-import org.paasta.container.platform.web.user.managements.ResourceQuotaList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,16 +59,6 @@ public class NamespacesController {
         return namespacesService.getNamespaces(namespace);
     }
 
-    /**
-     * Namespaces resourceQuotas 정보 조회(Get Namespaces resourceQuotas)
-     *
-     * @param namespace the namespaces
-     * @return the resourceQuotas list
-     */
-    @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS)
-    public ResourceQuotaList getResourceQuotasList(@PathVariable String namespace) {
-        return namespacesService.getResourceQuotasList(namespace);
-    }
 
     /**
      * Namespaces event 페이지 이동(Move Namespaces event page)

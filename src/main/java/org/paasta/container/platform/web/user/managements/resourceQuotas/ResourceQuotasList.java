@@ -1,4 +1,4 @@
-package org.paasta.container.platform.web.user.managements;
+package org.paasta.container.platform.web.user.managements.resourceQuotas;
 
 import lombok.Data;
 
@@ -12,11 +12,11 @@ import java.util.List;
  * @since 2020.09.03
  */
 @Data
-public class ResourceQuotaList {
+public class ResourceQuotasList {
 
   private String resultCode;
   private String resultMessage;
-  private List<ResourceQuota> items;
+  private List<ResourceQuotas> items;
 
 }
 
