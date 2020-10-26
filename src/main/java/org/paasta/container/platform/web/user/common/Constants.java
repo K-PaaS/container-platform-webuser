@@ -58,7 +58,7 @@ public class Constants {
     // API URI
     public static final String URL_API_LOGIN = "/login?isAdmin=false";
     public static final String URI_API_NAME_SPACES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}";
-    public static final String URI_API_NAME_SPACES_RESOURCE_QUOTAS = "/namespaces/{namespace:.+}/resourceQuotas";
+    public static final String URI_API_NAME_SPACES_RESOURCE_QUOTAS = "/clusters/cp-cluster/namespaces/{namespace:.+}/resourceQuotas";
 
     public static final String URI_API_NODES_LIST = "/clusters/cp-cluster/nodes/{nodeName:.+}";
 
@@ -117,7 +117,7 @@ public class Constants {
 
     public static final String URI_API_SERVICE_ACCOUNT_DETAIL = "/namespaces/{namespace:.+}/serviceAccounts/{cpAccountName:.+}";
 
-    public static final String URI_API_SECRETS_DETAIL = "/namespaces/{namespace:.+}/secrets/{accessTokenName:.+}";
+    public static final String URI_API_SECRETS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/secrets/{accessTokenName:.+}";
 
     public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims";
     public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
