@@ -19,7 +19,7 @@ public class Constants {
     public static final String TARGET_COMMON_API = "commonApi";
 
     public static final String DEFAULT_NAMESPACE_NAME = "temp-namespace";
-    public static final String NOT_ASSIGNED_ROLE = "NOT ASSIGNED ROLE";
+    public static final String NOT_ASSIGNED_ROLE = "NOT_ASSIGNED_ROLE";
     public static final String DEFAULT_INIT_ROLE = "init-role";
     public static final String DEFAULT_CLUSTER_ADMIN_ROLE = "cluster-admin"; // k8s default cluster role's name
     public static final String NAMESPACE_ADMIN = "NAMESPACE_ADMIN";
