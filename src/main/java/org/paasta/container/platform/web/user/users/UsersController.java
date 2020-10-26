@@ -166,6 +166,19 @@ public class UsersController {
 
 
     /**
+     * namespace, user id를 통한 사용자 단건 조회
+     *
+     * @param namespace the namespace
+     * @param userId the user id
+     * @return the Users
+     */
+    @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_DETAIL)
+    public Users getUsersByNamespace(@PathVariable(value = "namespace") String namespace, @PathVariable(value = "userId") String userId) {
+        return usersService.getUsers(namespace, userId);
+    }
+
+
+    /**
      * 로그인 페이지 이동
      *
      * @return the view
