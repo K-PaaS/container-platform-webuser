@@ -11,11 +11,11 @@
         <p>Roles</p>
         <ul class="colright_btn">
             <li>
-<%--                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search"--%>
-<%--                       onkeypress="if(event.keyCode===13) {setRolesList(this.value);}" maxlength="100"/>--%>
-<%--                <button name="button" class="btn table-search-on" type="button">--%>
-<%--                    <i class="fas fa-search"></i>--%>
-<%--                </button>--%>
+                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search"
+                       onkeypress="if(event.keyCode===13) {searchRolesList(this.value);}" maxlength="100"/>
+                <button name="button" class="btn table-search-on" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
             </li>
         </ul>
     </div>
@@ -32,16 +32,10 @@
                 <td colspan='4'><p class='service_p'>실행 중인 Role이 없습니다.</p></td>
             </tr>
             <tr id="resultRolesHeaderArea" class="headerSortFalse">
-                <td>Name
-                    <button class="sort-arrow" onclick="procSetSortList('resultRolesTable', this, '0')"><i
-                            class="fas fa-caret-down"></i></button>
-                </td>
+                <td>Name</td>
                 <td>Labels</td>
                 <td>Annotations</td>
-                <td>Created on
-                    <button class="sort-arrow" onclick="procSetSortList('resultRolesTable', this, '3')"><i
-                            class="fas fa-caret-down"></i></button>
-                </td>
+                <td>Created on</td>
             </tr>
             </thead>
             <tbody id="rolesListArea"></tbody>
@@ -60,19 +54,17 @@
     var G_DEV_CHART_SUCCEEDEDCNT = 0;
     var G_DEV_CHART_PENDDING_CNT = 0;
     
-    var G_ROLES_LIST_CONTINUE_TOKEN = "";
+
     var G_ROLES_LIST_GET_FIRST = true;
+    var G_ROLES_LIST_OFFSET = 0;
+    var G_ROLES_LIST_SEARCH_KEYWORD = null;
+    var G_ROLES_MORE_BTN_ID = 'rolesMoreDetailBtn';
     
     
-    
-    var getRolesList = function (limit, continue_token) {
+    var getRolesList = function (offset, limit, searchName) {
         procViewLoading('show');
-
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_ROLES_LIST %>" + "?limit=" + limit;
-
-        if (continue_token.length > 1) {
-            reqUrl = reqUrl + "&continue=" + continue_token;
-        }
+        var param = makeResourceListParamQuery(offset, limit, searchName);
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_ROLES_LIST %>" + param;
         reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackgetRolesList);
@@ -87,20 +79,12 @@
             return false;
         }
 
-
         G_ROLES_LIST = data;
         G_ROLES_LIST_LENGTH = data.items.length;
 
-
-        if(data.metadata.hasOwnProperty('continue')){
-            G_ROLES_LIST_CONTINUE_TOKEN = data.metadata.continue;
-        }
-
-        if(!data.metadata.hasOwnProperty('remainingItemCount')){
-            $('#rolesMoreDetailBtn').css("display", "none");
-        }
-
+        resourceListMoreBtnDisplay('<%= Constants.REMAIN_ITEM_COUNT_KEY %>', data, G_ROLES_MORE_BTN_ID);
         setRolesList("");
+        procViewLoading('hide');
 
     };
 
@@ -150,12 +134,6 @@
             resultArea.html(htmlString);
             resultArea.show();
 
-            resultTable.tablesorter({
-                sortList: [[3, 1]] // 0 = ASC, 1 = DESC
-            });
-
-            resultTable.tablesorter();
-            resultTable.trigger("update");
             $('.headerSortFalse > td').unbind();
         }
 
@@ -172,10 +150,25 @@
 
 <script>
 
-    $(document).on("click", "#rolesMoreDetailBtn", function(){
-        G_ROLES_LIST_GET_FIRST = false;
-        getRolesList(<%= Constants.DEFAULT_LIMIT_COUNT %>,G_ROLES_LIST_CONTINUE_TOKEN);
 
+    $(document).on("click", "#"+ G_ROLES_MORE_BTN_ID, function(){
+        G_ROLES_LIST_GET_FIRST = false;
+        G_ROLES_LIST_OFFSET++;
+        getRolesList(G_ROLES_LIST_OFFSET, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_ROLES_LIST_SEARCH_KEYWORD);
     });
 
+
+    var searchRolesList = function (searchName) {
+
+        searchName = searchName.trim();
+        if (searchName == null || searchName.length == 0) {
+            searchName = null;
+        }
+        G_ROLES_LIST_GET_FIRST = true;
+        G_ROLES_LIST_SEARCH_KEYWORD = searchName;
+        G_ROLES_LIST_OFFSET = 0;
+        $("#" + G_ROLES_MORE_BTN_ID).css("display", "block");
+        getRolesList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_ROLES_LIST_SEARCH_KEYWORD);
+
+    };
 </script>

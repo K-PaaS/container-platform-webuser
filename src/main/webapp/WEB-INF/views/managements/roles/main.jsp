@@ -22,6 +22,6 @@
 
 <script type="text/javascript">
     $(document.body).ready(function () {
-        getRolesList(<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
+        getRolesList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
     });
 </script>
