@@ -64,7 +64,6 @@
     var G_PODS_CHART_FAILED_CNT = 0;
     var G_PODS_CHART_PENDING_CNT = 0;
     var G_PODS_CHART_SUCCEEDED_CNT = 0;
-    var G_PODS_LIST_CONTINUE_TOKEN = "";
     var G_PODS_LIST_GET_FIRST = true;
     var G_PODS_LIST_OFFSET = 0;
     var G_PODS_LIST_SEARCH_KEYWORD = null;

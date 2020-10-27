@@ -12,10 +12,10 @@
         <p>Replica Sets</p>
         <ul class="colright_btn">
             <li>
-               <%-- <input type="text" id="table-search-rs" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {setReplicaSetsList(this.value);}" maxlength="100" />
+               <input type="text" id="table-search-rs" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {searchReplicaSetsList(this.value);}" maxlength="100" />
                 <button name="button" class="btn table-search-on" type="button">
                     <i class="fas fa-search"></i>
-                </button>--%>
+                </button>
             </li>
         </ul>
     </div>
@@ -31,11 +31,11 @@
             </colgroup>
             <thead>
             <tr id="resultHeaderAreaForReplicaSets" class="headerSortFalse" style="display: none;">
-                <td>Name<button class="sort-arrow" onclick="procSetSortList('resultTableForReplicaSets', this, '0')"><i class="fas fa-caret-down"></i></button></td>
+                <td>Name</td>
                 <td>Namespace</td>
                 <td>Labels</td>
                 <td>Pods</td>
-                <td>Created on<button class="sort-arrow" onclick="procSetSortList('resultTableForReplicaSets', this, '4')"><i class="fas fa-caret-down"></i></button></td>
+                <td>Created on</td>
                 <td>Images</td>
             </tr>
             <tr id="noResultAreaForReplicaSets" style="display: none;"><td colspan='6'><p class='service_p'>실행 중인 ReplicaSet이 없습니다.</p></td></tr>
@@ -58,30 +58,25 @@
     var G_REPLICA_SETS_CHART_FAILED_CNT = 0;
     var G_REPLICA_SETS_CHART_PENDDING_CNT = 0;
     var G_REPLICA_SETS_CHART_SUCCEEDED_CNT = 0;
-    var G_REPLICA_SETS_LIST_CONTINUE_TOKEN = "";
     var G_REPLICA_SETS_LIST_GET_FIRST = true;
+    var G_REPLICA_SETS_LIST_OFFSET = 0;
+    var G_REPLICA_SETS_LIST_SEARCH_KEYWORD = null;
+    var G_REPLICA_SETS_MORE_BTN_ID = 'replicaSetsMoreDetailBtn';
 
     // GET LIST
-    var getReplicaSetsList = function(selector,limit, continue_token) {
+    var getReplicaSetsList = function(selector,offset,limit, searchName) {
         procViewLoading('show');
 
         var reqUrl;
 
-        if(nvl(selector) != ""){
+        if(selector != null){
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_RESOURCES %>"
                 .replace("{namespace:.+}", NAME_SPACE)
                 .replace("{selector:.+}", selector);
         }else{
-            reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_LIST %>"
-                .replace("{namespace:.+}", NAME_SPACE);
-
-            if(limit > 0 ) {
-                reqUrl = reqUrl + "?limit=" + limit;
-             }
-
-            if (continue_token.length > 1) {
-                reqUrl = reqUrl + "&continue=" + continue_token;
-            }
+            var param = makeResourceListParamQuery(offset, limit, searchName);
+            reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_LIST %>" +param ;
+            reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
 
         }
 
@@ -97,18 +92,11 @@
         }
 
         G_REPLICA_SETS_LIST = data;
-
-        if(data.metadata.hasOwnProperty('continue')){
-            G_REPLICA_SETS_LIST_CONTINUE_TOKEN = data.metadata.continue;
-        }
-
-        if(!data.metadata.hasOwnProperty('remainingItemCount')){
-            $('#replicaSetsMoreDetailBtn').css("display", "none");
-        }
-
+        resourceListMoreBtnDisplay('<%= Constants.REMAIN_ITEM_COUNT_KEY %>', data, G_REPLICA_SETS_MORE_BTN_ID);
+        setReplicaSetsList("");
         procViewLoading('hide');
 
-        setReplicaSetsList("");
+
     };
 
     // SET LIST
@@ -198,11 +186,6 @@
             resultArea.html(htmlString);
             resultArea.show();
 
-            resultTable.tablesorter({
-                sortList: [[4, 1]] // 0 = ASC, 1 = DESC
-            });
-
-            resultTable.trigger("update");
             $('.headerSortFalse > td').unbind();
         }
         else if(G_REPLICA_SETS_LIST_GET_FIRST == false) {
@@ -217,10 +200,27 @@
 </script>
 <script>
 
-    $(document).on("click", "#replicaSetsMoreDetailBtn", function(){
+    $(document).on("click", "#"+ G_REPLICA_SETS_MORE_BTN_ID, function(){
+
         G_REPLICA_SETS_LIST_GET_FIRST = false;
-        getReplicaSetsList("",<%= Constants.DEFAULT_LIMIT_COUNT %> ,G_REPLICA_SETS_LIST_CONTINUE_TOKEN);
+        G_REPLICA_SETS_LIST_OFFSET++;
+        getReplicaSetsList(null,G_REPLICA_SETS_LIST_OFFSET, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
 
     });
+
+    var searchReplicaSetsList = function (searchName) {
+
+        searchName = searchName.trim();
+        if (searchName == null || searchName.lengh == 0) {
+            searchName = null;
+        }
+        G_REPLICA_SETS_LIST_GET_FIRST = true;
+        G_REPLICA_SETS_LIST_SEARCH_KEYWORD = searchName;
+        G_REPLICA_SETS_LIST_OFFSET = 0;
+        $("#"+ G_REPLICA_SETS_MORE_BTN_ID).css("display", "block");
+        getReplicaSetsList(null, 0, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
+
+    };
+
 
 </script>

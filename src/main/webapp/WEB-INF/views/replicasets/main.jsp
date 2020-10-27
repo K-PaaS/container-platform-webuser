@@ -21,6 +21,6 @@
 </div>
 <script type="text/javascript">
     $(document.body).ready(function () {
-        getReplicaSetsList(null,<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
+        getReplicaSetsList(null,0, <%= Constants.OVERVIEW_LIMIT_COUNT %>, null);
     });
 </script>

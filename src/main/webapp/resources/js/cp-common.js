@@ -559,3 +559,22 @@ var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
 
     }
 };
+
+
+var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
+
+    if (data.hasOwnProperty("itemMetaData")) {
+        var itemMetaData = data.itemMetaData;
+
+        if (itemMetaData != null) {
+            if (data.itemMetaData.hasOwnProperty(remainItemCountKey)) {
+
+                var remainingItemCount = data.itemMetaData.remainingItemCount;
+                if (remainingItemCount <= 0) {
+                    $('#' + buttonID).css("display", "none");
+                }
+            }
+        }
+    }
+
+};
