@@ -1,5 +1,6 @@
 package org.paasta.container.platform.web.user.persistentVolumeClaims;
 
+import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,29 +33,28 @@ public class PersistentVolumeClaimsService {
     /**
      * PersistentVolumeClaims 목록 조회(Get PersistentVolumeClaims list)
      *
-     * @param namespace the namespace
-     * @param limit the limit
-     * @param continueToken the continueToken
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the persistentVolumeClaims list
      */
-    PersistentVolumeClaimsList getPersistentVolumeClaimsList(String namespace,int limit, String continueToken) {
+    PersistentVolumeClaimsList getPersistentVolumeClaimsList(String namespace, int offset, int limit, String orderBy, String order, String searchName) {
 
-        String param = "";
-
-        if(continueToken != null) {
-            param = "&continue=" + continueToken;
-        }
+        String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_LIST
-                        .replace("{namespace:.+}", namespace) + "?limit=" + limit + param
-                ,HttpMethod.GET, null, PersistentVolumeClaimsList.class);
+                        .replace("{namespace:.+}", namespace) + param
+                , HttpMethod.GET, null, PersistentVolumeClaimsList.class);
     }
 
 
     /**
      * PersistentVolumeClaims 상세 정보(Get PersistentVolumeClaims detail)
      *
-     * @param namespace the namespace
+     * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return the persistentVolumeClaims detail
      */
@@ -69,7 +69,7 @@ public class PersistentVolumeClaimsService {
     /**
      * PersistentVolumeClaims YAML 조회(Get PersistentVolumeClaims yaml)
      *
-     * @param namespace the namespace
+     * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return the persistentVolumeClaims yaml
      */
@@ -85,8 +85,8 @@ public class PersistentVolumeClaimsService {
      * PersistentVolumeClaims 생성(Create PersistentVolumeClaims)
      *
      * @param namespace the namespace
-     * @param yaml the yaml
-     * @return return is succeeded
+     * @param yaml      the yaml
+     * @return
      */
     public Object createPersistentVolumeClaims(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_CREATE
@@ -97,10 +97,10 @@ public class PersistentVolumeClaimsService {
     /**
      * PersistentVolumeClaims 수정(Update PersistentVolumeClaims)
      *
-     * @param namespace the namespace
+     * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
-     * @param yaml the yaml
-     * @return return is succeeded
+     * @param yaml                      the yaml
+     * @return
      */
     public Object updatePersistentVolumeClaims(String namespace, String persistentVolumeClaimName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_UPDATE
@@ -112,9 +112,9 @@ public class PersistentVolumeClaimsService {
     /**
      * PersistentVolumeClaims 삭제(Delete PersistentVolumeClaims)
      *
-     * @param namespace the namespace
+     * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
-     * @return return is succeeded
+     * @return
      */
     public Object deletePersistentVolumeClaims(String namespace, String persistentVolumeClaimName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_DELETE
