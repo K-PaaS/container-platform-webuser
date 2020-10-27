@@ -102,7 +102,7 @@ public class ReplicaSetsService {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object createReplicaSets(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_CREATE
@@ -117,7 +117,7 @@ public class ReplicaSetsService {
      * @param namespace the namespace
      * @param replicaSetName the replicaSet name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object updateReplicaSets(String namespace, String replicaSetName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_UPDATE
@@ -132,7 +132,7 @@ public class ReplicaSetsService {
      *
      * @param namespace the namespace
      * @param replicaSetName   the replicaSet name
-     * @return the replicaSets
+     * @return return is succeeded
      */
     public Object deleteReplicaSets(String namespace, String replicaSetName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_DELETE

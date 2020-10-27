@@ -149,7 +149,7 @@ public class ReplicaSetsController {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PostMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_CREATE)
     @ResponseBody
@@ -164,7 +164,7 @@ public class ReplicaSetsController {
      * @param namespace the namespace
      * @param replicaSetName the replicaSetName name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_UPDATE)
     @ResponseBody
@@ -177,7 +177,7 @@ public class ReplicaSetsController {
      *
      * @param namespace the namespace
      * @param replicaSetName the replicaSetName name
-     * @return
+     * @return return is succeeded
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DELETE)
     @ResponseBody
