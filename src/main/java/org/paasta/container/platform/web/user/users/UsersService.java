@@ -30,7 +30,7 @@ public class UsersService {
     }
 
     /**
-     * 사용자 회원가입
+     * Users 회원가입(Post Users sign up)
      *
      * @param users the users
      * @return the ResultStatus
@@ -41,10 +41,10 @@ public class UsersService {
 
 
     /**
-     * 각 namespace별 사용자 목록 조회
+     * 각 Namespace 별 사용자 목록 조회(Get Users namespaces list)
      *
      * @param namespace the namespace
-     * @return          the UsersList
+     * @return the UsersList
      */
     public UsersList getUsersListByNamespace(String namespace) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST_BY_NAMESPACE.replace("{namespace:.+}", namespace), HttpMethod.GET, null, UsersList.class);
@@ -53,7 +53,7 @@ public class UsersService {
 
 
     /**
-     * 등록돼있는 사용자들의 이름 목록 조회
+     * 등록 Users 이름 목록 조회(Get Users name list)
      *
      * @return the Map
      */
@@ -62,7 +62,7 @@ public class UsersService {
     }
 
     /**
-     * 사용자 로그인
+     * Users 로그인(Post Users login)
      *
      * @return the ResultStatus
      */
@@ -72,11 +72,11 @@ public class UsersService {
 
 
     /**
-     * namespace, user id를 통한 사용자 단건 조회
+     * Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)
      *
      * @param namespace the namespace
-     * @param userId    the user id
-     * @return          the Users
+     * @param userId the user id
+     * @return the Users
      */
     public Users getUsers(String namespace, String userId) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_DETAIL.replace("{namespace:.+}", namespace).replace("{userId:.+}", userId), HttpMethod.GET, null, Users.class);
@@ -94,11 +94,11 @@ public class UsersService {
 
 
     /**
-     * 사용자 정보를 수정한다.
+     * Users 정보 수정(Put Users info)
      *
-     * @param userId  the userId
-     * @param users   the users
-     * @return        the ResultStatus
+     * @param userId the userId
+     * @param users the users
+     * @return the ResultStatus
      */
     public ResultStatus updateUsers(String userId, Users users) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_INFO.replace("{userId:.+}", userId), HttpMethod.PUT, users, ResultStatus.class);
@@ -106,7 +106,7 @@ public class UsersService {
 
 
     /**
-     * 사용자 권한 설정
+     * Users 권한 설정(Put Users authority setting)
      *
      * @param namespace the namespace
      * @param users the users
