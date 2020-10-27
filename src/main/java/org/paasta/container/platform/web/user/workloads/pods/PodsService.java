@@ -1,5 +1,6 @@
 package org.paasta.container.platform.web.user.workloads.pods;
 
+import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,9 +114,9 @@ public class PodsService {
      * Pods 수정(Update Pods)
      *
      * @param namespace the namespace
-     * @param podName the pods name
-     * @param yaml the yaml
-     * @return return is succeeded
+     * @param podName   the pods name
+     * @param yaml      the yaml
+     * @return
      */
     public Object updatePods(String namespace, String podName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_POD_UPDATE
@@ -128,8 +129,8 @@ public class PodsService {
      * Pods 삭제(Delete Pods)
      *
      * @param namespace the namespace
-     * @param podName the pods name
-     * @return return is succeeded
+     * @param podName   the pods name
+     * @return the Pods
      */
     public Object deletePods(String namespace, String podName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_POD_DELETE
