@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * ResourceQuotas Controller 클래스
+ *
  * @author hrjin
  * @version 1.0
  * @since 2020.10.24
@@ -20,7 +22,7 @@ public class ResourceQuotasController {
     }
 
     /**
-     * Namespaces resourceQuotas 정보 조회(Get Namespaces resourceQuotas)
+     * ResourceQuotas namespaces 정보 조회(Get ResourceQuotas namespaces)
      *
      * @param namespace the namespaces
      * @return the resourceQuotas list
