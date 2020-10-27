@@ -74,7 +74,7 @@ public class DeploymentsService {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object createDeployments(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_CREATE
@@ -88,7 +88,7 @@ public class DeploymentsService {
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object updateDeployments(String namespace, String deploymentName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_UPDATE
@@ -102,7 +102,7 @@ public class DeploymentsService {
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name
-     * @return
+     * @return return is succeeded
      */
     public Object deleteDeployments(String namespace, String deploymentName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_DELETE

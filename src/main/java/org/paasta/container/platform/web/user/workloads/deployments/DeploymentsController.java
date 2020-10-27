@@ -120,7 +120,7 @@ public class DeploymentsController {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PostMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_CREATE)
     @ResponseBody
@@ -135,7 +135,7 @@ public class DeploymentsController {
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_UPDATE)
     public Object updateDeployments(@PathVariable(value = "namespace") String namespace, @PathVariable("deploymentName") String deploymentName, @RequestBody String yaml) {
@@ -147,7 +147,7 @@ public class DeploymentsController {
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name
-     * @return
+     * @return return is succeeded
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_DELETE)
     public Object deleteDeployments(@PathVariable(value = "namespace") String namespace, @PathVariable("deploymentName") String deploymentName) {
