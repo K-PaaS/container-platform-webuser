@@ -19,7 +19,7 @@ public class PodsList {
     private Map<String,Object> metadata;
 
     private List<Pods> items;
-
+    private Map<String, Object> itemMetaData;
     private String selector;
     private String serviceName;
 }
