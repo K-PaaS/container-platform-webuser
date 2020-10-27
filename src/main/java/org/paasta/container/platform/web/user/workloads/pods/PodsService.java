@@ -99,7 +99,7 @@ public class PodsService {
      *
      * @param namespace
      * @param yaml
-     * @return
+     * @return return is succeeded
      */
     public Object createPods(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_PODS_CREATE
@@ -113,7 +113,7 @@ public class PodsService {
      * @param namespace the namespace
      * @param podName the pods name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object updatePods(String namespace, String podName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_POD_UPDATE
@@ -127,7 +127,7 @@ public class PodsService {
      *
      * @param namespace the namespace
      * @param podName the pods name
-     * @return the Pods
+     * @return return is succeeded
      */
     public Object deletePods(String namespace, String podName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_POD_DELETE

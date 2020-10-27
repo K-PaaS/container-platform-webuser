@@ -174,7 +174,7 @@ public class PodsController {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PostMapping(value = Constants.API_URL + Constants.URI_API_PODS_CREATE)
     @ResponseBody
@@ -189,7 +189,7 @@ public class PodsController {
      * @param namespace   the namespace
      * @param podName the pod name
      * @param yaml        the yaml
-     * @return
+     * @return return is succeeded
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_POD_UPDATE)
     @ResponseBody
@@ -203,7 +203,7 @@ public class PodsController {
      *
      * @param namespace the namespace
      * @param podName the pod name
-     * @return
+     * @return return is succeeded
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_POD_DELETE)
     @ResponseBody
