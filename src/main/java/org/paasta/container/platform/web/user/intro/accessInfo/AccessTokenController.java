@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * AccessToken Controller 클래스
+ * Access Token Controller 클래스
  *
  * @author hrjin
  * @version 1.0
@@ -46,7 +46,7 @@ public class AccessTokenController {
 
 
     /**
-     * Intro access info 페이지로 이동한다.
+     * Intro access info 페이지 이동(Move Intro access info page)
      *
      * @param httpServletRequest the http servlet request
      * @return the view
@@ -61,9 +61,9 @@ public class AccessTokenController {
 
 
     /**
-     * Secret을 조회한다.
+     * Secret 조회(Get Secret)
      *
-     * @param namespace       the namespace
+     * @param namespace the namespace
      * @param accessTokenName the access token name
      * @return the AccessToken
      */

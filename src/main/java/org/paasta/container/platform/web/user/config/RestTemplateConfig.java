@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * RestTemplate Config 클래스
+ * Rest Template Config 클래스
  *
  * @author jjy
  * @version 1.0

@@ -105,9 +105,9 @@ public class CustomServicesController {
     /**
      * Services 상세 조회(Get Services detail)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param serviceName the services name
-     * @return the custom service detail
+     * @return the custom services detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DETAIL)
     @ResponseBody
@@ -119,7 +119,7 @@ public class CustomServicesController {
     /**
      * Services YAML 조회(Get Services yaml)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param serviceName the services name
      * @return the custom services yaml
      */

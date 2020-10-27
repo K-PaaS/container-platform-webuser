@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Common utils 클래스
+ * Common Utils 클래스
  *
  * @author hrjin
  * @version 1.0

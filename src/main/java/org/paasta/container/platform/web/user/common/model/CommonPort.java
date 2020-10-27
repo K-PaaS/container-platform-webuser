@@ -3,7 +3,7 @@ package org.paasta.container.platform.web.user.common.model;
 import lombok.Data;
 
 /**
- * Common Ports Model 클래스
+ * Common Port Model 클래스
  *
  * @author jjy
  * @version 1.0

@@ -1,7 +1,7 @@
 package org.paasta.container.platform.web.user.common.model;
 
 /**
- * 공통 status code 클래스
+ * Common Status Code 클래스
  *
  * @author hrjin
  * @version 1.0

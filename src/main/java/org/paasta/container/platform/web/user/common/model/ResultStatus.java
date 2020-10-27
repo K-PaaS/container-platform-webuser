@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * ResultStatus model 클래스
+ * Result Status Model 클래스
  *
  * @author hrjin
  * @version 1.0
