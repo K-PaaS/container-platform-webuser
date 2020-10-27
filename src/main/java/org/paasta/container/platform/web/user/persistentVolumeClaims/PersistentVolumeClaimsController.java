@@ -118,7 +118,7 @@ public class PersistentVolumeClaimsController {
     /**
      * PersistentVolumeClaims YAML 조회(Get PersistentVolumeClaims yaml)
      *
-     * @param namespace                    the namespace
+     * @param namespace the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return the persistentVolumeClaims yaml
      */
@@ -133,7 +133,7 @@ public class PersistentVolumeClaimsController {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PostMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_CREATE)
     @ResponseBody
@@ -148,7 +148,7 @@ public class PersistentVolumeClaimsController {
      * @param namespace the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_UPDATE)
     @ResponseBody
@@ -161,7 +161,7 @@ public class PersistentVolumeClaimsController {
      *
      * @param namespace the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
-     * @return
+     * @return return is succeeded
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_DELETE)
     @ResponseBody

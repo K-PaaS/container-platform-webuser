@@ -86,7 +86,7 @@ public class PersistentVolumeClaimsService {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object createPersistentVolumeClaims(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_CREATE
@@ -100,7 +100,7 @@ public class PersistentVolumeClaimsService {
      * @param namespace the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object updatePersistentVolumeClaims(String namespace, String persistentVolumeClaimName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_UPDATE
@@ -114,7 +114,7 @@ public class PersistentVolumeClaimsService {
      *
      * @param namespace the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
-     * @return
+     * @return return is succeeded
      */
     public Object deletePersistentVolumeClaims(String namespace, String persistentVolumeClaimName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_STORAGES_DELETE

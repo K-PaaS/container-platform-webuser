@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * PersistentVolumeClaimsStatus Model 클래스
+ * PersistentVolumeClaims Status Model 클래스
  *
  * @author jjy
  * @version 1.0
