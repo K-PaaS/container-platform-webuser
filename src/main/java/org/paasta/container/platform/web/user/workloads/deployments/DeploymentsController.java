@@ -76,7 +76,12 @@ public class DeploymentsController {
     /**
      * Deployments 목록 조회(Get Deployments list)
      *
-     * @param namespace the namespace
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the deployments list
      */
     @GetMapping( value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_LIST )
@@ -85,8 +90,8 @@ public class DeploymentsController {
                                               @RequestParam(required = false, defaultValue = "0") int limit,
                                               @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
                                               @RequestParam(required = false, defaultValue = "desc") String order,
-                                              @RequestParam(required = false, defaultValue = "") String searchName)
-    {
+                                              @RequestParam(required = false, defaultValue = "") String searchName) {
+
         return deploymentsService.getDeploymentsList(namespace, offset, limit, orderBy, order, searchName);
     }
 
