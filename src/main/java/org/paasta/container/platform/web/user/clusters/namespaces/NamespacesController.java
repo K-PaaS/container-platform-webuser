@@ -28,7 +28,7 @@ public class NamespacesController {
     /**
      * Instantiates a Namespaces controller
      *
-     * @param commonService     the common service
+     * @param commonService the common service
      * @param namespacesService the namespaces service
      */
     @Autowired
