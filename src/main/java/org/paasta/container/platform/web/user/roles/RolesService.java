@@ -1,5 +1,6 @@
 package org.paasta.container.platform.web.user.roles;
 
+import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,29 +25,29 @@ public class RolesService {
      * @param restTemplateService the rest template service
      */
     @Autowired
-    public RolesService(RestTemplateService restTemplateService) 
-    {this.restTemplateService = restTemplateService;}
+    public RolesService(RestTemplateService restTemplateService) {
+        this.restTemplateService = restTemplateService;
+    }
 
 
     /**
      * Roles 목록 조회(Get Roles list)
      *
-     * @param namespace the namespace
-     * @param limit the limit
-     * @param continueToken the continueToken
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the roles list
      */
-    RolesList getRolesList(String namespace, int limit, String continueToken) {
-
-        String param = "";
-
-        if(continueToken != null) {
-            param = "&continue=" + continueToken;
-        }
+    RolesList getRolesList(String namespace, int offset, int limit, String orderBy, String order, String searchName) {
+        
+        String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_ROLES_LIST
-                        .replace("{namespace:.+}", namespace) + "?limit=" + limit + param
-                ,HttpMethod.GET, null, RolesList.class);
+                        .replace("{namespace:.+}", namespace) + param
+                , HttpMethod.GET, null, RolesList.class);
     }
 
 
@@ -54,7 +55,7 @@ public class RolesService {
      * Roles 상세 조회(Get Roles detail)
      *
      * @param namespace the namespace
-     * @param roleName the roles name
+     * @param roleName  the roles name
      * @return the roles detail
      */
     Roles getRoles(String namespace, String roleName) {
@@ -69,7 +70,7 @@ public class RolesService {
      * Roles YAML 조회(Get Roles yaml)
      *
      * @param namespace the namespace
-     * @param roleName the roles name
+     * @param roleName  the roles name
      * @return the roles yaml
      */
     Roles getRolesYaml(String namespace, String roleName) {
