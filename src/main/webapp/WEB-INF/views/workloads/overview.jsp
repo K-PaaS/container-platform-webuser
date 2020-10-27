@@ -59,7 +59,7 @@
     // ON LOAD
     $(window).bind("load", function () {
         getDeploymentsList(0, <%= Constants.OVERVIEW_LIMIT_COUNT %>, null);
-        getPodsList(<%= Constants.OVERVIEW_LIMIT_COUNT %>,"");
+        getPodsList(0, <%= Constants.OVERVIEW_LIMIT_COUNT %>, null);
         getReplicaSetsList(null,<%= Constants.OVERVIEW_LIMIT_COUNT %>,"");
         createChart();
     });

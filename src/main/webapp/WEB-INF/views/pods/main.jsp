@@ -21,7 +21,7 @@
     // ON LOAD
     $(document.body).ready(function() {
         procViewLoading('show');
-        getPodsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
+        getPodsList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
         procViewLoading('hide');
     });
 </script>

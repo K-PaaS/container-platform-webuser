@@ -42,20 +42,22 @@ public class PodsService {
     /**
      * Pods 목록 조회(Get Pods namespace)
      *
-     * @param namespace the namespace
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the pods list
      */
-    PodsList getPodList(String namespace ,int limit, String continueToken) {
-        String param = "";
+    PodsList getPodList(String namespace, int offset, int limit, String orderBy, String order, String searchName) {
 
-        if(continueToken != null) {
-            param = "&continue=" + continueToken;
-        }
+        String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
         return restTemplateService.send(Constants.TARGET_CP_API,
                 Constants.URI_API_PODS_LIST
-                        .replace( "{namespace:.+}", namespace ) + "?limit=" + limit + param
-                        ,HttpMethod.GET, null, PodsList.class);
+                        .replace("{namespace:.+}", namespace) + param
+                , HttpMethod.GET, null, PodsList.class);
     }
 
     /**
@@ -99,7 +101,7 @@ public class PodsService {
      *
      * @param namespace
      * @param yaml
-     * @return return is succeeded
+     * @return
      */
     public Object createPods(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_PODS_CREATE

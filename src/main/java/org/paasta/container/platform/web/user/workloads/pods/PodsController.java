@@ -84,14 +84,23 @@ public class PodsController {
     /**
      * Pods 목록 조회(Get Pods list)
      *
-     * @param namespace the namespace
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the pods list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST)
-    public PodsList getPodList(@PathVariable String namespace,
+    public PodsList getPodList(@PathVariable(value = "namespace") String namespace,
+                               @RequestParam(required = false, defaultValue = "0") int offset,
                                @RequestParam(required = false, defaultValue = "0") int limit,
-                               @RequestParam(required = false, name = "continue") String continueToken) {
-        return podsService.getPodList(namespace, limit, continueToken);
+                               @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                               @RequestParam(required = false, defaultValue = "desc") String order,
+                               @RequestParam(required = false, defaultValue = "") String searchName) {
+
+        return podsService.getPodList(namespace, offset, limit, orderBy, order, searchName);
     }
 
     /**
