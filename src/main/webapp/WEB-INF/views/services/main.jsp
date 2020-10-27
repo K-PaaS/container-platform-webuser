@@ -92,7 +92,7 @@
     var G_SERVICE_MORE_BTN_ID = 'servicesMoreDetailBtn';
 
     // GET LIST
-    var getServiceList = function (offset, limit, searchName) {
+    var getServiceList = function(offset, limit, searchName) {
         procViewLoading('show');
 
         var param = makeResourceListParamQuery(offset, limit, searchName);
@@ -277,7 +277,7 @@
     var searchServicesList = function (searchName) {
 
         searchName = searchName.trim();
-        if (searchName == null || searchName.lengh == 0) {
+        if (searchName == null || searchName.length == 0) {
             searchName = null;
         }
         G_SERVICE_LIST_GET_FIRST = true;

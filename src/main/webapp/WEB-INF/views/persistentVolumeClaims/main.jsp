@@ -25,10 +25,10 @@
                         <p>Persistent Volume Claims</p>
                         <ul class="colright_btn">
                             <li>
-<%--                                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {setList(this.value);}" maxlength="100" />--%>
-<%--                                <button name="button" class="btn table-search-on" type="button">--%>
-<%--                                    <i class="fas fa-search"></i>--%>
-<%--                                </button>--%>
+                                <input type="text" id="table-search-01" name="" class="table-search" placeholder="search" onkeypress="if(event.keyCode===13) {searchPvcList(this.value);}" maxlength="100" />
+                                <button name="button" class="btn table-search-on" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
                             </li>
                         </ul>
                     </div>
@@ -42,13 +42,13 @@
                                 <col style='width:20%;'>
                             </colgroup>
                             <thead>
-                            <tr id="noResultArea"><td colspan='5'><p class='service_p'>생성한 Volume 이 없습니다.</p></td></tr>
+                            <tr id="noResultArea"><td colspan='5'><p class='service_p'>생성한 Persistent Volume Claims 이 없습니다.</p></td></tr>
                             <tr id="resultHeaderArea" class="headerSortFalse" style="display: none;">
-                                <td>Name<button class="sort-arrow" onclick="procSetSortList('resultTable', this, '0')"><i class="fas fa-caret-down"></i></button></td>
+                                <td>Name</td>
                                 <td>Labels</td>
                                 <td>Spec</td>
                                 <td>Status</td>
-                                <td>Created on<button class="sort-arrow" onclick="procSetSortList('resultTable', this, '4')"><i class="fas fa-caret-down"></i></button></td>
+                                <td>Created on</td>
                             </tr>
                             </thead>
                             <tbody id="resultArea">
@@ -70,20 +70,18 @@
 
     var G_PVC_LIST;
     var G_PVC_LIST_LENGTH;
-    var G_PVC_LIST_CONTINUE_TOKEN = "";
     var G_PVC_LIST_GET_FIRST = true;
+    var G_PVC_LIST_OFFSET = 0;
+    var G_PVC_LIST_SEARCH_KEYWORD = null;
+    var G_PVC_MORE_BTN_ID = 'pvcMoreDetailBtn';
 
 
     // GET LIST
-    var getPersistentVolumeClaimsList = function (limit, continue_token) {
+    var getPersistentVolumeClaimsList = function(offset, limit, searchName) {
         procViewLoading('show');
 
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_STORAGES_LIST %>" + "?limit=" + limit;
-
-        if (continue_token.length > 1) {
-            reqUrl = reqUrl + "&continue=" + continue_token;
-        }
-
+        var param = makeResourceListParamQuery(offset, limit, searchName);
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_STORAGES_LIST %>"  + param;
         reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackPvcGetList);
@@ -100,17 +98,10 @@
         G_PVC_LIST = data;
         G_PVC_LIST_LENGTH = data.items.length;
 
-        procViewLoading('hide');
 
-        if(data.metadata.hasOwnProperty('continue')){
-            G_PVC_LIST_CONTINUE_TOKEN = data.metadata.continue;
-        }
-
-        if(!data.metadata.hasOwnProperty('remainingItemCount')){
-            $('#pvcMoreDetailBtn').css("display", "none");
-        }
-
+        resourceListMoreBtnDisplay('<%= Constants.REMAIN_ITEM_COUNT_KEY %>', data, G_PVC_MORE_BTN_ID);
         setPvcList("");
+        procViewLoading('hide');
     };
 
     // SET LIST
@@ -204,11 +195,6 @@
             resultArea.html(htmlString);
             resultArea.show();
 
-            resultTable.tablesorter({
-                sortList: [[5, 1]] // 0 = ASC, 1 = DESC
-            });
-
-            resultTable.trigger("update");
             $('.headerSortFalse > td').unbind();
         }
         else if(G_PVC_LIST_GET_FIRST == false) {
@@ -223,14 +209,32 @@
 
     // ON LOAD
     $(document.body).ready(function () {
-        getPersistentVolumeClaimsList(<%= Constants.DEFAULT_LIMIT_COUNT %>,"");
+        getPersistentVolumeClaimsList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
     });
 
 </script>
 <script>
-    $(document).on("click", "#pvcMoreDetailBtn", function(){
+
+
+    $(document).on("click", "#"+ G_PVC_MORE_BTN_ID, function(){
         G_PVC_LIST_GET_FIRST = false;
-        getPersistentVolumeClaimsList(<%= Constants.DEFAULT_LIMIT_COUNT %>, G_PVC_LIST_CONTINUE_TOKEN);
+        G_PVC_LIST_OFFSET++;
+        getPersistentVolumeClaimsList(G_PVC_LIST_OFFSET, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_PVC_LIST_SEARCH_KEYWORD);
     });
+
+    var searchPvcList = function (searchName) {
+
+        searchName = searchName.trim();
+        if (searchName == null || searchName.length == 0) {
+            searchName = null;
+        }
+        G_PVC_LIST_GET_FIRST = true;
+        G_PVC_LIST_SEARCH_KEYWORD = searchName;
+        G_PVC_LIST_OFFSET = 0;
+
+        $('#' + G_PVC_MORE_BTN_ID).css("display", "block");
+        getPersistentVolumeClaimsList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_PVC_LIST_SEARCH_KEYWORD);
+
+    };
 </script>
 

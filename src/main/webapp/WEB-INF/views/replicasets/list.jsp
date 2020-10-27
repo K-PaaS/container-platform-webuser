@@ -211,7 +211,7 @@
     var searchReplicaSetsList = function (searchName) {
 
         searchName = searchName.trim();
-        if (searchName == null || searchName.lengh == 0) {
+        if (searchName == null || searchName.length == 0) {
             searchName = null;
         }
         G_REPLICA_SETS_LIST_GET_FIRST = true;

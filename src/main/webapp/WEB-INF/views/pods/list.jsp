@@ -387,7 +387,7 @@
     var searchPodsList = function (searchName) {
 
         searchName = searchName.trim();
-        if (searchName == null || searchName.lengh == 0) {
+        if (searchName == null || searchName.length == 0) {
             searchName = null;
         }
         G_PODS_LIST_GET_FIRST = true;
