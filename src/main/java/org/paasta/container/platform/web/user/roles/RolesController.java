@@ -87,17 +87,24 @@ public class RolesController {
     /**
      * Roles 목록 조회(Get Roles list)
      *
-     * @param namespace the namespace
-     * @param limit the limit
-     * @param continueToken the continueToken
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the roles list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_LIST)
     @ResponseBody
-    public RolesList getRolesList(@PathVariable String namespace,
+    public RolesList getRolesList(@PathVariable(value = "namespace") String namespace,
+                                  @RequestParam(required = false, defaultValue = "0") int offset,
                                   @RequestParam(required = false, defaultValue = "0") int limit,
-                                  @RequestParam(required = false, name = "continue") String continueToken) {
-        return rolesService.getRolesList(namespace,limit,continueToken);
+                                  @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                                  @RequestParam(required = false, defaultValue = "desc") String order,
+                                  @RequestParam(required = false, defaultValue = "") String searchName) {
+
+        return rolesService.getRolesList(namespace, offset, limit, orderBy, order, searchName);
     }
 
 

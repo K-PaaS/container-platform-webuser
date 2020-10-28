@@ -26,8 +26,8 @@ public class PersistentVolumeClaimsController {
     /**
      * Instantiates a new persistentVolumeClaims controller
      *
-     * @param commonService                     the common service
-     * @param persistentVolumeClaimsService  the persistentVolumeClaims Service
+     * @param commonService                 the common service
+     * @param persistentVolumeClaimsService the persistentVolumeClaims Service
      */
     @Autowired
     public PersistentVolumeClaimsController(CommonService commonService, PersistentVolumeClaimsService persistentVolumeClaimsService) {
@@ -87,25 +87,31 @@ public class PersistentVolumeClaimsController {
     /**
      * PersistentVolumeClaims 목록 조회(Get PersistentVolumeClaims list)
      *
-     * @param namespace the namespace
-     * @param limit the limit
-     * @param continueToken the continueToken
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the persistentVolumeClaims list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_LIST)
     @ResponseBody
     public PersistentVolumeClaimsList getPersistentVolumeClaimsList(@PathVariable(value = "namespace") String namespace,
+                                                                    @RequestParam(required = false, defaultValue = "0") int offset,
                                                                     @RequestParam(required = false, defaultValue = "0") int limit,
-                                                                    @RequestParam(required = false, name = "continue") String continueToken) {
+                                                                    @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                                                                    @RequestParam(required = false, defaultValue = "desc") String order,
+                                                                    @RequestParam(required = false, defaultValue = "") String searchName) {
 
-        return persistentVolumeClaimsService.getPersistentVolumeClaimsList(namespace, limit, continueToken);
+        return persistentVolumeClaimsService.getPersistentVolumeClaimsList(namespace, offset, limit, orderBy, order, searchName);
     }
 
 
     /**
      * PersistentVolumeClaims 상세 조회(Get PersistentVolumeClaims detail)
      *
-     * @param namespace the namespace
+     * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return the persistentVolumeClaims detail
      */
@@ -118,7 +124,7 @@ public class PersistentVolumeClaimsController {
     /**
      * PersistentVolumeClaims YAML 조회(Get PersistentVolumeClaims yaml)
      *
-     * @param namespace                    the namespace
+     * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return the persistentVolumeClaims yaml
      */
@@ -132,22 +138,22 @@ public class PersistentVolumeClaimsController {
      * PersistentVolumeClaims 생성(Create PersistentVolumeClaims)
      *
      * @param namespace the namespace
-     * @param yaml the yaml
+     * @param yaml      the yaml
      * @return
      */
     @PostMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_CREATE)
     @ResponseBody
     public Object createPersistentVolumeClaims(@PathVariable(value = "namespace") String namespace, @RequestBody String yaml) {
-        return persistentVolumeClaimsService.createPersistentVolumeClaims(namespace,yaml);
+        return persistentVolumeClaimsService.createPersistentVolumeClaims(namespace, yaml);
 
     }
 
     /**
      * PersistentVolumeClaims 수정(Update PersistentVolumeClaims)
      *
-     * @param namespace the namespace
+     * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
-     * @param yaml the yaml
+     * @param yaml                      the yaml
      * @return
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_UPDATE)
@@ -159,13 +165,13 @@ public class PersistentVolumeClaimsController {
     /**
      * PersistentVolumeClaims 삭제(Delete PersistentVolumeClaims)
      *
-     * @param namespace the namespace
+     * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_DELETE)
     @ResponseBody
-    public Object deletePersistentVolumeClaims(@PathVariable(value = "namespace") String namespace, @PathVariable("persistentVolumeClaimName") String persistentVolumeClaimName ){
+    public Object deletePersistentVolumeClaims(@PathVariable(value = "namespace") String namespace, @PathVariable("persistentVolumeClaimName") String persistentVolumeClaimName) {
         return persistentVolumeClaimsService.deletePersistentVolumeClaims(namespace, persistentVolumeClaimName);
     }
 }

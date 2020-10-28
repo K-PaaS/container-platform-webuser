@@ -76,7 +76,12 @@ public class DeploymentsController {
     /**
      * Deployments 목록 조회(Get Deployments list)
      *
-     * @param namespace the namespace
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the deployments list
      */
     @GetMapping( value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_LIST )
@@ -85,8 +90,8 @@ public class DeploymentsController {
                                               @RequestParam(required = false, defaultValue = "0") int limit,
                                               @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
                                               @RequestParam(required = false, defaultValue = "desc") String order,
-                                              @RequestParam(required = false, defaultValue = "") String searchName)
-    {
+                                              @RequestParam(required = false, defaultValue = "") String searchName) {
+
         return deploymentsService.getDeploymentsList(namespace, offset, limit, orderBy, order, searchName);
     }
 
@@ -120,7 +125,7 @@ public class DeploymentsController {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PostMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_CREATE)
     @ResponseBody
@@ -135,7 +140,7 @@ public class DeploymentsController {
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_UPDATE)
     public Object updateDeployments(@PathVariable(value = "namespace") String namespace, @PathVariable("deploymentName") String deploymentName, @RequestBody String yaml) {
@@ -147,7 +152,7 @@ public class DeploymentsController {
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name
-     * @return
+     * @return return is succeeded
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_DELETE)
     public Object deleteDeployments(@PathVariable(value = "namespace") String namespace, @PathVariable("deploymentName") String deploymentName) {

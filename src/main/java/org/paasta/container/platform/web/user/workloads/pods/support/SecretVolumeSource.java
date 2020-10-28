@@ -3,7 +3,7 @@ package org.paasta.container.platform.web.user.workloads.pods.support;
 import lombok.Data;
 
 /**
- * Secret Volume Source Model 클래스 (Secret 클래스가 아님)
+ * Secret Volume Source Model Model 클래스 (Secret 클래스가 아님)
  *
  * @author jjy
  * @version 1.0

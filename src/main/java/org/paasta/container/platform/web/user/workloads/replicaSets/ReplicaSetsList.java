@@ -18,6 +18,7 @@ public class ReplicaSetsList {
     private String resultCode;
     private String resultMessage;
     private Map<String,Object> metadata;
+    private Map<String, Object> itemMetaData;
     private List<ReplicaSets> items;
 
 }

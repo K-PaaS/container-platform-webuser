@@ -3,7 +3,6 @@ package org.paasta.container.platform.web.user.workloads.deployments;
 import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
-import org.paasta.container.platform.web.user.workloads.pods.Pods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -28,10 +27,16 @@ public class DeploymentsService {
 
     /**
      * Deployments 목록 조회(Get Deployments list)
-     * @param namespace the namespace
+     *
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the deployments list
      */
-    public DeploymentsList getDeploymentsList (String namespace, int offset, int limit, String orderBy, String order, String searchName) {
+    public DeploymentsList getDeploymentsList(String namespace, int offset, int limit, String orderBy, String order, String searchName) {
 
         String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
@@ -74,7 +79,7 @@ public class DeploymentsService {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object createDeployments(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_CREATE
@@ -88,7 +93,7 @@ public class DeploymentsService {
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object updateDeployments(String namespace, String deploymentName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_UPDATE
@@ -102,7 +107,7 @@ public class DeploymentsService {
      *
      * @param namespace the namespace
      * @param deploymentName the deployments name
-     * @return
+     * @return return is succeeded
      */
     public Object deleteDeployments(String namespace, String deploymentName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_DELETE

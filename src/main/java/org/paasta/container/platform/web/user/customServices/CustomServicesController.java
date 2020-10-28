@@ -87,27 +87,34 @@ public class CustomServicesController {
     /**
      * Services 목록 조회(Get Services list)
      *
-     * @param namespace the namespace
-     * @param limit the limit
-     * @param continueToken the continueToken
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the custom services list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_LIST)
     @ResponseBody
-    public CustomServicesList getCustomServicesList(@PathVariable String namespace,
+    public CustomServicesList getCustomServicesList(@PathVariable(value = "namespace") String namespace,
+                                                    @RequestParam(required = false, defaultValue = "0") int offset,
                                                     @RequestParam(required = false, defaultValue = "0") int limit,
-                                                    @RequestParam(required = false, name = "continue") String continueToken) {
+                                                    @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                                                    @RequestParam(required = false, defaultValue = "desc") String order,
+                                                    @RequestParam(required = false, defaultValue = "") String searchName)
+    {
 
-        return customServicesService.getCustomServicesList(namespace,limit,continueToken);
+        return customServicesService.getCustomServicesList(namespace, offset, limit, orderBy, order, searchName);
     }
 
 
     /**
      * Services 상세 조회(Get Services detail)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param serviceName the services name
-     * @return the custom service detail
+     * @return the custom services detail
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DETAIL)
     @ResponseBody
@@ -119,7 +126,7 @@ public class CustomServicesController {
     /**
      * Services YAML 조회(Get Services yaml)
      *
-     * @param namespace   the namespace
+     * @param namespace the namespace
      * @param serviceName the services name
      * @return the custom services yaml
      */
@@ -134,24 +141,23 @@ public class CustomServicesController {
      * Services 생성(Create Services)
      *
      * @param namespace the namespace
-     * @param yaml the yaml
+     * @param yaml      the yaml
      * @return
      */
     @PostMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_CREATE)
     @ResponseBody
     public Object createCustomServices(@PathVariable(value = "namespace") String namespace, @RequestBody String yaml) {
-        return customServicesService.createCustomServices(namespace,yaml);
+        return customServicesService.createCustomServices(namespace, yaml);
 
     }
-
 
 
     /**
      * Services 수정(Update Services)
      *
-     * @param namespace the namespace
+     * @param namespace   the namespace
      * @param serviceName the services name
-     * @param yaml the yaml
+     * @param yaml        the yaml
      * @return
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_UPDATE)
@@ -164,13 +170,13 @@ public class CustomServicesController {
     /**
      * Services 삭제(Delete Services)
      *
-     * @param namespace the namespace
+     * @param namespace   the namespace
      * @param serviceName the services name
      * @return
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DELETE)
     @ResponseBody
-    public Object deleteCustomServices(@PathVariable(value = "namespace") String namespace, @PathVariable("serviceName") String serviceName ){
+    public Object deleteCustomServices(@PathVariable(value = "namespace") String namespace, @PathVariable("serviceName") String serviceName) {
         return customServicesService.deleteCustomServices(namespace, serviceName);
     }
 

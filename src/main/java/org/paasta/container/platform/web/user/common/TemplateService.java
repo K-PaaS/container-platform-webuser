@@ -11,7 +11,7 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import java.util.Map;
 
 /**
- * TemplateService 클래스
+ * Template Service 클래스
  *
  * @author jjy
  * @version 1.0

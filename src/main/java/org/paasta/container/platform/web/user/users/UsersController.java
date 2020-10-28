@@ -55,7 +55,7 @@ public class UsersController {
     }
 
     /**
-     * 사용자 회원가입 페이지로 이동한다.
+     * Users 회원가입 페이지 이동(Move Users sing up page)
      *
      * @return the view
      */
@@ -69,7 +69,7 @@ public class UsersController {
 
 
     /**
-     * 사용자 회원가입
+     * Users 회원가입(Put Users sign up)
      *
      * @param users
      * @param bindingResult
@@ -95,7 +95,7 @@ public class UsersController {
 
 
     /**
-     * 사용자 목록 페이지로 이동한다.
+     * Users 목록 페이지 이동(Move Users list page)
      *
      * @param httpServletRequest
      * @return the view
@@ -107,7 +107,8 @@ public class UsersController {
     }
 
     /**
-     * 사용자 설정 페이지로 이동한다. (todo ::: Namespace 관리자만 접근 가능하도록)
+     * Users 설정 페이지 이동(Move Users setting page)
+     * (todo ::: Namespace 관리자만 접근 가능하도록)
      *
      * @param httpServletRequest
      * @return the view
@@ -120,7 +121,7 @@ public class UsersController {
 
 
     /**
-     * 사용자 권한 설정
+     * Users 권한 설정(Put Users authority setting)
      *
      * @param namespace the namespace
      * @param users the users
@@ -133,7 +134,7 @@ public class UsersController {
 
 
     /**
-     * 전체 사용자 목록을 조회한다.
+     * 전체 Users 목록 조회(Get All Users list)
      *
      * @param namespace the namespace
      * @return the UsersList
@@ -144,7 +145,7 @@ public class UsersController {
     }
 
     /**
-     * 각 namespace별 사용자 목록을 조회한다.
+     * 각 Namespace 별 Users 목록 조회(Get Users namespaces list)
      *
      * @param namespace the namespace
      * @return the UsersList
@@ -156,7 +157,7 @@ public class UsersController {
 
 
     /**
-     * 각 namespace별 등록돼있는 사용자들의 이름 목록 조회
+     * 각 Namespace 별 등록 Users 이름 목록 조회(Get Users name namespaces list)
      *
      * @param namespace the namespace
      * @return the Map
@@ -168,7 +169,7 @@ public class UsersController {
 
 
     /**
-     * namespace, user id를 통한 사용자 단건 조회
+     * Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)
      *
      * @param namespace the namespace
      * @param userId the user id
@@ -181,7 +182,7 @@ public class UsersController {
 
 
     /**
-     * 로그인 페이지 이동
+     * 로그인 페이지 이동(Move login page)
      *
      * @param request
      * @param response
@@ -205,7 +206,7 @@ public class UsersController {
 
 
     /**
-     * 사용자 로그인
+     * Users 로그인(Post Users login)
      *
      * @param users
      * @param request
@@ -228,7 +229,7 @@ public class UsersController {
 
 
     /**
-     * 사용자 로그아웃
+     * Users 로그아웃(Get Users logout)
      *
      * @param resposne
      * @return the view
@@ -246,7 +247,7 @@ public class UsersController {
     }
 
     /**
-     * 사용자 마이 페이지로 이동한다.
+     * Users 마이 페이지로 이동(Move Users my page)
      *
      * @param httpServletRequest
      * @return the view
@@ -267,11 +268,11 @@ public class UsersController {
 
 
     /**
-     * 사용자 정보를 수정한다.
+     * Users 정보 수정(Put Users info)
      *
-     * @param userId  the userId
-     * @param users   the users
-     * @return        the ResultStatus
+     * @param userId the userId
+     * @param users the users
+     * @return the ResultStatus
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_INFO)
     public ResultStatus updateUsers(@PathVariable(value = "userId") String userId, @RequestBody Users users) {

@@ -176,7 +176,7 @@
         $('#hiddenNamespace').val(namespace);
         $('#hiddenResourceName').val(deployName);
 
-                 getReplicaSetsList(replaceLabels(selector),0,"");
+        getReplicaSetsList(replaceLabels(selector),0, <%= Constants.OVERVIEW_LIMIT_COUNT %>, null);
         getDetailForPodsList(replaceLabels(selector));
 
     };

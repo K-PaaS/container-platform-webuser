@@ -3,7 +3,7 @@ package org.paasta.container.platform.web.user.common;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
- * CustomTag 클래스
+ * Custom Tag 클래스
  *
  * @author jjy
  * @version 1.0

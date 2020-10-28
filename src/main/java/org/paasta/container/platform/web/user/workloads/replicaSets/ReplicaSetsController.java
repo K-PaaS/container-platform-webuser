@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping
-//@RequestMapping("/clusters/{cluster:.+}/namespaces/{namespace:.+}/deployments")
 public class ReplicaSetsController {
 
     private static final String VIEW_URL = "/replicasets";
@@ -88,18 +87,24 @@ public class ReplicaSetsController {
     /**
      * ReplicaSets 목록 조회(Get ReplicaSets list)
      *
-     * @param namespace the namespace
-     * @param limit the limit
-     * @param continueToken the continueToken
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the replicaSets list
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_LIST)
     @ResponseBody
-    public ReplicaSetsList getReplicaSetsList(@PathVariable String namespace,
+    public ReplicaSetsList getReplicaSetsList(@PathVariable(value = "namespace") String namespace,
+                                              @RequestParam(required = false, defaultValue = "0") int offset,
                                               @RequestParam(required = false, defaultValue = "0") int limit,
-                                              @RequestParam(required = false, name = "continue") String continueToken){
+                                              @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                                              @RequestParam(required = false, defaultValue = "desc") String order,
+                                              @RequestParam(required = false, defaultValue = "") String searchName){
 
-        return replicaSetService.getReplicaSetsList(namespace, limit, continueToken);
+        return replicaSetService.getReplicaSetsList(namespace, offset, limit, orderBy, order, searchName);
     }
 
 
@@ -149,7 +154,7 @@ public class ReplicaSetsController {
      *
      * @param namespace the namespace
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PostMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_CREATE)
     @ResponseBody
@@ -164,7 +169,7 @@ public class ReplicaSetsController {
      * @param namespace the namespace
      * @param replicaSetName the replicaSetName name
      * @param yaml the yaml
-     * @return
+     * @return return is succeeded
      */
     @PutMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_UPDATE)
     @ResponseBody
@@ -177,7 +182,7 @@ public class ReplicaSetsController {
      *
      * @param namespace the namespace
      * @param replicaSetName the replicaSetName name
-     * @return
+     * @return return is succeeded
      */
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DELETE)
     @ResponseBody

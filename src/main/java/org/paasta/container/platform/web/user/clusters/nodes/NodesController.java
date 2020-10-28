@@ -36,7 +36,7 @@ public class NodesController {
     }
 
     /**
-     * Nodes detail 페이지 이동(Move Namespaces detail page)
+     * Nodes detail 페이지 이동(Move Nodes detail page)
      *
      * @param httpServletRequest the http servlet request
      * @param nodeName the nodes name

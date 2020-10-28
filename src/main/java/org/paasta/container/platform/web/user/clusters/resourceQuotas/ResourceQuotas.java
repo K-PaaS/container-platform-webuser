@@ -6,7 +6,7 @@ import org.paasta.container.platform.web.user.clusters.resourceQuotas.support.Re
 import org.paasta.container.platform.web.user.common.model.CommonMetaData;
 
 /**
- * ResourceQuota Model 클래스
+ * ResourceQuotas Model 클래스
  *
  * @author jjy
  * @version 1.0

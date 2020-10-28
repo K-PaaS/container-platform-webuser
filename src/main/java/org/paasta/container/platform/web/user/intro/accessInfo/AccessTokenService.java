@@ -7,7 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 /**
- * AccessToken service 클래스
+ * Access Token service 클래스
  *
  * @author hrjin
  * @version 1.0
@@ -19,7 +19,7 @@ public class AccessTokenService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Access Token service.
+     * Instantiates a new Access Token service
      *
      * @param restTemplateService the rest template service
      */
@@ -28,9 +28,9 @@ public class AccessTokenService {
 
 
     /**
-     * Secret 을 조회한다.
+     * Secret 조회(Get Secret)
      *
-     * @param namespace       the namespace
+     * @param namespace the namespace
      * @param accessTokenName the access token name
      * @return the AccessToken
      */

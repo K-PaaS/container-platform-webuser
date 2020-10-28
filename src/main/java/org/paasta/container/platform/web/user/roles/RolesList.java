@@ -17,6 +17,7 @@ public class RolesList {
     private String resultCode;
     private String resultMessage;
     private Map<String,Object> metadata;
+    private Map<String, Object> itemMetaData;
     private List<Roles> items;
 
 }

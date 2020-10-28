@@ -17,7 +17,7 @@ public class ResourceQuotasService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Namespace service
+     * Instantiates a new ResourceQuotas service
      *
      * @param restTemplateService the rest template service
      */
@@ -27,7 +27,7 @@ public class ResourceQuotasService {
     }
 
     /**
-     * Namespaces ResourceQuotas 조회(Get Namespaces resourceQuotas)
+     * Namespaces ResourceQuotas 조회(Get resourceQuotas namespaces)
      *
      * @param namespace the namespaces
      * @return the resourceQuotas list
