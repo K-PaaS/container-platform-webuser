@@ -46,6 +46,10 @@
     var URI_API_PODS_RESOURCES = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>";
     var URI_WORKLOADS_PODS     = "<%= Constants.URI_WORKLOAD_PODS %>";
 
+    var OVERVIEW_LIMIT_COUNT = "<%= Constants.OVERVIEW_LIMIT_COUNT %>";
+    var DEFAULT_LIMIT_COUNT = "<%= Constants.DEFAULT_LIMIT_COUNT %>";
+
+
     // todo remove :: accessInfo.jsp
     var USER_ID = "admin";
     var USER_NAME = "admin";

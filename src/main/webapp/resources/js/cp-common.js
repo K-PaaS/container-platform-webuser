@@ -565,3 +565,15 @@ var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
     }
 
 };
+
+var setResourceListLimitCount = function () {
+
+    var limitCount = 0;
+    if (typeof IS_OVERVIEW_VIEW !== 'undefined') {
+        //OVERVIEW
+        limitCount = OVERVIEW_LIMIT_COUNT;
+    } else {
+        limitCount = DEFAULT_LIMIT_COUNT;
+    }
+    return limitCount;
+}

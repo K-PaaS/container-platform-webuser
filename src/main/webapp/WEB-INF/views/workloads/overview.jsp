@@ -56,6 +56,7 @@
 
 <script type="text/javascript" src='<c:url value="/resources/js/highcharts.js"/>'></script>
 <script type="text/javascript">
+    var IS_OVERVIEW_VIEW = true;
     // ON LOAD
     $(window).bind("load", function () {
         getDeploymentsList(0, <%= Constants.OVERVIEW_LIMIT_COUNT %>, null);

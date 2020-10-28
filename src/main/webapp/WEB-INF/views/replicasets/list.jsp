@@ -60,6 +60,7 @@
     var G_REPLICA_SETS_CHART_SUCCEEDED_CNT = 0;
     var G_REPLICA_SETS_LIST_GET_FIRST = true;
     var G_REPLICA_SETS_LIST_OFFSET = 0;
+    var G_REPLICA_SETS_LIST_LIMIT_COUNT= 0;
     var G_REPLICA_SETS_LIST_SEARCH_KEYWORD = null;
     var G_REPLICA_SETS_MORE_BTN_ID = 'replicaSetsMoreDetailBtn';
 
@@ -204,7 +205,8 @@
 
         G_REPLICA_SETS_LIST_GET_FIRST = false;
         G_REPLICA_SETS_LIST_OFFSET++;
-        getReplicaSetsList(null,G_REPLICA_SETS_LIST_OFFSET, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
+        G_REPLICA_SETS_LIST_LIMIT_COUNT = setResourceListLimitCount();
+        getReplicaSetsList(null,G_REPLICA_SETS_LIST_OFFSET, G_REPLICA_SETS_LIST_LIMIT_COUNT, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
 
     });
 
@@ -217,8 +219,10 @@
         G_REPLICA_SETS_LIST_GET_FIRST = true;
         G_REPLICA_SETS_LIST_SEARCH_KEYWORD = searchName;
         G_REPLICA_SETS_LIST_OFFSET = 0;
+        G_REPLICA_SETS_LIST_LIMIT_COUNT = setResourceListLimitCount();
+
         $("#"+ G_REPLICA_SETS_MORE_BTN_ID).css("display", "block");
-        getReplicaSetsList(null, 0, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
+        getReplicaSetsList(null, 0, G_REPLICA_SETS_LIST_LIMIT_COUNT, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
 
     };
 
