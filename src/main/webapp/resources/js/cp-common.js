@@ -550,19 +550,6 @@ var makeResourceListParamQuery = function (offset, limit, searchName) {
 
 var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
 
-    if (data.itemMetaData.hasOwnProperty(remainItemCountKey)) {
-
-        var remainingItemCount = data.itemMetaData.remainingItemCount;
-        if (remainingItemCount <= 0) {
-            $('#' + buttonID).css("display", "none");
-        }
-
-    }
-};
-
-
-var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
-
     if (data.hasOwnProperty("itemMetaData")) {
         var itemMetaData = data.itemMetaData;
 
