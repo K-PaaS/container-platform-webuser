@@ -57,7 +57,7 @@ public class UsersController {
     /**
      * 사용자 회원가입 페이지로 이동한다.
      *
-     * @return
+     * @return the view
      */
     @GetMapping(value = "/signUp")
     public ModelAndView signUpView() {
@@ -73,7 +73,7 @@ public class UsersController {
      *
      * @param users
      * @param bindingResult
-     * @return
+     * @return the resultStatus
      */
     @ApiOperation(value = "사용자 회원가입", httpMethod = "POST", hidden = true)
     @PostMapping(value = "/register")
@@ -98,7 +98,7 @@ public class UsersController {
      * 사용자 목록 페이지로 이동한다.
      *
      * @param httpServletRequest
-     * @return
+     * @return the view
      */
     @GetMapping(value = Constants.URI_USERS)
     public ModelAndView getUserMain(HttpServletRequest httpServletRequest) {
@@ -110,7 +110,7 @@ public class UsersController {
      * 사용자 설정 페이지로 이동한다. (todo ::: Namespace 관리자만 접근 가능하도록)
      *
      * @param httpServletRequest
-     * @return
+     * @return the view
      */
     @GetMapping(value = Constants.URI_USERS_CONFIG)
     public ModelAndView getUserDetail(HttpServletRequest httpServletRequest) {
@@ -135,6 +135,7 @@ public class UsersController {
     /**
      * 전체 사용자 목록을 조회한다.
      *
+     * @param namespace the namespace
      * @return the UsersList
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST)
@@ -145,8 +146,8 @@ public class UsersController {
     /**
      * 각 namespace별 사용자 목록을 조회한다.
      *
-     * @param namespace
-     * @return
+     * @param namespace the namespace
+     * @return the UsersList
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST_BY_NAMESPACE)
     public UsersList getUsersListByNamespace(@PathVariable(value = "namespace") String namespace) {
@@ -157,6 +158,7 @@ public class UsersController {
     /**
      * 각 namespace별 등록돼있는 사용자들의 이름 목록 조회
      *
+     * @param namespace the namespace
      * @return the Map
      */
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_NAMES_LIST_BY_NAMESPACE)
@@ -181,6 +183,8 @@ public class UsersController {
     /**
      * 로그인 페이지 이동
      *
+     * @param request
+     * @param response
      * @return the view
      */
     @GetMapping("/login")
@@ -203,6 +207,9 @@ public class UsersController {
     /**
      * 사용자 로그인
      *
+     * @param users
+     * @param request
+     * @param response
      * @return the ResultStatus
      */
     @PostMapping("/login")
@@ -223,6 +230,7 @@ public class UsersController {
     /**
      * 사용자 로그아웃
      *
+     * @param resposne
      * @return the view
      */
     @GetMapping("/logout")
@@ -241,7 +249,7 @@ public class UsersController {
      * 사용자 마이 페이지로 이동한다.
      *
      * @param httpServletRequest
-     * @return
+     * @return the view
      */
     @GetMapping(value = Constants.URI_USERS_INFO)
     public ModelAndView getUserInfoMain(HttpServletRequest httpServletRequest) throws UnsupportedEncodingException {
