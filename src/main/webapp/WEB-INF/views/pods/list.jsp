@@ -383,7 +383,6 @@
         G_PODS_LIST_OFFSET++;
         G_PODS_LIST_LIMIT_COUNT = setResourceListLimitCount();
 
-        alert(G_PODS_LIST_LIMIT_COUNT);
         getPodsList(G_PODS_LIST_OFFSET, G_PODS_LIST_LIMIT_COUNT, G_PODS_LIST_SEARCH_KEYWORD);
 
     });
@@ -399,7 +398,6 @@
         G_PODS_LIST_OFFSET = 0;
         G_PODS_LIST_LIMIT_COUNT = setResourceListLimitCount();
 
-        alert(G_PODS_LIST_LIMIT_COUNT);
 
         $("#" + G_PODS_MORE_BTN_ID).css("display", "block");
         getPodsList(0,G_PODS_LIST_LIMIT_COUNT, G_PODS_LIST_SEARCH_KEYWORD);
