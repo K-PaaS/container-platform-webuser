@@ -38,6 +38,8 @@
 <script type="text/javascript" src='<c:url value="/resources/js/jquery.tablesorter.min.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/g-spinner.min.js"/>'></script>
 
+<script type="text/javascript" src='<c:url value="/resources/js/common.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/cp-common.js"/>'></script>
 <script type="text/javascript">
 
     var RESULT_STATUS_SUCCESS  = "<%= Constants.RESULT_STATUS_SUCCESS %>";
@@ -46,16 +48,21 @@
     var URI_API_PODS_RESOURCES = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>";
     var URI_WORKLOADS_PODS     = "<%= Constants.URI_WORKLOAD_PODS %>";
 
+    var OVERVIEW_LIMIT_COUNT = "<%= Constants.OVERVIEW_LIMIT_COUNT %>";
+    var DEFAULT_LIMIT_COUNT = "<%= Constants.DEFAULT_LIMIT_COUNT %>";
+
+
     // todo remove :: accessInfo.jsp
     var USER_ID = "admin";
     var USER_NAME = "admin";
 
-    var namespace = $.cookie('namespace');
-    namespace = JSON.parse(namespace);
+    var cp_user_metadata =$.cookie("<%= Constants.CP_USER_METADATA_KEY %>");
+    var current_select_ns = $.cookie("<%= Constants.CP_SELECTED_NAMESPACE_KEY %>");
+    cp_user_metadata = JSON.parse(cp_user_metadata);
 
+    var namespace = getNamespaceListByMetaData(cp_user_metadata);
+    var current_user_type = getUserTypeByMetaData(cp_user_metadata, current_select_ns) ;
     var namespacesList = namespace;
 
 </script>
 
-<script type="text/javascript" src='<c:url value="/resources/js/common.js"/>'></script>
-<script type="text/javascript" src='<c:url value="/resources/js/cp-common.js"/>'></script>

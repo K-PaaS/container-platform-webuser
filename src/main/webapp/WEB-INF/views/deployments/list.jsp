@@ -35,17 +35,11 @@
                 <td colspan='6'><p class='service_p'>실행 중인 Deployment가 없습니다.</p></td>
             </tr>
             <tr id="resultDeploymentsHeaderArea" class="headerSortFalse">
-                <td>Name
-                    <button class="sort-arrow" onclick="procSetSortList('resultDeploymentsTable', this, '0')"><i
-                            class="fas fa-caret-down"></i></button>
-                </td>
+                <td>Name</td>
                 <td>Namespace</td>
                 <td>Labels</td>
                 <td>Pods</td>
-                <td>Created on
-                    <button class="sort-arrow" onclick="procSetSortList('resultDeploymentsTable', this, '4')"><i
-                            class="fas fa-caret-down"></i></button>
-                </td>
+                <td>Created on</td>
                 <td>Images</td>
             </tr>
             </thead>
@@ -67,6 +61,7 @@
     var G_DEV_CHART_SUCCEEDEDCNT = 0;
     var G_DEV_CHART_PENDDING_CNT = 0;
     var G_DEPLOYMENTS_LIST_GET_FIRST = true;
+    var G_DEPLOYMENTS_LIST_LIMIT_COUNT= 0;
     var G_DEPLOYMENTS_LIST_OFFSET = 0;
     var G_DEPLOYMENTS_LIST_SEARCH_KEYWORD = null;
     var G_DEPLOYMENTS_MORE_BTN_ID = 'deploymentsMoreDetailBtn';
@@ -204,7 +199,9 @@
     $(document).on("click", "#"+ G_DEPLOYMENTS_MORE_BTN_ID, function () {
         G_DEPLOYMENTS_LIST_GET_FIRST = false;
         G_DEPLOYMENTS_LIST_OFFSET++;
-        getDeploymentsList(G_DEPLOYMENTS_LIST_OFFSET, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_DEPLOYMENTS_LIST_SEARCH_KEYWORD);
+        G_DEPLOYMENTS_LIST_LIMIT_COUNT = setResourceListLimitCount();
+
+        getDeploymentsList(G_DEPLOYMENTS_LIST_OFFSET,G_DEPLOYMENTS_LIST_LIMIT_COUNT, G_DEPLOYMENTS_LIST_SEARCH_KEYWORD);
 
     });
 
@@ -217,8 +214,10 @@
         G_DEPLOYMENTS_LIST_GET_FIRST = true;
         G_DEPLOYMENTS_LIST_SEARCH_KEYWORD = searchName;
         G_DEPLOYMENTS_LIST_OFFSET = 0;
+        G_DEPLOYMENTS_LIST_LIMIT_COUNT = setResourceListLimitCount();
         $("#"+ G_DEPLOYMENTS_MORE_BTN_ID).css("display", "block");
-        getDeploymentsList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_DEPLOYMENTS_LIST_SEARCH_KEYWORD);
+
+        getDeploymentsList(0, G_DEPLOYMENTS_LIST_LIMIT_COUNT, G_DEPLOYMENTS_LIST_SEARCH_KEYWORD);
 
     };
 

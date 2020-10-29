@@ -111,7 +111,7 @@
 <script type="text/javascript">
 
     var NAME_SPACE;
-    var cookieName = "selectedNs";
+    var cookieName = '<%= Constants.CP_SELECTED_NAMESPACE_KEY %>';
 
     var getNamespacesList = function() {
         var html = "";

@@ -51,18 +51,12 @@
                                 <td colspan='6'><p class='service_p'>실행 중인 Service가 없습니다.</p></td>
                             </tr>
                             <tr id="resultHeaderArea" class="headerSortFalse" style="display: none;">
-                                <td>Name
-                                    <button class="sort-arrow" onclick="procSetSortList('resultTable', this, '0')"><i
-                                            class="fas fa-caret-down"></i></button>
-                                </td>
+                                <td>Name</td>
                                 <td>Service Type</td>
                                 <td>Cluster IP</td>
                                 <td>Endpoints</td>
                                 <td>Pods</td>
-                                <td>Created on
-                                    <button class="sort-arrow" onclick="procSetSortList('resultTable', this, '5')"><i
-                                            class="fas fa-caret-down"></i></button>
-                                </td>
+                                <td>Created on</td>
                             </tr>
                             </thead>
                             <tbody id="resultArea">

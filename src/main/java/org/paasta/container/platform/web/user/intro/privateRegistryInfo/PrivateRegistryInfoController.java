@@ -1,5 +1,7 @@
 package org.paasta.container.platform.web.user.intro.privateRegistryInfo;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.PropertyService;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  * @since 2020.09.15
  */
+@Api(value = "PrivateRegistryInfoController v1")
 @Controller
 public class PrivateRegistryInfoController {
 
@@ -42,6 +45,7 @@ public class PrivateRegistryInfoController {
      * @param httpServletRequest the http servlet request
      * @return the model and view
      */
+    @ApiOperation(value = "Private Registry info 페이지 이동(Move Private Registry info page)", nickname = "getIntroAccessInfo")
     @GetMapping(value = Constants.URI_INTRO_PRIVATE_REGISTRY_INFO)
     public ModelAndView getIntroAccessInfo(HttpServletRequest httpServletRequest) {
         ModelAndView mv = new ModelAndView();

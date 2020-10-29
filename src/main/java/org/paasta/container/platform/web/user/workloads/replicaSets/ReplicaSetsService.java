@@ -56,7 +56,7 @@ public class ReplicaSetsService {
      * ReplicaSets 상세 조회(Get ReplicaSets detail)
      *
      * @param namespace      the namespace
-     * @param replicaSetName the replicaSet name
+     * @param replicaSetName the replicaSets name
      * @return the replicaSets detail
      */
     ReplicaSets getReplicaSets(String namespace, String replicaSetName) {
@@ -71,7 +71,7 @@ public class ReplicaSetsService {
      * ReplicaSets YAML 조회(Get ReplicaSets yaml)
      *
      * @param namespace      the namespace
-     * @param replicaSetName the replicaSet name
+     * @param replicaSetName the replicaSets name
      * @return the replicaSets yaml
      */
     ReplicaSets getReplicaSetsYaml(String namespace, String replicaSetName) {
@@ -102,7 +102,7 @@ public class ReplicaSetsService {
      *
      * @param namespace the namespace
      * @param yaml      the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object createReplicaSets(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_CREATE
@@ -115,9 +115,9 @@ public class ReplicaSetsService {
      * ReplicaSets 수정(Update ReplicaSets)
      *
      * @param namespace      the namespace
-     * @param replicaSetName the replicaSet name
+     * @param replicaSetName the replicaSets name
      * @param yaml           the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object updateReplicaSets(String namespace, String replicaSetName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_UPDATE
@@ -131,8 +131,8 @@ public class ReplicaSetsService {
      * ReplicaSets 삭제(Delete ReplicaSets)
      *
      * @param namespace      the namespace
-     * @param replicaSetName the replicaSet name
-     * @return the replicaSets
+     * @param replicaSetName the replicaSets name
+     * @return return is succeeded
      */
     public Object deleteReplicaSets(String namespace, String replicaSetName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_DELETE

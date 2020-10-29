@@ -1,5 +1,7 @@
 package org.paasta.container.platform.web.user.intro.overview;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  * @since 2020.09.15
  */
+@Api(value = "IntroOverviewController v1")
 @Controller
 public class IntroOverviewController {
 
@@ -43,6 +46,7 @@ public class IntroOverviewController {
      *
      * @return the view
      */
+    @ApiOperation(value = "Intro overview 페이지 이동(Move Intro overview page)", nickname = "indexView")
     @GetMapping("/")
     public RedirectView indexView() {
         return new RedirectView("/login");
@@ -54,6 +58,7 @@ public class IntroOverviewController {
      * @param httpServletRequest the http servlet request
      * @return the intro overview
      */
+    @ApiOperation(value = "Intro overview 페이지 이동(Move Intro overview page)", nickname = "getIntroOverview")
     @GetMapping(value = Constants.URI_INTRO_OVERVIEW)
     public ModelAndView getIntroOverview(HttpServletRequest httpServletRequest) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/overview", new ModelAndView());

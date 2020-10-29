@@ -550,19 +550,6 @@ var makeResourceListParamQuery = function (offset, limit, searchName) {
 
 var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
 
-    if (data.itemMetaData.hasOwnProperty(remainItemCountKey)) {
-
-        var remainingItemCount = data.itemMetaData.remainingItemCount;
-        if (remainingItemCount <= 0) {
-            $('#' + buttonID).css("display", "none");
-        }
-
-    }
-};
-
-
-var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
-
     if (data.hasOwnProperty("itemMetaData")) {
         var itemMetaData = data.itemMetaData;
 
@@ -578,3 +565,35 @@ var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
     }
 
 };
+
+var setResourceListLimitCount = function () {
+
+    var limitCount = 0;
+    if (typeof IS_OVERVIEW_VIEW !== 'undefined') {
+        //OVERVIEW
+        limitCount = OVERVIEW_LIMIT_COUNT;
+    } else {
+        limitCount = DEFAULT_LIMIT_COUNT;
+    }
+    return limitCount;
+}
+
+var getNamespaceListByMetaData = function(metadata) {
+    var namespaceLIst = [];
+    for(i=0; i<metadata.length; i++) {
+        namespaceLIst.push(metadata[i].namespace);
+    }
+    return namespaceLIst;
+}
+
+var getUserTypeByMetaData = function(metadata, namespace){
+
+    var userType = '';
+    for(i=0; i<metadata.length; i++) {
+        if(metadata[i].namespace == namespace ) {
+            userType = metadata[i].userType;
+        }
+    }
+    return userType;
+
+}

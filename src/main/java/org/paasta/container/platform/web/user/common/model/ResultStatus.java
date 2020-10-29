@@ -22,7 +22,7 @@ public class ResultStatus {
     private String nextActionUrl;
     private String userId;
     private String token;
-    private List namespace;
+    private List loginMetaData;
 
     public ResultStatus() {
     }
@@ -41,7 +41,7 @@ public class ResultStatus {
         this.detailMessage = detailMessage;
         this.nextActionUrl = nextActionUrl;
     }
-    public ResultStatus(String resultCode, String resultMessage, int httpStatusCode, String detailMessage, String nextActionUrl, String userId, String token, List namespace) {
+    public ResultStatus(String resultCode, String resultMessage, int httpStatusCode, String detailMessage, String nextActionUrl, String userId, String token, List loginMetaData) {
         this.resultCode = resultCode;
         this.resultMessage = resultMessage;
         this.httpStatusCode = httpStatusCode;
@@ -49,7 +49,7 @@ public class ResultStatus {
         this.nextActionUrl = nextActionUrl;
         this.userId = userId;
         this.token = token;
-        this.namespace = namespace;
+        this.loginMetaData = loginMetaData;
     }
 
 

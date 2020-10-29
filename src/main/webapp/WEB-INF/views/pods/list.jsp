@@ -66,6 +66,7 @@
     var G_PODS_CHART_SUCCEEDED_CNT = 0;
     var G_PODS_LIST_GET_FIRST = true;
     var G_PODS_LIST_OFFSET = 0;
+    var G_PODS_LIST_LIMIT_COUNT= 0;
     var G_PODS_LIST_SEARCH_KEYWORD = null;
     var G_PODS_MORE_BTN_ID = 'podsMoreDetailBtn';
 
@@ -380,7 +381,9 @@
 
         G_PODS_LIST_GET_FIRST = false;
         G_PODS_LIST_OFFSET++;
-        getPodsList(G_PODS_LIST_OFFSET, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_PODS_LIST_SEARCH_KEYWORD);
+        G_PODS_LIST_LIMIT_COUNT = setResourceListLimitCount();
+
+        getPodsList(G_PODS_LIST_OFFSET, G_PODS_LIST_LIMIT_COUNT, G_PODS_LIST_SEARCH_KEYWORD);
 
     });
 
@@ -393,8 +396,11 @@
         G_PODS_LIST_GET_FIRST = true;
         G_PODS_LIST_SEARCH_KEYWORD = searchName;
         G_PODS_LIST_OFFSET = 0;
+        G_PODS_LIST_LIMIT_COUNT = setResourceListLimitCount();
+
+
         $("#" + G_PODS_MORE_BTN_ID).css("display", "block");
-        getPodsList(0, <%= Constants.DEFAULT_LIMIT_COUNT %>, G_PODS_LIST_SEARCH_KEYWORD);
+        getPodsList(0,G_PODS_LIST_LIMIT_COUNT, G_PODS_LIST_SEARCH_KEYWORD);
 
     };
 

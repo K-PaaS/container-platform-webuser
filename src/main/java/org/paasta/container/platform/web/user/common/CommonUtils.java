@@ -26,6 +26,7 @@ public class CommonUtils {
      * 요청 파라미터들의 빈값 또는 null값 확인을 하나의 메소드로 처리할 수 있도록 생성한 메소드
      * 요청 파라미터 중 빈값 또는 null값인 파라미터가 있는 경우, false를 리턴
      *
+     * @param params the string
      * @return boolean
      */
     public static boolean paramCheck(String... params) {
@@ -57,6 +58,10 @@ public class CommonUtils {
 
     /**
      * Cookies 추가 (HttpOnly = true, 만료 1시간 )
+     *
+     * @param response
+     * @param name the name of cookie
+     * @param value the value
      */
     public static void addCookies(HttpServletResponse response, String name, String value) {
 
@@ -70,6 +75,9 @@ public class CommonUtils {
 
     /**
      * Cookies 삭제
+     *
+     * @param response
+     * @param name the name of cookie
      */
     public static void removeCookies(HttpServletResponse response, String name) {
 
@@ -84,6 +92,9 @@ public class CommonUtils {
 
     /**
      * Cookies 가져오기
+     *
+     * @param request
+     * @param name the name of cookie
      */
     public static String getCookie(HttpServletRequest request, String name) {
 
@@ -107,7 +118,7 @@ public class CommonUtils {
      * 쌍따옴표 및 대괄호 제거
      *
      * @param str
-     * @return
+     * @return String the replaced string
      */
     public static String stringReplace(String str) {
         String match = "\\\"";
@@ -118,6 +129,12 @@ public class CommonUtils {
 
     /**
      * 리소스 리스트 조회 시 파라미터 쿼리 생성
+     *
+     * @param offset
+     * @param limit
+     * @param orderBy
+     * @param order
+     * @param searchName
      */
     public static String makeResourceListParamQuery(int offset, int limit, String orderBy, String order, String searchName) {
         String param = "?offset=" + offset + "&limit=" + limit + "&orderBy=" + orderBy + "&order=" + order;

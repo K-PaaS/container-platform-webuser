@@ -33,7 +33,7 @@ public class UsersService {
      * Users 회원가입(Post Users sign up)
      *
      * @param users the users
-     * @return the ResultStatus
+     * @return the resultStatus
      */
     public ResultStatus registerUser(Users users) {
         return restTemplateService.send(TARGET_CP_API, "/signUp", HttpMethod.POST, users, ResultStatus.class);
@@ -44,7 +44,7 @@ public class UsersService {
      * 각 Namespace 별 사용자 목록 조회(Get Users namespaces list)
      *
      * @param namespace the namespace
-     * @return the UsersList
+     * @return the user list
      */
     public UsersList getUsersListByNamespace(String namespace) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST_BY_NAMESPACE.replace("{namespace:.+}", namespace), HttpMethod.GET, null, UsersList.class);
@@ -55,7 +55,8 @@ public class UsersService {
     /**
      * 등록 Users 이름 목록 조회(Get Users name list)
      *
-     * @return the Map
+     * @param  namespace
+     * @return the users list
      */
     public Map<String, List> getUsersNameListByNamespace(String namespace) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_NAMES_LIST_BY_NAMESPACE.replace("{namespace:.+}", namespace), HttpMethod.GET, null, Map.class);
@@ -64,7 +65,8 @@ public class UsersService {
     /**
      * Users 로그인(Post Users login)
      *
-     * @return the ResultStatus
+     * @param users the users
+     * @return the resultStatus
      */
     public ResultStatus loginUser(Users users) {
         return restTemplateService.send(TARGET_CP_API, Constants.URL_API_LOGIN, HttpMethod.POST, users, ResultStatus.class);
@@ -75,8 +77,8 @@ public class UsersService {
      * Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)
      *
      * @param namespace the namespace
-     * @param userId the user id
-     * @return the Users
+     * @param userId the userId
+     * @return the user detail
      */
     public Users getUsers(String namespace, String userId) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_DETAIL.replace("{namespace:.+}", namespace).replace("{userId:.+}", userId), HttpMethod.GET, null, Users.class);
@@ -84,9 +86,10 @@ public class UsersService {
 
 
     /**
-     * 전체 사용자 목록을 조회한다.
+     * 전체 Users 목록 조회(Get All Users list)
      *
-     * @return the UsersList
+     * @param namespace the namespace
+     * @return the users list
      */
     public UsersList getUsersList(String namespace) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST + "?namespace=" + namespace, HttpMethod.GET, null, UsersList.class);
@@ -98,7 +101,7 @@ public class UsersService {
      *
      * @param userId the userId
      * @param users the users
-     * @return the ResultStatus
+     * @return the resultStatus
      */
     public ResultStatus updateUsers(String userId, Users users) {
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_INFO.replace("{userId:.+}", userId), HttpMethod.PUT, users, ResultStatus.class);
