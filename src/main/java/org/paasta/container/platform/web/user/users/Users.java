@@ -49,5 +49,7 @@ public class Users {
     private String userType;
     private String created;
     private String lastModified;
+    private String browser;
+    private String clientIp;
 
 }
