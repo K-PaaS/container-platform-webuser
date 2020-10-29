@@ -29,7 +29,7 @@ public class ResourceQuotasService {
     /**
      * Namespaces ResourceQuotas 조회(Get resourceQuotas namespaces)
      *
-     * @param namespace the namespaces
+     * @param namespace the namespace
      * @return the resourceQuotas list
      */
     ResourceQuotasList getResourceQuotasList(String namespace) {

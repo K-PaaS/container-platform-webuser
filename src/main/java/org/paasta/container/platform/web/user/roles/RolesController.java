@@ -58,6 +58,7 @@ public class RolesController {
      * Roles detail 페이지 이동(Move Roles detail page)
      *
      * @param httpServletRequest the http servlet request
+     * @param roleName the role name
      * @return the roles detail
      */
     @ApiOperation(value = "Roles detail 페이지 이동(Move Roles detail page)", nickname = "getRolesDetail")
@@ -75,6 +76,7 @@ public class RolesController {
      * Roles event 페이지 이동(Move Roles event page)
      *
      * @param httpServletRequest the http servlet request
+     * @param roleName the role name
      * @return the roles event
      */
     @ApiOperation(value = "Roles event 페이지 이동(Move Roles event page)", nickname = "getRolesDetailEvents")
@@ -92,6 +94,7 @@ public class RolesController {
      * Roles yaml 페이지 이동(Move Roles yaml page)
      *
      * @param httpServletRequest the http servlet request
+     * @param roleName the role name
      * @return the roles yaml
      */
     @ApiOperation(value = "Roles yaml 페이지 이동(Move Roles yaml page)", nickname = "getRolesDetailYaml")

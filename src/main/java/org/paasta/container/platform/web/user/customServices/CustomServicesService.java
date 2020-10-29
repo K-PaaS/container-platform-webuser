@@ -85,7 +85,7 @@ public class CustomServicesService {
      *
      * @param namespace the namespace
      * @param yaml      the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object createCustomServices(String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_CREATE
@@ -100,7 +100,7 @@ public class CustomServicesService {
      * @param namespace   the namespace
      * @param serviceName the services name
      * @param yaml        the yaml
-     * @return
+     * @return return is succeeded
      */
     public Object updateCustomServices(String namespace, String serviceName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_UPDATE
@@ -115,7 +115,7 @@ public class CustomServicesService {
      *
      * @param namespace   the namespace
      * @param serviceName the services name
-     * @return
+     * @return return is succeeded
      */
     public Object deleteCustomServices(String namespace, String serviceName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_DELETE

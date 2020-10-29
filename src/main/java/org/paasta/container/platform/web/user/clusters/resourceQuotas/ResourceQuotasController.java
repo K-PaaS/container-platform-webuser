@@ -29,7 +29,7 @@ public class ResourceQuotasController {
     /**
      * ResourceQuotas namespaces 정보 조회(Get ResourceQuotas namespaces)
      *
-     * @param namespace the namespaces
+     * @param namespace the namespace
      * @return the resourceQuotas list
      */
     @ApiOperation(value = "ResourceQuotas namespaces 정보 조회(Get ResourceQuotas namespaces)", nickname = "getResourceQuotasList")

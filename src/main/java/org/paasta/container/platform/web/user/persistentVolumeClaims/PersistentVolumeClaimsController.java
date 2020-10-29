@@ -58,6 +58,7 @@ public class PersistentVolumeClaimsController {
      * PersistentVolumeClaim detail 페이지 이동(Move PersistentVolumeClaim detail page)
      *
      * @param httpServletRequest the http servlet request
+     * @param persistentVolumeClaimName the persistentVolumeClaim name
      * @return the persistentVolumeClaims detail
      */
     @ApiOperation(value = "PersistentVolumeClaim detail 페이지 이동(Move PersistentVolumeClaim detail page)", nickname = "getCustomServices")
@@ -75,6 +76,7 @@ public class PersistentVolumeClaimsController {
      * PersistentVolumeClaim event 페이지 이동(Move PersistentVolumeClaim event page)
      *
      * @param httpServletRequest the http servlet request
+     * @param persistentVolumeClaimName the persistentVolumeClaim name
      * @return the persistentVolumeClaims event
      */
     @ApiOperation(value = "PersistentVolumeClaim event 페이지 이동(Move PersistentVolumeClaim event page)", nickname = "getCustomServices")
@@ -92,6 +94,7 @@ public class PersistentVolumeClaimsController {
      * PersistentVolumeClaim yaml 페이지 이동(Move PersistentVolumeClaim event yaml)
      *
      * @param httpServletRequest the http servlet request
+     * @param persistentVolumeClaimName the persistentVolumeClaim name
      * @return the persistentVolumeClaims yaml
      */
     @ApiOperation(value = "PersistentVolumeClaim yaml 페이지 이동(Move PersistentVolumeClaim event yaml)", nickname = "getPersistentVolumeClaimYaml")
@@ -180,7 +183,7 @@ public class PersistentVolumeClaimsController {
      *
      * @param namespace the namespace
      * @param yaml      the yaml
-     * @return
+     * @return return is succeeded
      */
     @ApiOperation(value = "PersistentVolumeClaims 생성(Create PersistentVolumeClaims)", nickname = "createPersistentVolumeClaims")
     @ApiImplicitParams({
@@ -201,7 +204,7 @@ public class PersistentVolumeClaimsController {
      * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @param yaml                      the yaml
-     * @return
+     * @return return is succeeded
      */
     @ApiOperation(value = "PersistentVolumeClaims 수정(Update PersistentVolumeClaims)", nickname = "updatePersistentVolumeClaims")
     @ApiImplicitParams({
@@ -222,7 +225,7 @@ public class PersistentVolumeClaimsController {
      *
      * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
-     * @return
+     * @return return is succeeded
      */
     @ApiOperation(value = "PersistentVolumeClaims 삭제(Delete PersistentVolumeClaims)", nickname = "deletePersistentVolumeClaims")
     @ApiImplicitParams({

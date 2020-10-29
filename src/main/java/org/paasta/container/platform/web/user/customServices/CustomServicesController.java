@@ -172,7 +172,7 @@ public class CustomServicesController {
      *
      * @param namespace the namespace
      * @param yaml      the yaml
-     * @return
+     * @return return is succeeded
      */
     @ApiOperation(value = "Services 생성(Create Services)", nickname = "createCustomServices")
     @ApiImplicitParams({
@@ -194,7 +194,7 @@ public class CustomServicesController {
      * @param namespace   the namespace
      * @param serviceName the services name
      * @param yaml        the yaml
-     * @return
+     * @return return is succeeded
      */
     @ApiOperation(value = "Services 수정(Update Services)", nickname = "updateCustomServices")
     @ApiImplicitParams({
@@ -216,7 +216,7 @@ public class CustomServicesController {
      *
      * @param namespace   the namespace
      * @param serviceName the services name
-     * @return
+     * @return return is succeeded
      */
     @ApiOperation(value = "Services 삭제(Delete Services)", nickname = "deleteServices")
     @ApiImplicitParams({

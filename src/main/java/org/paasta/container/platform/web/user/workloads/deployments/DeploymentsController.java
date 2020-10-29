@@ -50,6 +50,7 @@ public class DeploymentsController {
      * Deployments detail 페이지 이동(Move Deployments detail page)
      *
      * @param httpServletRequest the http servlet request
+     * @param deploymentName the deployments name
      * @return the deployments detail
      */
     @ApiOperation(value = "Deployments detail 페이지 이동(Move Deployments detail page)", nickname = "getDashboardDetail")
@@ -66,6 +67,7 @@ public class DeploymentsController {
      * Deployments event 페이지 이동(Move Deployments event page)
      *
      * @param httpServletRequest the http servlet request
+     * @param deploymentName the deployments name
      * @return the deployments detail event
      */
     @ApiOperation(value = "Deployments event 페이지 이동(Move Deployments event page)", nickname = "getDashboardEvent")
@@ -82,6 +84,7 @@ public class DeploymentsController {
      * Deployments yaml 페이지 이동(Move Deployments yaml page)
      *
      * @param httpServletRequest the http servlet request
+     * @param deploymentName the deployments name
      * @return the deployments detail yaml
      */
     @ApiOperation(value = "Deployments yaml 페이지 이동(Move Deployments yaml page)", nickname = "getDashboardYaml")

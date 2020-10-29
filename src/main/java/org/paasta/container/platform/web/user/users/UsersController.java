@@ -149,7 +149,7 @@ public class UsersController {
      * 전체 Users 목록 조회(Get All Users list)
      *
      * @param namespace the namespace
-     * @return the UsersList
+     * @return the users list
      */
     @ApiOperation(value = "전체 Users 목록 조회(Get All Users list)", nickname = "getUsersList")
     @ApiImplicitParams({
@@ -164,7 +164,7 @@ public class UsersController {
      * 각 Namespace 별 Users 목록 조회(Get Users namespaces list)
      *
      * @param namespace the namespace
-     * @return the UsersList
+     * @return the users list
      */
     @ApiOperation(value = "각 Namespace 별 Users 목록 조회(Get Users namespaces list)", nickname = "getUsersListByNamespace")
     @ApiImplicitParams({
@@ -180,7 +180,7 @@ public class UsersController {
      * 각 Namespace 별 등록 Users 이름 목록 조회(Get Users name namespaces list)
      *
      * @param namespace the namespace
-     * @return the Map
+     * @return the users list
      */
     @ApiOperation(value = "각 Namespace 별 등록 Users 이름 목록 조회(Get Users name namespaces list)", nickname = "getUsersNameListByNamespace")
     @ApiImplicitParams({
@@ -197,7 +197,7 @@ public class UsersController {
      *
      * @param namespace the namespace
      * @param userId the user id
-     * @return the Users
+     * @return the users detail
      */
     @ApiOperation(value = "Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)", nickname = "getUsersByNamespace")
     @ApiImplicitParams({
@@ -214,8 +214,8 @@ public class UsersController {
     /**
      * 로그인 페이지 이동(Move login page)
      *
-     * @param request
-     * @param response
+     * @param request the request
+     * @param response the response
      * @return the view
      */
     @ApiOperation(value = "로그인 페이지 이동(Move login page)", nickname = "loginView")
@@ -240,10 +240,10 @@ public class UsersController {
     /**
      * Users 로그인(Post Users login)
      *
-     * @param users
-     * @param request
-     * @param response
-     * @return the ResultStatus
+     * @param users the users
+     * @param request the request
+     * @param response the response
+     * @return the resultStatus
      */
     @ApiOperation(value = "Users 로그인(Post Users login)", nickname = "loginUser")
     @ApiImplicitParams({
@@ -269,7 +269,7 @@ public class UsersController {
     /**
      * Users 로그아웃(Get Users logout)
      *
-     * @param response
+     * @param response the response
      * @return the view
      */
     @ApiOperation(value = "Users 로그아웃(Get Users logout)", nickname = "logout")
@@ -289,7 +289,7 @@ public class UsersController {
     /**
      * Users 마이 페이지로 이동(Move Users my page)
      *
-     * @param httpServletRequest
+     * @param httpServletRequest the httpServletRequest
      * @return the view
      */
     @ApiOperation(value = "Users 마이 페이지로 이동(Move Users my page)", nickname = "getUserInfoMain")
@@ -310,7 +310,7 @@ public class UsersController {
      *
      * @param userId the userId
      * @param users the users
-     * @return the ResultStatus
+     * @return the resultStatus
      */
     @ApiOperation(value = "Users 정보 수정(Put Users info)", nickname = "updateUsers")
     @ApiImplicitParams({

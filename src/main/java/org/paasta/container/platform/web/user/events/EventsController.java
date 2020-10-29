@@ -39,6 +39,8 @@ public class EventsController {
      *
      * @param namespace the namespace
      * @param resourceUid the resourceUid
+     * @param type the type
+     * @param  status the status
      * @return the events list
      */
     @ApiOperation(value = "Events 목록 조회(Get Events list)", nickname = "getEventsList")

@@ -31,6 +31,7 @@ public class EventsService {
      *
      * @param namespace the namespace Name
      * @param resourceUid the resource Uid
+     * @param type the type
      * @return the events list
      */
     EventsList getEventsList(String namespace, String resourceUid, String type) {

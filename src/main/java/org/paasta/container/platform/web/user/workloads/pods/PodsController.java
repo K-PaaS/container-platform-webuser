@@ -219,7 +219,7 @@ public class PodsController {
      * Pods 목록 조회(Get Pods node)
      *
      * @param namespace the namespace
-     * @param nodeName  the node name
+     * @param nodeName  the nodes name
      * @return the pods list
      */
     @ApiOperation(value = "Pods 목록 조회(Get Pods node)", nickname = "getPodListByNode")
@@ -258,7 +258,7 @@ public class PodsController {
      * Pods 수정(Update Pods)
      *
      * @param namespace   the namespace
-     * @param podName the pod name
+     * @param podName the pods name
      * @param yaml        the yaml
      * @return return is succeeded
      */
@@ -281,7 +281,7 @@ public class PodsController {
      * Pods 삭제(Delete Pods)
      *
      * @param namespace the namespace
-     * @param podName the pod name
+     * @param podName the pods name
      * @return return is succeeded
      */
     @ApiOperation(value = "Pods 삭제(Delete Pods)", nickname = "deletePods")

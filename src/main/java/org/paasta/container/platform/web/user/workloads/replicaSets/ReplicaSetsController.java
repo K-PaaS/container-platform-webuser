@@ -58,6 +58,7 @@ public class ReplicaSetsController {
      * ReplicaSets detail 페이지 이동(Move ReplicaSets detail page)
      *
      * @param httpServletRequest the http servlet request
+     * @param replicaSetName the replicaSets name
      * @return the replicaSets detail
      */
     @ApiOperation(value = "ReplicaSets detail 페이지 이동(Move ReplicaSets detail page)", nickname = "getReplicaSetsDetail")
@@ -75,6 +76,7 @@ public class ReplicaSetsController {
      * ReplicaSets event 페이지 이동(Move ReplicaSets event page)
      *
      * @param httpServletRequest the http servlet request
+     * @param replicaSetName the replicaSets name
      * @return the replicaSets event
      */
     @ApiOperation(value = "ReplicaSets event 페이지 이동(Move ReplicaSets event page)", nickname = "getReplicaSetsDetailEvents")
@@ -92,6 +94,7 @@ public class ReplicaSetsController {
      * ReplicaSets yaml 페이지 이동(Move ReplicaSets yaml page)
      *
      * @param httpServletRequest the http servlet request
+     * @param replicaSetName the replicaSets name
      * @return the replicaSets yaml
      */
     @ApiOperation(value = "ReplicaSets yaml 페이지 이동(Move ReplicaSets yaml page)", nickname = "getReplicaSetsDetailYaml")
@@ -142,7 +145,7 @@ public class ReplicaSetsController {
      * ReplicaSets 상세 조회(Get ReplicaSets detail)
      *
      * @param namespace the namespace
-     * @param replicaSetName the replicaSet name
+     * @param replicaSetName the replicaSets name
      * @return the replicaSets detail
      */
     @ApiOperation(value = "ReplicaSets 상세 조회(Get ReplicaSets detail)", nickname = "getReplicaSets")
@@ -162,7 +165,7 @@ public class ReplicaSetsController {
      * ReplicaSets YAML 조회(Get ReplicaSets yaml)
      *
      * @param namespace the namespace
-     * @param replicaSetName the replicaSetName name
+     * @param replicaSetName the replicaSets name
      * @return the replicaSets yaml
      */
     @ApiOperation(value = "ReplicaSets YAML 조회(Get ReplicaSets yaml)", nickname = "getReplicaSetsYaml")
@@ -221,7 +224,7 @@ public class ReplicaSetsController {
      * ReplicaSets 수정(Update ReplicaSets)
      *
      * @param namespace the namespace
-     * @param replicaSetName the replicaSetName name
+     * @param replicaSetName the replicaSets name
      * @param yaml the yaml
      * @return return is succeeded
      */
@@ -243,7 +246,7 @@ public class ReplicaSetsController {
      * ReplicaSets 삭제(Delete ReplicaSets)
      *
      * @param namespace the namespace
-     * @param replicaSetName the replicaSetName name
+     * @param replicaSetName the replicaSets name
      * @return return is succeeded
      */
     @ApiOperation(value = "ReplicaSets 삭제(Delete ReplicaSets)", nickname = "deleteReplicaSets")
