@@ -1,5 +1,9 @@
 package org.paasta.container.platform.web.user.endpoints;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version 1.0
  * @since 2020.09.14
  */
+@Api(value = "EndpointsController v1")
 @Controller
 public class EndpointsController {
 
@@ -37,9 +42,15 @@ public class EndpointsController {
      * @param serviceName the service name
      * @return the endpoints detail
      */
+    @ApiOperation(value = "Endpoints 상세 조회(Get Endpoints detail)", nickname = "getEndpoints")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "serviceName", value = "서비스 명",  required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ENDPOINTS_DETAIL)
     @ResponseBody
-    public Endpoints getEndpoints(@PathVariable(value = "namespace") String namespace, @PathVariable(value = "serviceName") String serviceName) {
+    public Endpoints getEndpoints(@PathVariable(value = "namespace") String namespace,
+                                  @PathVariable(value = "serviceName") String serviceName) {
         return endpointsService.getEndpoints(namespace, serviceName);
     }
 

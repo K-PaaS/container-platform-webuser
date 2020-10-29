@@ -1,5 +1,7 @@
 package org.paasta.container.platform.web.user.workloads.overview;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  * @since 2020.09.07
  */
+@Api(value = "WorkloadOverviewController v1")
 @RestController
 public class WorkloadOverviewController {
 
@@ -37,6 +40,7 @@ public class WorkloadOverviewController {
      * @param httpServletRequest the http servlet request
      * @return the workload overview
      */
+    @ApiOperation(value = "Workload Overview 페이지 이동(Move Workload Overview page)", nickname = "getWorkloadOverview")
     @GetMapping(value = Constants.URI_WORKLOAD_OVERVIEW)
     public ModelAndView getWorkloadOverview(HttpServletRequest httpServletRequest) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/overview", new ModelAndView());

@@ -1,5 +1,8 @@
 package org.paasta.container.platform.web.user.users;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.CommonUtils;
@@ -30,6 +33,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2020.09.22
  **/
+@Api(value = "UsersController v1")
 @RestController
 public class UsersController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsersController.class);
@@ -59,6 +63,7 @@ public class UsersController {
      *
      * @return the view
      */
+    @ApiOperation(value = "Users 회원가입 페이지 이동(Move Users sing up page)", nickname = "signUpView")
     @GetMapping(value = "/signUp")
     public ModelAndView signUpView() {
         ModelAndView model = new ModelAndView();
@@ -75,10 +80,14 @@ public class UsersController {
      * @param bindingResult
      * @return the resultStatus
      */
-    @ApiOperation(value = "사용자 회원가입", httpMethod = "POST", hidden = true)
+    @ApiOperation(value = "Users 회원가입(Put Users sign up)", nickname = "registerUser")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "users", value = "유저 정보", required = true, dataType = "Users", paramType = "body")
+    })
     @PostMapping(value = "/register")
     @ResponseBody
-    public ResultStatus registerUser(@Valid @RequestBody Users users, BindingResult bindingResult) {
+    public ResultStatus registerUser(@Valid @RequestBody Users users,
+                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errFieldList = new ArrayList<>();
 
@@ -100,6 +109,7 @@ public class UsersController {
      * @param httpServletRequest
      * @return the view
      */
+    @ApiOperation(value = "Users 목록 페이지 이동(Move Users list page)", nickname = "getUserMain")
     @GetMapping(value = Constants.URI_USERS)
     public ModelAndView getUserMain(HttpServletRequest httpServletRequest) {
         ModelAndView mv = new ModelAndView();
@@ -113,6 +123,7 @@ public class UsersController {
      * @param httpServletRequest
      * @return the view
      */
+    @ApiOperation(value = "Users 설정 페이지 이동(Move Users setting page)", nickname = "getUserDetail")
     @GetMapping(value = Constants.URI_USERS_CONFIG)
     public ModelAndView getUserDetail(HttpServletRequest httpServletRequest) {
         ModelAndView mv = new ModelAndView();
@@ -127,8 +138,14 @@ public class UsersController {
      * @param users the users
      * @return the resultStatus
      */
+    @ApiOperation(value = "Users 권한 설정(Put Users authority setting)", nickname = "modifyUsersConfig")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "users", value = "유저 정보 목록", required = true, dataType = "List<Users>", paramType = "body")
+    })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_CONFIG)
-    public ResultStatus modifyUsersConfig(@PathVariable(value = "namespace") String namespace, @RequestBody List<Users> users) {
+    public ResultStatus modifyUsersConfig(@PathVariable(value = "namespace") String namespace,
+                                          @RequestBody List<Users> users) {
         return usersService.modifyUsersConfig(namespace, users);
     }
 
@@ -139,6 +156,10 @@ public class UsersController {
      * @param namespace the namespace
      * @return the UsersList
      */
+    @ApiOperation(value = "전체 Users 목록 조회(Get All Users list)", nickname = "getUsersList")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "query")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST)
     public UsersList getUsersList(@RequestParam(name = "namespace") String namespace) {
         return usersService.getUsersList(namespace);
@@ -150,6 +171,10 @@ public class UsersController {
      * @param namespace the namespace
      * @return the UsersList
      */
+    @ApiOperation(value = "각 Namespace 별 Users 목록 조회(Get Users namespaces list)", nickname = "getUsersListByNamespace")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST_BY_NAMESPACE)
     public UsersList getUsersListByNamespace(@PathVariable(value = "namespace") String namespace) {
         return usersService.getUsersListByNamespace(namespace);
@@ -162,6 +187,10 @@ public class UsersController {
      * @param namespace the namespace
      * @return the Map
      */
+    @ApiOperation(value = "각 Namespace 별 등록 Users 이름 목록 조회(Get Users name namespaces list)", nickname = "getUsersNameListByNamespace")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_NAMES_LIST_BY_NAMESPACE)
     public Map<String, List> getUsersNameListByNamespace(@PathVariable(value = "namespace") String namespace) {
         return usersService.getUsersNameListByNamespace(namespace);
@@ -175,8 +204,14 @@ public class UsersController {
      * @param userId the user id
      * @return the Users
      */
+    @ApiOperation(value = "Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)", nickname = "getUsersByNamespace")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "userId", value = "유저 Id", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_DETAIL)
-    public Users getUsersByNamespace(@PathVariable(value = "namespace") String namespace, @PathVariable(value = "userId") String userId) {
+    public Users getUsersByNamespace(@PathVariable(value = "namespace") String namespace,
+                                     @PathVariable(value = "userId") String userId) {
         return usersService.getUsers(namespace, userId);
     }
 
@@ -188,8 +223,10 @@ public class UsersController {
      * @param response
      * @return the view
      */
+    @ApiOperation(value = "로그인 페이지 이동(Move login page)", nickname = "loginView")
     @GetMapping("/login")
-    public ModelAndView loginView(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView loginView(HttpServletRequest request,
+                                  HttpServletResponse response) {
 
         String userToken = null;
         userToken = CommonUtils.getCookie(request, cpToken);
@@ -213,9 +250,15 @@ public class UsersController {
      * @param response
      * @return the ResultStatus
      */
+    @ApiOperation(value = "Users 로그인(Post Users login)", nickname = "loginUser")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "users", value = "유저 정보", required = true, dataType = "Users", paramType = "body")
+    })
     @PostMapping("/login")
     @ResponseBody
-    public ResultStatus loginUser(@RequestBody Users users, HttpServletRequest request, HttpServletResponse response) {
+    public ResultStatus loginUser(@RequestBody Users users,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
 
         ResultStatus rs = usersService.loginUser(users);
 
@@ -234,6 +277,7 @@ public class UsersController {
      * @param resposne
      * @return the view
      */
+    @ApiOperation(value = "Users 로그아웃(Get Users logout)", nickname = "logout")
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletResponse response) {
 
@@ -252,6 +296,7 @@ public class UsersController {
      * @param httpServletRequest
      * @return the view
      */
+    @ApiOperation(value = "Users 마이 페이지로 이동(Move Users my page)", nickname = "getUserInfoMain")
     @GetMapping(value = Constants.URI_USERS_INFO)
     public ModelAndView getUserInfoMain(HttpServletRequest httpServletRequest) throws UnsupportedEncodingException {
         String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
@@ -274,8 +319,14 @@ public class UsersController {
      * @param users the users
      * @return the ResultStatus
      */
+    @ApiOperation(value = "Users 정보 수정(Put Users info)", nickname = "updateUsers")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "유저 Id", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "users", value = "유저 정보", required = true, dataType = "Users", paramType = "body")
+    })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_INFO)
-    public ResultStatus updateUsers(@PathVariable(value = "userId") String userId, @RequestBody Users users) {
+    public ResultStatus updateUsers(@PathVariable(value = "userId") String userId,
+                                    @RequestBody Users users) {
         return usersService.updateUsers(userId, users);
     }
 }

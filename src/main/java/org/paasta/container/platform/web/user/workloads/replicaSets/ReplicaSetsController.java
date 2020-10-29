@@ -1,5 +1,9 @@
 package org.paasta.container.platform.web.user.workloads.replicaSets;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  * @since 2020.09.09
  */
+@Api(value = "ReplicaSetsController v1")
 @Controller
 @RequestMapping
 public class ReplicaSetsController {
@@ -42,6 +47,7 @@ public class ReplicaSetsController {
      * @param httpServletRequest the http servlet request
      * @return the replicaSets main
      */
+    @ApiOperation(value = "ReplicaSets main 페이지 이동(Move ReplicaSets main page)", nickname = "getReplicaSetsMain")
     @GetMapping(value = Constants.URI_WORKLOAD_REPLICA_SETS)
     public ModelAndView getReplicaSetsMain(HttpServletRequest httpServletRequest) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/main", new ModelAndView());
@@ -54,8 +60,13 @@ public class ReplicaSetsController {
      * @param httpServletRequest the http servlet request
      * @return the replicaSets detail
      */
+    @ApiOperation(value = "ReplicaSets detail 페이지 이동(Move ReplicaSets detail page)", nickname = "getReplicaSetsDetail")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "replicaSetName", value = "ReplicaSets 명", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.URI_WORKLOAD_REPLICA_SETS + "/{replicaSetName:.+}")
-    public ModelAndView getReplicaSetsDetail(HttpServletRequest httpServletRequest, @PathVariable("replicaSetName") String replicaSetName) {
+    public ModelAndView getReplicaSetsDetail(HttpServletRequest httpServletRequest,
+                                             @PathVariable("replicaSetName") String replicaSetName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/detail", new ModelAndView());
     }
 
@@ -66,8 +77,13 @@ public class ReplicaSetsController {
      * @param httpServletRequest the http servlet request
      * @return the replicaSets event
      */
+    @ApiOperation(value = "ReplicaSets event 페이지 이동(Move ReplicaSets event page)", nickname = "getReplicaSetsDetailEvents")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "replicaSetName", value = "ReplicaSets 명", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.URI_WORKLOAD_REPLICA_SETS + "/{replicaSetName:.+}/events")
-    public ModelAndView getReplicaSetsDetailEvents(HttpServletRequest httpServletRequest, @PathVariable("replicaSetName") String replicaSetName) {
+    public ModelAndView getReplicaSetsDetailEvents(HttpServletRequest httpServletRequest,
+                                                   @PathVariable("replicaSetName") String replicaSetName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/events", new ModelAndView());
     }
 
@@ -78,8 +94,13 @@ public class ReplicaSetsController {
      * @param httpServletRequest the http servlet request
      * @return the replicaSets yaml
      */
+    @ApiOperation(value = "ReplicaSets yaml 페이지 이동(Move ReplicaSets yaml page)", nickname = "getReplicaSetsDetailYaml")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "replicaSetName", value = "ReplicaSets 명", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.URI_WORKLOAD_REPLICA_SETS + "/{replicaSetName:.+}/yaml")
-    public ModelAndView getReplicaSetsDetailYaml(HttpServletRequest httpServletRequest, @PathVariable("replicaSetName") String replicaSetName) {
+    public ModelAndView getReplicaSetsDetailYaml(HttpServletRequest httpServletRequest,
+                                                 @PathVariable("replicaSetName") String replicaSetName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/yaml", new ModelAndView());
     }
 
@@ -95,6 +116,15 @@ public class ReplicaSetsController {
      * @param searchName the searchName
      * @return the replicaSets list
      */
+    @ApiOperation(value = "ReplicaSets 목록 조회(Get ReplicaSets list)", nickname = "getReplicaSetsList")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "string", paramType = "query")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_LIST)
     @ResponseBody
     public ReplicaSetsList getReplicaSetsList(@PathVariable(value = "namespace") String namespace,
@@ -115,9 +145,15 @@ public class ReplicaSetsController {
      * @param replicaSetName the replicaSet name
      * @return the replicaSets detail
      */
+    @ApiOperation(value = "ReplicaSets 상세 조회(Get ReplicaSets detail)", nickname = "getReplicaSets")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "replicaSetName", value = "ReplicaSets 명", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DETAIL)
     @ResponseBody
-    public ReplicaSets getReplicaSets(@PathVariable("namespace") String namespace, @PathVariable("replicaSetName") String replicaSetName ){
+    public ReplicaSets getReplicaSets(@PathVariable("namespace") String namespace,
+                                      @PathVariable("replicaSetName") String replicaSetName ){
         return replicaSetService.getReplicaSets(namespace, replicaSetName);
     }
 
@@ -129,9 +165,15 @@ public class ReplicaSetsController {
      * @param replicaSetName the replicaSetName name
      * @return the replicaSets yaml
      */
+    @ApiOperation(value = "ReplicaSets YAML 조회(Get ReplicaSets yaml)", nickname = "getReplicaSetsYaml")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "replicaSetName", value = "ReplicaSets 명", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_YAML)
     @ResponseBody
-    public ReplicaSets getReplicaSetsYaml(@PathVariable("namespace") String namespace, @PathVariable("replicaSetName") String replicaSetName ){
+    public ReplicaSets getReplicaSetsYaml(@PathVariable("namespace") String namespace,
+                                          @PathVariable("replicaSetName") String replicaSetName ){
         return replicaSetService.getReplicaSetsYaml(namespace, replicaSetName);
     }
 
@@ -143,9 +185,15 @@ public class ReplicaSetsController {
      * @param selector the selector
      * @return the replicaSets list
      */
+    @ApiOperation(value = "ReplicaSets 목록 조회 (Get ReplicaSets selector)", nickname = "getReplicaSetsListLabelSelector")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_RESOURCES)
     @ResponseBody
-    public ReplicaSetsList getReplicaSetsListLabelSelector(@PathVariable("namespace") String namespace, @PathVariable("selector") String selector ){
+    public ReplicaSetsList getReplicaSetsListLabelSelector(@PathVariable("namespace") String namespace,
+                                                           @PathVariable("selector") String selector ){
         return replicaSetService.getReplicaSetsListLabelSelector(namespace, selector);
     }
 
@@ -156,9 +204,15 @@ public class ReplicaSetsController {
      * @param yaml the yaml
      * @return return is succeeded
      */
+    @ApiOperation(value = "ReplicaSets 생성(Create ReplicaSets)", nickname = "createReplicaSets")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "string", paramType = "body")
+    })
     @PostMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_CREATE)
     @ResponseBody
-    public Object createReplicaSets(@PathVariable(value = "namespace") String namespace, @RequestBody String yaml) {
+    public Object createReplicaSets(@PathVariable(value = "namespace") String namespace,
+                                    @RequestBody String yaml) {
         return replicaSetService.createReplicaSets(namespace,yaml);
 
     }
@@ -171,9 +225,17 @@ public class ReplicaSetsController {
      * @param yaml the yaml
      * @return return is succeeded
      */
+    @ApiOperation(value = "ReplicaSets 수정(Update ReplicaSets)", nickname = "updateCustomReplicaSets")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "replicaSetName", value = "ReplicaSets 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "yaml", value = "리소스 수정 yaml", required = true, dataType = "string", paramType = "body")
+    })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_UPDATE)
     @ResponseBody
-    public Object updateCustomReplicaSets(@PathVariable(value = "namespace") String namespace, @PathVariable("replicaSetName") String replicaSetName, @RequestBody String yaml) {
+    public Object updateCustomReplicaSets(@PathVariable(value = "namespace") String namespace,
+                                          @PathVariable("replicaSetName") String replicaSetName,
+                                          @RequestBody String yaml) {
         return replicaSetService.updateReplicaSets(namespace, replicaSetName, yaml);
     }
 
@@ -184,11 +246,15 @@ public class ReplicaSetsController {
      * @param replicaSetName the replicaSetName name
      * @return return is succeeded
      */
+    @ApiOperation(value = "ReplicaSets 삭제(Delete ReplicaSets)", nickname = "deleteReplicaSets")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "replicaSetName", value = "ReplicaSets 명", required = true, dataType = "string", paramType = "path")
+    })
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DELETE)
     @ResponseBody
-    public Object deleteReplicaSets(@PathVariable("namespace") String namespace, @PathVariable("replicaSetName") String replicaSetName ){
+    public Object deleteReplicaSets(@PathVariable("namespace") String namespace,
+                                    @PathVariable("replicaSetName") String replicaSetName ){
         return replicaSetService.deleteReplicaSets(namespace, replicaSetName);
     }
-
-
 }

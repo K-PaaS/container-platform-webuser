@@ -1,5 +1,9 @@
 package org.paasta.container.platform.web.user.intro.accessInfo;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  * @version 1.0
  * @since 2020.10.14
  */
+@Api(value = "AccessTokenController v1")
 @Controller
 public class AccessTokenController {
 
@@ -51,6 +56,7 @@ public class AccessTokenController {
      * @param httpServletRequest the http servlet request
      * @return the view
      */
+    @ApiOperation(value = "Intro access info 페이지 이동(Move Intro access info page)", nickname = "getIntroAccessInfo")
     @GetMapping(value = Constants.URI_INTRO_ACCESS_INFO)
     public ModelAndView getIntroAccessInfo(HttpServletRequest httpServletRequest) {
         String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
@@ -67,9 +73,15 @@ public class AccessTokenController {
      * @param accessTokenName the access token name
      * @return the AccessToken
      */
+    @ApiOperation(value = "Secret 조회(Get Secret)", nickname = "getSecret")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "accessTokenName", value = "액세스 토큰 명",  required = true, dataType = "string", paramType = "path")
+    })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SECRETS_DETAIL)
     @ResponseBody
-    public AccessToken getSecret(@PathVariable(value = "namespace") String namespace, @PathVariable(value = "accessTokenName") String accessTokenName) {
+    public AccessToken getSecret(@PathVariable(value = "namespace") String namespace,
+                                 @PathVariable(value = "accessTokenName") String accessTokenName) {
         return accessTokenService.getToken(namespace, accessTokenName);
     }
 
