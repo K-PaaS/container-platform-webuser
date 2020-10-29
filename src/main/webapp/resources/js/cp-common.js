@@ -577,3 +577,23 @@ var setResourceListLimitCount = function () {
     }
     return limitCount;
 }
+
+var getNamespaceListByMetaData = function(metadata) {
+    var namespaceLIst = [];
+    for(i=0; i<metadata.length; i++) {
+        namespaceLIst.push(metadata[i].namespace);
+    }
+    return namespaceLIst;
+}
+
+var getUserTypeByMetaData = function(metadata, namespace){
+
+    var userType = '';
+    for(i=0; i<metadata.length; i++) {
+        if(metadata[i].namespace == namespace ) {
+            userType = metadata[i].userType;
+        }
+    }
+    return userType;
+
+}

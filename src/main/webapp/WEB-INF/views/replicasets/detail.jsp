@@ -135,7 +135,7 @@
     };
     // CALLBACK
     var callbackGetDetail = function(data) {
-        console.log(data);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
             procAlertMessage();
