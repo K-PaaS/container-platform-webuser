@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,10 +46,6 @@ public class UsersController {
 
     @Value("${access.cp-user-id}")
     private String cpUserId;
-
-    @Value("${access.cp-namespace}")
-    private String cpNamespace;
-
 
     @Autowired
     public UsersController(UsersService usersService, CommonService commonService) {
@@ -274,7 +269,7 @@ public class UsersController {
     /**
      * Users 로그아웃(Get Users logout)
      *
-     * @param resposne
+     * @param response
      * @return the view
      */
     @ApiOperation(value = "Users 로그아웃(Get Users logout)", nickname = "logout")
@@ -283,7 +278,8 @@ public class UsersController {
 
         CommonUtils.removeCookies(response,cpToken);
         CommonUtils.removeCookies(response,cpUserId);
-        CommonUtils.removeCookies(response,cpNamespace);
+        CommonUtils.removeCookies(response,Constants.CP_USER_METADATA_KEY);
+        CommonUtils.removeCookies(response,Constants.CP_SELECTED_NAMESPACE_KEY);
 
         ModelAndView model = new ModelAndView();
         model.setViewName("redirect:/login");
@@ -300,12 +296,9 @@ public class UsersController {
     @GetMapping(value = Constants.URI_USERS_INFO)
     public ModelAndView getUserInfoMain(HttpServletRequest httpServletRequest) throws UnsupportedEncodingException {
         String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
-        String nsListString = CommonUtils.getCookie(httpServletRequest, cpNamespace);
-        String decodeNsListStr = URLDecoder.decode(nsListString, "euc-kr");
-        String[] nsList = CommonUtils.stringReplace(decodeNsListStr).split(",");
+        String selectedNs = CommonUtils.getCookie(httpServletRequest, Constants.CP_SELECTED_NAMESPACE_KEY);
 
-        Users user = usersService.getUsers(nsList[0], userId);
-
+        Users user = usersService.getUsers(selectedNs, userId);
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);
         return commonService.setPathVariables(httpServletRequest, BASE_URL + "/info", mv);

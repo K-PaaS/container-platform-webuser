@@ -106,12 +106,12 @@
         //rememberme
         var rememberMe = $("#rememberMe").is(":checked");
         var userId = $("#userId").val();
-        var namespace = data.namespace ;
 
-        var namespace_json = JSON.stringify(namespace);
+        //set metatdata
+        var cp_metadata = data.loginMetaData ;
+        var cp_metadata_json = JSON.stringify(cp_metadata);
 
-        //namespace List
-        $.cookie("namespace", namespace_json, {
+        $.cookie('<%=Constants.CP_USER_METADATA_KEY%>', cp_metadata_json, {
             "expires" : new Date(+new Date() + (60 * 60 * 1000))
         });
 
