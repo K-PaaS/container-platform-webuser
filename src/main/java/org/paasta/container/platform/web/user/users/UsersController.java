@@ -46,9 +46,12 @@ public class UsersController {
 
     @Value("${access.cp-user-id}")
     private String cpUserId;
-
+    
     @Value("${access.cp-namespace}")
     private String cpNamespace;
+
+    @Autowired
+    UsersValidator userValidator;
 
     @Autowired
     public UsersController(UsersService usersService, CommonService commonService) {
@@ -258,6 +261,7 @@ public class UsersController {
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
 
+        userValidator.getUsersValidate(request, users);
         ResultStatus rs = usersService.loginUser(users);
 
         if (rs.getResultCode().equals(Constants.RESULT_STATUS_SUCCESS)) {
