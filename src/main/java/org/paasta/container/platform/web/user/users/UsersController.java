@@ -46,9 +46,6 @@ public class UsersController {
 
     @Value("${access.cp-user-id}")
     private String cpUserId;
-    
-    @Value("${access.cp-namespace}")
-    private String cpNamespace;
 
     @Autowired
     UsersValidator userValidator;
