@@ -1,14 +1,23 @@
 package org.paasta.container.platform.web.user.users;
 
+import com.sun.xml.internal.ws.client.sei.MethodHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * User Validator(IP / Browser Info)
  *
- */
+ * @author suslmk
+ * @version 1.0
+ * @since 2020.10.30
+ **/
 @Component
 public class UsersValidator {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandler.class);
 
     public void getUsersValidate(HttpServletRequest req, Users user) {
 
@@ -45,26 +54,30 @@ public class UsersValidator {
                 }
             }
         } catch (Exception e) {
+            LOGGER.info("Response error");
             e.printStackTrace();
         }
         return browser;
     }
 
     protected String getLocalServerIp(HttpServletRequest req) {
-        String sIP = null;
+        String clientIp = null;
         try {
-            String clientIp = req.getHeader("HTTP_X_FORWARDED_FOR");
+            clientIp = req.getHeader("HTTP_X_FORWARDED_FOR");
             if (null == clientIp || clientIp.length() == 0
                     || clientIp.toLowerCase().equals("unknown")) {
-                sIP = req.getHeader("REMOTE_ADDR");
+                clientIp = req.getHeader("REMOTE_ADDR");
             }
             if (null == clientIp || clientIp.length() == 0
                     || clientIp.toLowerCase().equals("unknown")) {
-                sIP = req.getRemoteAddr();
+                clientIp = req.getRemoteAddr();
             }
+            if(clientIp.equals("0:0:0:0:0:0:0:1"))
+                clientIp = "127.0.0.1";
         } catch (Exception e) {
-
+            LOGGER.info("Response error");
+            e.printStackTrace();
         }
-        return sIP;
+        return clientIp;
     }
 }
