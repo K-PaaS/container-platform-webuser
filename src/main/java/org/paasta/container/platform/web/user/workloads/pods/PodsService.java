@@ -36,8 +36,11 @@ public class PodsService {
      * @return the pods list
      */
     PodsList getPodListBySelector(String namespace, String selector) {
+
+        String param = "?selector=" + selector;
+
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PODS_LIST_BY_SELECTOR
-                .replace("{namespace:.+}", namespace).replace("{selector:.+}", selector), HttpMethod.GET, null, PodsList.class);
+                .replace("{namespace:.+}", namespace) + param, HttpMethod.GET, null, PodsList.class);
     }
 
     /**
@@ -101,7 +104,7 @@ public class PodsService {
      * Pods 생성(Create Pods)
      *
      * @param namespace the namespace
-     * @param yaml the yaml
+     * @param yaml      the yaml
      * @return return is succeeded
      */
     public Object createPods(String namespace, String yaml) {

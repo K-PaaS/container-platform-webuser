@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
-import org.paasta.container.platform.web.user.workloads.replicaSets.ReplicaSets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,12 +54,12 @@ public class PodsController {
      * Pods details 페이지 이동(Move Pods detail page)
      *
      * @param httpServletRequest the http servlet request
-     * @param podName the pods name
+     * @param podName            the pods name
      * @return the pods detail
      */
     @ApiOperation(value = "Pods details 페이지 이동(Move Pods detail page)", nickname = "getPodDetails")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "podName", value = "Pods 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "string", paramType = "path")
     })
     @GetMapping(value = Constants.URI_WORKLOAD_PODS + "/{podName:.+}")
     public ModelAndView getPodDetails(HttpServletRequest httpServletRequest,
@@ -72,12 +71,12 @@ public class PodsController {
      * Pods event 페이지 이동(Move Pods event page)
      *
      * @param httpServletRequest the http servlet request
-     * @param podName the pods name
+     * @param podName            the pods name
      * @return the pods event
      */
     @ApiOperation(value = "Pods event 페이지 이동(Move Pods event page)", nickname = "getPodEvents")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "podName", value = "Pods 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "string", paramType = "path")
     })
     @GetMapping(value = Constants.URI_WORKLOAD_PODS + "/{podName:.+}/events")
     public ModelAndView getPodEvents(HttpServletRequest httpServletRequest,
@@ -89,12 +88,12 @@ public class PodsController {
      * Pods yaml 페이지 이동(Move Pods yaml page)
      *
      * @param httpServletRequest the http servlet request
-     * @param podName the pods name
+     * @param podName            the pods name
      * @return the pods yaml
      */
     @ApiOperation(value = "Pods yaml 페이지 이동(Move Pods yaml page)", nickname = "getPodYaml")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "podName", value = "Pods 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "string", paramType = "path")
     })
     @GetMapping(value = Constants.URI_WORKLOAD_PODS + "/{podName:.+}/yaml")
     public ModelAndView getPodYaml(HttpServletRequest httpServletRequest,
@@ -143,7 +142,7 @@ public class PodsController {
     @ApiOperation(value = "Pods 상세 조회(Get Pods detail)", nickname = "getPod")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "podName", value = "Pods 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "string", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_DETAIL)
     public Pods getPod(@PathVariable(value = "namespace") String namespace,
@@ -155,13 +154,13 @@ public class PodsController {
      * Pods YAML 조회(Get Pods yaml)
      *
      * @param namespace the namespace
-     * @param podName the pods name
+     * @param podName   the pods name
      * @return the pods yaml
      */
     @ApiOperation(value = "Pods YAML 조회(Get Pods yaml)", nickname = "getPodYaml")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "podName", value = "Pods 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "string", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_YAML)
     public Pods getPodYaml(@PathVariable(value = "namespace") String namespace,
@@ -179,12 +178,12 @@ public class PodsController {
     @ApiOperation(value = "Pods 목록 조회(Get Pods selector)", nickname = "getPodListBySelector")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "selector", value = "셀렉터",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "string", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_SELECTOR)
     @ResponseBody
     public PodsList getPodListBySelector(@PathVariable("namespace") String namespace,
-                                         @PathVariable("selector") String selector) {
+                                         @RequestParam(name = "selector", required = true, defaultValue = "") String selector) {
         return podsService.getPodListBySelector(namespace, selector);
     }
 
@@ -201,13 +200,13 @@ public class PodsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
             @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "selector", value = "셀렉터",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "string", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE)
     @ResponseBody
     public PodsList getPodListBySelectorWithService(@PathVariable("namespace") String namespace,
                                                     @PathVariable("serviceName") String serviceName,
-                                                    @PathVariable("selector") String selector) {
+                                                    @RequestParam(name = "selector", required = true, defaultValue = "") String selector) {
         PodsList podsList = podsService.getPodListBySelector(namespace, selector);
         podsList.setServiceName(serviceName);  // FOR DASHBOARD
         podsList.setSelector(selector);        // FOR DASHBOARD
@@ -225,7 +224,7 @@ public class PodsController {
     @ApiOperation(value = "Pods 목록 조회(Get Pods node)", nickname = "getPodListByNode")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "nodeName", value = "노드 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "string", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_NODE)
     @ResponseBody
@@ -238,7 +237,7 @@ public class PodsController {
      * Pods 생성(Create Pods)
      *
      * @param namespace the namespace
-     * @param yaml the yaml
+     * @param yaml      the yaml
      * @return return is succeeded
      */
     @ApiOperation(value = "Pods 생성(Create Pods)", nickname = "createDeployments")
@@ -257,9 +256,9 @@ public class PodsController {
     /**
      * Pods 수정(Update Pods)
      *
-     * @param namespace   the namespace
-     * @param podName the pods name
-     * @param yaml        the yaml
+     * @param namespace the namespace
+     * @param podName   the pods name
+     * @param yaml      the yaml
      * @return return is succeeded
      */
     @ApiOperation(value = "Pods 수정(Update Pods)", nickname = "updatePods")
@@ -281,7 +280,7 @@ public class PodsController {
      * Pods 삭제(Delete Pods)
      *
      * @param namespace the namespace
-     * @param podName the pods name
+     * @param podName   the pods name
      * @return return is succeeded
      */
     @ApiOperation(value = "Pods 삭제(Delete Pods)", nickname = "deletePods")
@@ -292,7 +291,7 @@ public class PodsController {
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_POD_DELETE)
     @ResponseBody
     public Object deletePods(@PathVariable(value = "namespace") String namespace,
-                             @PathVariable("podName") String podName ){
+                             @PathVariable("podName") String podName) {
         return podsService.deletePods(namespace, podName);
     }
 }

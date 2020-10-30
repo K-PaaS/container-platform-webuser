@@ -58,7 +58,7 @@ public class ReplicaSetsController {
      * ReplicaSets detail 페이지 이동(Move ReplicaSets detail page)
      *
      * @param httpServletRequest the http servlet request
-     * @param replicaSetName the replicaSets name
+     * @param replicaSetName     the replicaSets name
      * @return the replicaSets detail
      */
     @ApiOperation(value = "ReplicaSets detail 페이지 이동(Move ReplicaSets detail page)", nickname = "getReplicaSetsDetail")
@@ -76,7 +76,7 @@ public class ReplicaSetsController {
      * ReplicaSets event 페이지 이동(Move ReplicaSets event page)
      *
      * @param httpServletRequest the http servlet request
-     * @param replicaSetName the replicaSets name
+     * @param replicaSetName     the replicaSets name
      * @return the replicaSets event
      */
     @ApiOperation(value = "ReplicaSets event 페이지 이동(Move ReplicaSets event page)", nickname = "getReplicaSetsDetailEvents")
@@ -94,7 +94,7 @@ public class ReplicaSetsController {
      * ReplicaSets yaml 페이지 이동(Move ReplicaSets yaml page)
      *
      * @param httpServletRequest the http servlet request
-     * @param replicaSetName the replicaSets name
+     * @param replicaSetName     the replicaSets name
      * @return the replicaSets yaml
      */
     @ApiOperation(value = "ReplicaSets yaml 페이지 이동(Move ReplicaSets yaml page)", nickname = "getReplicaSetsDetailYaml")
@@ -135,7 +135,7 @@ public class ReplicaSetsController {
                                               @RequestParam(required = false, defaultValue = "0") int limit,
                                               @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
                                               @RequestParam(required = false, defaultValue = "desc") String order,
-                                              @RequestParam(required = false, defaultValue = "") String searchName){
+                                              @RequestParam(required = false, defaultValue = "") String searchName) {
 
         return replicaSetService.getReplicaSetsList(namespace, offset, limit, orderBy, order, searchName);
     }
@@ -144,7 +144,7 @@ public class ReplicaSetsController {
     /**
      * ReplicaSets 상세 조회(Get ReplicaSets detail)
      *
-     * @param namespace the namespace
+     * @param namespace      the namespace
      * @param replicaSetName the replicaSets name
      * @return the replicaSets detail
      */
@@ -156,7 +156,7 @@ public class ReplicaSetsController {
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DETAIL)
     @ResponseBody
     public ReplicaSets getReplicaSets(@PathVariable("namespace") String namespace,
-                                      @PathVariable("replicaSetName") String replicaSetName ){
+                                      @PathVariable("replicaSetName") String replicaSetName) {
         return replicaSetService.getReplicaSets(namespace, replicaSetName);
     }
 
@@ -164,7 +164,7 @@ public class ReplicaSetsController {
     /**
      * ReplicaSets YAML 조회(Get ReplicaSets yaml)
      *
-     * @param namespace the namespace
+     * @param namespace      the namespace
      * @param replicaSetName the replicaSets name
      * @return the replicaSets yaml
      */
@@ -176,7 +176,7 @@ public class ReplicaSetsController {
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_YAML)
     @ResponseBody
     public ReplicaSets getReplicaSetsYaml(@PathVariable("namespace") String namespace,
-                                          @PathVariable("replicaSetName") String replicaSetName ){
+                                          @PathVariable("replicaSetName") String replicaSetName) {
         return replicaSetService.getReplicaSetsYaml(namespace, replicaSetName);
     }
 
@@ -185,7 +185,7 @@ public class ReplicaSetsController {
      * ReplicaSets 목록 조회 (Get ReplicaSets selector)
      *
      * @param namespace the namespace
-     * @param selector the selector
+     * @param selector  the selector
      * @return the replicaSets list
      */
     @ApiOperation(value = "ReplicaSets 목록 조회 (Get ReplicaSets selector)", nickname = "getReplicaSetsListLabelSelector")
@@ -196,7 +196,7 @@ public class ReplicaSetsController {
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_RESOURCES)
     @ResponseBody
     public ReplicaSetsList getReplicaSetsListLabelSelector(@PathVariable("namespace") String namespace,
-                                                           @PathVariable("selector") String selector ){
+                                                           @RequestParam(name = "selector", required = true, defaultValue = "") String selector) {
         return replicaSetService.getReplicaSetsListLabelSelector(namespace, selector);
     }
 
@@ -204,7 +204,7 @@ public class ReplicaSetsController {
      * ReplicaSets 생성(Create ReplicaSets)
      *
      * @param namespace the namespace
-     * @param yaml the yaml
+     * @param yaml      the yaml
      * @return return is succeeded
      */
     @ApiOperation(value = "ReplicaSets 생성(Create ReplicaSets)", nickname = "createReplicaSets")
@@ -216,16 +216,16 @@ public class ReplicaSetsController {
     @ResponseBody
     public Object createReplicaSets(@PathVariable(value = "namespace") String namespace,
                                     @RequestBody String yaml) {
-        return replicaSetService.createReplicaSets(namespace,yaml);
+        return replicaSetService.createReplicaSets(namespace, yaml);
 
     }
 
     /**
      * ReplicaSets 수정(Update ReplicaSets)
      *
-     * @param namespace the namespace
+     * @param namespace      the namespace
      * @param replicaSetName the replicaSets name
-     * @param yaml the yaml
+     * @param yaml           the yaml
      * @return return is succeeded
      */
     @ApiOperation(value = "ReplicaSets 수정(Update ReplicaSets)", nickname = "updateCustomReplicaSets")
@@ -245,7 +245,7 @@ public class ReplicaSetsController {
     /**
      * ReplicaSets 삭제(Delete ReplicaSets)
      *
-     * @param namespace the namespace
+     * @param namespace      the namespace
      * @param replicaSetName the replicaSets name
      * @return return is succeeded
      */
@@ -257,7 +257,7 @@ public class ReplicaSetsController {
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_DELETE)
     @ResponseBody
     public Object deleteReplicaSets(@PathVariable("namespace") String namespace,
-                                    @PathVariable("replicaSetName") String replicaSetName ){
+                                    @PathVariable("replicaSetName") String replicaSetName) {
         return replicaSetService.deleteReplicaSets(namespace, replicaSetName);
     }
 }

@@ -86,13 +86,15 @@ public class ReplicaSetsService {
      * ReplicaSets 목록 조회(Get ReplicaSets selector)
      *
      * @param namespace the namespace
-     * @param selectors the selector
+     * @param selector  the selector
      * @return the replicaSets list
      */
-    ReplicaSetsList getReplicaSetsListLabelSelector(String namespace, String selectors) {
+    ReplicaSetsList getReplicaSetsListLabelSelector(String namespace, String selector) {
+
+        String param = "?selector=" + selector;
+
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_RESOURCES
-                        .replace("{namespace:.+}", namespace)
-                        .replace("{selector:.+}", selectors),
+                        .replace("{namespace:.+}", namespace) + param,
                 HttpMethod.GET, null, ReplicaSetsList.class);
     }
 

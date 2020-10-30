@@ -220,10 +220,12 @@
         for (var i = 0; i < listLength; i++) {
             procViewLoading('show');
             tempSelectorList = selectorList[i].split("||");
+
+            var param = "?selector=" +  tempSelectorList[0] ;
+
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE %>"
                 .replace("{namespace:.+}", NAME_SPACE)
-                .replace("{serviceName:.+}", tempSelectorList[tempSelectorList.length - 1])
-                .replace("{selector:.+}", tempSelectorList[0]);
+                .replace("{serviceName:.+}", tempSelectorList[tempSelectorList.length - 1]) + param;
 
             procCallAjax(reqUrl, "GET", null, null, callbackGetDetailForPods);
         }

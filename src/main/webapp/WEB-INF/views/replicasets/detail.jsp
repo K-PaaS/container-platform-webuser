@@ -198,9 +198,9 @@
     };
     // GET DETAIL FOR PODS LIST
     var getDetailForPodsList = function(selector) {
+        var param = "?selector=" + selector ;
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>"
-            .replace("{namespace:.+}", NAME_SPACE)
-            .replace("{selector:.+}", selector);
+            .replace("{namespace:.+}", NAME_SPACE) + param;
         getPodListUsingRequestURL(reqUrl);
     };
     // GET SERVICE LIST

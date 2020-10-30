@@ -213,10 +213,10 @@
 
         procViewLoading('hide');
 
+        var param = "?selector=" + selector ;
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE %>"
             .replace("{namespace:.+}", NAME_SPACE)
-            .replace("{serviceName:.+}", "_all")
-            .replace("{selector:.+}", selector);
+            .replace("{serviceName:.+}", "_all") + param;
 
         getPodListUsingRequestURL(reqUrl);
         getDetailForEndpoints();

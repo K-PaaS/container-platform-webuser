@@ -72,9 +72,9 @@ public class Constants {
     public static final String URI_API_PODS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods";
     public static final String URI_API_PODS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}";
     public static final String URI_API_PODS_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}/yaml";
-    public static final String URI_API_PODS_LIST_BY_SELECTOR = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/resources/{selector:.+}";
+    public static final String URI_API_PODS_LIST_BY_SELECTOR = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/resources";
     public static final String URI_API_PODS_LIST_BY_NODE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/nodes/{nodeName:.+}";
-    public static final String URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/service/{serviceName:.+}/{selector:.+}";
+    public static final String URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/service/{serviceName:.+}";
     public static final String URI_API_PODS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods";
     public static final String URI_API_POD_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}";
     public static final String URI_API_POD_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}";
@@ -82,7 +82,7 @@ public class Constants {
     public static final String URI_API_REPLICA_SETS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets";
     public static final String URI_API_REPLICA_SETS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
     public static final String URI_API_REPLICA_SETS_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}/yaml";
-    public static final String URI_API_REPLICA_SETS_RESOURCES = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/resources/{selector:.+}";
+    public static final String URI_API_REPLICA_SETS_RESOURCES = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/resources";
     public static final String URI_API_REPLICA_SETS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets";
     public static final String URI_API_REPLICA_SETS_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
     public static final String URI_API_REPLICA_SETS_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";

@@ -228,10 +228,10 @@ var procAddPodsEvent = function (targetObject, selector) {
     // 기존 리스트 데이터에 event.type, event.message 추가
     var eventType = 'normal';
     var eventMessage = [];
+    var param = "?selector=" + selector ;
 
-    var reqPodsUrl = URI_API_PODS_RESOURCES
-        .replace("{namespace:.+}", NAME_SPACE)
-        .replace("{selector:.+}", selector);
+    var reqPodsUrl = URI_API_PODS_RESOURCES.replace("{namespace:.+}", NAME_SPACE) + param;
+
     procCallAjax(reqPodsUrl, "GET", null, null, function (podsData) {
         $.each(podsData.items, function (index, itemList) {
             var podsName = itemList.metadata.uid;
