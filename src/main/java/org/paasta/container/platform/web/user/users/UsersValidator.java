@@ -1,6 +1,5 @@
 package org.paasta.container.platform.web.user.users;
 
-import com.sun.xml.internal.ws.client.sei.MethodHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class UsersValidator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsersValidator.class);
 
     public void getUsersValidate(HttpServletRequest req, Users user) {
 
