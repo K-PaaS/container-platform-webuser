@@ -234,6 +234,8 @@
         var endpoints = "";
         var htmlString = [];
         // replicaset에서 자동으로 생성되는 hash label은 비교 대상에서 삭제한다.
+
+        if(replicasetLabel !== null) {
         if(replicasetLabel["pod-template-hash"] !== undefined){
             delete replicasetLabel["pod-template-hash"];
         }
@@ -279,7 +281,8 @@
                 + "<td>" + items[i].metadata.creationTimestamp + "</td>"
                 + "</tr>");
             endpoints = "";
-        }
+        } }
+
         if (listLength < 1) {
             resultHeaderArea.hide();
             resultArea.hide();
