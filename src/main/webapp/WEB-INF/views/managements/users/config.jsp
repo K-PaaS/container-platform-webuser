@@ -188,7 +188,19 @@
 
 
     var callbackUpdateUserConfig = function (data) {
-        procMovePage(data.nextActionUrl);
+        var resultCode = '권한이 정상적으로 변경되었습니다.';
+
+        if (!procCheckValidData(data)) {
+            procViewLoading('hide');
+            resultCode = '권한 변경을 실패하였습니다.';
+            procAlertMessage(resultCode);
+            return false;
+        } else {
+            var nextActionUrl = data.nextActionUrl;
+            procViewLoading('hide');
+            procSetLayerPopup('권한 변경', resultCode, '확인', null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
+
+        }
     };
 
     var makeMap = function (sa, roleName) {

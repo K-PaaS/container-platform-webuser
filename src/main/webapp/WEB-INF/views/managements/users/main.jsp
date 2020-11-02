@@ -129,7 +129,16 @@
 
 
     var updateUsersRolePage = function() {
-      procMovePage("<%= Constants.URI_USERS_CONFIG %>");
+      var namespaceAdminType = "<%= Constants.NAMESPACE_ADMIN %>";
+      var userType = current_user_type;
+      var resultCode = '접근할 수 없는 권한입니다.';
+
+      if(userType === namespaceAdminType) {
+          procMovePage("<%= Constants.URI_USERS_CONFIG %>");
+      } else {
+          procAlertMessage(resultCode);
+      }
+
     };
 
     // ON LOAD

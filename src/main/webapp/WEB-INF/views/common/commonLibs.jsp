@@ -51,11 +51,6 @@
     var OVERVIEW_LIMIT_COUNT = "<%= Constants.OVERVIEW_LIMIT_COUNT %>";
     var DEFAULT_LIMIT_COUNT = "<%= Constants.DEFAULT_LIMIT_COUNT %>";
 
-
-    // todo remove :: accessInfo.jsp
-    var USER_ID = "admin";
-    var USER_NAME = "admin";
-
     var cp_user_metadata =$.cookie("<%= Constants.CP_USER_METADATA_KEY %>");
     var current_select_ns = $.cookie("<%= Constants.CP_SELECTED_NAMESPACE_KEY %>");
     cp_user_metadata = JSON.parse(cp_user_metadata);
