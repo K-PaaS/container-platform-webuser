@@ -29,7 +29,7 @@
             <h4 style="margin-top: 20px;">Container Platform Sign Up</h4>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control item" id="userId" placeholder="User Id" maxlength="12">
+            <input type="text" class="form-control item" id="userId" placeholder="User Id">
             <span style="margin-top: 2px; margin-left:15px; color: blue; font-size: x-small; font-variant: small-caps;"> * User ID는 시작과 끝이 영(소문자)/숫자로 253자 이하, 특수문자는 '-' 또는 '.'만 사용 가능</span>
         </div>
         <div class="form-group">
