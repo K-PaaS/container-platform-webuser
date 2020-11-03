@@ -36,9 +36,9 @@ public class EventsService {
      */
     EventsList getEventsList(String namespace, String resourceUid, String type) {
         if(type != null) {
-            return restTemplateService.send(Constants.TARGET_CP_API, "/namespaces/"+namespace+"/events/resources/"+resourceUid+"?type="+type, HttpMethod.GET, null, EventsList.class);
+            return restTemplateService.send(Constants.TARGET_CP_API, "/clusters/cp-cluster/namespaces/"+namespace+"/events/resources/"+resourceUid+"?type="+type, HttpMethod.GET, null, EventsList.class);
         }
-        return restTemplateService.send(Constants.TARGET_CP_API, "/namespaces/"+namespace+"/events/resources/"+resourceUid, HttpMethod.GET, null, EventsList.class);
+        return restTemplateService.send(Constants.TARGET_CP_API, "/clusters/cp-cluster/namespaces/"+namespace+"/events/resources/"+resourceUid, HttpMethod.GET, null, EventsList.class);
     }
 
     /**
@@ -48,6 +48,6 @@ public class EventsService {
      * @return the events list
      */
     EventsList getNamespaceEventsList(String namespace) {
-        return restTemplateService.send(Constants.TARGET_CP_API, "/namespaces/"+namespace+"/events", HttpMethod.GET, null, EventsList.class);
+        return restTemplateService.send(Constants.TARGET_CP_API, "/clusters/cp-cluster/namespaces/"+namespace+"/events", HttpMethod.GET, null, EventsList.class);
     }
 }
