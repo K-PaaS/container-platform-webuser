@@ -231,7 +231,7 @@
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{serviceName:.+}", document.getElementById('requestServiceName').value);
 
-        procCallAjax(reqUrl, "GET", null, null, callbackGetDetailForEndpoints);
+        procCallAjax(reqUrl, "GET", null, "ENDPOINTS", callbackGetDetailForEndpoints);
     };
 
 

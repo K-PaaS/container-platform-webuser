@@ -42,6 +42,10 @@ var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
                     return false;
                 }
 
+                if(preFunc == 'ENDPOINTS') {
+                    return false;
+                }
+
                 procViewLoading('hide');
                 procAlertMessage(data.detailMessage);
             } else {
