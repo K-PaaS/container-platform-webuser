@@ -94,7 +94,7 @@ public class UsersController {
             }
 
             return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_FAIL)
-                    .detailMessage("Failed Sign Up. Re Confirm " + errFieldList.toString()).build();
+                    .detailMessage("회원가입에 실패했습니다. 다음" + errFieldList.toString() + "항목을 재 확인 바랍니다.").build();
         }
 
         return usersService.registerUser(users);

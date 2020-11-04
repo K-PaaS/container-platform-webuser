@@ -21,7 +21,7 @@ public class Users {
     private long id;
 
     @NotBlank(message = "ID 는 필수 입력 값입니다.")
-    @Pattern(regexp="(^[a-z0-9]+[-a-z0-9]*[a-z0-9]{3,11}$)",
+    @Pattern(regexp="(^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*)",
             message = "아이디는 영문 소문자 또는 숫자로 시작하는 4~12자 이내의 영문 소문자, 특수문자 '-', 숫자만 혼합하여 사용 가능합니다.")
     private String userId;
 
