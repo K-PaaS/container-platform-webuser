@@ -110,8 +110,8 @@ public class Constants {
 
     public static final String URI_API_ENDPOINTS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/endpoints/{serviceName:.+}";
 
-    public static final String URI_API_EVENTS_LIST = "/namespaces/{namespace:.+}/events/resources/{resourceUid:.+}";
-    public static final String URI_API_NAMESPACE_EVENTS_LIST    = "/namespaces/{namespace:.+}/events";
+    public static final String URI_API_EVENTS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/events/resources/{resourceUid:.+}";
+    public static final String URI_API_NAMESPACE_EVENTS_LIST    = "/clusters/cp-cluster/namespaces/{namespace:.+}/events";
 
     public static final String URI_API_ROLE_BINDINGS_DETAIL = "/namespaces/{namespace:.+}/roleBindings/{roleBindingName:.+}";
 
