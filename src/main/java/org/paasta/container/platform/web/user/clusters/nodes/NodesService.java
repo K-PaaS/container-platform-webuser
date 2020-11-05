@@ -34,9 +34,9 @@ public class NodesService {
      * @param nodeName the nodes name
      * @return the nodes detail
      */
-    Nodes getNodes(String nodeName) {
+    Nodes getNodes(String nodeName, String namespace) {
         return restTemplateService.send(Constants.TARGET_CP_API,
-                Constants.URI_API_NODES_LIST.replace("{nodeName:.+}", nodeName), HttpMethod.GET, null, Nodes.class);
+                Constants.URI_API_NODES_LIST.replace("{nodeName:.+}", nodeName).replace("{namespace:.+}", namespace), HttpMethod.GET, null, Nodes.class);
     }
 
 }
