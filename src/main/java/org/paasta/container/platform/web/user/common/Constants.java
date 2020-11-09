@@ -60,7 +60,7 @@ public class Constants {
     public static final String URI_API_NAME_SPACES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}";
     public static final String URI_API_NAME_SPACES_RESOURCE_QUOTAS = "/clusters/cp-cluster/namespaces/{namespace:.+}/resourceQuotas";
 
-    public static final String URI_API_NODES_LIST = "/clusters/cp-cluster/nodes/{nodeName:.+}/namespaces/{namespace:.+}";
+    public static final String URI_API_NODES_LIST = "/clusters/cp-cluster/nodes/{nodeName:.+}";
 
     public static final String URI_API_DEPLOYMENTS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/deployments";
     public static final String URI_API_DEPLOYMENTS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/deployments/{deploymentName:.+}";
@@ -144,13 +144,6 @@ public class Constants {
     public static final String URI_API_COMMON_RESOURCE_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}";
     public static final String URI_API_COMMON_RESOURCE_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}";
     public static final String URI_API_COMMON_RESOURCE_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}";
-
-    // COMMON API URI
-    public static final String URI_COMMON_API_USERS_LIST = "/users/serviceInstanceId/{serviceInstanceId:.+}/organizationGuid/{organizationGuid:.+}";
-    public static final String URI_COMMON_API_USERS_DETAIL = "/users/serviceInstanceId/{serviceInstanceId:.+}/organizationGuid/{organizationGuid:.+}/userId/{userId:.+}/";
-    public static final String URI_COMMON_API_USERS_VALID_EXIST_NAMESPACE = "/users/userId/{userId}/namespace/{namespace}";
-
-    public static final String URI_COMMON_API_ROLES_LIST = "/roles/{roleSetCode:.+}";
 
     public static final Integer OVERVIEW_LIMIT_COUNT = 5;
     public static final Integer DEFAULT_LIMIT_COUNT = 10;
