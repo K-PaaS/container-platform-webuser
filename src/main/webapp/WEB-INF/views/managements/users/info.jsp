@@ -17,6 +17,9 @@
                 <input type="text" class="update-form" id="userId" placeholder="User Id" maxlength="12" value="${user.userId}" disabled>
             </div>
             <div class="form-group">
+                <input type="password" class="update-form" id="currentPassword" placeholder="Current Password" maxlength="40">
+            </div>
+            <div class="form-group">
                 <input type="password" class="update-form" id="password" placeholder="Password" maxlength="40">
             </div>
             <div class="form-group">
@@ -38,8 +41,18 @@
 
     $("#updateBtn").on('click', function () {
         var code = "<p class='account_modal_p'>회원 정보를 수정하시겠습니까?</p>";
-        procSetLayerPopup('회원 정보 수정', code, '확인', '취소', 'x', 'createUpdateUserInfo()', null, null);
+        procSetLayerPopup('회원 정보 수정', code, '확인', '취소', 'x', 'validatePassword()', null, null);
     });
+
+    var validatePassword = function () {
+        var userId = $("#userId").val();
+        var password = $("#currentPassword").val();
+
+        var loginObj = {userId: userId, password: password};
+        var loginJson = JSON.stringify(loginObj);
+
+        procCallAjax("/login", "POST", loginJson, false, createUpdateUserInfo);
+    }
 
     var createUpdateUserInfo = function () {
         $("#commonLayerPopup").modal("hide");
@@ -70,7 +83,7 @@
     // ON LOAD
     $(document.body).ready(function () {
         procViewLoading('hide');
-        $('#password').focus();
+        $('#currentPassword').focus();
 
         $('#password').keyup(function(){
             $('#chkNotice').html('');
