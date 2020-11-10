@@ -148,7 +148,7 @@ public class Constants {
     public static final Integer OVERVIEW_LIMIT_COUNT = 5;
     public static final Integer DEFAULT_LIMIT_COUNT = 10;
 
-    public static final String CP_REMEMBER_ME_KEY = "cp-user-rememberme";
+    public static final String CP_REMEMBER_ME_KEY = "cp-user-remember-me";
     public static final String CP_USER_METADATA_KEY ="cp-user-metadata";
     public static final String CP_SELECTED_NAMESPACE_KEY ="cp-user-selected-ns";
     public static final String REMAIN_ITEM_COUNT_KEY = "remainingItemCount";
