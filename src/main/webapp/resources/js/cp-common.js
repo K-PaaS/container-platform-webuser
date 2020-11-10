@@ -601,3 +601,41 @@ var getUserTypeByMetaData = function(metadata, namespace){
     return userType;
 
 }
+
+// SET TOOL TIP FOR TABLE TD FOR CONDITION
+var procSetToolTipForTableTdByCondition = function (tableObjectString) {
+    if (nvl(tableObjectString) === '') {
+        return false;
+    }
+
+    var tableObject = $('#' + tableObjectString + ' tr');
+
+    tableObject.each(function () {
+        var tdTags = $(this).find('td');
+        var aTags,
+            spanTags;
+
+        if (tdTags != null) {
+            aTags = $(this).find('a');
+            spanTags = $(this).find('span');
+
+            if(aTags != null) {
+                aTags.each(function () {
+                    if (nvl(aTags) !== '') {
+                        procSetToolTipAttributes($(this));
+                    }
+                });
+
+            }
+            else {
+                spanTags.each(function () {
+                    if (nvl(spanTags) !== '') {
+                        procSetToolTipAttributes($(this));
+                    }
+                }); }
+        }
+    });
+
+    // TOOL TIP
+    $('[data-toggle="tooltip"]').tooltip();
+};

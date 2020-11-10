@@ -141,7 +141,7 @@
             $('#rolesListArea tr:last').after(htmlString);
         }
 
-        procSetToolTipForTableTd('resultRolesTable');
+        procSetToolTipForTableTdByCondition('resultRolesTable');
         procViewLoading('hide');
 
     };
