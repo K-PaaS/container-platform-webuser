@@ -124,7 +124,7 @@
             $.removeCookie('<%=Constants.CP_REMEMBER_ME_KEY%>');
         }
 
-        procMovePage('<%=Constants.URI_WORKLOAD_OVERVIEW%>');
+        procMovePage('<%=Constants.URI_INTRO_OVERVIEW%>');
     };
 </script>
 </body>
