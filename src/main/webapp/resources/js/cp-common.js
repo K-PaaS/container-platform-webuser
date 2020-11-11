@@ -639,3 +639,15 @@ var procSetToolTipForTableTdByCondition = function (tableObjectString) {
     // TOOL TIP
     $('[data-toggle="tooltip"]').tooltip();
 };
+
+
+// 버튼 다중 클릭 방지
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}

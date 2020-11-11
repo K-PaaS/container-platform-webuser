@@ -57,6 +57,9 @@
 <script type="text/javascript">
 
     $('#registerBtn').click(function(){
+        if(doubleSubmitCheck()) {
+            return;
+        }
 
         var userId = $("#userId").val();
         var password = $("#password").val();
