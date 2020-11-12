@@ -93,8 +93,6 @@
     // 로그인 요청
     $("#loginBtn").on('click', function (event) {
 
-        $("#loginBtn").prop("disabled", true);
-
         var userId = $("#userId").val();
         var password = $("#password").val();
 
