@@ -111,7 +111,7 @@
                     <span style="">페이지를 볼 수 있는 권한이 없습니다.</span>
                     <hr/>
                     <div class="form-group">
-                        <button type="button" id="pageBtn" onclick="location.href='/login'">메인화면으로 이동</button>
+                        <button type="button" id="pageBtn" onclick="location.href='/logout'">메인화면으로 이동</button>
                     </div>
 
                 </div>
