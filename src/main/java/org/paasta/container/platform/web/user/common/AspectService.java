@@ -1,13 +1,19 @@
 package org.paasta.container.platform.web.user.common;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -26,6 +32,12 @@ import java.util.Objects;
 public class AspectService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AspectService.class);
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @Value("${access.cp-token}")
+    private String cpToken;
 
     /**
      * On before log service access
@@ -68,4 +80,35 @@ public class AspectService {
             LOGGER.warn("================================================================================");
         }
     }
+
+
+    /**
+     * Controller 호출 시 Acess Token 존재 유무 판별
+     * <p>
+     * Cookies 내 Access Token 미존재인 경우 로그아웃 처리
+     *
+     * @param joinPoint
+     * @return the object
+     * @throws Throwable
+     */
+    @Around("execution(* org.paasta.container.platform..*Controller.*(..))" + "&& !@annotation(org.paasta.container.platform.web.user.config.NoAuth)")
+    public Object accessTokenCheckAspect(ProceedingJoinPoint joinPoint) throws Throwable {
+
+        ModelAndView model = new ModelAndView();
+        String accessToken = null;
+
+        accessToken = CommonUtils.getCookie(request, cpToken);
+
+        if (accessToken == null) {
+            LOGGER.warn("================================================================================");
+            LOGGER.warn("## Move to UNAUTHORIZED VIEW :: Access Token does not exist");
+            LOGGER.warn("================================================================================");
+            model.setViewName(Constants.REDIRECT_VIEW + Constants.URI_UNAUTHORIZED);
+            return model;
+        }
+
+        return joinPoint.proceed();
+    }
+
+
 }

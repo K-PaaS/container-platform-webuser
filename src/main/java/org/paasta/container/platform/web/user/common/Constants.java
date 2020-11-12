@@ -33,6 +33,8 @@ public class Constants {
 
 
     // DASHBOARD URI
+    public static final String URI_UNAUTHORIZED ="/common/error/unauthorized";
+    public static final String URI_LOGOUT ="/logout";
     public static final String URI_LOGIN = "/signUp/login";
     public static final String URI_INTRO_OVERVIEW = "/container-platform/intro/overview";
     public static final String URI_INTRO_ACCESS_INFO = "/container-platform/intro/accessInfo";
@@ -152,6 +154,8 @@ public class Constants {
     public static final String CP_USER_METADATA_KEY ="cp-user-metadata";
     public static final String CP_SELECTED_NAMESPACE_KEY ="cp-user-selected-ns";
     public static final String REMAIN_ITEM_COUNT_KEY = "remainingItemCount";
+
+    public static final String REDIRECT_VIEW = "redirect:";
 
 
     private Constants() {

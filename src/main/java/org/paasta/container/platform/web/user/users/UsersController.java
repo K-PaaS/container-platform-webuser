@@ -8,6 +8,7 @@ import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
+import org.paasta.container.platform.web.user.config.NoAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,7 @@ public class UsersController {
      * @return the view
      */
     @ApiOperation(value = "Users 회원가입 페이지 이동(Move Users sing up page)", nickname = "signUpView")
+    @NoAuth
     @GetMapping(value = "/signUp")
     public ModelAndView signUpView() {
         ModelAndView model = new ModelAndView();
@@ -82,6 +84,7 @@ public class UsersController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "users", value = "유저 정보", required = true, dataType = "Users", paramType = "body")
     })
+    @NoAuth
     @PostMapping(value = "/register")
     @ResponseBody
     public ResultStatus registerUser(@Valid @RequestBody Users users,
@@ -133,7 +136,7 @@ public class UsersController {
      * Users 권한 설정(Put Users authority setting)
      *
      * @param namespace the namespace
-     * @param users the users
+     * @param users     the users
      * @return the resultStatus
      */
     @ApiOperation(value = "Users 권한 설정(Put Users authority setting)", nickname = "modifyUsersConfig")
@@ -199,7 +202,7 @@ public class UsersController {
      * Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)
      *
      * @param namespace the namespace
-     * @param userId the user id
+     * @param userId    the user id
      * @return the users detail
      */
     @ApiOperation(value = "Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)", nickname = "getUsersByNamespace")
@@ -217,11 +220,12 @@ public class UsersController {
     /**
      * 로그인 페이지 이동(Move login page)
      *
-     * @param request the request
+     * @param request  the request
      * @param response the response
      * @return the view
      */
     @ApiOperation(value = "로그인 페이지 이동(Move login page)", nickname = "loginView")
+    @NoAuth
     @GetMapping("/login")
     public ModelAndView loginView(HttpServletRequest request,
                                   HttpServletResponse response) {
@@ -232,8 +236,8 @@ public class UsersController {
         ModelAndView model = new ModelAndView();
         model.setViewName(Constants.URI_LOGIN);
 
-        if(userToken != null) {
-            model.setViewName("redirect:"+ Constants.URI_INTRO_OVERVIEW);
+        if (userToken != null) {
+            model.setViewName(Constants.REDIRECT_VIEW + Constants.URI_INTRO_OVERVIEW);
         }
 
         return model;
@@ -243,8 +247,8 @@ public class UsersController {
     /**
      * Users 로그인(Post Users login)
      *
-     * @param users the users
-     * @param request the request
+     * @param users    the users
+     * @param request  the request
      * @param response the response
      * @return the resultStatus
      */
@@ -253,6 +257,7 @@ public class UsersController {
             @ApiImplicitParam(name = "users", value = "유저 정보", required = true, dataType = "Users", paramType = "body")
     })
     @PostMapping("/login")
+    @NoAuth
     @ResponseBody
     public ResultStatus loginUser(@RequestBody Users users,
                                   HttpServletRequest request,
@@ -262,8 +267,8 @@ public class UsersController {
         ResultStatus rs = usersService.loginUser(users);
 
         if (rs.getResultCode().equals(Constants.RESULT_STATUS_SUCCESS)) {
-            CommonUtils.addCookies(response,cpToken, rs.getToken() );
-            CommonUtils.addCookies(response,cpUserId, rs.getUserId() );
+            CommonUtils.addCookies(response, cpToken, rs.getToken());
+            CommonUtils.addCookies(response, cpUserId, rs.getUserId());
         }
 
         return rs;
@@ -277,16 +282,17 @@ public class UsersController {
      * @return the view
      */
     @ApiOperation(value = "Users 로그아웃(Get Users logout)", nickname = "logout")
+    @NoAuth
     @GetMapping("/logout")
     public ModelAndView logout(HttpServletResponse response) {
 
-        CommonUtils.removeCookies(response,cpToken);
-        CommonUtils.removeCookies(response,cpUserId);
-        CommonUtils.removeCookies(response,Constants.CP_USER_METADATA_KEY);
-        CommonUtils.removeCookies(response,Constants.CP_SELECTED_NAMESPACE_KEY);
+        CommonUtils.removeCookies(response, cpToken);
+        CommonUtils.removeCookies(response, cpUserId);
+        CommonUtils.removeCookies(response, Constants.CP_USER_METADATA_KEY);
+        CommonUtils.removeCookies(response, Constants.CP_SELECTED_NAMESPACE_KEY);
 
         ModelAndView model = new ModelAndView();
-        model.setViewName("redirect:/login");
+        model.setViewName(Constants.REDIRECT_VIEW +"/login");
         return model;
     }
 
@@ -313,7 +319,7 @@ public class UsersController {
      * Users 정보 수정(Put Users info)
      *
      * @param userId the userId
-     * @param users the users
+     * @param users  the users
      * @return the resultStatus
      */
     @ApiOperation(value = "Users 정보 수정(Put Users info)", nickname = "updateUsers")

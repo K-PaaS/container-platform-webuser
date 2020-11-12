@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
+import org.paasta.container.platform.web.user.config.NoAuth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -48,6 +49,7 @@ public class IntroOverviewController {
      */
     @ApiOperation(value = "Intro overview 페이지 이동(Move Intro overview page)", nickname = "indexView")
     @GetMapping("/")
+    @NoAuth
     public RedirectView indexView() {
         return new RedirectView("/login");
     }
