@@ -49,7 +49,7 @@ public class NodesController {
      */
     @ApiOperation(value = "Nodes detail 페이지 이동(Move Nodes detail page)", nickname = "getNodesDetails")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_CLUSTER_NODES + "/{nodeName:.+}")
     public ModelAndView getNodesDetails(HttpServletRequest httpServletRequest,
@@ -66,7 +66,7 @@ public class NodesController {
      */
     @ApiOperation(value = "Nodes summary 페이지 이동(Move Nodes summary page)", nickname = "getNodesSummary")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_CLUSTER_NODES + "/{nodeName:.+}/summary")
     public ModelAndView getNodesSummary(HttpServletRequest httpServletRequest,
@@ -83,7 +83,7 @@ public class NodesController {
      */
     @ApiOperation(value = "Nodes events 페이지 이동(Move Nodes event page)", nickname = "getNodesEvents")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_CLUSTER_NODES + "/{nodeName:.+}/events")
     public ModelAndView getNodesEvents(HttpServletRequest httpServletRequest,
@@ -99,7 +99,7 @@ public class NodesController {
      */
     @ApiOperation(value = "Nodes 상세 조회(Get Nodes detail)", nickname = "getNodes")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NODES_LIST)
     public Nodes getNodes(@PathVariable("nodeName") String nodeName) {

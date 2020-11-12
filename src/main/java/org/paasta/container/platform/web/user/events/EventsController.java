@@ -45,10 +45,10 @@ public class EventsController {
      */
     @ApiOperation(value = "Events 목록 조회(Get Events list)", nickname = "getEventsList")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "resourceUid", value = "리소스 uid",  required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "type", value = "타입", required = false, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "status", value = "상태", required = false, dataType = "string", paramType = "query")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "resourceUid", value = "리소스 uid",  required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "type", value = "타입", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "status", value = "상태", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_EVENTS_LIST)
     @ResponseBody
@@ -74,7 +74,7 @@ public class EventsController {
      */
     @ApiOperation(value = "Events 목록 조회(Get Events namespace)", nickname = "getNamespaceEventsList")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAMESPACE_EVENTS_LIST)
     @ResponseBody

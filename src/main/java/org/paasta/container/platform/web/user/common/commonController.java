@@ -44,12 +44,14 @@ public class commonController {
      * Resources create 페이지 이동(Move Resources create page)
      *
      * @param httpServletRequest the http servlet request
+     * @param namespace          the namespace
+     * @param resourceKind       the resourceKind
      * @return the common resources create page
      */
     @ApiOperation(value = "Resources create 페이지 이동(Move Resources create page)", nickname = "createResource")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "resourceKind", value = "리소스 kind 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "resourceKind", value = "리소스 kind 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.CP_BASE_URL + Constants.URI_API_COMMON_RESOURCE_CREATE_VIEW)
     public ModelAndView createResource(HttpServletRequest httpServletRequest,
@@ -66,13 +68,16 @@ public class commonController {
      * Resources update 페이지 이동(Move Resources update page)
      *
      * @param httpServletRequest the http servlet request
+     * @param namespace          the namespace
+     * @param resourceKind       the resourceKind
+     * @param resourceName       the resourceName
      * @return the common resource update page
      */
     @ApiOperation(value = "Resources create 페이지 이동(Move Resources create page)", nickname = "createResource")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "resourceKind", value = "리소스 kind 명",  required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "resourceName", value = "리소스 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "resourceKind", value = "리소스 kind 명",  required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "resourceName", value = "리소스 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.CP_BASE_URL + Constants.URI_API_COMMON_RESOURCE_UPDATE_VIEW)
     public ModelAndView updateResource(HttpServletRequest httpServletRequest,

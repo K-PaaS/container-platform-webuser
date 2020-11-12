@@ -34,7 +34,7 @@ public class ResourceQuotasController {
      */
     @ApiOperation(value = "ResourceQuotas namespaces 정보 조회(Get ResourceQuotas namespaces)", nickname = "getResourceQuotasList")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS)
     public ResourceQuotasList getResourceQuotasList(@PathVariable String namespace) {

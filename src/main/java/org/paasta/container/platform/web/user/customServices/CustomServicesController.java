@@ -106,12 +106,12 @@ public class CustomServicesController {
      */
     @ApiOperation(value = "Services 목록 조회(Get Services list)", nickname = "getCustomServicesList")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "string", paramType = "query")
+            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_LIST)
     @ResponseBody
@@ -136,8 +136,8 @@ public class CustomServicesController {
      */
     @ApiOperation(value = "Services 상세 조회(Get Services detail)", nickname = "getCustomServices")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "serviceName", value = "서비스 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "serviceName", value = "서비스 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DETAIL)
     @ResponseBody
@@ -156,8 +156,8 @@ public class CustomServicesController {
      */
     @ApiOperation(value = "Services YAML 조회(Get Services yaml)", nickname = "getCustomServicesYaml")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_YAML)
     @ResponseBody
@@ -176,8 +176,8 @@ public class CustomServicesController {
      */
     @ApiOperation(value = "Services 생성(Create Services)", nickname = "createCustomServices")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "string", paramType = "body")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PostMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_CREATE)
     @ResponseBody
@@ -198,9 +198,9 @@ public class CustomServicesController {
      */
     @ApiOperation(value = "Services 수정(Update Services)", nickname = "updateCustomServices")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "yaml", value = "리소스 수정 yaml", required = true, dataType = "string", paramType = "body")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "yaml", value = "리소스 수정 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_UPDATE)
     @ResponseBody
@@ -220,8 +220,8 @@ public class CustomServicesController {
      */
     @ApiOperation(value = "Services 삭제(Delete Services)", nickname = "deleteServices")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path")
     })
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DELETE)
     @ResponseBody

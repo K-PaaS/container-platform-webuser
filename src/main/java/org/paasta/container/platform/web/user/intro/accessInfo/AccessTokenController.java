@@ -75,8 +75,8 @@ public class AccessTokenController {
      */
     @ApiOperation(value = "Secret 조회(Get Secret)", nickname = "getSecret")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "accessTokenName", value = "액세스 토큰 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "accessTokenName", value = "액세스 토큰 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SECRETS_DETAIL)
     @ResponseBody

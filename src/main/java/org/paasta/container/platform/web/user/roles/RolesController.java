@@ -63,7 +63,7 @@ public class RolesController {
      */
     @ApiOperation(value = "Roles detail 페이지 이동(Move Roles detail page)", nickname = "getRolesDetail")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_ROLES + "/{roleName:.+}")
     public ModelAndView getRolesDetail(HttpServletRequest httpServletRequest,
@@ -81,7 +81,7 @@ public class RolesController {
      */
     @ApiOperation(value = "Roles event 페이지 이동(Move Roles event page)", nickname = "getRolesDetailEvents")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_ROLES + "/{roleName:.+}/events")
     public ModelAndView getRolesDetailEvents(HttpServletRequest httpServletRequest,
@@ -99,7 +99,7 @@ public class RolesController {
      */
     @ApiOperation(value = "Roles yaml 페이지 이동(Move Roles yaml page)", nickname = "getRolesDetailYaml")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_ROLES + "/{roleName:.+}/yaml")
     public ModelAndView getRolesDetailYaml(HttpServletRequest httpServletRequest,
@@ -121,12 +121,12 @@ public class RolesController {
      */
     @ApiOperation(value = "Roles 목록 조회(Get Roles list)", nickname = "getRolesList")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "string", paramType = "query")
+            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_LIST)
     @ResponseBody
@@ -151,8 +151,8 @@ public class RolesController {
      */
     @ApiOperation(value = "Roles 상세 조회(Get Roles detail)", nickname = "getRoles")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_DETAIL)
     @ResponseBody
@@ -170,8 +170,8 @@ public class RolesController {
      */
     @ApiOperation(value = "Roles YAML 조회(Get Roles yaml)", nickname = "getRolesYaml")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_YAML)
     @ResponseBody

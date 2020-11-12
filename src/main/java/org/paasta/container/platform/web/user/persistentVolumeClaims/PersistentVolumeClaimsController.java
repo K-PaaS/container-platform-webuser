@@ -63,7 +63,7 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaim detail 페이지 이동(Move PersistentVolumeClaim detail page)", nickname = "getCustomServices")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}")
     public ModelAndView getStoragesDetail(HttpServletRequest httpServletRequest,
@@ -81,7 +81,7 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaim event 페이지 이동(Move PersistentVolumeClaim event page)", nickname = "getCustomServices")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "getPersistentVolumeClaimEvent 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "getPersistentVolumeClaimEvent 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}/events")
     public ModelAndView getPersistentVolumeClaimEvent(HttpServletRequest httpServletRequest,
@@ -99,7 +99,7 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaim yaml 페이지 이동(Move PersistentVolumeClaim event yaml)", nickname = "getPersistentVolumeClaimYaml")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "getPersistentVolumeClaimEvent 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "getPersistentVolumeClaimEvent 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_STORAGES + "/{persistentVolumeClaimName:.+}/yaml")
     public ModelAndView getPersistentVolumeClaimYaml(HttpServletRequest httpServletRequest,
@@ -121,12 +121,12 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaims 목록 조회(Get PersistentVolumeClaims list)", nickname = "getPersistentVolumeClaimsList")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "string", paramType = "query"),
-            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "string", paramType = "query")
+            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_LIST)
     @ResponseBody
@@ -150,8 +150,8 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaims 상세 조회(Get PersistentVolumeClaims detail)", nickname = "getPersistentVolumeClaims")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_DETAIL)
     public PersistentVolumeClaims getPersistentVolumeClaims(@PathVariable(value = "namespace") String namespace,
@@ -169,8 +169,8 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaims YAML 조회(Get PersistentVolumeClaims yaml)", nickname = "getPersistentVolumeClaimYaml")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명",  required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_YAML)
     public PersistentVolumeClaims getPersistentVolumeClaimYaml(@PathVariable(value = "namespace") String namespace,
@@ -187,8 +187,8 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaims 생성(Create PersistentVolumeClaims)", nickname = "createPersistentVolumeClaims")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "string", paramType = "body")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PostMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_CREATE)
     @ResponseBody
@@ -208,9 +208,9 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaims 수정(Update PersistentVolumeClaims)", nickname = "updatePersistentVolumeClaims")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "string", paramType = "body")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_UPDATE)
     @ResponseBody
@@ -229,8 +229,8 @@ public class PersistentVolumeClaimsController {
      */
     @ApiOperation(value = "PersistentVolumeClaims 삭제(Delete PersistentVolumeClaims)", nickname = "deletePersistentVolumeClaims")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "persistentVolumeClaimName", value = "persistentVolumeClaim 명", required = true, dataType = "String", paramType = "path")
     })
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_STORAGES_DELETE)
     @ResponseBody

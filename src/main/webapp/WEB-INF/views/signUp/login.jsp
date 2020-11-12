@@ -6,8 +6,9 @@
   Date: 2020.09.22
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ include file="../common/alert_new.jsp" %>
 
 <html>
@@ -92,6 +93,8 @@
     // 로그인 요청
     $("#loginBtn").on('click', function (event) {
 
+        $("#loginBtn").prop("disabled", true);
+
         var userId = $("#userId").val();
         var password = $("#password").val();
 
@@ -102,7 +105,6 @@
     });
 
     var resourceloginCallback = function (data) {
-
         //rememberme
         var rememberMe = $("#rememberMe").is(":checked");
         var userId = $("#userId").val();

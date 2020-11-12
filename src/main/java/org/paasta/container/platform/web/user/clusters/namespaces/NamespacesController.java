@@ -62,7 +62,7 @@ public class NamespacesController {
      */
     @ApiOperation(value = "Namespaces 상세 조회(Get Namespaces detail)", nickname = "getNamespaces")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_DETAIL)
     public Namespaces getNamespaces(@PathVariable String namespace) {
@@ -79,7 +79,7 @@ public class NamespacesController {
      */
     @ApiOperation(value = "Namespaces event 페이지 이동(Move Namespaces event page)", nickname = "getNamespaceEvents")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path")
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.URI_CLUSTER_NAMESPACES + "/{namespace:.+}/events")
     public ModelAndView getNamespaceEvents(HttpServletRequest httpServletRequest,
