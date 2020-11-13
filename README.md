@@ -1,6 +1,7 @@
 # paas-ta-container-platform-webuser
 
-PaaS-TA 에서 제공하는 컨테이너 플랫폼 관리를 용이하게 하기 위하여 제공하는 UI 애플리케이션 입니다. (WEB USER는 사용자 UI 입니다.)
+PaaS-TA 에서 제공하는 컨테이너 플랫폼 관리를 용이하게 하기 위하여 제공하는 UI 애플리케이션 입니다. 
+**WEB USER는 사용자 UI 입니다.
 
 - [시작하기](#시작하기)
   - [컨테이너 플랫폼 WEB USER 빌드 방법](#컨테이너-플랫폼-WEB-USER-빌드-방법)
