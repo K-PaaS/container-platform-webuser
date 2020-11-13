@@ -54,6 +54,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src='<c:url value="/resources/js/cp-common.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/jquery.cookie.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/g-spinner.min.js"/>'></script>
+
 <script>
     $(document).ready(function () {
         var rememberID = $.cookie('<%=Constants.CP_REMEMBER_ME_KEY%>');
