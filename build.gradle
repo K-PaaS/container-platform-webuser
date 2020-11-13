@@ -42,7 +42,6 @@ ext {
 	tomcatEmbedJasperVersion = '9.0.36'
 	jstlVersion = '1.2'
 	gsonVersion = '2.8.6'
-	apacheTilesJspVersion = '3.0.8'
 	lombokVersion = '1.18.12'
 	swaggerVersion = '2.9.2'
 }
@@ -68,7 +67,8 @@ dependencies {
 	compile "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatEmbedJasperVersion}"
 	compile "javax.servlet:jstl:${jstlVersion}"
 	compile "com.google.code.gson:gson:${gsonVersion}"
-	compile "org.apache.tiles:tiles-jsp:${apacheTilesJspVersion}"
+	compile group: 'org.apache.tiles', name: 'tiles-jsp', version: '3.0.5'
+	providedCompile group: 'javax.servlet.jsp', name: 'javax.servlet.jsp-api', version: '2.3.1'
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 	testCompile "org.springframework.boot:spring-boot-starter-test"
