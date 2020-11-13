@@ -19,7 +19,6 @@
     <link rel='stylesheet' type='text/css' href='<c:url value="/resources/css/cp-common.css"/>'>
     <link rel='stylesheet' type='text/css' href='<c:url value="/resources/css/gspinner.min.css"/>'>
     <link rel="stylesheet" href="/resources/css/style-signUp.css">
-    <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/resources/images/favicon.ico"/>">
 </head>
 <body>
 <div class="registration-form">
@@ -52,14 +51,12 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script type="text/javascript" src="/resources/js/cp-common.js"></script>
+<script type="text/javascript" src='<c:url value="/resources/js/g-spinner.min.js"/>'></script>
 </body>
 </html>
 <script type="text/javascript">
 
-    $('#registerBtn').click(function(){
-        if(doubleSubmitCheck()) {
-            return;
-        }
+    $('#registerBtn').click(function() {
 
         var userId = $("#userId").val();
         var password = $("#password").val();

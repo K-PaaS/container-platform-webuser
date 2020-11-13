@@ -44,21 +44,22 @@
 
     // Delete Resource Callback Func
     var resourceDeleteCallback = function (data) {
+        procViewLoading('hide');
 
+        setTimeout(() => resourceDelete(data) ,1000);
+    }
+
+    var resourceDelete = function(data) {
         var resultCode = 'Resource가 정상적으로 삭제되었습니다.';
 
         if (!procCheckValidData(data)) {
-            procViewLoading('hide');
             resultCode = 'Resource 삭제를 실패하였습니다.';
             procAlertMessage(resultCode);
             return false;
 
         } else {
-
             var nextActionUrl = data.nextActionUrl;
-            procViewLoading('hide');
             procSetLayerPopup('Resource 삭제', resultCode, '확인', null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
-
         }
     };
 

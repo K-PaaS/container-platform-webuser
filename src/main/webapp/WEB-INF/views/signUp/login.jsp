@@ -24,7 +24,6 @@
     <link rel='stylesheet' type='text/css' href='<c:url value="/resources/css/cp-common.css"/>'>
     <link rel='stylesheet' type='text/css' href='<c:url value="/resources/css/gspinner.min.css"/>'>
     <link rel="stylesheet" href="/resources/css/style-login.css">
-    <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/resources/images/favicon.ico"/>">
 </head>
 <body>
 <div id="loginDiv">
@@ -55,6 +54,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src='<c:url value="/resources/js/cp-common.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/jquery.cookie.js"/>'></script>
+<script type="text/javascript" src='<c:url value="/resources/js/g-spinner.min.js"/>'></script>
+
 <script>
     $(document).ready(function () {
         var rememberID = $.cookie('<%=Constants.CP_REMEMBER_ME_KEY%>');
