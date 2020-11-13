@@ -47,4 +47,4 @@ PaaS-TA 컨테이너 플랫폼 WEB USER의 개발 환경은 다음과 같습니�
 
 
 ## 라이선스
-PaaS-TA 컨테이너 플랫폼 COMMON WEB USER는 [Apache-2.0 License](http://www.apache.org/licenses/LICENSE-2.0)를 사용합니다.
+PaaS-TA 컨테이너 플랫폼 WEB USER는 [Apache-2.0 License](http://www.apache.org/licenses/LICENSE-2.0)를 사용합니다.
