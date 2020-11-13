@@ -347,7 +347,8 @@ var procCreateSpans = function (data, type) {
 
 // SET LAYER POPUP
 var procSetLayerPopup = function (reqTitle, reqContents, reqSuccess, reqCancel, reqClose, reqSuccessCallback, reqCancelCallback, reqCloseCallback) {
-    $('.modal-backdrop').remove();
+    //$('.modal-backdrop').hide();
+    $("#commonLayerPopup").modal("show");
 
     var commonLayerPopupSuccessButton = $('#commonLayerPopupSuccessButton');
     var commonLayerPopupCancelButton = $('#commonLayerPopupCancelButton');
@@ -388,7 +389,7 @@ var procSetLayerPopup = function (reqTitle, reqContents, reqSuccess, reqCancel, 
     $('#commonLayerPopupTitle').html(nvl(reqTitle, '알림'));
     $('#commonLayerPopupContents').html(nvl(reqContents, '정상 처리되었습니다.'));
 
-    $("#commonLayerPopup").modal("show");
+
 
 };
 
