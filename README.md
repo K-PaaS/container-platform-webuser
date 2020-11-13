@@ -1,6 +1,7 @@
 # paas-ta-container-platform-webuser
 
-PaaS-TA 에서 제공하는 컨테이너 플랫폼 서비스 관리를 용이하게 하기 위하여 제공하는 UI 서비스입니다.
+PaaS-TA 에서 제공하는 컨테이너 플랫폼 관리를 용이하게 하기 위하여 제공하는 UI 애플리케이션 입니다.
+* WEB USER는 사용자 UI 입니다.
 
 - [시작하기](#시작하기)
   - [컨테이너 플랫폼 WEB USER 빌드 방법](#컨테이너-플랫폼-WEB-USER-빌드-방법)
@@ -9,7 +10,7 @@ PaaS-TA 에서 제공하는 컨테이너 플랫폼 서비스 관리를 용이하
 - [라이센스](#라이센스)
 
 ## 시작하기
-PaaS-TA 컨테이너 플랫폼 WEB USER가 수행하는 서비스 관리 작업은 다음과 같습니다.
+PaaS-TA 컨테이너 플랫폼 WEB USER가 수행하는 애플리케이션 관리 작업은 다음과 같습니다.
 
 - 컨테이너 플랫폼 자원 관리
 - 권한 관리
@@ -38,7 +39,7 @@ $ gradle build
 | Spring Security Tag Libs       | 5.3.3   |
 | Tomcat Embed Jasper            | 9.0.36  |
 | Jstl                           | 1.2     |
-| Apache Tiles Jsp               | 3.0.8   |
+| Apache Tiles / Jsp             | 3.0.8   |
 | Gson                           | 2.8.6   |
 | Lombok                         | 1.18.12 |
 | Swagger	                       | 2.9.2   |
