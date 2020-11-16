@@ -28,10 +28,6 @@ public class IntroOverviewController {
     private static final String VIEW_URL = "/intro";
     private final CommonService commonService;
 
-    @Value("${roleSet.administratorCode}")
-    private String administratorCode;
-
-
     /**
      * Instantiates a new Intro overview controller
      *

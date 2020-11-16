@@ -46,19 +46,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return viewResolver;
     }
 
-    /**
-     * Custom interceptor custom interceptor
-     *
-     * @return the custom interceptor
-     */
-//    @Bean
-//    CustomInterceptor customInterceptor() {
-//        return new CustomInterceptor();
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(customInterceptor());
-//    }
 
 }

@@ -27,24 +27,6 @@ public class PropertyService {
     @Value("${commonApi.url}")
     private String commonApiUrl;
 
-    @Value("${roleSet.administratorCode}")
-    private String administratorCode;
-
-    @Value("${roleSet.regularUserCode}")
-    private String regularUserCode;
-
-    @Value("${roleSet.initUserCode}")
-    private String initUserCode;
-
-    @Value("${roleSet.administratorName}")
-    private String administratorName;
-
-    @Value("${roleSet.regularUserName}")
-    private String regularUserName;
-
-    @Value("${roleSet.initUserName}")
-    private String initUserName;
-
     @Value("${private.registry.imageName}")
     private String privateRegistryImageName;
 
