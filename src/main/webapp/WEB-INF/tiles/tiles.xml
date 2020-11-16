@@ -63,5 +63,16 @@
         <put-attribute name="body" value="/WEB-INF/views/signUp/login.jsp" />
     </definition>
 
+    <definition name="/errors/403" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/errors/403.jsp" />
+    </definition>
+
+    <definition name="/errors/404" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/errors/404.jsp" />
+    </definition>
+
+    <definition name="/errors/500" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/errors/500.jsp" />
+    </definition>
 
 </tiles-definitions>
