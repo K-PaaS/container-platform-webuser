@@ -173,20 +173,29 @@ var procCheckValidData = function (data) {
     }
 };
 
+var timeout = null;
 var procViewLoading = function (type) {
     var dashboardWrap = $("#dashboardWrap");
     var loader = $("#loadingSpinner");
+
+    if (timeout != null) {
+        clearTimeout(timeout);
+        timeout = null;
+    }
 
     if (type === 'show') {
         loader.show().gSpinner();
     } else {
         dashboardWrap.show();
-        setTimeout(function () {
-            loader.gSpinner("hide").hide();
-        }, 1000);
+
+        timeout = setTimeout(() => gSpinnerHide(loader) ,1000);
     }
 };
 
+var gSpinnerHide = function (loader) {
+    timeout = null;
+    loader.gSpinner("hide").hide();
+};
 
 var procAlertMessage = function (value, result) {
     var messageValue = '시스템 에러가 발생했습니다.';
