@@ -28,13 +28,15 @@
                         <table class="table_event condition alignL user">
                             <colgroup>
                                 <col style='width:auto;'>
-                                <col style='width:30%;'>
-                                <col style='width:30%;'>
+                                <col style='width:25%;'>
+                                <col style='width:25%;'>
+                                <col style='width:25%;'>
                             </colgroup>
                             <thead>
                             <tr id="noResultArea" style="display: none;"><td colspan='4'><p class='user_p'>사용자가 존재하지 않습니다.</p></td></tr>
                             <tr id="resultHeaderArea">
                                 <td>User ID</td>
+                                <td>권한</td>
                                 <td>생성일</td>
                                 <td>수정일</td>
                             </tr>
@@ -98,9 +100,9 @@
                 htmlString.push(
                     "<tr>"
                     + "<td class='userId'>" + items[i].userId + "</td>"
+                    + "<td>" + items[i].roleSetCode + "</td>"
                     + "<td>" + items[i].created + "</td>"
                     + "<td>" + items[i].lastModified + "</td>"
-                    // + "<td>" + rc + "</td>"
                     + "</tr>");
 
                 checkListCount++;
