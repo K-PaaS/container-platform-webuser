@@ -24,7 +24,7 @@
                                 <col style=".">
                                 <col style=".">
                                 <col style=".">
-                                <col style=".">
+                                <col style="width:7%">
                                 <col style=".">
                                 <col style=".">
                             </colgroup>
