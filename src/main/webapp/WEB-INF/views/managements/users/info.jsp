@@ -9,7 +9,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <link rel="stylesheet" href="/resources/css/cp-common.css">
 <div class="update-content">
-        <div class="update_wrap">
+        <div class="update_wrap" style="border: solid 2px; border-color:#e7eaec;">
             <div class="form-icon">
                 <img class="update-form-image" src="/resources/images/main/logo_56x56.png">
             </div>

@@ -260,23 +260,26 @@ select:focus {
 }
 
 /* 20.10.16 추가 */
-.update_wrap{
-    height: 600px;
-    background:#fff;
+
+.update_wrap {
+    height: 650px;
+    background: #fff;
+    margin: 30px 15px;
+    padding: 67px;
 }
 
-.update-form{
-    width:500px;
+.update-form {
+    width: 380px;
     height: 50px;
     display: block;
-    margin: 20px auto 10px auto
+    margin: 10px auto 18px;
 }
 
-.update-form-image{
-    width: 100px;
-    height: 100px;
+.update-form-image {
+    width: 80px;
+    height: 80px;
     display: block;
-    margin: 30px auto 50px;
+    margin: 0 auto 30px;
 }
 
 .update-content{
@@ -285,5 +288,5 @@ select:focus {
 }
 
 .empty-margin{
-    margin: 60px;
+    margin: 33px;
 }
