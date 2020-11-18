@@ -57,29 +57,56 @@
 <script type="text/javascript" src='<c:url value="/resources/js/highcharts.js"/>'></script>
 <script type="text/javascript">
     var IS_OVERVIEW_VIEW = true;
+
+    var G_PODS_CHART_RUNNING_RATIO = 0;
+    var G_PODS_CHART_FAILED_RATIO = 0;
+    var G_DEV_CHART_RUNNING_RATIO = 0;
+    var G_DEV_CHART_FAILED_RATIO = 0;
+    var G_REPLICA_SETS_CHART_RUNNING_RATIO = 0;
+    var G_REPLICA_SETS_CHART_FAILED_RATIO = 0;
+
     // ON LOAD
     $(window).bind("load", function () {
+        getOverview();
         getDeploymentsList(0, <%= Constants.OVERVIEW_LIMIT_COUNT %>, null);
         getPodsList(0, <%= Constants.OVERVIEW_LIMIT_COUNT %>, null);
         getReplicaSetsList(null,0, <%= Constants.OVERVIEW_LIMIT_COUNT %>, null);
         createChart();
     });
 
+    var getOverview = function () {
+        procViewLoading('show');
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_WORKLOAD_RESOURCE_COUNT %>";
+        reqUrl = reqUrl.replace('{namespace:.+}', NAME_SPACE);
+
+        procCallAjax(reqUrl, 'GET', null, null, callbackGetOverview);
+    };
+
+    // CALLBACK POD LIST
+    var callbackGetOverview = function (data) {
+        G_PODS_CHART_RUNNING_RATIO = Number(data.podsUsage.running);
+        G_PODS_CHART_FAILED_RATIO = Number(data.podsUsage.failed);
+        G_DEV_CHART_RUNNING_RATIO = Number(data.deploymentsUsage.running);
+        G_DEV_CHART_FAILED_RATIO = Number(data.deploymentsUsage.failed);
+        G_REPLICA_SETS_CHART_RUNNING_RATIO = Number(data.replicaSetsUsage.running);
+        G_REPLICA_SETS_CHART_FAILED_RATIO = Number(data.replicaSetsUsage.failed);
+    };
+
     var createChart = function() {
-        var podsChartRunningPer   = G_PODS_CHART_RUNNING_CNT   / G_PODS_LIST_LENGTH * 100;
-        var podsChartFailedPer    = G_PODS_CHART_FAILED_CNT    / G_PODS_LIST_LENGTH * 100;
-        var podsChartPenddingPer  = G_PODS_CHART_PENDING_CNT   / G_PODS_LIST_LENGTH * 100;
-        var podsChartSucceededPer = G_PODS_CHART_SUCCEEDED_CNT / G_PODS_LIST_LENGTH * 100;
+        var podsChartRunningPer   = G_PODS_CHART_RUNNING_RATIO;
+        var podsChartFailedPer    = G_PODS_CHART_FAILED_RATIO;
+        var podsChartPenddingPer  = 0;
+        var podsChartSucceededPer = 0;
 
-        var devChartRunningPer    = G_DEV_CAHRT_RUNNING_CNT  / G_DEPLOYMENTS_LIST_LENGTH * 100;
-        var devChartFailedPer     = G_DEV_CHART_FAILED_CNT   / G_DEPLOYMENTS_LIST_LENGTH * 100;
-        var devChartPenddingPer   = G_DEV_CHART_PENDDING_CNT / G_DEPLOYMENTS_LIST_LENGTH * 100;
-        var devChartSucceededPer  = G_DEV_CHART_SUCCEEDEDCNT / G_DEPLOYMENTS_LIST_LENGTH * 100;
+        var devChartRunningPer    = G_DEV_CHART_RUNNING_RATIO;
+        var devChartFailedPer     = G_DEV_CHART_FAILED_RATIO;
+        var devChartPenddingPer   = 0;
+        var devChartSucceededPer  = 0;
 
-        var repsChartRunningPer   = G_REPLICA_SETS_CHART_RUNNING_CNT   / G_REPLICA_SETS_LIST_LENGTH * 100;
-        var repsChartFailedPer    = G_REPLICA_SETS_CHART_FAILED_CNT    / G_REPLICA_SETS_LIST_LENGTH * 100;
-        var repsChartPenddingPer  = G_REPLICA_SETS_CHART_PENDDING_CNT  / G_REPLICA_SETS_LIST_LENGTH * 100;
-        var repsChartSucceededPer = G_REPLICA_SETS_CHART_SUCCEEDED_CNT / G_REPLICA_SETS_LIST_LENGTH * 100;
+        var repsChartRunningPer   = G_REPLICA_SETS_CHART_RUNNING_RATIO;
+        var repsChartFailedPer    = G_REPLICA_SETS_CHART_FAILED_RATIO;
+        var repsChartPenddingPer  = 0;
+        var repsChartSucceededPer = 0;
 
         var devPieColors = [];
         var devSeriesData= [];

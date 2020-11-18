@@ -61,18 +61,21 @@
     };
 
     var callbackCreateResource = function (data) {
+        procViewLoading('hide');
+
+        setTimeout(() => resourceCreate(data) ,500);
+    }
+
+    var resourceCreate = function(data) {
         var resultCode = 'Resource가 정상적으로 등록되었습니다.';
 
         if (!procCheckValidData(data)) {
-            procViewLoading('hide');
             resultCode = 'Resource 등록을 실패하였습니다.';
             procAlertMessage(resultCode);
             return false;
         } else {
             var nextActionUrl = data.nextActionUrl;
-            procViewLoading('hide');
             procSetLayerPopup('Resource 등록', resultCode, '확인', null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
-
         }
     };
 
