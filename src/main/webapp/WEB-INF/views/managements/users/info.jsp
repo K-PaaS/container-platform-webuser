@@ -29,6 +29,9 @@
             <div class="form-group">
                 <input type="text" class="update-form" id="email" placeholder="E-mail" maxlength="50" value="${user.email}">
             </div>
+            <div class="form-group">
+                <input type="text" class="update-form" id="desc" placeholder="Description" maxlength="50" value="${user.description}">
+            </div>
             <div class="empty-margin">
             </div>
             <div class="common-cu center">
@@ -63,7 +66,8 @@
         var param = {
             "userId": $("#userId").val(),
             "password": $("#password").val(),
-            "email": $("#email").val()
+            "email": $("#email").val(),
+            "description": $("#desc").val()
         };
 
         procCallAjax(reqUrl, "PUT", JSON.stringify(param), false, callbackUpdateUserInfo);
