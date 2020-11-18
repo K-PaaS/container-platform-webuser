@@ -439,7 +439,7 @@ var procSetAnnotations = function (extAnnotations) {
     var applyKey = 'kubectl.kubernetes.io/last-applied-configuration'
     var applyValue = nvl(annotations[applyKey]);
     if (applyValue !== '') {
-        tempStr = '<span class="bg_blue" onclick="procSetAnnotationLayerpop(this)" '
+        tempStr = '<span class="bg_blue tableTdToolTipFalse" onclick="procSetAnnotationLayerpop(this)" '
             + 'data-title="' + applyKey + '" data-content=' + applyValue + '>'
             + '<a>' + applyKey + '</a></span>';
         delete annotations[applyKey];
@@ -449,6 +449,8 @@ var procSetAnnotations = function (extAnnotations) {
     if ('' !== annotationsString) {
         tempStr += ' ' + procCreateSpans(annotationsString, 'NOT_LB');
     }
+
+
 
     return nvl(tempStr, '-');
 };

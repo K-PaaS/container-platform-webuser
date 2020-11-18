@@ -140,8 +140,7 @@
         else if(G_ROLES_LIST_GET_FIRST == false) {
             $('#rolesListArea tr:last').after(htmlString);
         }
-
-        procSetToolTipForTableTdByCondition('resultRolesTable');
+        procSetToolTipForTableTd('resultRolesTable');
         procViewLoading('hide');
 
     };
