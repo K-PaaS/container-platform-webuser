@@ -46,7 +46,7 @@
     var resourceDeleteCallback = function (data) {
         procViewLoading('hide');
 
-        setTimeout(() => resourceDelete(data) ,1000);
+        setTimeout(() => resourceDelete(data) ,500);
     }
 
     var resourceDelete = function(data) {

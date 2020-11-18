@@ -115,21 +115,23 @@
 
     // Update Resource Callback Func
     var resourceUpdateCallback = function (data) {
+        procViewLoading('hide');
+
+        setTimeout(() => resourceUpdate(data) ,500);
+    }
+
+    var resourceUpdate = function(data) {
 
         var resultCode = 'Resource가 정상적으로 수정되었습니다.';
 
         if (!procCheckValidData(data)) {
-            procViewLoading('hide');
             resultCode = 'Resource 수정을 실패하였습니다.';
             procAlertMessage(resultCode);
             return false;
 
         } else {
-
             var nextActionUrl = data.nextActionUrl;
-            procViewLoading('hide');
             procSetLayerPopup('Resource 수정', resultCode, '확인', null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
-
         }
     };
 
