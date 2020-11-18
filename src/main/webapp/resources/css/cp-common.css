@@ -227,10 +227,11 @@ select:focus {
 
 .update_info_box {
     margin-top: 9px;
-    margin-left: 440px;
+    margin: 10px auto;
+    text-align: center;
     font-size: 15px;
     color: red;
-    display: none;
+    display: block;
 }
 
 
@@ -262,7 +263,7 @@ select:focus {
 /* 20.10.16 추가 */
 
 .update_wrap {
-    height: 650px;
+    height: 700px;
     background: #fff;
     margin: 30px 15px;
     padding: 67px;
