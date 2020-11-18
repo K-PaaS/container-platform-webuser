@@ -226,9 +226,10 @@ select:focus {
 }
 
 .update_info_box {
+    width: 380px;
     margin-top: 9px;
     margin: 10px auto;
-    text-align: center;
+    text-align: left;
     font-size: 15px;
     color: red;
     display: block;
