@@ -82,7 +82,7 @@
     <li class="cluster_third_box">
         <div class="sortable_wrap">
             <div class="sortable_top">
-                <p>Limit Range</p>
+                <p>Limit Ranges</p>
             </div>
             <div class="view_table_wrap">
                 <table class="table_event condition alignL">
@@ -100,7 +100,7 @@
                         <td>Default Request</td>
                     </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="range-table"></tbody>
                 </table>
             </div>
         </div>
@@ -230,7 +230,7 @@
             procAlertMessage();
 
             return false;
-        }
+        }*/
 
         var trHtml;
 
@@ -245,7 +245,7 @@
             trHtml = "";
             for (var key in data.items[i]) {
 
-                if (checkYn == "Y") {
+                if (checkYn[key] == "Y") {
                     trHtml += "<tr>"
                         + "<td>" + resourceName[key] + "</td>"
                         + "<td>" + resourceType[key] + "</td>"
@@ -255,9 +255,11 @@
                 }
             }
 
+            //htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
             htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
 
             $("#detailTab").append(htmlRe);
+            //$("#range-table tr:last").after(htmlRe);
         }
 
         procViewLoading('hide');
