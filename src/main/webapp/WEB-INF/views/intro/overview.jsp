@@ -230,7 +230,7 @@
             procAlertMessage();
 
             return false;
-        }*/
+        }
 
         var trHtml;
 
