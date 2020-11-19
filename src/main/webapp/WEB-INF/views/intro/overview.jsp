@@ -49,26 +49,52 @@
 </div>
 
 <div id="quota-template" style="display:none;">
-    <li class="cluster_second_box maB50">
+    <li class="cluster_second_box">
         <div class="sortable_wrap">
             <div class="sortable_top">
                 <p>Resource Quotas</p>
             </div>
             <div class="view_table_wrap">
                 <table class="table_event condition alignL">
-                    <p class="p30">- <strong>Name</strong> : {{metadata.name}} / - <strong>Scopes</strong> :
-                        {{spec.scopes}}
-                    </p>
+                    <colgroup>
+                        <col style='width:20%;'>
+                        <col style='width:auto;'>
+                        <col style='width:30%;'>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Status</td>
+                        <td>Created time</td>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </li>
+</div>
+<!--LimitRange-->
+<div id="range-template" style="display:none;">
+    <li class="cluster_third_box">
+        <div class="sortable_wrap">
+            <div class="sortable_top">
+                <p>Limit Range</p>
+            </div>
+            <div class="view_table_wrap">
+                <table class="table_event condition alignL">
                     <colgroup>
                         <col style='width:auto;'>
-                        <col style='width:20%;'>
-                        <col style='width:20%;'>
+                        <col style='width:auto;'>
+                        <col style='width:auto;'>
+                        <col style='width:auto;'>
                     </colgroup>
                     <thead>
                     <tr>
                         <td>Resource Name</td>
-                        <td>Hard</td>
-                        <td>Used</td>
+                        <td>Resource Type</td>
+                        <td>Default Limit</td>
+                        <td>Default Request</td>
                     </tr>
                     </thead>
                     <tbody></tbody>
@@ -125,7 +151,6 @@
         procCallAjax(reqUrl, "GET", null, null, callbackGetResourceQuotaList);
     };
 
-
     var callbackGetResourceQuotaList = function(data) {
         var html = $("#quota-template").html();
 
@@ -140,47 +165,83 @@
             return false;
         }
 
-        var skipResourceKey = [
-            'requests.storage',
-            'limits.ephemeral-storage'
-        ];
         var trHtml;
 
         for (var i = 0; i < data.items.length; i++) {
             var htmlRe = "";
-            var hards = data.items[i].status.hard;
-            var useds = data.items[i].status.used;
-            var name = data.items[i].metadata.name;
-            var scopes = nvl(data.items[i].spec.scopes, "-");
 
             trHtml = "";
-            for ( var key in hards ) {
-                if ( skipResourceKey.includes(key) ) {
-                    continue;
-                }
-
+            var i =0;
+            for ( var key in data.items ) {
                 trHtml += "<tr>"
-                    + "<td>" + key + "</td>"
-                    + "<td>" + hards[key] + "</td>"
-                    + "<td>" + useds[key] + "</td>"
+                    + "<td>" + data.items[key].metadata.name + "</td>"
+                    + "<td>" + JSON.stringify(data.items[key].status) + "</td>"
+                    + "<td>" + data.items[key].metadata.creationTimestamp + "</td>"
                     + "</tr>";
+                i++;
             }
 
             htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
 
-            htmlRe = htmlRe.replace("{{metadata.name}}", name);
-            htmlRe = htmlRe.replace("{{spec.scopes}}", scopes);
 
             $("#detailTab").append(htmlRe);
         }
 
         procViewLoading('hide');
+    }
+
+    var getLimitRangeList = function(namespace) {
+        procViewLoading('show');
+
+        var reqUrl =  "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_LIMIT_RANGES %>"
+            .replace("{namespace:.+}", NAME_SPACE);
+
+        procCallAjax(reqUrl, "GET", null, null, callbackGetLimitRangeList);
     };
 
+    var callbackGetLimitRangeList = function(data) {
+        var html = $("#range-template").html();
 
+        if (!procCheckValidData(data)) {
+            html = html.replace("<tbody>", "<tbody><tr><p class=service_p'>조회 된 LimitRange가 없습니다.</p></tr>");
+
+            $("#detailTab").append(html);
+
+            procViewLoading('hide');
+            procAlertMessage();
+
+            return false;
+        }
+
+        var trHtml;
+
+        for (var i = 0; i < data.items.length; i++) {
+            var htmlRe = "";
+
+            trHtml = "";
+            var i = 0;
+            for (var key in data.items) {
+                if (data.items[key].checkYn == "Y") {
+                    trHtml += "<tr>"
+                        + "<td>" + data.items[key].resource + "</td>"
+                        + "<td>" + data.items[key].type + "</td>"
+                        + "<td>" + data.items[key].defaultLimit + "</td>"
+                        + "<td>" + data.items[key].defaultRequest + "</td>"
+                        + "</tr>";
+                }
+                i++;
+            }
+
+            htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
+            $("#detailTab").append(htmlRe);
+        }
+
+        procViewLoading('hide');
+    };
     $(document.body).ready(function () {
         getDetail();
         getResourceQuotaList(NAME_SPACE);
+        getLimitRangeList(NAME_SPACE);
     });
 
 </script>
