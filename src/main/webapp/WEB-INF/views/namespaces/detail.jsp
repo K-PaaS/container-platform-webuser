@@ -250,7 +250,7 @@
 
             htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
 
-            htmlRe = htmlRe.replace("{{name}}", resourceName);
+            //htmlRe = htmlRe.replace("{{name}}", resourceName);
 
             $("#detailTab").append(htmlRe);
         }
