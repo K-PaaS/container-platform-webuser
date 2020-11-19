@@ -35,9 +35,9 @@ public class PodsService {
      * @param selector  the selector
      * @return the pods list
      */
-    PodsList getPodListBySelector(String namespace, String selector) {
+    PodsList getPodListBySelector(String namespace, String selector,String type, String ownerReferencesUid) {
 
-        String param = "?selector=" + selector;
+        String param = "?selector=" + selector + "&type=" + type + "&ownerReferencesUid=" + ownerReferencesUid;
 
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PODS_LIST_BY_SELECTOR
                 .replace("{namespace:.+}", namespace) + param, HttpMethod.GET, null, PodsList.class);

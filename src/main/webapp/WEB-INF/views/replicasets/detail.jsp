@@ -148,6 +148,7 @@
         var creationTimestamp   = data.metadata.creationTimestamp;
         var selector            = procSetSelector(data.spec.selector.matchLabels); // 필수값
         var images              = [];
+        var replicaSetUid       = data.metadata.uid;
         // 서비스 리스트를 조회하기 위한 replicaset label 참조
         replicasetLabel = data.spec.selector.matchLabels;
         var containers = data.spec.template.spec.containers;
@@ -165,7 +166,7 @@
         $('#hiddenNamespace').val(namespace);
         $('#hiddenResourceName').val(replicaSetName);
         getDeploymentsInfo(data);
-        getDetailForPodsList(selector);
+        getDetailForPodsList(selector,replicaSetUid);
         getServices();
     };
     // GET DEPLOYMENTS INFO
@@ -197,10 +198,11 @@
         }
     };
     // GET DETAIL FOR PODS LIST
-    var getDetailForPodsList = function(selector) {
-        var param = "?selector=" + selector ;
+    var getDetailForPodsList = function(selector,replicaSetUid) {
+        var param = "?selector=" + selector + "&type=replicaSets" + "&ownerReferencesUid="+ replicaSetUid ;
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>"
             .replace("{namespace:.+}", NAME_SPACE) + param;
+
         getPodListUsingRequestURL(reqUrl);
     };
     // GET SERVICE LIST
