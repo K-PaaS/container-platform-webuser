@@ -171,20 +171,26 @@ public class PodsController {
     /**
      * Pods 목록 조회(Get Pods selector)
      *
-     * @param namespace the namespace
-     * @param selector  the selector
+     * @param namespace          the namespace
+     * @param selector           the selector
+     * @param type               the type
+     * @param ownerReferencesUid the ownerReferencesUid
      * @return the pods list
      */
     @ApiOperation(value = "Pods 목록 조회(Get Pods selector)", nickname = "getPodListBySelector")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "type", value = "리소스 타입", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "ownerReferencesUid", value = "참조 리소스의 UID", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_SELECTOR)
     @ResponseBody
     public PodsList getPodListBySelector(@PathVariable("namespace") String namespace,
-                                         @RequestParam(name = "selector", required = true, defaultValue = "") String selector) {
-        return podsService.getPodListBySelector(namespace, selector);
+                                         @RequestParam(name = "selector", required = false, defaultValue = "") String selector,
+                                         @RequestParam(name = "type", required = false, defaultValue = "default") String type,
+                                         @RequestParam(name = "ownerReferencesUid", required = false, defaultValue = "") String ownerReferencesUid) {
+        return podsService.getPodListBySelector(namespace, selector, type, ownerReferencesUid);
     }
 
 
@@ -207,7 +213,7 @@ public class PodsController {
     public PodsList getPodListBySelectorWithService(@PathVariable("namespace") String namespace,
                                                     @PathVariable("serviceName") String serviceName,
                                                     @RequestParam(name = "selector", required = true, defaultValue = "") String selector) {
-        PodsList podsList = podsService.getPodListBySelector(namespace, selector);
+        PodsList podsList = podsService.getPodListBySelector(namespace, selector,"","");
         podsList.setServiceName(serviceName);  // FOR DASHBOARD
         podsList.setSelector(selector);        // FOR DASHBOARD
 
