@@ -119,7 +119,6 @@ public class UsersController {
 
     /**
      * Users 설정 페이지 이동(Move Users setting page)
-     * (todo ::: Namespace 관리자만 접근 가능하도록)
      *
      * @param httpServletRequest
      * @return the view
