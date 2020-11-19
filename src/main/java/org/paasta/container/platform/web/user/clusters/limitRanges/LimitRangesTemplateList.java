@@ -56,12 +56,68 @@ class LimitRangesTemplateItem {
         this.name = name;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getResource() {
+        return resource;
+    }
+
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
+
+    public String getMin() {
+        return min;
+    }
+
+    public void setMin(String min) {
+        this.min = min;
+    }
+
+    public String getMax() {
+        return max;
+    }
+
+    public void setMax(String max) {
+        this.max = max;
+    }
+
+    public String getDefaultRequest() {
+        return defaultRequest;
+    }
+
+    public void setDefaultRequest(String defaultRequest) {
+        this.defaultRequest = defaultRequest;
+    }
+
+    public String getDefaultLimit() {
+        return defaultLimit;
+    }
+
+    public void setDefaultLimit(String defaultLimit) {
+        this.defaultLimit = defaultLimit;
+    }
+
     public String getCheckYn() {
         return checkYn;
     }
 
     public void setCheckYn(String checkYn) {
         this.checkYn = checkYn;
+    }
+
+    public String getCreationTimestamp() {
+        return creationTimestamp;
+    }
+
+    public void setCreationTimestamp(String creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
     }
 
     public CommonMetaData getMetadata() {
