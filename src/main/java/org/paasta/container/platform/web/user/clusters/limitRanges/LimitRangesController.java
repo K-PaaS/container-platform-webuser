@@ -38,7 +38,7 @@ public class LimitRangesController {
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_LIMIT_RANGES)
-    public LimitRangesList getLimitRangesList(@PathVariable String namespace) {
+    public LimitRangesTemplateList getLimitRangesList(@PathVariable String namespace) {
         return limitRangesService.getLimitRangesList(namespace);
     }
 
