@@ -36,17 +36,22 @@ var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
         },
         success: function (data) {
             if (data.resultCode == "FAIL") {
+                procViewLoading('hide');
 
                 if (data.resultMessage == "TOKEN_FAILED") {
                     location.href = "/logout";
                     return false;
                 }
 
-                if(preFunc == 'ENDPOINTS') {
+                if (preFunc == 'ENDPOINTS') {
                     return false;
                 }
 
-                procViewLoading('hide');
+                if (data.resultMessage == "Not Found") {
+                    procMovePage("/errors");
+                    return false;
+                }
+
                 procAlertMessage(data.detailMessage);
             } else {
                 callback(data);
