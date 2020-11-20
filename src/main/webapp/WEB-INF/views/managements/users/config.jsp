@@ -81,7 +81,6 @@
 
     // SET LIST
     var setUsersList = function() {
-        procViewLoading('show');
 
         var resultArea = $('#resultArea');
         var resultHeaderArea = $('#resultHeaderArea');

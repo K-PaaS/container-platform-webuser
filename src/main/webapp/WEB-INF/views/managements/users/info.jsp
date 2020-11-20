@@ -55,7 +55,7 @@
         var loginJson = JSON.stringify(loginObj);
 
         procCallAjax("/login", "POST", loginJson, false, createUpdateUserInfo);
-    }
+    };
 
     var createUpdateUserInfo = function () {
         $("#commonLayerPopup").modal("hide");
