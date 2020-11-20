@@ -270,10 +270,12 @@
                     if ('' === nvl(container.resources))
                         return;
                     var resource = {};
-                    if ('' !== nvl(container.resources.limits)) {
-                        resource = container.resources.limits;
+                    if ('' !== nvl(container.resources.usage)) {
+                        resource = container.resources.usage;
                     } else if ('' !== nvl(container.resources.requests)) {
                         resource = container.resources.requests;
+                    } else if ('' !== nvl(container.resources.limits)) {
+                        resource = container.resources.limits;
                     } else {
                         return;
                     }
