@@ -5,6 +5,8 @@ import org.paasta.container.platform.web.user.clusters.resourceQuotas.support.Re
 import org.paasta.container.platform.web.user.clusters.resourceQuotas.support.ResourceQuotasStatus;
 import org.paasta.container.platform.web.user.common.model.CommonMetaData;
 
+import java.util.Map;
+
 /**
  * ResourceQuotas Model 클래스
  *
@@ -23,6 +25,6 @@ public class ResourceQuotas {
   private CommonMetaData metadata;
   private ResourceQuotasSpec spec;
   private ResourceQuotasStatus status;
-
+  private Map<String, Object> resourceQuotasStatus;
 }
 

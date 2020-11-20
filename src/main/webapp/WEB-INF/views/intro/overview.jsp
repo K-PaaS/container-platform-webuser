@@ -175,7 +175,7 @@
             for ( var key in data.items ) {
                 trHtml += "<tr>"
                     + "<td>" + data.items[key].metadata.name + "</td>"
-                    + "<td>" + JSON.stringify(data.items[key].status) + "</td>"
+                    + "<td>" + JSON.stringify(data.items[key].resourceQuotasStatus) + "</td>"
                     + "<td>" + data.items[key].metadata.creationTimestamp + "</td>"
                     + "</tr>";
                 i++;
