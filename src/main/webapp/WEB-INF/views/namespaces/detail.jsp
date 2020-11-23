@@ -48,6 +48,7 @@
     <!-- Details 끝 -->
 </div>
 
+<!--ResourceQuota-->
 <div id="quota-template" style="display:none;">
     <li class="cluster_second_box">
         <div class="sortable_wrap">
@@ -56,6 +57,7 @@
             </div>
             <div class="view_table_wrap">
                 <table class="table_event condition alignL">
+                    <p class="p30">- <strong>Name</strong> : {{metadata.name}} </p>
                     <colgroup>
                         <col style='width:20%;'>
                         <col style='width:auto;'>
@@ -83,6 +85,7 @@
             </div>
             <div class="view_table_wrap">
                 <table class="table_event condition alignL">
+                    <p class="p30">- <strong>Name</strong> : {{items.name}} </p>
                     <colgroup>
                         <col style='width:auto;'>
                         <col style='width:auto;'>
@@ -166,24 +169,20 @@
             var htmlRe = "";
 
             trHtml = "";
-            var i =0;
-            for ( var key in data.items ) {
-                trHtml += "<tr>"
-                    + "<td>" + data.items[key].metadata.name + "</td>"
-                    + "<td>" + JSON.stringify(data.items[key].status) + "</td>"
-                    + "<td>" + data.items[key].metadata.creationTimestamp + "</td>"
-                    + "</tr>";
-                i++;
-            }
+            trHtml += "<tr>"
+                + "<td>" + data.items[i].metadata.name + "</td>"
+                + "<td>" + JSON.stringify(data.items[i].resourceQuotasStatus) + "</td>"
+                + "<td>" + data.items[i].metadata.creationTimestamp + "</td>"
+                + "</tr>";
 
             htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
-
+            htmlRe = htmlRe.replace("{{metadata.name}}", data.items[i].metadata.name);
 
             $("#detailTab").append(htmlRe);
         }
 
         procViewLoading('hide');
-    }
+    };
 
     var getLimitRangeList = function(namespace) {
         procViewLoading('show');
@@ -210,28 +209,29 @@
 
         var trHtml;
 
-        for (var i = 0; i < data.items.length; i++) {
+
+        for (var key = 0; key < data.items.length; key++) {
             var htmlRe = "";
 
             trHtml = "";
-            var i = 0;
-            for (var key in data.items) {
-               if (data.items[key].checkYn == "Y") {
-                    trHtml += "<tr>"
-                        + "<td>" + data.items[key].resource + "</td>"
-                        + "<td>" + data.items[key].type + "</td>"
-                        + "<td>" + data.items[key].defaultLimit + "</td>"
-                        + "<td>" + data.items[key].defaultRequest + "</td>"
-                        + "</tr>";
-               }
-               i++;
-            }
+            if (data.items[key].checkYn == "Y") {
+                trHtml += "<tr>"
+                    + "<td>" + data.items[key].resource + "</td>"
+                    + "<td>" + data.items[key].type + "</td>"
+                    + "<td>" + data.items[key].defaultLimit + "</td>"
+                    + "<td>" + data.items[key].defaultRequest + "</td>"
+                    + "</tr>";
 
-            htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
-            $("#detailTab").append(htmlRe);
+                htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
+                htmlRe = htmlRe.replace("{{items.name}}", data.items[key].name);
+
+                $("#detailTab").append(htmlRe);
+            }
         }
 
+
         procViewLoading('hide');
+
     };
     $(document.body).ready(function () {
         getDetail();
