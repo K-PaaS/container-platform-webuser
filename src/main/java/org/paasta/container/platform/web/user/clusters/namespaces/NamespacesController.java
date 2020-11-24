@@ -57,16 +57,18 @@ public class NamespacesController {
     /**
      * Namespaces 상세 조회(Get Namespaces detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespaces
      * @return the namespaces detail
      */
     @ApiOperation(value = "Namespaces 상세 조회(Get Namespaces detail)", nickname = "getNamespaces")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_DETAIL)
-    public Namespaces getNamespaces(@PathVariable String namespace) {
-        return namespacesService.getNamespaces(namespace);
+    public Namespaces getNamespaces(@PathVariable String cluster, @PathVariable String namespace) {
+        return namespacesService.getNamespaces(cluster, namespace);
     }
 
 

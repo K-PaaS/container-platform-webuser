@@ -29,11 +29,13 @@ public class NamespacesService {
     /**
      * Namespaces 상세 조회(Get Namespaces detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespaces
      * @return the namespaces detail
      */
-    Namespaces getNamespaces(String namespace) {
+    Namespaces getNamespaces(String cluster, String namespace) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_NAME_SPACES_DETAIL
+                .replace("{cluster:.+}", cluster)
                 .replace("{namespace:.+}", namespace), HttpMethod.GET, null, Namespaces.class);
     }
 

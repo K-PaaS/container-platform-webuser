@@ -57,20 +57,20 @@
             </div>
             <div class="view_table_wrap">
                 <table class="table_event condition alignL">
-                    <p class="p30">- <strong>Name</strong> : {{metadata.name}} </p>
                     <colgroup>
                         <col style='width:20%;'>
                         <col style='width:auto;'>
                         <col style='width:30%;'>
                     </colgroup>
                     <thead>
-                    <tr>
+                    <tr id="resultHeaderArea" class="headerSortFalse">
                         <td>Name</td>
                         <td>Status</td>
                         <td>Created time</td>
                     </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="resultArea">
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -109,10 +109,13 @@
 
 <script type="text/javascript">
 
+    var G_PVC_LIST_GET_FIRST = true;
+
     var getDetail = function() {
         procViewLoading('show');
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetDetail);
@@ -144,12 +147,15 @@
         procViewLoading('show');
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetResourceQuotaList);
     };
 
     var callbackGetResourceQuotaList = function(data) {
+        var resultArea = $('#resultArea');
+
         var html = $("#quota-template").html();
 
         if (!procCheckValidData(data)) {
@@ -170,17 +176,24 @@
 
             trHtml = "";
             trHtml += "<tr>"
-                + "<td>" + data.items[i].metadata.name + "</td>"
-                + "<td>" + JSON.stringify(data.items[i].resourceQuotasStatus) + "</td>"
+                + "<td>" + nvl(data.items[i].metadata.name, '-') + "</td>"
+                + "<td><p>" + nvl(JSON.stringify(data.items[i].resourceQuotasStatus), '-') + "</p></td>"
                 + "<td>" + data.items[i].metadata.creationTimestamp + "</td>"
                 + "</tr>";
 
-            htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
-            htmlRe = htmlRe.replace("{{metadata.name}}", data.items[i].metadata.name);
+            htmlRe = html.replace("<tbody id=\"resultArea\">", "<tbody id=\"resultArea\">" + trHtml);
 
             $("#detailTab").append(htmlRe);
         }
 
+     if(G_PVC_LIST_GET_FIRST == true){
+            resultArea.html(htmlRe);
+            resultArea.show();
+
+            $('.headerSortFalse > td').unbind();
+        }
+
+        procSetToolTipForTableTd('resultArea');
         procViewLoading('hide');
     };
 
@@ -188,6 +201,7 @@
         procViewLoading('show');
 
         var reqUrl =  "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_LIMIT_RANGES %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetLimitRangeList);
@@ -210,20 +224,20 @@
         var trHtml;
 
 
-        for (var key = 0; key < data.items.length; key++) {
+        for (var i = 0; i < data.items.length; i++) {
             var htmlRe = "";
 
             trHtml = "";
-            if (data.items[key].checkYn == "Y") {
+            if (data.items[i].checkYn == "Y") {
                 trHtml += "<tr>"
-                    + "<td>" + data.items[key].resource + "</td>"
-                    + "<td>" + data.items[key].type + "</td>"
-                    + "<td>" + data.items[key].defaultLimit + "</td>"
-                    + "<td>" + data.items[key].defaultRequest + "</td>"
+                    + "<td>" + data.items[i].resource + "</td>"
+                    + "<td>" + data.items[i].type + "</td>"
+                    + "<td>" + data.items[i].defaultLimit + "</td>"
+                    + "<td>" + data.items[i].defaultRequest + "</td>"
                     + "</tr>";
 
                 htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
-                htmlRe = htmlRe.replace("{{items.name}}", data.items[key].name);
+                htmlRe = htmlRe.replace("{{items.name}}", data.items[i].name);
 
                 $("#detailTab").append(htmlRe);
             }

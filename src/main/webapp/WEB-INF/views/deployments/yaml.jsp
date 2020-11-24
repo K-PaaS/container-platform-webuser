@@ -18,6 +18,7 @@
         var resourceName = "<c:out value='${deploymentName}' default='' />";
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_YAML %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{deploymentName:.+}", resourceName);
 

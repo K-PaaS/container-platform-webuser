@@ -111,6 +111,11 @@
         //set metatdata
         var cp_metadata = data.loginMetaData ;
         var cp_metadata_json = JSON.stringify(cp_metadata);
+        var cp_cluster_name = data.clusterName;
+
+        $.cookie('<%=Constants.CP_CLUSTER_NAME_KEY%>', cp_cluster_name, {
+            "expires" : new Date(+new Date() + (60 * 60 * 1000))
+        });
 
         $.cookie('<%=Constants.CP_USER_METADATA_KEY%>', cp_metadata_json, {
             "expires" : new Date(+new Date() + (60 * 60 * 1000))

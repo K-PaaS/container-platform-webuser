@@ -29,11 +29,13 @@ public class LimitRangesService {
     /**
      * Namespaces LimitRangesList 조회(Get limitRangesList namespaces)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @return the limitRangesList list
      */
-    public LimitRangesTemplateList getLimitRangesList(String namespace) {
+    public LimitRangesTemplateList getLimitRangesList(String cluster, String namespace) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_NAME_SPACES_LIMIT_RANGES
-        .replace("{namespace:.+}", namespace), HttpMethod.GET, null, LimitRangesTemplateList.class);
+                .replace("{cluster:.+}", cluster)
+                .replace("{namespace:.+}", namespace), HttpMethod.GET, null, LimitRangesTemplateList.class);
     }
 }

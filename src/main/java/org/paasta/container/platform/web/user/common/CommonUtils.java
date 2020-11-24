@@ -1,7 +1,6 @@
 package org.paasta.container.platform.web.user.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.CookieGenerator;
 

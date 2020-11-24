@@ -63,7 +63,9 @@
     // GET NODE
     var getNode = function() {
         var resourceName = '<c:out value="${nodeName}" default="" />';
-        var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_NODES_LIST %>'.replace('{nodeName:.+}', resourceName);
+        var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_NODES_LIST %>'
+            .replace("{cluster:.+}", CLUSTER_NAME)
+            .replace('{nodeName:.+}', resourceName);
 
         procCallAjax(reqUrl, 'GET', null, null, callbackGetNodeSummary);
     };
@@ -92,7 +94,7 @@
 
         // SET PODS TABLE
         var podListReqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_NODE %>'
-            .replace('{namespace:.+}', NAME_SPACE).replace('{nodeName:.+}', nodeName);
+            .replace("{cluster:.+}", CLUSTER_NAME).replace('{namespace:.+}', NAME_SPACE).replace('{nodeName:.+}', nodeName);
         getPodListUsingRequestURL(podListReqUrl);
 
         // SET NODE'S CONDITIONS

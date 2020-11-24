@@ -100,6 +100,7 @@ public class DeploymentsController {
     /**
      * Deployments 목록 조회(Get Deployments list)
      *
+     * @param cluster    the cluster
      * @param namespace  the namespace
      * @param offset     the offset
      * @param limit      the limit
@@ -110,6 +111,7 @@ public class DeploymentsController {
      */
     @ApiOperation(value = "Deployments 목록 조회(Get Deployments list)", nickname = "getDeploymentsList")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
@@ -118,14 +120,15 @@ public class DeploymentsController {
             @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping( value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_LIST )
-    public DeploymentsList getDeploymentsList(@PathVariable(value = "namespace") String namespace,
+    public DeploymentsList getDeploymentsList(@PathVariable String cluster,
+                                              @PathVariable(value = "namespace") String namespace,
                                               @RequestParam(required = false, defaultValue = "0") int offset,
                                               @RequestParam(required = false, defaultValue = "0") int limit,
                                               @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
                                               @RequestParam(required = false, defaultValue = "desc") String order,
                                               @RequestParam(required = false, defaultValue = "") String searchName) {
 
-        return deploymentsService.getDeploymentsList(namespace, offset, limit, orderBy, order, searchName);
+        return deploymentsService.getDeploymentsList(cluster, namespace, offset, limit, orderBy, order, searchName);
     }
 
     /**
@@ -141,9 +144,10 @@ public class DeploymentsController {
             @ApiImplicitParam(name = "deploymentName", value = "deployment 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping( value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_DETAIL )
-    public Deployments getDeployments(@PathVariable String namespace,
+    public Deployments getDeployments(@PathVariable String cluster,
+                                      @PathVariable String namespace,
                                       @PathVariable String deploymentName) {
-        return deploymentsService.getDeployments(namespace, deploymentName);
+        return deploymentsService.getDeployments(cluster, namespace, deploymentName);
     }
 
     /**
@@ -160,9 +164,10 @@ public class DeploymentsController {
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_YAML)
     @ResponseBody
-    public Deployments getDeploymentsYaml(@PathVariable(value = "namespace") String namespace,
+    public Deployments getDeploymentsYaml(@PathVariable String cluster,
+                                          @PathVariable(value = "namespace") String namespace,
                                           @PathVariable("deploymentName") String deploymentName) {
-        return deploymentsService.getDeploymentsYaml(namespace, deploymentName);
+        return deploymentsService.getDeploymentsYaml(cluster, namespace, deploymentName);
     }
 
     /**
@@ -179,9 +184,10 @@ public class DeploymentsController {
     })
     @PostMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_CREATE)
     @ResponseBody
-    public Object createDeployments(@PathVariable(value = "namespace") String namespace,
+    public Object createDeployments(@PathVariable String cluster,
+                                    @PathVariable(value = "namespace") String namespace,
                                     @RequestBody String yaml) {
-        return deploymentsService.createDeployments(namespace, yaml);
+        return deploymentsService.createDeployments(cluster, namespace, yaml);
 
     }
 
@@ -200,10 +206,11 @@ public class DeploymentsController {
             @ApiImplicitParam(name = "yaml", value = "리소스 수정 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_UPDATE)
-    public Object updateDeployments(@PathVariable(value = "namespace") String namespace,
+    public Object updateDeployments(@PathVariable String cluster,
+                                    @PathVariable(value = "namespace") String namespace,
                                     @PathVariable("deploymentName") String deploymentName,
                                     @RequestBody String yaml) {
-        return deploymentsService.updateDeployments(namespace, deploymentName, yaml);
+        return deploymentsService.updateDeployments(cluster, namespace, deploymentName, yaml);
     }
 
     /**
@@ -219,8 +226,9 @@ public class DeploymentsController {
             @ApiImplicitParam(name = "deploymentName", value = "deployment 명", required = true, dataType = "String", paramType = "path")
     })
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_DELETE)
-    public Object deleteDeployments(@PathVariable(value = "namespace") String namespace,
+    public Object deleteDeployments(@PathVariable String cluster,
+                                    @PathVariable(value = "namespace") String namespace,
                                     @PathVariable("deploymentName") String deploymentName) {
-        return deploymentsService.deleteDeployments(namespace, deploymentName);
+        return deploymentsService.deleteDeployments(cluster, namespace, deploymentName);
     }
 }
