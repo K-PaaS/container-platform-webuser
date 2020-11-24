@@ -248,7 +248,8 @@ var procAddPodsEvent = function (targetObject, selector) {
     var eventMessage = [];
     var param = "?selector=" + selector ;
 
-    var reqPodsUrl = URI_API_PODS_RESOURCES.replace("{namespace:.+}", NAME_SPACE) + param;
+    var reqPodsUrl = URI_API_PODS_RESOURCES + param;
+    reqPodsUrl = reqPodsUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
 
     procCallAjax(reqPodsUrl, "GET", null, null, function (podsData) {
         $.each(podsData.items, function (index, itemList) {

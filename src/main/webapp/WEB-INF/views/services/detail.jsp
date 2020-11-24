@@ -214,9 +214,8 @@
         procViewLoading('hide');
 
         var param = "?selector=" + selector ;
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE %>"
-            .replace("{namespace:.+}", NAME_SPACE)
-            .replace("{serviceName:.+}", "_all") + param;
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE %>" + param;
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE).replace("{serviceName:.+}", "_all");
 
         getPodListUsingRequestURL(reqUrl);
         getDetailForEndpoints();
@@ -342,6 +341,7 @@
                 procViewLoading('show');
 
                 reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NODES_LIST %>"
+                    .replace("{cluster:.+}", CLUSTER_NAME)
                     .replace('{nodeName:.+}', nodeNameList[i]);
 
                 procCallAjax(reqUrl, "GET", null, null, callbackGetDetailForNodes);

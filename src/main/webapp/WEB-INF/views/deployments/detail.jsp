@@ -105,6 +105,7 @@
     var getDetail = function() {
         procViewLoading('show');
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{deploymentName:.+}", "<c:out value='${deploymentName}'/>");
         procCallAjax(reqUrl, "GET", null, null, callbackGetDeployments);
@@ -113,8 +114,9 @@
     // GET DETAIL FOR PODS LIST
     var getDetailForPodsList = function(selector) {
         var param = "?selector=" + selector ;
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>"
-            .replace("{namespace:.+}", NAME_SPACE) + param;
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>" + param;
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
+
         getPodListUsingRequestURL(reqUrl);
         procViewLoading('hide');
     };

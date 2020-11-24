@@ -29,11 +29,13 @@ public class ResourceQuotasService {
     /**
      * Namespaces ResourceQuotas 조회(Get resourceQuotas namespaces)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @return the resourceQuotas list
      */
-    ResourceQuotasList getResourceQuotasList(String namespace) {
+    ResourceQuotasList getResourceQuotasList(String cluster, String namespace) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS
+                .replace("{cluster:.+}", cluster)
                 .replace("{namespace:.+}", namespace), HttpMethod.GET, null, ResourceQuotasList.class);
     }
 }

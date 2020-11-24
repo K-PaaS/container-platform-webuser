@@ -183,6 +183,7 @@
             deploymentName = data.metadata.ownerReferences[0].name;
             deploymentsInfo = "<a href='<%= Constants.URI_WORKLOAD_DEPLOYMENTS %>/"+deploymentName+"'>"+deploymentName+"</a>";
             var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_DETAIL %>"
+                .replace("{cluster:.+}", CLUSTER_NAME)
                 .replace("{namespace:.+}", NAME_SPACE)
                 .replace("{deploymentName:.+}", deploymentName);
             procCallAjax(reqUrl, "GET", null, null, callbackGetDeploymentsInfo);
@@ -200,8 +201,8 @@
     // GET DETAIL FOR PODS LIST
     var getDetailForPodsList = function(selector,replicaSetUid) {
         var param = "?selector=" + selector + "&type=replicaSets" + "&ownerReferencesUid="+ replicaSetUid ;
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>"
-            .replace("{namespace:.+}", NAME_SPACE) + param;
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>" + param;
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
 
         getPodListUsingRequestURL(reqUrl);
     };

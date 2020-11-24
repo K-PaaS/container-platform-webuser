@@ -94,15 +94,17 @@ public class NodesController {
     /**
      * Nodes 상세 조회(Get Nodes detail)
      *
+     * @param cluster  the cluster
      * @param nodeName the nodes name
      * @return the nodes detail
      */
     @ApiOperation(value = "Nodes 상세 조회(Get Nodes detail)", nickname = "getNodes")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NODES_LIST)
-    public Nodes getNodes(@PathVariable("nodeName") String nodeName) {
-        return nodesService.getNodes(nodeName);
+    public Nodes getNodes(@PathVariable String cluster, @PathVariable("nodeName") String nodeName) {
+        return nodesService.getNodes(cluster, nodeName);
     }
 }

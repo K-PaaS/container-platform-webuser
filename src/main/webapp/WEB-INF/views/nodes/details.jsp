@@ -128,6 +128,7 @@
     var getNode = function() {
         var resourceName = '<c:out value="${nodeName}" default="" />';
         var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_NODES_LIST %>'
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace('{nodeName:.+}', resourceName);
 
         procCallAjax(reqUrl, 'GET', null, null, callbackGetNodeDetail);

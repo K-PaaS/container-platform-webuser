@@ -28,6 +28,7 @@ public class DeploymentsService {
     /**
      * Deployments 목록 조회(Get Deployments list)
      *
+     * @param cluster    the cluster
      * @param namespace  the namespace
      * @param offset     the offset
      * @param limit      the limit
@@ -36,14 +37,13 @@ public class DeploymentsService {
      * @param searchName the searchName
      * @return the deployments list
      */
-    public DeploymentsList getDeploymentsList(String namespace, int offset, int limit, String orderBy, String order, String searchName) {
+    public DeploymentsList getDeploymentsList(String cluster, String namespace, int offset, int limit, String orderBy, String order, String searchName) {
 
         String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
-        return restTemplateService.send( Constants.TARGET_CP_API,
-                Constants.URI_API_DEPLOYMENTS_LIST
-                        .replace( "{namespace:.+}", namespace ) + param
-                ,HttpMethod.GET, null, DeploymentsList.class);
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_LIST
+                        .replace("{cluster:.+}", cluster)
+                        .replace("{namespace:.+}", namespace) + param, HttpMethod.GET, null, DeploymentsList.class);
     }
 
     /**
@@ -53,8 +53,9 @@ public class DeploymentsService {
      * @param deploymentName the deployments name
      * @return the deployments detail
      */
-    public Deployments getDeployments (String namespace, String deploymentName ) {
+    public Deployments getDeployments (String cluster, String namespace, String deploymentName ) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_DETAIL
+                        .replace("{cluster:.+}", cluster)
                         .replace( "{namespace:.+}", namespace )
                         .replace( "{deploymentName:.+}", deploymentName )
                 , HttpMethod.GET, null, Deployments.class);
@@ -67,8 +68,9 @@ public class DeploymentsService {
      * @param deploymentName the deployments name
      * @return the deployments yaml
      */
-    Deployments getDeploymentsYaml(String namespace, String deploymentName) {
+    Deployments getDeploymentsYaml(String cluster, String namespace, String deploymentName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_YAML
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{deploymentName:.+}", deploymentName),
                 HttpMethod.GET, null, Deployments.class);
@@ -81,8 +83,9 @@ public class DeploymentsService {
      * @param yaml the yaml
      * @return return is succeeded
      */
-    public Object createDeployments(String namespace, String yaml) {
+    public Object createDeployments(String cluster, String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_CREATE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace),
                 HttpMethod.POST, yaml, Object.class, "application/yaml");
     }
@@ -95,8 +98,9 @@ public class DeploymentsService {
      * @param yaml the yaml
      * @return return is succeeded
      */
-    public Object updateDeployments(String namespace, String deploymentName, String yaml) {
+    public Object updateDeployments(String cluster, String namespace, String deploymentName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_UPDATE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{deploymentName:.+}", deploymentName),
                 HttpMethod.PUT, yaml, Object.class, "application/yaml");
@@ -109,8 +113,9 @@ public class DeploymentsService {
      * @param deploymentName the deployments name
      * @return return is succeeded
      */
-    public Object deleteDeployments(String namespace, String deploymentName) {
+    public Object deleteDeployments(String cluster, String namespace, String deploymentName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_DEPLOYMENTS_DELETE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{deploymentName:.+}", deploymentName),
                 HttpMethod.DELETE, null, Object.class);

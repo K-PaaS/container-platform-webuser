@@ -30,16 +30,18 @@ public class LimitRangesController {
     /**
      * LimitRanges namespaces 정보 조회(Get LimitRanges namespaces)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @return the limitRanges list
      */
     @ApiOperation(value = "LimitRanges namespaces 정보 조회(Get LimitRanges namespaces)", nickname = "getLimitRangesList")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_LIMIT_RANGES)
-    public LimitRangesTemplateList getLimitRangesList(@PathVariable String namespace) {
-        return limitRangesService.getLimitRangesList(namespace);
+    public LimitRangesTemplateList getLimitRangesList(@PathVariable String cluster, @PathVariable String namespace) {
+        return limitRangesService.getLimitRangesList(cluster, namespace);
     }
 
 

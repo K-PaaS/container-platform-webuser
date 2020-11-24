@@ -224,6 +224,7 @@
             var param = "?selector=" +  tempSelectorList[0] ;
 
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE %>"
+                .replace("{cluster:.+}", CLUSTER_NAME)
                 .replace("{namespace:.+}", NAME_SPACE)
                 .replace("{serviceName:.+}", tempSelectorList[tempSelectorList.length - 1]) + param;
 
