@@ -56,29 +56,27 @@ public class Constants {
 
     public static final String URI_ROLES = "/container-platform/roles";
 
-    public static final String URI_API_CREATE_RESOURCE = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}";
-
     // API URI
     public static final String URL_API_LOGIN = "/login?isAdmin=false";
-    public static final String URI_API_NAME_SPACES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}";
-    public static final String URI_API_NAME_SPACES_RESOURCE_QUOTAS = "/clusters/cp-cluster/namespaces/{namespace:.+}/resourceQuotas";
-    public static final String URI_API_NAME_SPACES_LIMIT_RANGES= "/clusters/cp-cluster/namespaces/{namespace:.+}/limitRanges/template";
+    public static final String URI_API_NAME_SPACES_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}";
+    public static final String URI_API_NAME_SPACES_RESOURCE_QUOTAS = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/resourceQuotas";
+    public static final String URI_API_NAME_SPACES_LIMIT_RANGES= "/clusters/{cluster:.+}/namespaces/{namespace:.+}/limitRanges/template";
 
-    public static final String URI_API_NODES_LIST = "/clusters/cp-cluster/nodes/{nodeName:.+}";
+    public static final String URI_API_NODES_LIST = "/clusters/{cluster:.+}/nodes/{nodeName:.+}";
 
-    public static final String URI_API_DEPLOYMENTS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/deployments";
-    public static final String URI_API_DEPLOYMENTS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/deployments/{deploymentName:.+}";
-    public static final String URI_API_DEPLOYMENTS_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/deployments/{deploymentName:.+}/yaml";
-    public static final String URI_API_DEPLOYMENTS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/deployments";
-    public static final String URI_API_DEPLOYMENTS_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/deployments/{deploymentName:.+}";
-    public static final String URI_API_DEPLOYMENTS_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/deployments/{deploymentName:.+}";
+    public static final String URI_API_DEPLOYMENTS_LIST = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/deployments";
+    public static final String URI_API_DEPLOYMENTS_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/deployments/{deploymentName:.+}";
+    public static final String URI_API_DEPLOYMENTS_YAML = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/deployments/{deploymentName:.+}/yaml";
+    public static final String URI_API_DEPLOYMENTS_CREATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/deployments";
+    public static final String URI_API_DEPLOYMENTS_UPDATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/deployments/{deploymentName:.+}";
+    public static final String URI_API_DEPLOYMENTS_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/deployments/{deploymentName:.+}";
 
-    public static final String URI_API_PODS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods";
-    public static final String URI_API_PODS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}";
-    public static final String URI_API_PODS_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}/yaml";
-    public static final String URI_API_PODS_LIST_BY_SELECTOR = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/resources";
-    public static final String URI_API_PODS_LIST_BY_NODE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/nodes/{nodeName:.+}";
-    public static final String URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/service/{serviceName:.+}";
+    public static final String URI_API_PODS_LIST = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods";
+    public static final String URI_API_PODS_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/{podName:.+}";
+    public static final String URI_API_PODS_YAML = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/{podName:.+}/yaml";
+    public static final String URI_API_PODS_LIST_BY_SELECTOR = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/resources";
+    public static final String URI_API_PODS_LIST_BY_NODE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/nodes/{nodeName:.+}";
+    public static final String URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/service/{serviceName:.+}";
     public static final String URI_API_PODS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods";
     public static final String URI_API_POD_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}";
     public static final String URI_API_POD_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}";
@@ -156,6 +154,7 @@ public class Constants {
     public static final String CP_USER_METADATA_KEY ="cp-user-metadata";
     public static final String CP_SELECTED_NAMESPACE_KEY ="cp-user-selected-ns";
     public static final String REMAIN_ITEM_COUNT_KEY = "remainingItemCount";
+    public static final String CP_CLUSTER_NAME_KEY ="cp-cluster-name";
 
     public static final String REDIRECT_VIEW = "redirect:";
 

@@ -59,5 +59,7 @@
     var current_user_type = getUserTypeByMetaData(cp_user_metadata, current_select_ns) ;
     var namespacesList = namespace;
 
+    var CLUSTER_NAME = $.cookie("<%= Constants.CP_CLUSTER_NAME_KEY %>");
+
 </script>
 
