@@ -69,20 +69,23 @@ public class AccessTokenController {
     /**
      * Secret 조회(Get Secret)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param accessTokenName the access token name
      * @return the AccessToken
      */
     @ApiOperation(value = "Secret 조회(Get Secret)", nickname = "getSecret")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "accessTokenName", value = "액세스 토큰 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SECRETS_DETAIL)
     @ResponseBody
-    public AccessToken getSecret(@PathVariable(value = "namespace") String namespace,
+    public AccessToken getSecret(@PathVariable(value = "cluster") String cluster,
+                                 @PathVariable(value = "namespace") String namespace,
                                  @PathVariable(value = "accessTokenName") String accessTokenName) {
-        return accessTokenService.getToken(namespace, accessTokenName);
+        return accessTokenService.getToken(cluster, namespace, accessTokenName);
     }
 
 }

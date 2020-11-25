@@ -344,6 +344,7 @@
     var getAccessToken = function () {
         procViewLoading('show');
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SECRETS_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{accessTokenName:.+}", G_USER_ACCESS_TOKEN_NAME);
 

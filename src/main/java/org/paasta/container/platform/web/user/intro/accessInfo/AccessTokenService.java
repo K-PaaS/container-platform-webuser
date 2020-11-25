@@ -30,15 +30,16 @@ public class AccessTokenService {
     /**
      * Secret 조회(Get Secret)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param accessTokenName the access token name
      * @return the AccessToken
      */
-    AccessToken getToken(String namespace, String accessTokenName) {
+    AccessToken getToken(String cluster, String namespace, String accessTokenName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SECRETS_DETAIL
-                .replace("{namespace:.+}", namespace)
-                .replace("{accessTokenName:.+}", accessTokenName),
-            HttpMethod.GET, null, AccessToken.class);
+                        .replace("{cluster:.+}", cluster)
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{accessTokenName:.+}", accessTokenName), HttpMethod.GET, null, AccessToken.class);
     }
 
 }
