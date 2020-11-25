@@ -109,12 +109,12 @@ public class Constants {
 
     public static final String URI_API_SECRETS_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/secrets/{accessTokenName:.+}";
 
-    public static final String URI_API_STORAGES_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims";
-    public static final String URI_API_STORAGES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
-    public static final String URI_API_STORAGES_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}/yaml";
-    public static final String URI_API_STORAGES_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
-    public static final String URI_API_STORAGES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims";
-    public static final String URI_API_STORAGES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
+    public static final String URI_API_STORAGES_LIST = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/persistentVolumeClaims";
+    public static final String URI_API_STORAGES_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
+    public static final String URI_API_STORAGES_YAML = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}/yaml";
+    public static final String URI_API_STORAGES_UPDATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
+    public static final String URI_API_STORAGES_CREATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/persistentVolumeClaims";
+    public static final String URI_API_STORAGES_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
 
     public static final String URI_API_COMMON_RESOURCE_CREATE_VIEW= "/common/resource/{namespace:.+}/{resourceKind:.+}/create";
     public static final String URI_API_COMMON_RESOURCE_UPDATE_VIEW = "/common/resource/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}/update";
