@@ -89,8 +89,8 @@ public class Constants {
     public static final String URI_API_REPLICA_SETS_UPDATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
     public static final String URI_API_REPLICA_SETS_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
 
-    public static final String URI_API_SERVICES_LIST =   "/clusters/cp-cluster/namespaces/{namespace:.+}/services";
-    public static final String URI_API_SERVICES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}";
+    public static final String URI_API_SERVICES_LIST =   "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services";
+    public static final String URI_API_SERVICES_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services/{serviceName:.+}";
     public static final String URI_API_SERVICES_YAML =   "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}/yaml";
     public static final String URI_API_SERVICES_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}";
     public static final String URI_API_SERVICES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services";

@@ -96,6 +96,7 @@ public class CustomServicesController {
     /**
      * Services 목록 조회(Get Services list)
      *
+     * @param cluster    the cluster
      * @param namespace  the namespace
      * @param offset     the offset
      * @param limit      the limit
@@ -106,6 +107,7 @@ public class CustomServicesController {
      */
     @ApiOperation(value = "Services 목록 조회(Get Services list)", nickname = "getCustomServicesList")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
@@ -115,42 +117,45 @@ public class CustomServicesController {
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_LIST)
     @ResponseBody
-    public CustomServicesList getCustomServicesList(@PathVariable(value = "namespace") String namespace,
+    public CustomServicesList getCustomServicesList(@PathVariable(value = "cluster") String cluster,
+                                                    @PathVariable(value = "namespace") String namespace,
                                                     @RequestParam(required = false, defaultValue = "0") int offset,
                                                     @RequestParam(required = false, defaultValue = "0") int limit,
                                                     @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
                                                     @RequestParam(required = false, defaultValue = "desc") String order,
-                                                    @RequestParam(required = false, defaultValue = "") String searchName)
-    {
+                                                    @RequestParam(required = false, defaultValue = "") String searchName) {
 
-        return customServicesService.getCustomServicesList(namespace, offset, limit, orderBy, order, searchName);
+        return customServicesService.getCustomServicesList(cluster, namespace, offset, limit, orderBy, order, searchName);
     }
 
 
     /**
      * Services 상세 조회(Get Services detail)
      *
-     * @param namespace the namespace
+     * @param cluster     the cluster
+     * @param namespace   the namespace
      * @param serviceName the services name
      * @return the custom services detail
      */
     @ApiOperation(value = "Services 상세 조회(Get Services detail)", nickname = "getCustomServices")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "serviceName", value = "서비스 명",  required = true, dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DETAIL)
     @ResponseBody
-    public CustomServices getCustomServices(@PathVariable(value = "namespace") String namespace,
+    public CustomServices getCustomServices(@PathVariable(value = "cluster") String cluster,
+                                            @PathVariable(value = "namespace") String namespace,
                                             @PathVariable("serviceName") String serviceName) {
-        return customServicesService.getCustomServices(namespace, serviceName);
+        return customServicesService.getCustomServices(cluster, namespace, serviceName);
     }
 
 
     /**
      * Services YAML 조회(Get Services yaml)
      *
-     * @param namespace the namespace
+     * @param namespace   the namespace
      * @param serviceName the services name
      * @return the custom services yaml
      */

@@ -33,6 +33,7 @@ public class CustomServicesService {
     /**
      * Services 목록 조회(Get Services list)
      *
+     * @param cluster    the cluster
      * @param namespace  the namespace
      * @param offset     the offset
      * @param limit      the limit
@@ -41,11 +42,12 @@ public class CustomServicesService {
      * @param searchName the searchName
      * @return the custom services list
      */
-    CustomServicesList getCustomServicesList(String namespace, int offset, int limit, String orderBy, String order, String searchName) {
+    CustomServicesList getCustomServicesList(String cluster, String namespace, int offset, int limit, String orderBy, String order, String searchName) {
 
         String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_LIST
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace) + param
                 , HttpMethod.GET, null, CustomServicesList.class);
     }
@@ -54,12 +56,14 @@ public class CustomServicesService {
     /**
      * Services 상세 조회(Get Services detail)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the services name
      * @return the custom services detail
      */
-    CustomServices getCustomServices(String namespace, String serviceName) {
+    CustomServices getCustomServices(String cluster, String namespace, String serviceName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_DETAIL
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{serviceName:.+}", serviceName),
                 HttpMethod.GET, null, CustomServices.class);
