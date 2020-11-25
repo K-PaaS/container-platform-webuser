@@ -81,13 +81,13 @@ public class Constants {
     public static final String URI_API_POD_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/{podName:.+}";
     public static final String URI_API_POD_UPDATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/{podName:.+}";
 
-    public static final String URI_API_REPLICA_SETS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets";
-    public static final String URI_API_REPLICA_SETS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
-    public static final String URI_API_REPLICA_SETS_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}/yaml";
-    public static final String URI_API_REPLICA_SETS_RESOURCES = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/resources";
-    public static final String URI_API_REPLICA_SETS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets";
-    public static final String URI_API_REPLICA_SETS_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
-    public static final String URI_API_REPLICA_SETS_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
+    public static final String URI_API_REPLICA_SETS_LIST = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets";
+    public static final String URI_API_REPLICA_SETS_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
+    public static final String URI_API_REPLICA_SETS_YAML = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}/yaml";
+    public static final String URI_API_REPLICA_SETS_RESOURCES = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets/resources";
+    public static final String URI_API_REPLICA_SETS_CREATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets";
+    public static final String URI_API_REPLICA_SETS_UPDATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
+    public static final String URI_API_REPLICA_SETS_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";
 
     public static final String URI_API_SERVICES_LIST =   "/clusters/cp-cluster/namespaces/{namespace:.+}/services";
     public static final String URI_API_SERVICES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}";

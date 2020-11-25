@@ -16,6 +16,7 @@
     // GET DETAIL
     var getDetail = function() {
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_DETAIL%>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{replicaSetName:.+}", '<c:out value="${replicaSetName}"/>');
         procCallAjax(reqUrl, "GET", null, null, getList);

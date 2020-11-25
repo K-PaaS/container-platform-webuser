@@ -79,11 +79,13 @@
         if (selector != null) {
             var param = "?selector=" + selector;
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_RESOURCES %>"
+                .replace("{cluster:.+}", CLUSTER_NAME)
                 .replace("{namespace:.+}", NAME_SPACE) + param;
         } else {
             var param = makeResourceListParamQuery(offset, limit, searchName);
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_LIST %>" + param;
-            reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
+            reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME)
+                           .replace("{namespace:.+}", NAME_SPACE);
 
         }
 
