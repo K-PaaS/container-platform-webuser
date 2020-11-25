@@ -120,10 +120,10 @@ public class Constants {
     public static final String URI_API_COMMON_RESOURCE_UPDATE_VIEW = "/common/resource/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}/update";
 
     //COMMON RESOURCE
-    public static final String URI_API_COMMON_RESOURCE_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}/yaml";
-    public static final String URI_API_COMMON_RESOURCE_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}";
-    public static final String URI_API_COMMON_RESOURCE_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}";
-    public static final String URI_API_COMMON_RESOURCE_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}";
+    public static final String URI_API_COMMON_RESOURCE_YAML = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}/yaml";
+    public static final String URI_API_COMMON_RESOURCE_CREATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/{resourceKind:.+}";
+    public static final String URI_API_COMMON_RESOURCE_UPDATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}";
+    public static final String URI_API_COMMON_RESOURCE_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}";
 
     public static final Integer OVERVIEW_LIMIT_COUNT = 5;
     public static final Integer DEFAULT_LIMIT_COUNT = 10;

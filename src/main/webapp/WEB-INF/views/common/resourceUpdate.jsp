@@ -65,6 +65,7 @@
 
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_COMMON_RESOURCE_YAML %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", namespace)
             .replace("{resourceKind:.+}", resourceKind)
             .replace("{resourceName:.+}", resourceName);
@@ -104,6 +105,7 @@
         var resourceName = $("#hiddenResourceName").val();
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_COMMON_RESOURCE_UPDATE %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", namespace)
             .replace("{resourceKind:.+}", resourceKind)
             .replace("{resourceName:.+}", resourceName);

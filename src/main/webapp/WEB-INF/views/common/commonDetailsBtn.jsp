@@ -34,6 +34,7 @@
 
 
         var reqUrl = "<%= Constants.API_URL%><%=Constants.URI_API_COMMON_RESOURCE_DELETE %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", namespace)
             .replace("{resourceKind:.+}", resourceKind)
             .replace("{resourceName:.+}", resourceName);

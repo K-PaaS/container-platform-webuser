@@ -53,6 +53,7 @@
         var resourceKind = $("#hiddenResourceKind").val();
 
         var reqUrl = "<%=Constants.API_URL%><%=Constants.URI_API_COMMON_RESOURCE_CREATE%>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", $("#hiddenNamespace").val())
             .replace("{resourceKind:.+}", resourceKind);
         var yaml = $("#yamlText").val();
