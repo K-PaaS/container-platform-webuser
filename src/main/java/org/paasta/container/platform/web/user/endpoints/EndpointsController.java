@@ -38,20 +38,23 @@ public class EndpointsController {
     /**
      * Endpoints 상세 조회(Get Endpoints detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param serviceName the service name
      * @return the endpoints detail
      */
     @ApiOperation(value = "Endpoints 상세 조회(Get Endpoints detail)", nickname = "getEndpoints")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "serviceName", value = "서비스 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ENDPOINTS_DETAIL)
     @ResponseBody
-    public Endpoints getEndpoints(@PathVariable(value = "namespace") String namespace,
+    public Endpoints getEndpoints(@PathVariable(value = "cluster") String cluster,
+                                  @PathVariable(value = "namespace") String namespace,
                                   @PathVariable(value = "serviceName") String serviceName) {
-        return endpointsService.getEndpoints(namespace, serviceName);
+        return endpointsService.getEndpoints(cluster, namespace, serviceName);
     }
 
 }

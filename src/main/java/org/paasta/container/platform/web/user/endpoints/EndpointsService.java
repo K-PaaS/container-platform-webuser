@@ -30,13 +30,15 @@ public class EndpointsService {
     /**
      * Endpoints 상세 조회(Get Endpoints detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param serviceName the service name
      * @return the endpoints detail
      */
-    Endpoints getEndpoints(String namespace, String serviceName) {
+    Endpoints getEndpoints(String cluster, String namespace, String serviceName) {
         String TARGET_CP_API = Constants.TARGET_CP_API;
         return restTemplateService.send(TARGET_CP_API, Constants.URI_API_ENDPOINTS_DETAIL
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{serviceName:.+}", serviceName),
                 HttpMethod.GET, null, Endpoints.class);
