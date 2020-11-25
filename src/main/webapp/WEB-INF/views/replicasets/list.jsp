@@ -68,6 +68,7 @@
     var G_REPLICA_SETS_LIST_LIMIT_COUNT = 0;
     var G_REPLICA_SETS_LIST_SEARCH_KEYWORD = null;
     var G_REPLICA_SETS_MORE_BTN_ID = 'replicaSetsMoreDetailBtn';
+    var G_REPLICA_SETS_UID_LIST_BY_DEPLOYMENT = [];
 
     // GET LIST
     var getReplicaSetsList = function (selector, offset, limit, searchName) {
@@ -121,6 +122,9 @@
         G_REPLICA_SETS_LIST_LENGTH = items.length;
 
         $.each(items, function (index, itemList) {
+
+            //replicaSets by deployment
+            G_REPLICA_SETS_UID_LIST_BY_DEPLOYMENT.push(itemList.metadata.uid);
 
             var replicaSetName = itemList.metadata.name;
 

@@ -135,7 +135,7 @@
 
         var deployName = metadata.name;
         var namespace = data.metadata.namespace;
-
+        var deploymentsUid = data.metadata.uid;
         var labels = procSetSelector(metadata.labels);
         var annotations = metadata.annotations;
         var creationTimestamp = metadata.creationTimestamp;
@@ -178,7 +178,9 @@
         $('#hiddenNamespace').val(namespace);
         $('#hiddenResourceName').val(deployName);
 
-        getReplicaSetsList(replaceLabels(selector),0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
+        var ownerReferencesUidParam = "&type=deployments&ownerReferencesUid="+deploymentsUid;
+
+        getReplicaSetsList(replaceLabels(selector) + ownerReferencesUidParam ,0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
         getDetailForPodsList(replaceLabels(selector));
 
     };

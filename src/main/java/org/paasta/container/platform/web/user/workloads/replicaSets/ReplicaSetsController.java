@@ -182,22 +182,28 @@ public class ReplicaSetsController {
 
 
     /**
-     * ReplicaSets 목록 조회 (Get ReplicaSets selector)
+     * Selector 값에 의한 ReplicaSets 목록 조회 (Get ReplicaSets By Selector)
      *
-     * @param namespace the namespace
-     * @param selector  the selector
+     * @param namespace          the namespace
+     * @param selector           the selector
+     * @param type               the type
+     * @param ownerReferencesUid the ownerReferencesUid
      * @return the replicaSets list
      */
-    @ApiOperation(value = "ReplicaSets 목록 조회 (Get ReplicaSets selector)", nickname = "getReplicaSetsListLabelSelector")
+    @ApiOperation(value = "Selector 값에 의한 ReplicaSets 목록 조회 (Get ReplicaSets By Selector)", nickname = "getReplicaSetsListLabelSelector")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "type", value = "리소스 타입", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "ownerReferencesUid", value = "참조 리소스의 UID", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_RESOURCES)
     @ResponseBody
     public ReplicaSetsList getReplicaSetsListLabelSelector(@PathVariable("namespace") String namespace,
-                                                           @RequestParam(name = "selector", required = true, defaultValue = "") String selector) {
-        return replicaSetService.getReplicaSetsListLabelSelector(namespace, selector);
+                                                           @RequestParam(name = "selector", required = true, defaultValue = "") String selector,
+                                                           @RequestParam(name = "type", required = false, defaultValue = "default") String type,
+                                                           @RequestParam(name = "ownerReferencesUid", required = false, defaultValue = "") String ownerReferencesUid) {
+        return replicaSetService.getReplicaSetsListLabelSelector(namespace, selector,type,ownerReferencesUid );
     }
 
     /**
