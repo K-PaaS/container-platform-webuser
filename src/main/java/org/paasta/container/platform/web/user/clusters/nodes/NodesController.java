@@ -104,7 +104,8 @@ public class NodesController {
             @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NODES_LIST)
-    public Nodes getNodes(@PathVariable String cluster, @PathVariable("nodeName") String nodeName) {
+    public Nodes getNodes(@PathVariable(value = "cluster") String cluster,
+                          @PathVariable(value = "nodeName") String nodeName) {
         return nodesService.getNodes(cluster, nodeName);
     }
 }

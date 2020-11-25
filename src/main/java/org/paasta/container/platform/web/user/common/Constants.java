@@ -91,10 +91,10 @@ public class Constants {
 
     public static final String URI_API_SERVICES_LIST =   "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services";
     public static final String URI_API_SERVICES_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services/{serviceName:.+}";
-    public static final String URI_API_SERVICES_YAML =   "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}/yaml";
-    public static final String URI_API_SERVICES_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}";
-    public static final String URI_API_SERVICES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services";
-    public static final String URI_API_SERVICES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/services/{serviceName:.+}";
+    public static final String URI_API_SERVICES_YAML =   "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services/{serviceName:.+}/yaml";
+    public static final String URI_API_SERVICES_UPDATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services/{serviceName:.+}";
+    public static final String URI_API_SERVICES_CREATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services";
+    public static final String URI_API_SERVICES_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services/{serviceName:.+}";
 
     public static final String URI_API_ROLES_LIST =   "/clusters/cp-cluster/namespaces/{namespace:.+}/roles";
     public static final String URI_API_ROLES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}";

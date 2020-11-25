@@ -120,7 +120,7 @@ public class DeploymentsController {
             @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping( value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_LIST )
-    public DeploymentsList getDeploymentsList(@PathVariable String cluster,
+    public DeploymentsList getDeploymentsList(@PathVariable(value = "cluster") String cluster,
                                               @PathVariable(value = "namespace") String namespace,
                                               @RequestParam(required = false, defaultValue = "0") int offset,
                                               @RequestParam(required = false, defaultValue = "0") int limit,
@@ -146,7 +146,7 @@ public class DeploymentsController {
             @ApiImplicitParam(name = "deploymentName", value = "deployment 명",  required = true, dataType = "String", paramType = "path")
     })
     @GetMapping( value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_DETAIL )
-    public Deployments getDeployments(@PathVariable String cluster,
+    public Deployments getDeployments(@PathVariable(value = "cluster") String cluster,
                                       @PathVariable String namespace,
                                       @PathVariable String deploymentName) {
         return deploymentsService.getDeployments(cluster, namespace, deploymentName);
@@ -168,7 +168,7 @@ public class DeploymentsController {
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_YAML)
     @ResponseBody
-    public Deployments getDeploymentsYaml(@PathVariable String cluster,
+    public Deployments getDeploymentsYaml(@PathVariable(value = "cluster") String cluster,
                                           @PathVariable(value = "namespace") String namespace,
                                           @PathVariable("deploymentName") String deploymentName) {
         return deploymentsService.getDeploymentsYaml(cluster, namespace, deploymentName);
@@ -190,7 +190,7 @@ public class DeploymentsController {
     })
     @PostMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_CREATE)
     @ResponseBody
-    public Object createDeployments(@PathVariable String cluster,
+    public Object createDeployments(@PathVariable(value = "cluster") String cluster,
                                     @PathVariable(value = "namespace") String namespace,
                                     @RequestBody String yaml) {
         return deploymentsService.createDeployments(cluster, namespace, yaml);
@@ -214,7 +214,7 @@ public class DeploymentsController {
             @ApiImplicitParam(name = "yaml", value = "리소스 수정 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_UPDATE)
-    public Object updateDeployments(@PathVariable String cluster,
+    public Object updateDeployments(@PathVariable(value = "cluster") String cluster,
                                     @PathVariable(value = "namespace") String namespace,
                                     @PathVariable("deploymentName") String deploymentName,
                                     @RequestBody String yaml) {
@@ -236,7 +236,7 @@ public class DeploymentsController {
             @ApiImplicitParam(name = "deploymentName", value = "deployment 명", required = true, dataType = "String", paramType = "path")
     })
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_DEPLOYMENTS_DELETE)
-    public Object deleteDeployments(@PathVariable String cluster,
+    public Object deleteDeployments(@PathVariable(value = "cluster") String cluster,
                                     @PathVariable(value = "namespace") String namespace,
                                     @PathVariable("deploymentName") String deploymentName) {
         return deploymentsService.deleteDeployments(cluster, namespace, deploymentName);

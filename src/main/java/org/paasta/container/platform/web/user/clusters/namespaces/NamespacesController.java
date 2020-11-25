@@ -67,7 +67,8 @@ public class NamespacesController {
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_DETAIL)
-    public Namespaces getNamespaces(@PathVariable String cluster, @PathVariable String namespace) {
+    public Namespaces getNamespaces(@PathVariable(value = "cluster") String cluster,
+                                    @PathVariable(value = "namespace") String namespace) {
         return namespacesService.getNamespaces(cluster, namespace);
     }
 
@@ -76,7 +77,7 @@ public class NamespacesController {
      * Namespaces event 페이지 이동(Move Namespaces event page)
      *
      * @param httpServletRequest the http servlet request
-     * @param namespace
+     * @param namespace          the namespace
      * @return the namespaces event
      */
     @ApiOperation(value = "Namespaces event 페이지 이동(Move Namespaces event page)", nickname = "getNamespaceEvents")
@@ -85,7 +86,7 @@ public class NamespacesController {
     })
     @GetMapping(value = Constants.URI_CLUSTER_NAMESPACES + "/{namespace:.+}/events")
     public ModelAndView getNamespaceEvents(HttpServletRequest httpServletRequest,
-                                           @PathVariable String namespace) {
+                                           @PathVariable(value = "namespace") String namespace) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/events", new ModelAndView());
     }
 }

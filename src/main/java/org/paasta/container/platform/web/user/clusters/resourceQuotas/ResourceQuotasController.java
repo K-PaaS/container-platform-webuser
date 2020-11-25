@@ -39,7 +39,8 @@ public class ResourceQuotasController {
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS)
-    public ResourceQuotasList getResourceQuotasList(@PathVariable String cluster, @PathVariable String namespace) {
+    public ResourceQuotasList getResourceQuotasList(@PathVariable(value = "cluster") String cluster,
+                                                    @PathVariable(value = "namespace") String namespace) {
         return resourceQuotasService.getResourceQuotasList(cluster, namespace);
     }
 }

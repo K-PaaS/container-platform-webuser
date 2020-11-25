@@ -124,7 +124,7 @@ public class PodsController {
             @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST)
-    public PodsList getPodList(@PathVariable String cluster,
+    public PodsList getPodList(@PathVariable(value = "cluster") String cluster,
                                @PathVariable(value = "namespace") String namespace,
                                @RequestParam(required = false, defaultValue = "0") int offset,
                                @RequestParam(required = false, defaultValue = "0") int limit,
@@ -150,7 +150,7 @@ public class PodsController {
             @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_DETAIL)
-    public Pods getPod(@PathVariable String cluster,
+    public Pods getPod(@PathVariable(value = "cluster") String cluster,
                        @PathVariable(value = "namespace") String namespace,
                        @PathVariable(value = "podName") String podName) {
         return podsService.getPod(cluster, namespace, podName);
@@ -171,7 +171,7 @@ public class PodsController {
             @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_YAML)
-    public Pods getPodYaml(@PathVariable String cluster,
+    public Pods getPodYaml(@PathVariable(value = "cluster") String cluster,
                            @PathVariable(value = "namespace") String namespace,
                            @PathVariable(value = "podName") String podName) {
         return podsService.getPodYaml(cluster, namespace, podName);
@@ -197,7 +197,7 @@ public class PodsController {
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_SELECTOR)
     @ResponseBody
-    public PodsList getPodListBySelector(@PathVariable String cluster,
+    public PodsList getPodListBySelector(@PathVariable(value = "cluster") String cluster,
                                          @PathVariable("namespace") String namespace,
                                          @RequestParam(name = "selector", required = false, defaultValue = "") String selector,
                                          @RequestParam(name = "type", required = false, defaultValue = "default") String type,
@@ -224,7 +224,7 @@ public class PodsController {
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE)
     @ResponseBody
-    public PodsList getPodListBySelectorWithService(@PathVariable String cluster,
+    public PodsList getPodListBySelectorWithService(@PathVariable(value = "cluster") String cluster,
                                                     @PathVariable("namespace") String namespace,
                                                     @PathVariable("serviceName") String serviceName,
                                                     @RequestParam(name = "selector", required = true, defaultValue = "") String selector) {
@@ -251,7 +251,7 @@ public class PodsController {
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_NODE)
     @ResponseBody
-    public PodsList getPodListByNode(@PathVariable String cluster,
+    public PodsList getPodListByNode(@PathVariable(value = "cluster") String cluster,
                                      @PathVariable(value = "namespace") String namespace,
                                      @PathVariable(value = "nodeName") String nodeName) {
         return podsService.getPodListNamespaceByNode(cluster, namespace, nodeName);
@@ -273,7 +273,7 @@ public class PodsController {
     })
     @PostMapping(value = Constants.API_URL + Constants.URI_API_PODS_CREATE)
     @ResponseBody
-    public Object createDeployments(@PathVariable String cluster,
+    public Object createDeployments(@PathVariable(value = "cluster") String cluster,
                                     @PathVariable(value = "namespace") String namespace,
                                     @RequestBody String yaml) {
         return podsService.createPods(cluster, namespace, yaml);

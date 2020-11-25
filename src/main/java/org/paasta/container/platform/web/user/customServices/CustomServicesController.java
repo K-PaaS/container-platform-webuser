@@ -155,40 +155,46 @@ public class CustomServicesController {
     /**
      * Services YAML 조회(Get Services yaml)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the services name
      * @return the custom services yaml
      */
     @ApiOperation(value = "Services YAML 조회(Get Services yaml)", nickname = "getCustomServicesYaml")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_YAML)
     @ResponseBody
-    public CustomServices getCustomServicesYaml(@PathVariable(value = "namespace") String namespace,
+    public CustomServices getCustomServicesYaml(@PathVariable(value = "cluster") String cluster,
+                                                @PathVariable(value = "namespace") String namespace,
                                                 @PathVariable("serviceName") String serviceName) {
-        return customServicesService.getCustomServicesYaml(namespace, serviceName);
+        return customServicesService.getCustomServicesYaml(cluster, namespace, serviceName);
     }
 
 
     /**
      * Services 생성(Create Services)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param yaml      the yaml
      * @return return is succeeded
      */
     @ApiOperation(value = "Services 생성(Create Services)", nickname = "createCustomServices")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PostMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_CREATE)
     @ResponseBody
-    public Object createCustomServices(@PathVariable(value = "namespace") String namespace,
+    public Object createCustomServices(@PathVariable(value = "cluster") String cluster,
+                                       @PathVariable(value = "namespace") String namespace,
                                        @RequestBody String yaml) {
-        return customServicesService.createCustomServices(namespace, yaml);
+        return customServicesService.createCustomServices(cluster, namespace, yaml);
 
     }
 
@@ -196,6 +202,7 @@ public class CustomServicesController {
     /**
      * Services 수정(Update Services)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the services name
      * @param yaml        the yaml
@@ -203,36 +210,41 @@ public class CustomServicesController {
      */
     @ApiOperation(value = "Services 수정(Update Services)", nickname = "updateCustomServices")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "yaml", value = "리소스 수정 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_UPDATE)
     @ResponseBody
-    public Object updateCustomServices(@PathVariable(value = "namespace") String namespace,
+    public Object updateCustomServices(@PathVariable(value = "cluster") String cluster,
+                                       @PathVariable(value = "namespace") String namespace,
                                        @PathVariable("serviceName") String serviceName,
                                        @RequestBody String yaml) {
-        return customServicesService.updateCustomServices(namespace, serviceName, yaml);
+        return customServicesService.updateCustomServices(cluster, namespace, serviceName, yaml);
     }
 
 
     /**
      * Services 삭제(Delete Services)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the services name
      * @return return is succeeded
      */
     @ApiOperation(value = "Services 삭제(Delete Services)", nickname = "deleteServices")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path")
     })
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_SERVICES_DELETE)
     @ResponseBody
-    public Object deleteCustomServices(@PathVariable(value = "namespace") String namespace,
+    public Object deleteCustomServices(@PathVariable(value = "cluster") String cluster,
+                                       @PathVariable(value = "namespace") String namespace,
                                        @PathVariable("serviceName") String serviceName) {
-        return customServicesService.deleteCustomServices(namespace, serviceName);
+        return customServicesService.deleteCustomServices(cluster, namespace, serviceName);
     }
 
 

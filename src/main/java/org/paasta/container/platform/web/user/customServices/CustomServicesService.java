@@ -73,12 +73,14 @@ public class CustomServicesService {
     /**
      * Services YAML 조회(Get Services yaml)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the services name
      * @return the custom services yaml
      */
-    CustomServices getCustomServicesYaml(String namespace, String serviceName) {
+    CustomServices getCustomServicesYaml(String cluster, String namespace, String serviceName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_YAML
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{serviceName:.+}", serviceName),
                 HttpMethod.GET, null, CustomServices.class);
@@ -87,12 +89,14 @@ public class CustomServicesService {
     /**
      * Services 생성(Create Services)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param yaml      the yaml
      * @return return is succeeded
      */
-    public Object createCustomServices(String namespace, String yaml) {
+    public Object createCustomServices(String cluster, String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_CREATE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace),
                 HttpMethod.POST, yaml, Object.class, "application/yaml");
     }
@@ -101,13 +105,15 @@ public class CustomServicesService {
     /**
      * Services 수정(Update Services)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the services name
      * @param yaml        the yaml
      * @return return is succeeded
      */
-    public Object updateCustomServices(String namespace, String serviceName, String yaml) {
+    public Object updateCustomServices(String cluster, String namespace, String serviceName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_UPDATE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{serviceName:.+}", serviceName),
                 HttpMethod.PUT, yaml, Object.class, "application/yaml");
@@ -117,12 +123,14 @@ public class CustomServicesService {
     /**
      * Services 삭제(Delete Services)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the services name
      * @return return is succeeded
      */
-    public Object deleteCustomServices(String namespace, String serviceName) {
+    public Object deleteCustomServices(String cluster, String namespace, String serviceName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_DELETE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{serviceName:.+}", serviceName),
                 HttpMethod.DELETE, null, Object.class);
