@@ -134,12 +134,14 @@ public class DeploymentsController {
     /**
      * Deployments 상세 조회(Get Deployments detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @return the deployments detail
      */
     @ApiOperation(value = "Deployments 상세 조회(Get Deployments detail)", nickname = "getDeployments")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "deploymentName", value = "deployment 명",  required = true, dataType = "String", paramType = "path")
     })
@@ -153,12 +155,14 @@ public class DeploymentsController {
     /**
      * Deployments YAML 정보 조회(Get Deployments yaml)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @return the deployments yaml
      */
     @ApiOperation(value = "Deployments YAML 정보 조회(Get Deployments yaml)", nickname = "getDeploymentsYaml")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "deploymentName", value = "deployment 명", required = true, dataType = "String", paramType = "path")
     })
@@ -173,12 +177,14 @@ public class DeploymentsController {
     /**
      * Deployments 생성(Create Deployments)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param yaml the yaml
      * @return return is succeeded
      */
     @ApiOperation(value = "Deployments 생성(Create Deployments)", nickname = "createDeployments")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "String", paramType = "body")
     })
@@ -194,6 +200,7 @@ public class DeploymentsController {
     /**
      * Deployments 수정(Update Deployments)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @param yaml the yaml
@@ -201,6 +208,7 @@ public class DeploymentsController {
      */
     @ApiOperation(value = "Deployments 수정(Update Deployments)", nickname = "updateDeployments")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "deploymentName", value = "deployment 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "yaml", value = "리소스 수정 yaml", required = true, dataType = "String", paramType = "body")
@@ -216,12 +224,14 @@ public class DeploymentsController {
     /**
      * Deployments 삭제(Delete Deployments)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @return return is succeeded
      */
     @ApiOperation(value = "Deployments 삭제(Delete Deployments)", nickname = "deleteDeployments")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "deploymentName", value = "deployment 명", required = true, dataType = "String", paramType = "path")
     })

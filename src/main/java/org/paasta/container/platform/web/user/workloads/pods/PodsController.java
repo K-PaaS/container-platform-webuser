@@ -138,12 +138,14 @@ public class PodsController {
     /**
      * Pods 상세 조회(Get Pods detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
      * @return the pods
      */
     @ApiOperation(value = "Pods 상세 조회(Get Pods detail)", nickname = "getPod")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "String", paramType = "path")
     })
@@ -157,12 +159,14 @@ public class PodsController {
     /**
      * Pods YAML 조회(Get Pods yaml)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
      * @return the pods yaml
      */
     @ApiOperation(value = "Pods YAML 조회(Get Pods yaml)", nickname = "getPodYaml")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "String", paramType = "path")
     })
@@ -176,6 +180,7 @@ public class PodsController {
     /**
      * Pods 목록 조회(Get Pods selector)
      *
+     * @param cluster            the cluster
      * @param namespace          the namespace
      * @param selector           the selector
      * @param type               the type
@@ -184,6 +189,7 @@ public class PodsController {
      */
     @ApiOperation(value = "Pods 목록 조회(Get Pods selector)", nickname = "getPodListBySelector")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "type", value = "리소스 타입", required = false, dataType = "String", paramType = "query"),
@@ -203,6 +209,7 @@ public class PodsController {
     /**
      * Pods 목록 조회(Get Pods selector, service)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the service name
      * @param selector    the selector
@@ -210,6 +217,7 @@ public class PodsController {
      */
     @ApiOperation(value = "Pods 목록 조회(Get Pods selector, service)", nickname = "getPodListBySelectorWithService")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "path")
@@ -230,12 +238,14 @@ public class PodsController {
     /**
      * Pods 목록 조회(Get Pods node)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param nodeName  the nodes name
      * @return the pods list
      */
     @ApiOperation(value = "Pods 목록 조회(Get Pods node)", nickname = "getPodListByNode")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path")
     })
