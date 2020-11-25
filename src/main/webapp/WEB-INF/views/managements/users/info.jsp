@@ -61,7 +61,9 @@
         $("#commonLayerPopup").modal("hide");
 
         var userId = $("#userId").val();
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_INFO %>".replace("{userId:.+}", userId);
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_INFO %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
+            .replace("{userId:.+}", userId);
 
         var param = {
             "userId": $("#userId").val(),

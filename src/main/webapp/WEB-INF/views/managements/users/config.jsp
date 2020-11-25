@@ -60,6 +60,7 @@
     var getUsersList = function() {
         procViewLoading('show');
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_LIST %>" + "?namespace=" + NAME_SPACE;
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetUsersList);
     };
@@ -181,7 +182,10 @@
             array.push(map);
         });
 
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_CONFIG %>".replace("{namespace:.+}", NAME_SPACE);
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_CONFIG %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
+            .replace("{namespace:.+}", NAME_SPACE);
+
         procCallAjax(reqUrl, "PUT", JSON.stringify(array), false, callbackUpdateUserConfig);
     };
 

@@ -43,23 +43,28 @@ public class UsersService {
     /**
      * 각 Namespace 별 사용자 목록 조회(Get Users namespaces list)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @return the user list
      */
-    public UsersList getUsersListByNamespace(String namespace) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST_BY_NAMESPACE.replace("{namespace:.+}", namespace), HttpMethod.GET, null, UsersList.class);
+    public UsersList getUsersListByNamespace(String cluster, String namespace) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST_BY_NAMESPACE
+                .replace("{cluster:.+}", cluster)
+                .replace("{namespace:.+}", namespace), HttpMethod.GET, null, UsersList.class);
     }
-
 
 
     /**
      * 등록 Users 이름 목록 조회(Get Users name list)
      *
-     * @param  namespace
+     * @param cluster   the cluster
+     * @param namespace the namespace
      * @return the users list
      */
-    public Map<String, List> getUsersNameListByNamespace(String namespace) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_NAMES_LIST_BY_NAMESPACE.replace("{namespace:.+}", namespace), HttpMethod.GET, null, Map.class);
+    public Map<String, List> getUsersNameListByNamespace(String cluster, String namespace) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_NAMES_LIST_BY_NAMESPACE
+                .replace("{cluster:.+}", cluster)
+                .replace("{namespace:.+}", namespace), HttpMethod.GET, null, Map.class);
     }
 
     /**
@@ -76,46 +81,58 @@ public class UsersService {
     /**
      * Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
-     * @param userId the userId
+     * @param userId    the userId
      * @return the user detail
      */
-    public Users getUsers(String namespace, String userId) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_DETAIL.replace("{namespace:.+}", namespace).replace("{userId:.+}", userId), HttpMethod.GET, null, Users.class);
+    public Users getUsers(String cluster, String namespace, String userId) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_DETAIL
+                .replace("{cluster:.+}", cluster)
+                .replace("{namespace:.+}", namespace)
+                .replace("{userId:.+}", userId), HttpMethod.GET, null, Users.class);
     }
 
 
     /**
      * 전체 Users 목록 조회(Get All Users list)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @return the users list
      */
-    public UsersList getUsersList(String namespace) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST + "?namespace=" + namespace, HttpMethod.GET, null, UsersList.class);
+    public UsersList getUsersList(String cluster, String namespace) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST.replace("{cluster:.+}", cluster)
+                + "?namespace=" + namespace, HttpMethod.GET, null, UsersList.class);
     }
 
 
     /**
      * Users 정보 수정(Put Users info)
      *
-     * @param userId the userId
-     * @param users the users
+     * @param cluster the cluster
+     * @param userId  the userId
+     * @param users   the users
      * @return the resultStatus
      */
-    public ResultStatus updateUsers(String userId, Users users) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_INFO.replace("{userId:.+}", userId), HttpMethod.PUT, users, ResultStatus.class);
+    public ResultStatus updateUsers(String cluster, String userId, Users users) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_INFO
+                .replace("{cluster:.+}", cluster)
+                .replace("{userId:.+}", userId), HttpMethod.PUT, users, ResultStatus.class);
     }
 
 
     /**
      * Users 권한 설정(Put Users authority setting)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
-     * @param users the users
+     * @param users     the users
      * @return the resultStatus
      */
-    public ResultStatus modifyUsersConfig(String namespace, List<Users> users) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_CONFIG.replace("{namespace:.+}", namespace), HttpMethod.PUT, users, ResultStatus.class);
+    public ResultStatus modifyUsersConfig(String cluster,String namespace, List<Users> users) {
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_CONFIG
+                .replace("{cluster:.+}", cluster)
+                .replace("{namespace:.+}", namespace), HttpMethod.PUT, users, ResultStatus.class);
     }
 }

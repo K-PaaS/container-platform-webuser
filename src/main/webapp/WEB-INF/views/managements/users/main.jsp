@@ -57,7 +57,9 @@
     // GET LIST
     var getUsersList = function() {
         procViewLoading('show');
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_LIST_BY_NAMESPACE %>".replace("{namespace:.+}", NAME_SPACE);
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_LIST_BY_NAMESPACE %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
+            .replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetUsersList);
     };

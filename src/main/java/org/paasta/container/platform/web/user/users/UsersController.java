@@ -134,85 +134,100 @@ public class UsersController {
     /**
      * Users 권한 설정(Put Users authority setting)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param users     the users
      * @return the resultStatus
      */
     @ApiOperation(value = "Users 권한 설정(Put Users authority setting)", nickname = "modifyUsersConfig")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "users", value = "유저 정보 목록", required = true, dataType = "List<Users>", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_CONFIG)
-    public ResultStatus modifyUsersConfig(@PathVariable(value = "namespace") String namespace,
+    public ResultStatus modifyUsersConfig(@PathVariable(value = "cluster") String cluster,
+                                          @PathVariable(value = "namespace") String namespace,
                                           @RequestBody List<Users> users) {
-        return usersService.modifyUsersConfig(namespace, users);
+        return usersService.modifyUsersConfig(cluster, namespace, users);
     }
 
 
     /**
      * 전체 Users 목록 조회(Get All Users list)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @return the users list
      */
     @ApiOperation(value = "전체 Users 목록 조회(Get All Users list)", nickname = "getUsersList")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST)
-    public UsersList getUsersList(@RequestParam(name = "namespace") String namespace) {
-        return usersService.getUsersList(namespace);
+    public UsersList getUsersList(@PathVariable(value = "cluster") String cluster,
+                                  @RequestParam(name = "namespace") String namespace) {
+        return usersService.getUsersList(cluster, namespace);
     }
 
     /**
      * 각 Namespace 별 Users 목록 조회(Get Users namespaces list)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @return the users list
      */
     @ApiOperation(value = "각 Namespace 별 Users 목록 조회(Get Users namespaces list)", nickname = "getUsersListByNamespace")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST_BY_NAMESPACE)
-    public UsersList getUsersListByNamespace(@PathVariable(value = "namespace") String namespace) {
-        return usersService.getUsersListByNamespace(namespace);
+    public UsersList getUsersListByNamespace(@PathVariable(value = "cluster") String cluster,
+                                             @PathVariable(value = "namespace") String namespace) {
+        return usersService.getUsersListByNamespace(cluster, namespace);
     }
 
 
     /**
      * 각 Namespace 별 등록 Users 이름 목록 조회(Get Users name namespaces list)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @return the users list
      */
     @ApiOperation(value = "각 Namespace 별 등록 Users 이름 목록 조회(Get Users name namespaces list)", nickname = "getUsersNameListByNamespace")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_NAMES_LIST_BY_NAMESPACE)
-    public Map<String, List> getUsersNameListByNamespace(@PathVariable(value = "namespace") String namespace) {
-        return usersService.getUsersNameListByNamespace(namespace);
+    public Map<String, List> getUsersNameListByNamespace(@PathVariable(value = "cluster") String cluster,
+                                                         @PathVariable(value = "namespace") String namespace) {
+        return usersService.getUsersNameListByNamespace(cluster, namespace);
     }
 
 
     /**
      * Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param userId    the user id
      * @return the users detail
      */
     @ApiOperation(value = "Namespace, User id를 통한 사용자 단건 조회(Get Users id namespaces detail)", nickname = "getUsersByNamespace")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "userId", value = "유저 Id", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_DETAIL)
-    public Users getUsersByNamespace(@PathVariable(value = "namespace") String namespace,
+    public Users getUsersByNamespace(@PathVariable(value = "cluster") String cluster,
+                                     @PathVariable(value = "namespace") String namespace,
                                      @PathVariable(value = "userId") String userId) {
-        return usersService.getUsers(namespace, userId);
+        return usersService.getUsers(cluster, namespace, userId);
     }
 
 
@@ -291,7 +306,7 @@ public class UsersController {
         CommonUtils.removeCookies(response, Constants.CP_SELECTED_NAMESPACE_KEY);
 
         ModelAndView model = new ModelAndView();
-        model.setViewName(Constants.REDIRECT_VIEW +"/login");
+        model.setViewName(Constants.REDIRECT_VIEW + "/login");
         return model;
     }
 
@@ -306,8 +321,9 @@ public class UsersController {
     public ModelAndView getUserInfoMain(HttpServletRequest httpServletRequest) throws UnsupportedEncodingException {
         String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
         String selectedNs = CommonUtils.getCookie(httpServletRequest, Constants.CP_SELECTED_NAMESPACE_KEY);
+        String cluster = CommonUtils.getCookie(httpServletRequest, Constants.CP_CLUSTER_NAME_KEY);
 
-        Users user = usersService.getUsers(selectedNs, userId);
+        Users user = usersService.getUsers(cluster, selectedNs, userId);
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);
         return commonService.setPathVariables(httpServletRequest, BASE_URL + "/info", mv);
@@ -317,18 +333,21 @@ public class UsersController {
     /**
      * Users 정보 수정(Put Users info)
      *
-     * @param userId the userId
-     * @param users  the users
+     * @param cluster the cluster
+     * @param userId  the userId
+     * @param users   the users
      * @return the resultStatus
      */
     @ApiOperation(value = "Users 정보 수정(Put Users info)", nickname = "updateUsers")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "userId", value = "유저 Id", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "users", value = "유저 정보", required = true, dataType = "Users", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_INFO)
-    public ResultStatus updateUsers(@PathVariable(value = "userId") String userId,
+    public ResultStatus updateUsers(@PathVariable(value = "cluster") String cluster,
+                                    @PathVariable(value = "userId") String userId,
                                     @RequestBody Users users) {
-        return usersService.updateUsers(userId, users);
+        return usersService.updateUsers(cluster, userId, users);
     }
 }

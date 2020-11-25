@@ -95,12 +95,12 @@ public class Constants {
     public static final String URI_API_ROLES_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/roles/{roleName:.+}";
     public static final String URI_API_ROLES_YAML =   "/clusters/{cluster:.+}/namespaces/{namespace:.+}/roles/{roleName:.+}/yaml";
 
-    public static final String URI_API_USERS_LIST = "/clusters/cp-cluster/users";
-    public static final String URI_API_USERS_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users";
-    public static final String URI_API_USERS_NAMES_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users/names";
-    public static final String URI_API_USERS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/users/{userId:.+}";
-    public static final String URI_API_USERS_INFO = "/clusters/cp-cluster/users/{userId:.+}";
-    public static final String URI_API_USERS_CONFIG = "/clusters/cp-cluster/namespaces/{namespace:.+}/users";
+    public static final String URI_API_USERS_LIST = "/clusters/{cluster:.+}/users";
+    public static final String URI_API_USERS_LIST_BY_NAMESPACE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/users";
+    public static final String URI_API_USERS_NAMES_LIST_BY_NAMESPACE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/users/names";
+    public static final String URI_API_USERS_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/users/{userId:.+}";
+    public static final String URI_API_USERS_INFO = "/clusters/{cluster:.+}/users/{userId:.+}";
+    public static final String URI_API_USERS_CONFIG = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/users";
 
     public static final String URI_API_ENDPOINTS_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/endpoints/{serviceName:.+}";
 
