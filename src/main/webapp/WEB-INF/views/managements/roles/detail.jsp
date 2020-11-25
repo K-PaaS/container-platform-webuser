@@ -118,6 +118,7 @@
         procViewLoading('show');
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_ROLES_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{roleName:.+}", "<c:out value='${roleName}'/>");
         

@@ -33,6 +33,7 @@ public class RolesService {
     /**
      * Roles 목록 조회(Get Roles list)
      *
+     * @param cluster    the cluster
      * @param namespace  the namespace
      * @param offset     the offset
      * @param limit      the limit
@@ -41,11 +42,12 @@ public class RolesService {
      * @param searchName the searchName
      * @return the roles list
      */
-    RolesList getRolesList(String namespace, int offset, int limit, String orderBy, String order, String searchName) {
+    RolesList getRolesList(String cluster, String namespace, int offset, int limit, String orderBy, String order, String searchName) {
         
         String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_ROLES_LIST
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace) + param
                 , HttpMethod.GET, null, RolesList.class);
     }
@@ -54,12 +56,14 @@ public class RolesService {
     /**
      * Roles 상세 조회(Get Roles detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param roleName  the roles name
      * @return the roles detail
      */
-    Roles getRoles(String namespace, String roleName) {
+    Roles getRoles(String cluster, String namespace, String roleName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_ROLES_DETAIL
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{roleName:.+}", roleName),
                 HttpMethod.GET, null, Roles.class);
@@ -69,12 +73,14 @@ public class RolesService {
     /**
      * Roles YAML 조회(Get Roles yaml)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param roleName  the roles name
      * @return the roles yaml
      */
-    Roles getRolesYaml(String namespace, String roleName) {
+    Roles getRolesYaml(String cluster, String namespace, String roleName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_ROLES_YAML
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{roleName:.+}", roleName),
                 HttpMethod.GET, null, Roles.class);

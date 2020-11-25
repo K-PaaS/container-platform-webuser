@@ -111,6 +111,7 @@ public class RolesController {
     /**
      * Roles 목록 조회(Get Roles list)
      *
+     * @param cluster    the cluster
      * @param namespace  the namespace
      * @param offset     the offset
      * @param limit      the limit
@@ -121,6 +122,7 @@ public class RolesController {
      */
     @ApiOperation(value = "Roles 목록 조회(Get Roles list)", nickname = "getRolesList")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
@@ -130,14 +132,15 @@ public class RolesController {
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_LIST)
     @ResponseBody
-    public RolesList getRolesList(@PathVariable(value = "namespace") String namespace,
+    public RolesList getRolesList(@PathVariable(value = "cluster") String cluster,
+                                  @PathVariable(value = "namespace") String namespace,
                                   @RequestParam(required = false, defaultValue = "0") int offset,
                                   @RequestParam(required = false, defaultValue = "0") int limit,
                                   @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
                                   @RequestParam(required = false, defaultValue = "desc") String order,
                                   @RequestParam(required = false, defaultValue = "") String searchName) {
 
-        return rolesService.getRolesList(namespace, offset, limit, orderBy, order, searchName);
+        return rolesService.getRolesList(cluster, namespace, offset, limit, orderBy, order, searchName);
     }
 
 
@@ -145,38 +148,44 @@ public class RolesController {
     /**
      * Roles 상세 조회(Get Roles detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param roleName the roles name
      * @return the roles detail
      */
     @ApiOperation(value = "Roles 상세 조회(Get Roles detail)", nickname = "getRoles")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_DETAIL)
     @ResponseBody
-    public Roles getRoles(@PathVariable(value = "namespace") String namespace,
+    public Roles getRoles(@PathVariable(value = "cluster") String cluster,
+                          @PathVariable(value = "namespace") String namespace,
                           @PathVariable(value = "roleName") String roleName) {
-        return rolesService.getRoles(namespace, roleName);
+        return rolesService.getRoles(cluster, namespace, roleName);
     }
 
     /**
      * Roles YAML 조회(Get Roles yaml)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param roleName the roles name
      * @return the roles yaml
      */
     @ApiOperation(value = "Roles YAML 조회(Get Roles yaml)", nickname = "getRolesYaml")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "roleName", value = "Roles 명", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_ROLES_YAML)
     @ResponseBody
-    public Roles getRolesYaml(@PathVariable(value = "namespace") String namespace,
+    public Roles getRolesYaml(@PathVariable(value = "cluster") String cluster,
+                              @PathVariable(value = "namespace") String namespace,
                               @PathVariable(value = "roleName") String roleName) {
-        return rolesService.getRolesYaml(namespace, roleName);
+        return rolesService.getRolesYaml(cluster, namespace, roleName);
     }
 }

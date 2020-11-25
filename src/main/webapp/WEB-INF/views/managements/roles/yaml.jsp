@@ -18,6 +18,7 @@
         var resourceName = "<c:out value='${roleName}' default='' />";
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_ROLES_YAML %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{roleName:.+}", resourceName);
 

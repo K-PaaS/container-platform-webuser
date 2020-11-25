@@ -65,7 +65,7 @@
         procViewLoading('show');
         var param = makeResourceListParamQuery(offset, limit, searchName);
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_ROLES_LIST %>" + param;
-        reqUrl = reqUrl.replace("{namespace:.+}", NAME_SPACE);
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
 
         procCallAjax(reqUrl, "GET", null, null, callbackgetRolesList);
 

@@ -143,7 +143,7 @@
     };
 
     var getRolesList = function() {
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_ROLES_LIST %>".replace("{namespace:.+}", NAME_SPACE);
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_ROLES_LIST %>".replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
         procCallAjax(reqUrl, "GET", null, null, callbackGetRolesList);
     };
 

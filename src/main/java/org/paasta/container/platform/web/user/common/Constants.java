@@ -13,15 +13,10 @@ public class Constants {
     public static final String RESULT_STATUS_SUCCESS = "SUCCESS";
     public static final String RESULT_STATUS_FAIL = "FAIL";
 
-    public static final String TOKEN_KEY = "cp_admin";
-
     public static final String TARGET_CP_API = "cpApi";
     public static final String TARGET_COMMON_API = "commonApi";
 
-    public static final String DEFAULT_NAMESPACE_NAME = "temp-namespace";
     public static final String NOT_ASSIGNED_ROLE = "NOT_ASSIGNED_ROLE";
-    public static final String DEFAULT_INIT_ROLE = "init-role";
-    public static final String DEFAULT_CLUSTER_ADMIN_ROLE = "cluster-admin"; // k8s default cluster role's name
     public static final String NAMESPACE_ADMIN = "NAMESPACE_ADMIN";
 
     public static final String API_URL = "/api";
@@ -96,12 +91,9 @@ public class Constants {
     public static final String URI_API_SERVICES_CREATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services";
     public static final String URI_API_SERVICES_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/services/{serviceName:.+}";
 
-    public static final String URI_API_ROLES_LIST =   "/clusters/cp-cluster/namespaces/{namespace:.+}/roles";
-    public static final String URI_API_ROLES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}";
-    public static final String URI_API_ROLES_YAML =   "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}/yaml";
-    public static final String URI_API_ROLES_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}";
-    public static final String URI_API_ROLES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles";
-    public static final String URI_API_ROLES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/roles/{roleName:.+}";
+    public static final String URI_API_ROLES_LIST =   "/clusters/{cluster:.+}/namespaces/{namespace:.+}/roles";
+    public static final String URI_API_ROLES_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/roles/{roleName:.+}";
+    public static final String URI_API_ROLES_YAML =   "/clusters/{cluster:.+}/namespaces/{namespace:.+}/roles/{roleName:.+}/yaml";
 
     public static final String URI_API_USERS_LIST = "/clusters/cp-cluster/users";
     public static final String URI_API_USERS_LIST_BY_NAMESPACE = "/clusters/cp-cluster/namespaces/{namespace:.+}/users";
@@ -115,18 +107,7 @@ public class Constants {
     public static final String URI_API_EVENTS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/events/resources/{resourceUid:.+}";
     public static final String URI_API_NAMESPACE_EVENTS_LIST    = "/clusters/cp-cluster/namespaces/{namespace:.+}/events";
 
-    public static final String URI_API_ROLE_BINDINGS_DETAIL = "/namespaces/{namespace:.+}/roleBindings/{roleBindingName:.+}";
-
-    public static final String URI_API_SERVICE_ACCOUNT_DETAIL = "/namespaces/{namespace:.+}/serviceAccounts/{cpAccountName:.+}";
-
     public static final String URI_API_SECRETS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/secrets/{accessTokenName:.+}";
-
-    public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims";
-    public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
-    public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_YAML = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}/yaml";
-    public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
-    public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims";
-    public static final String URI_API_PERSISTENT_VOLUME_CLAIMS_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
 
     public static final String URI_API_STORAGES_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims";
     public static final String URI_API_STORAGES_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
@@ -134,9 +115,6 @@ public class Constants {
     public static final String URI_API_STORAGES_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
     public static final String URI_API_STORAGES_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims";
     public static final String URI_API_STORAGES_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/persistentVolumeClaims/{persistentVolumeClaimName:.+}";
-
-    public static final String URI_API_USERS_NAME_LIST = "/users/names";
-
 
     public static final String URI_API_COMMON_RESOURCE_CREATE_VIEW= "/common/resource/{namespace:.+}/{resourceKind:.+}/create";
     public static final String URI_API_COMMON_RESOURCE_UPDATE_VIEW = "/common/resource/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}/update";
