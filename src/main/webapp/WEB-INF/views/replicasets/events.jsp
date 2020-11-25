@@ -27,6 +27,7 @@
         var resourceName = "<c:out value='${replicaSetName}' default='' />";
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_EVENTS_LIST %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{resourceUid:.+}", data.metadata.uid);
 

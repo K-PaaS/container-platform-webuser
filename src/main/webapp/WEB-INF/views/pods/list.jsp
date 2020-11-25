@@ -349,7 +349,7 @@
     var procSetEventStatusForPods = function (podUidName, status) {
         var reqUrl;
 
-        reqUrl = URI_API_EVENTS_LIST.replace("{namespace:.+}", NAME_SPACE).replace("{resourceUid:.+}", podUidName + '?status=' + status);
+        reqUrl = URI_API_EVENTS_LIST.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE).replace("{resourceUid:.+}", podUidName + '?status=' + status);
         return procCallAjax(reqUrl, "GET", null, null, callbackSetEventStatusForPods);
     };
 

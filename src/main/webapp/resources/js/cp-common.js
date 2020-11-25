@@ -262,6 +262,7 @@ var procAddPodsEvent = function (targetObject, selector) {
             }
 
             var reqEventsUrl = URI_API_EVENTS_LIST
+                .replace("{cluster:.+}", CLUSTER_NAME)
                 .replace("{namespace:.+}", NAME_SPACE)
                 .replace("{resourceUid:.+}", podsName);
             procCallAjax(reqEventsUrl, "GET", null, null, function (eventData) {

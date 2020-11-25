@@ -18,6 +18,7 @@
         var resourceName = "<c:out value='${namespace}' default='' />";
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NAMESPACE_EVENTS_LIST %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE);
 
         procGetCommonEventsList(reqUrl, resourceName);
