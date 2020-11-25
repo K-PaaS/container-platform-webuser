@@ -77,9 +77,9 @@ public class Constants {
     public static final String URI_API_PODS_LIST_BY_SELECTOR = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/resources";
     public static final String URI_API_PODS_LIST_BY_NODE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/nodes/{nodeName:.+}";
     public static final String URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/service/{serviceName:.+}";
-    public static final String URI_API_PODS_CREATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods";
-    public static final String URI_API_POD_DELETE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}";
-    public static final String URI_API_POD_UPDATE = "/clusters/cp-cluster/namespaces/{namespace:.+}/pods/{podName:.+}";
+    public static final String URI_API_PODS_CREATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods";
+    public static final String URI_API_POD_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/{podName:.+}";
+    public static final String URI_API_POD_UPDATE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/pods/{podName:.+}";
 
     public static final String URI_API_REPLICA_SETS_LIST = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets";
     public static final String URI_API_REPLICA_SETS_DETAIL = "/clusters/cp-cluster/namespaces/{namespace:.+}/replicaSets/{replicaSetName:.+}";

@@ -260,26 +260,29 @@ public class PodsController {
     /**
      * Pods 생성(Create Pods)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param yaml      the yaml
      * @return return is succeeded
      */
     @ApiOperation(value = "Pods 생성(Create Pods)", nickname = "createDeployments")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "yaml", value = "리소스 생성 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PostMapping(value = Constants.API_URL + Constants.URI_API_PODS_CREATE)
     @ResponseBody
-    public Object createDeployments(@PathVariable(value = "namespace") String namespace,
+    public Object createDeployments(@PathVariable String cluster,
+                                    @PathVariable(value = "namespace") String namespace,
                                     @RequestBody String yaml) {
-        return podsService.createPods(namespace, yaml);
+        return podsService.createPods(cluster, namespace, yaml);
 
     }
 
     /**
      * Pods 수정(Update Pods)
-     *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
      * @param yaml      the yaml
@@ -287,35 +290,39 @@ public class PodsController {
      */
     @ApiOperation(value = "Pods 수정(Update Pods)", nickname = "updatePods")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "yaml", value = "리소스 수정 yaml", required = true, dataType = "String", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_POD_UPDATE)
     @ResponseBody
-    public Object updatePods(@PathVariable(value = "namespace") String namespace,
+    public Object updatePods(@PathVariable(value = "cluster") String cluster,
+                             @PathVariable(value = "namespace") String namespace,
                              @PathVariable("podName") String podName,
                              @RequestBody String yaml) {
-        return podsService.updatePods(namespace, podName, yaml);
+        return podsService.updatePods(cluster, namespace, podName, yaml);
     }
-
 
     /**
      * Pods 삭제(Delete Pods)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
      * @return return is succeeded
      */
     @ApiOperation(value = "Pods 삭제(Delete Pods)", nickname = "deletePods")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "podName", value = "Pods 명", required = true, dataType = "String", paramType = "path")
     })
     @DeleteMapping(value = Constants.API_URL + Constants.URI_API_POD_DELETE)
     @ResponseBody
-    public Object deletePods(@PathVariable(value = "namespace") String namespace,
+    public Object deletePods(@PathVariable(value = "cluster") String cluster,
+                             @PathVariable(value = "namespace") String namespace,
                              @PathVariable("podName") String podName) {
-        return podsService.deletePods(namespace, podName);
+        return podsService.deletePods(cluster,namespace, podName);
     }
 }

@@ -48,6 +48,7 @@ public class PodsService {
     /**
      * Pods 목록 조회(Get Pods namespace)
      *
+     * @param cluster   the cluster
      * @param namespace  the namespace
      * @param offset     the offset
      * @param limit      the limit
@@ -69,6 +70,7 @@ public class PodsService {
     /**
      * Pods 목록 조회(Get Pods node)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param nodeName  the node name
      * @return the pods list
@@ -83,6 +85,7 @@ public class PodsService {
     /**
      * Pods 상세 조회(Get Pods detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
      * @return the pods detail
@@ -96,6 +99,7 @@ public class PodsService {
     /**
      * Pods YAML 조회(Get Pods yaml)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
      * @return the pods yaml
@@ -110,12 +114,14 @@ public class PodsService {
     /**
      * Pods 생성(Create Pods)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param yaml      the yaml
      * @return return is succeeded
      */
-    public Object createPods(String namespace, String yaml) {
+    public Object createPods(String cluster, String namespace, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_PODS_CREATE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace),
                 HttpMethod.POST, yaml, Object.class, "application/yaml");
     }
@@ -123,13 +129,15 @@ public class PodsService {
     /**
      * Pods 수정(Update Pods)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
      * @param yaml      the yaml
      * @return return is succeeded
      */
-    public Object updatePods(String namespace, String podName, String yaml) {
+    public Object updatePods(String cluster, String namespace, String podName, String yaml) {
         return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_POD_UPDATE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{podName:.+}", podName),
                 HttpMethod.PUT, yaml, Object.class, "application/yaml");
@@ -138,12 +146,14 @@ public class PodsService {
     /**
      * Pods 삭제(Delete Pods)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
      * @return return is succeeded
      */
-    public Object deletePods(String namespace, String podName) {
+    public Object deletePods(String cluster,String namespace, String podName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_POD_DELETE
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{podName:.+}", podName),
                 HttpMethod.DELETE, null, Object.class);
