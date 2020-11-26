@@ -178,22 +178,32 @@ public class PodsController {
     }
 
     /**
-     * Pods 목록 조회(Get Pods selector)
+     * Selector에 의한 Pods 목록 조회(Get Pods List By Selector)
      *
      * @param cluster            the cluster
      * @param namespace          the namespace
      * @param selector           the selector
      * @param type               the type
      * @param ownerReferencesUid the ownerReferencesUid
+     * @param offset             the offset
+     * @param limit              the limit
+     * @param orderBy            the orderBy
+     * @param order              the order
+     * @param searchName         the searchName
      * @return the pods list
      */
-    @ApiOperation(value = "Pods 목록 조회(Get Pods selector)", nickname = "getPodListBySelector")
+    @ApiOperation(value = "Selector에 의한 Pods 목록 조회(Get Pods List By Selector)", nickname = "getPodListBySelector")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "type", value = "리소스 타입", required = false, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "ownerReferencesUid", value = "참조 리소스의 UID", required = false, dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "ownerReferencesUid", value = "참조 리소스의 UID", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_SELECTOR)
     @ResponseBody
@@ -201,34 +211,54 @@ public class PodsController {
                                          @PathVariable("namespace") String namespace,
                                          @RequestParam(name = "selector", required = false, defaultValue = "") String selector,
                                          @RequestParam(name = "type", required = false, defaultValue = "default") String type,
-                                         @RequestParam(name = "ownerReferencesUid", required = false, defaultValue = "") String ownerReferencesUid) {
-        return podsService.getPodListBySelector(cluster, namespace, selector, type, ownerReferencesUid);
+                                         @RequestParam(name = "ownerReferencesUid", required = false, defaultValue = "") String ownerReferencesUid,
+                                         @RequestParam(required = false, defaultValue = "0") int offset,
+                                         @RequestParam(required = false, defaultValue = "0") int limit,
+                                         @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                                         @RequestParam(required = false, defaultValue = "desc") String order,
+                                         @RequestParam(required = false, defaultValue = "") String searchName) {
+        return podsService.getPodListBySelector(cluster, namespace, selector, type, ownerReferencesUid, offset, limit, orderBy, order, searchName);
     }
 
 
     /**
-     * Pods 목록 조회(Get Pods selector, service)
+     * Services Selector 에 의한 Pods 목록 조회(Get Pods List By Service Selector)
      *
      * @param cluster     the cluster
      * @param namespace   the namespace
      * @param serviceName the service name
      * @param selector    the selector
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the pods list
      */
-    @ApiOperation(value = "Pods 목록 조회(Get Pods selector, service)", nickname = "getPodListBySelectorWithService")
+    @ApiOperation(value = "Services Selector 에 의한 Pods 목록 조회(Get Pods List By Service Selector)", nickname = "getPodListBySelectorWithService")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "serviceName", value = "서비스 명", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE)
     @ResponseBody
     public PodsList getPodListBySelectorWithService(@PathVariable(value = "cluster") String cluster,
                                                     @PathVariable("namespace") String namespace,
                                                     @PathVariable("serviceName") String serviceName,
-                                                    @RequestParam(name = "selector", required = true, defaultValue = "") String selector) {
-        PodsList podsList = podsService.getPodListBySelector(cluster, namespace, selector,"","");
+                                                    @RequestParam(name = "selector", required = true, defaultValue = "") String selector,
+                                                    @RequestParam(required = false, defaultValue = "0") int offset,
+                                                    @RequestParam(required = false, defaultValue = "0") int limit,
+                                                    @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                                                    @RequestParam(required = false, defaultValue = "desc") String order,
+                                                    @RequestParam(required = false, defaultValue = "") String searchName) {
+        PodsList podsList = podsService.getPodListBySelector(cluster, namespace, selector, "", "",offset, limit, orderBy, order, searchName);
         podsList.setServiceName(serviceName);  // FOR DASHBOARD
         podsList.setSelector(selector);        // FOR DASHBOARD
 
@@ -236,25 +266,40 @@ public class PodsController {
     }
 
     /**
-     * Pods 목록 조회(Get Pods node)
+     * Node 명에 의한 Pods 목록 조회(Get Pods List By Node Name)
      *
      * @param cluster   the cluster
      * @param namespace the namespace
      * @param nodeName  the nodes name
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the pods list
      */
-    @ApiOperation(value = "Pods 목록 조회(Get Pods node)", nickname = "getPodListByNode")
+    @ApiOperation(value = "Node 명에 의한 Pods 목록 조회(Get Pods List By Node Name)", nickname = "getPodListByNode")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path")
+            @ApiImplicitParam(name = "nodeName", value = "노드 명", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PODS_LIST_BY_NODE)
     @ResponseBody
     public PodsList getPodListByNode(@PathVariable(value = "cluster") String cluster,
                                      @PathVariable(value = "namespace") String namespace,
-                                     @PathVariable(value = "nodeName") String nodeName) {
-        return podsService.getPodListNamespaceByNode(cluster, namespace, nodeName);
+                                     @PathVariable(value = "nodeName") String nodeName,
+                                     @RequestParam(required = false, defaultValue = "0") int offset,
+                                     @RequestParam(required = false, defaultValue = "0") int limit,
+                                     @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                                     @RequestParam(required = false, defaultValue = "desc") String order,
+                                     @RequestParam(required = false, defaultValue = "") String searchName) {
+        return podsService.getPodListNamespaceByNode(cluster, namespace, nodeName, offset, limit, orderBy, order, searchName);
     }
 
     /**
@@ -282,6 +327,7 @@ public class PodsController {
 
     /**
      * Pods 수정(Update Pods)
+     *
      * @param cluster   the cluster
      * @param namespace the namespace
      * @param podName   the pods name
@@ -323,6 +369,6 @@ public class PodsController {
     public Object deletePods(@PathVariable(value = "cluster") String cluster,
                              @PathVariable(value = "namespace") String namespace,
                              @PathVariable("podName") String podName) {
-        return podsService.deletePods(cluster,namespace, podName);
+        return podsService.deletePods(cluster, namespace, podName);
     }
 }

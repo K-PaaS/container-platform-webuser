@@ -68,8 +68,9 @@
     var G_REPLICA_SETS_LIST_LIMIT_COUNT = 0;
     var G_REPLICA_SETS_LIST_SEARCH_KEYWORD = null;
     var G_REPLICA_SETS_MORE_BTN_ID = 'replicaSetsMoreDetailBtn';
-    var G_REPLICA_SETS_LABEL_BY_DEPLOYMENT_DETAIL = '';
-    var G_REPLICA_SETS_UID_BY_DEPLOYMENT_DETAIL = '';
+
+    var ownerParamForPodsByReplicaSets ='';
+
     // GET LIST
     var getReplicaSetsList = function (selector, offset, limit, searchName) {
         procViewLoading('show');
@@ -81,11 +82,16 @@
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_RESOURCES %>"
                 .replace("{cluster:.+}", CLUSTER_NAME)
                 .replace("{namespace:.+}", NAME_SPACE) + param;
+
+            if (searchName != null) {
+                reqUrl += "&searchName=" + searchName;
+            }
+
         } else {
             var param = makeResourceListParamQuery(offset, limit, searchName);
             reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_REPLICA_SETS_LIST %>" + param;
             reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME)
-                           .replace("{namespace:.+}", NAME_SPACE);
+                .replace("{namespace:.+}", NAME_SPACE);
 
         }
 
@@ -130,10 +136,11 @@
             if ((nvl(searchKeyword) === "") || replicaSetName.indexOf(searchKeyword) > -1) {
                 var namespace = itemList.metadata.namespace;
                 var labels = procSetSelector(itemList.metadata.labels);
+                var replicaSetUid = itemList.metadata.uid;
 
                 //set Labels, UID by Deployment details view
-                G_REPLICA_SETS_LABEL_BY_DEPLOYMENT_DETAIL = labels;
-                G_REPLICA_SETS_UID_BY_DEPLOYMENT_DETAIL = itemList.metadata.uid;
+                ownerParamForPodsByReplicaSets = replaceLabels(labels) + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
+
 
                 var creationTimestamp = itemList.metadata.creationTimestamp;
                 var pods = itemList.status.availableReplicas + " / " + itemList.spec.replicas;  // current / desired
@@ -232,9 +239,13 @@
         G_REPLICA_SETS_LIST_OFFSET = 0;
         G_REPLICA_SETS_LIST_LIMIT_COUNT = setResourceListLimitCount();
 
-        $("#" + G_REPLICA_SETS_MORE_BTN_ID).css("display", "block");
-        getReplicaSetsList(null, 0, G_REPLICA_SETS_LIST_LIMIT_COUNT, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
 
+        if (typeof ownerParamForReplicaSetsByDeployments !== 'undefined') {
+            getReplicaSetsList(ownerParamForReplicaSetsByDeployments, 0, 0, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
+        } else {
+            $("#" + G_REPLICA_SETS_MORE_BTN_ID).css("display", "block");
+            getReplicaSetsList(null, 0, G_REPLICA_SETS_LIST_LIMIT_COUNT, G_REPLICA_SETS_LIST_SEARCH_KEYWORD);
+        }
     };
 
 

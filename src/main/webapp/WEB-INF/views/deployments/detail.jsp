@@ -101,6 +101,7 @@
 <input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">
+    var ownerParamForReplicaSetsByDeployments ='';
 
     var getDetail = function() {
         procViewLoading('show');
@@ -112,10 +113,14 @@
     };
 
     // GET DETAIL FOR PODS LIST
-    var getDetailForPodsList = function(selector) {
+    var getDetailForPodsList = function(selector, searchName) {
         var param = "?selector=" + selector ;
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>" + param;
         reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
+
+        if (searchName != null) {
+            reqUrl += "&searchName=" + searchName;
+        }
 
         getPodListUsingRequestURL(reqUrl);
         procViewLoading('hide');
@@ -178,18 +183,15 @@
         $('#hiddenNamespace').val(namespace);
         $('#hiddenResourceName').val(deployName);
 
-        var ownerReferencesUidParamForReplicaSets = "&type=deployments&ownerReferencesUid="+deploymentsUid+"&ownerReferencesName="+deployName ;
-        getReplicaSetsList(replaceLabels(selector) + ownerReferencesUidParamForReplicaSets ,0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
+       // get ReplicaSets List By Deployment
+        ownerParamForReplicaSetsByDeployments = replaceLabels(selector) + "&type=deployments&ownerReferencesUid="+deploymentsUid+"&ownerReferencesName="+deployName ;
+        getReplicaSetsList(ownerParamForReplicaSetsByDeployments ,0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
 
-
-        var ownerReferencesUidParamForPods = "&type=replicaSets&ownerReferencesUid=" + G_REPLICA_SETS_UID_BY_DEPLOYMENT_DETAIL;
-        getDetailForPodsList(replaceLabels(G_REPLICA_SETS_LABEL_BY_DEPLOYMENT_DETAIL) + ownerReferencesUidParamForPods);
+        // get Pods List By Deployment
+        getDetailForPodsList(ownerParamForPodsByReplicaSets);
 
     };
 
-    var replaceLabels = function (data) {
-        return JSON.stringify(data).replace(/"/g, '').replace(/=/g, '%3D');
-    };
 
     $(document.body).ready(function () {
         getDetail();

@@ -199,6 +199,11 @@ public class ReplicaSetsController {
      * @param type                the type
      * @param ownerReferencesName the ownerReferencesName
      * @param ownerReferencesUid  the ownerReferencesUid
+     * @param offset              the offset
+     * @param limit               the limit
+     * @param orderBy             the orderBy
+     * @param order               the order
+     * @param searchName          the searchName
      * @return the replicaSets list
      */
     @ApiOperation(value = "Selector 값에 의한 ReplicaSets 목록 조회 (Get ReplicaSets By Selector)", nickname = "getReplicaSetsListLabelSelector")
@@ -208,7 +213,12 @@ public class ReplicaSetsController {
             @ApiImplicitParam(name = "selector", value = "셀렉터", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "type", value = "리소스 타입", required = false, dataType = "String", paramType = "query"),
             @ApiImplicitParam(name = "ownerReferencesName", value = "참조 리소스 명", required = false, dataType = "String", paramType = "query"),
-            @ApiImplicitParam(name = "ownerReferencesUid", value = "참조 리소스의 UID", required = false, dataType = "String", paramType = "query")
+            @ApiImplicitParam(name = "ownerReferencesUid", value = "참조 리소스의 UID", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "offset", value = "목록 시작지점, 기본값 0", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "limit", value = "한 페이지에 가져올 리소스 최대 수", required = false, dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "orderBy", value = "정렬 기준, 기본값 creationTime(생성날짜)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "order", value = "정렬 순서, 기본값 desc(내림차순)", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "searchName", value = "리소스 명 검색", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_REPLICA_SETS_RESOURCES)
     @ResponseBody
@@ -217,8 +227,13 @@ public class ReplicaSetsController {
                                                            @RequestParam(name = "selector", required = true, defaultValue = "") String selector,
                                                            @RequestParam(name = "type", required = false, defaultValue = "default") String type,
                                                            @RequestParam(name = "ownerReferencesName", required = false, defaultValue = "") String ownerReferencesName,
-                                                           @RequestParam(name = "ownerReferencesUid", required = false, defaultValue = "") String ownerReferencesUid) {
-        return replicaSetService.getReplicaSetsListLabelSelector(cluster, namespace, selector, type, ownerReferencesName, ownerReferencesUid);
+                                                           @RequestParam(name = "ownerReferencesUid", required = false, defaultValue = "") String ownerReferencesUid,
+                                                           @RequestParam(required = false, defaultValue = "0") int offset,
+                                                           @RequestParam(required = false, defaultValue = "0") int limit,
+                                                           @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
+                                                           @RequestParam(required = false, defaultValue = "desc") String order,
+                                                           @RequestParam(required = false, defaultValue = "") String searchName) {
+        return replicaSetService.getReplicaSetsListLabelSelector(cluster, namespace, selector, type, ownerReferencesName, ownerReferencesUid, offset, limit, orderBy, order, searchName);
     }
 
     /**

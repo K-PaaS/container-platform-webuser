@@ -660,6 +660,11 @@ var procSetToolTipForTableTdByCondition = function (tableObjectString) {
 };
 
 
+var replaceLabels = function (data) {
+    return JSON.stringify(data).replace(/"/g, '').replace(/=/g, '%3D');
+};
+
+
 // 버튼 다중 클릭 방지
 var doubleSubmitFlag = false;
 function doubleSubmitCheck(){

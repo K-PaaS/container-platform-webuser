@@ -36,9 +36,11 @@ public class PodsService {
      * @param selector  the selector
      * @return the pods list
      */
-    PodsList getPodListBySelector(String cluster, String namespace, String selector,String type, String ownerReferencesUid) {
+    PodsList getPodListBySelector(String cluster, String namespace, String selector,String type, String ownerReferencesUid,
+                                  int offset, int limit, String orderBy, String order, String searchName) {
 
-        String param = "?selector=" + selector + "&type=" + type + "&ownerReferencesUid=" + ownerReferencesUid;
+        String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
+        param += "&selector=" + selector + "&type=" + type + "&ownerReferencesUid=" + ownerReferencesUid;
 
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PODS_LIST_BY_SELECTOR
                 .replace("{cluster:.+}", cluster)
@@ -75,11 +77,14 @@ public class PodsService {
      * @param nodeName  the node name
      * @return the pods list
      */
-    PodsList getPodListNamespaceByNode(String cluster, String namespace, String nodeName) {
+    PodsList getPodListNamespaceByNode(String cluster, String namespace, String nodeName,int offset, int limit, String orderBy, String order, String searchName) {
+
+        String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
+
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PODS_LIST_BY_NODE
                 .replace("{cluster:.+}", cluster)
                 .replace("{namespace:.+}", namespace)
-                .replace("{nodeName:.+}", nodeName), HttpMethod.GET, null, PodsList.class);
+                .replace("{nodeName:.+}", nodeName) + param, HttpMethod.GET, null, PodsList.class);
     }
 
     /**

@@ -98,9 +98,12 @@ public class ReplicaSetsService {
      * @param ownerReferencesUid the ownerReferencesUid
      * @return the replicaSets list
      */
-    ReplicaSetsList getReplicaSetsListLabelSelector(String cluster, String namespace, String selector, String type, String ownerReferencesName, String ownerReferencesUid) {
 
-        String param = "?selector=" + selector + "&type=" + type + "&ownerReferencesName=" + ownerReferencesName + "&ownerReferencesUid=" + ownerReferencesUid;
+    ReplicaSetsList getReplicaSetsListLabelSelector(String cluster, String namespace, String selector, String type, String ownerReferencesName, String ownerReferencesUid,
+                                                    int offset, int limit, String orderBy, String order, String searchName) {
+
+        String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
+        param += "&selector=" + selector + "&type=" + type + "&ownerReferencesName=" + ownerReferencesName + "&ownerReferencesUid=" + ownerReferencesUid;
 
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_REPLICA_SETS_RESOURCES
                         .replace("{cluster:.+}", cluster)
