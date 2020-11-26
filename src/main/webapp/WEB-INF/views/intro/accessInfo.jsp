@@ -245,7 +245,7 @@
             <div class="custom-access-contents-wrap">
                 <div class="custom-access-contents">
                     <div class="fa-pull-left" id="cpResourceCheck">
-                        <p>kubectl get all</p>
+                        <p>kubectl get all --insecure-skip-tls-verify</p>
                     </div>
                     <div class="fa-pull-right">
                         <i class="fas fa-copy custom-access-copy-button" about="cpResourceCheck"></i>

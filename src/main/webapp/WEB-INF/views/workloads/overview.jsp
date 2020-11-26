@@ -77,7 +77,7 @@
     var getOverview = function () {
         procViewLoading('show');
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_WORKLOAD_RESOURCE_COUNT %>";
-        reqUrl = reqUrl.replace('{namespace:.+}', NAME_SPACE);
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace('{namespace:.+}', NAME_SPACE);
 
         procCallAjax(reqUrl, 'GET', null, null, callbackGetOverview);
     };
