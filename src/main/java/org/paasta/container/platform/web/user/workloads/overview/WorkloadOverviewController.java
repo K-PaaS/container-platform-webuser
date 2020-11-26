@@ -55,13 +55,15 @@ public class WorkloadOverviewController {
     /**
      * Workload Overview 조회(Get Overview)
      *
+     * @param cluster    the cluster
      * @param namespace  the namespace
      * @return the workload overview
      */
     @ApiOperation(value = "Workload Overview 조회(Get Overview)", nickname = "getOverviewStatistics")
     @GetMapping(value = Constants.API_URL + Constants.URI_WORKLOAD_RESOURCE_COUNT)
-    public Overview getOverviewStatistics(@PathVariable(value = "namespace") String namespace) {
-        return workloadService.getResourceCount(namespace);
+    public Overview getOverviewStatistics(@PathVariable(value = "cluster") String cluster,
+                                          @PathVariable(value = "namespace") String namespace) {
+        return workloadService.getResourceCount(cluster, namespace);
     }
 
 }

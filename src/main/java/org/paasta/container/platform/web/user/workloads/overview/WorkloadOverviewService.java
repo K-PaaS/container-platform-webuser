@@ -30,13 +30,15 @@ public class WorkloadOverviewService {
     /**
      * WorkloadOverview Resource Count 조회(Get WorkloadOverview Resource Count)
      *
+     * @param cluster    the cluster
      * @param namespace  the namespace
      * @return the pods list
      */
-    Overview getResourceCount(String namespace) {
+    Overview getResourceCount(String cluster, String namespace) {
 
         return restTemplateService.send(Constants.TARGET_CP_API,
                 Constants.URI_WORKLOAD_RESOURCE_COUNT
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                 , HttpMethod.GET, null, Overview.class);
     }

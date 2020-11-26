@@ -154,7 +154,7 @@
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS %>"
             .replace("{cluster:.+}", CLUSTER_NAME)
-            .replace("{namespace:.+}", NAME_SPACE);
+            .replace("{namespace:.+}", namespace);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetResourceQuotaList);
     };
@@ -206,7 +206,7 @@
 
         var reqUrl =  "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_LIMIT_RANGES %>"
             .replace("{cluster:.+}", CLUSTER_NAME)
-            .replace("{namespace:.+}", NAME_SPACE);
+            .replace("{namespace:.+}", namespace);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetLimitRangeList);
     };
