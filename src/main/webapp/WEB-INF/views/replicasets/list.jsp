@@ -68,8 +68,8 @@
     var G_REPLICA_SETS_LIST_LIMIT_COUNT = 0;
     var G_REPLICA_SETS_LIST_SEARCH_KEYWORD = null;
     var G_REPLICA_SETS_MORE_BTN_ID = 'replicaSetsMoreDetailBtn';
-    var G_REPLICA_SETS_UID_LIST_BY_DEPLOYMENT = [];
-
+    var G_REPLICA_SETS_LABEL_BY_DEPLOYMENT_DETAIL = '';
+    var G_REPLICA_SETS_UID_BY_DEPLOYMENT_DETAIL = '';
     // GET LIST
     var getReplicaSetsList = function (selector, offset, limit, searchName) {
         procViewLoading('show');
@@ -125,14 +125,16 @@
 
         $.each(items, function (index, itemList) {
 
-            //replicaSets by deployment
-            G_REPLICA_SETS_UID_LIST_BY_DEPLOYMENT.push(itemList.metadata.uid);
-
             var replicaSetName = itemList.metadata.name;
 
             if ((nvl(searchKeyword) === "") || replicaSetName.indexOf(searchKeyword) > -1) {
                 var namespace = itemList.metadata.namespace;
                 var labels = procSetSelector(itemList.metadata.labels);
+
+                //set Labels, UID by Deployment details view
+                G_REPLICA_SETS_LABEL_BY_DEPLOYMENT_DETAIL = labels;
+                G_REPLICA_SETS_UID_BY_DEPLOYMENT_DETAIL = itemList.metadata.uid;
+
                 var creationTimestamp = itemList.metadata.creationTimestamp;
                 var pods = itemList.status.availableReplicas + " / " + itemList.spec.replicas;  // current / desired
 

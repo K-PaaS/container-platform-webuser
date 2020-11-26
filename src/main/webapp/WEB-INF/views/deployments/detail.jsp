@@ -178,10 +178,12 @@
         $('#hiddenNamespace').val(namespace);
         $('#hiddenResourceName').val(deployName);
 
-        var ownerReferencesUidParam = "&type=deployments&ownerReferencesUid="+deploymentsUid;
+        var ownerReferencesUidParamForReplicaSets = "&type=deployments&ownerReferencesUid="+deploymentsUid+"&ownerReferencesName="+deployName ;
+        getReplicaSetsList(replaceLabels(selector) + ownerReferencesUidParamForReplicaSets ,0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
 
-        getReplicaSetsList(replaceLabels(selector) + ownerReferencesUidParam ,0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
-        getDetailForPodsList(replaceLabels(selector));
+
+        var ownerReferencesUidParamForPods = "&type=replicaSets&ownerReferencesUid=" + G_REPLICA_SETS_UID_BY_DEPLOYMENT_DETAIL;
+        getDetailForPodsList(replaceLabels(G_REPLICA_SETS_LABEL_BY_DEPLOYMENT_DETAIL) + ownerReferencesUidParamForPods);
 
     };
 
