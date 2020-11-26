@@ -39,7 +39,7 @@ public class Constants {
     public static final String URI_WORKLOAD_DEPLOYMENTS = "/container-platform/workloads/deployments";
     public static final String URI_WORKLOAD_PODS = "/container-platform/workloads/pods";
     public static final String URI_WORKLOAD_REPLICA_SETS = "/container-platform/workloads/replicaSets";
-    public static final String URI_WORKLOAD_RESOURCE_COUNT = "/clusters/cp-cluster/namespaces/{namespace:.+}/overview";
+    public static final String URI_WORKLOAD_RESOURCE_COUNT = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/overview";
 
     public static final String URI_SERVICES = "/container-platform/services";
 

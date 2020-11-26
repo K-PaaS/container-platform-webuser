@@ -297,7 +297,7 @@ public class UsersController {
      */
     @ApiOperation(value = "Users 로그아웃(Get Users logout)", nickname = "logout")
     @NoAuth
-    @GetMapping("/logout")
+    @GetMapping(value = Constants.URI_LOGOUT)
     public ModelAndView logout(HttpServletResponse response) {
 
         CommonUtils.removeCookies(response, cpToken);
