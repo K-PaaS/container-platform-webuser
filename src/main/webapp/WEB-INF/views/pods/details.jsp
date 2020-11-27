@@ -281,13 +281,11 @@
 
     // CALLBACK GET POD'S DETAIL
     var callbackGetDetail = function(data) {
-
-
         procViewLoading('show');
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Pods 상세 조회에 실패하였습니다.', false);
             return;
         }
 

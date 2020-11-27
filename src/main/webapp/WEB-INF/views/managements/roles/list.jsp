@@ -75,7 +75,7 @@
     var callbackgetRolesList = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Roles 목록 조회에 실패하였습니다.', false);
             return false;
         }
 

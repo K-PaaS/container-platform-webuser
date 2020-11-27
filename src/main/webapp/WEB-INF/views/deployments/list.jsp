@@ -82,7 +82,7 @@
     var callbackGetDeploymentsList = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Deployments 목록 조회에 실패하였습니다.', false);
             return false;
         }
 

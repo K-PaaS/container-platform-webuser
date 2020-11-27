@@ -129,7 +129,7 @@
         if (!procCheckValidData(data)) {
             noResultAreaForNameSpaceDetails.show();
             procViewLoading('hide');
-            procAlertMessage('Get NameSpaces Failure.', false);
+            procAlertMessage('Namespaces 상세 조회에 실패하였습니다.', false);
 
             return false;
         }
@@ -165,7 +165,7 @@
             $("#detailTab").append(html);
 
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('ResourceQuotas 상세 조회에 실패하였습니다.', false);
 
             return false;
         }
@@ -217,7 +217,7 @@
             $("#detailTab").append(html);
 
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('LimitRanges 목록 조회에 실패하였습니다.', false);
 
             return false;
         }

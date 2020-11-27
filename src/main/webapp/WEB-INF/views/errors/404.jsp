@@ -44,6 +44,27 @@
             border: 0;
             border-top: 1px solid #ccc;
         }
+        #pageBtn {
+            background-color: white;
+            border: 2px solid #e7e7e7;
+            color: black;
+            padding: 5px 38px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        #pageBtn:hover {
+            background-color: #e7e7e7;
+        }
+
+        #pageBtn:focus {
+            outline: 0;
+        }
     </style>
 </head>
 <body>
@@ -61,6 +82,9 @@
                 <div class="panel-body" style="">
                     <span style="">페이지를 찾을 수 없습니다.</span>
                     <hr/>
+                    <div class="form-group">
+                        <button type="button" id="pageBtn" onclick="location.href='/container-platform/intro/overview'">메인화면으로 이동</button>
+                    </div>
                 </div>
             </div>
         </div>

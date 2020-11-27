@@ -65,12 +65,17 @@ var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
             if (jqXHR.status == 401) {
                 procAlertMessage('API unauthorized.', false);
             } else if (jqXHR.status == 500) {
-                procAlertMessage();
+                procAlertMessage('Internal Server Error.', false);
             }
         },
         complete: function (data) {
             // SKIP
             console.log("COMPLETE :: data :: ", data);
+
+            var responseJSON = data.responseJSON;
+            if(reqMethod === "GET" && responseJSON.resultCode === "FAIL") {
+                procAlertMessage(responseJSON.resultMessage);
+            }
         }
     });
 };

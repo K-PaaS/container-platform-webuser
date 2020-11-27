@@ -321,7 +321,7 @@
     var callbackGetUser = function(data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('사용자 상세 조회에 실패하였습니다.', false);
             return false;
         }
 
@@ -355,7 +355,7 @@
     var callbackGetAccessToken = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Access 정보 조회에 실패하였습니다.', false);
             return false;
         }
 

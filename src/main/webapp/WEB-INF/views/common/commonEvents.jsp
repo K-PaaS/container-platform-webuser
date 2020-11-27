@@ -69,7 +69,7 @@
     var callbackProcGetCommonEventsList = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Events 목록 조회에 실패하였습니다.', false);
             return false;
         }
 

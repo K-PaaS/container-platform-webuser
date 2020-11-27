@@ -51,7 +51,7 @@
     var callbackProcGetCommonDetailYaml = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Yaml 조회에 실패하였습니다.', false);
             return false;
         }
 

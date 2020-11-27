@@ -139,7 +139,7 @@
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('ReplicaSets 상세 조회에 실패하였습니다.', false);
             return false;
         }
         var replicaSetName      = data.metadata.name;
@@ -195,7 +195,7 @@
     var callbackGetDeploymentsInfo = function(data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Deployments 상세 조회에 실패하였습니다.', false);
             return false;
         }
     };
@@ -218,7 +218,7 @@
     var callbackGetServices = function(data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Services 상세 조회에 실패하였습니다.', false);
             return false;
         }
         var serviceName,

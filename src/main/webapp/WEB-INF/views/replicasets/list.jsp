@@ -102,7 +102,7 @@
     var callbackGetReplicaSetsList = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('ReplicaSets 목록 조회에 실패하였습니다.', false);
             return false;
         }
 

@@ -73,7 +73,7 @@
     // GET PODS' LIST USING REQUEST URL FOR OTHER WORKLOADS
     var getPodListUsingRequestURL = function (reqUrl) {
         procCallAjax(reqUrl, 'GET', null, null, callbackGetPodList);
-    }
+    };
 
     // GET PODS' LIST FOR OTHER PAGES
     var getPodsList = function (offset, limit, searchName) {
@@ -90,7 +90,7 @@
     var callbackGetPodList = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Pods 목록 조회에 실패하였습니다.', false);
             return false;
         }
 
