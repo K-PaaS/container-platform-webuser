@@ -228,11 +228,11 @@ public class PodsController {
      * @param namespace   the namespace
      * @param serviceName the service name
      * @param selector    the selector
-     * @param offset     the offset
-     * @param limit      the limit
-     * @param orderBy    the orderBy
-     * @param order      the order
-     * @param searchName the searchName
+     * @param offset      the offset
+     * @param limit       the limit
+     * @param orderBy     the orderBy
+     * @param order       the order
+     * @param searchName  the searchName
      * @return the pods list
      */
     @ApiOperation(value = "Services Selector 에 의한 Pods 목록 조회(Get Pods List By Service Selector)", nickname = "getPodListBySelectorWithService")
@@ -258,7 +258,7 @@ public class PodsController {
                                                     @RequestParam(required = false, defaultValue = "creationTime") String orderBy,
                                                     @RequestParam(required = false, defaultValue = "desc") String order,
                                                     @RequestParam(required = false, defaultValue = "") String searchName) {
-        PodsList podsList = podsService.getPodListBySelector(cluster, namespace, selector, "", "",offset, limit, orderBy, order, searchName);
+        PodsList podsList = podsService.getPodListBySelector(cluster, namespace, selector, "", "", offset, limit, orderBy, order, searchName);
         podsList.setServiceName(serviceName);  // FOR DASHBOARD
         podsList.setSelector(selector);        // FOR DASHBOARD
 
@@ -268,9 +268,9 @@ public class PodsController {
     /**
      * Node 명에 의한 Pods 목록 조회(Get Pods List By Node Name)
      *
-     * @param cluster   the cluster
-     * @param namespace the namespace
-     * @param nodeName  the nodes name
+     * @param cluster    the cluster
+     * @param namespace  the namespace
+     * @param nodeName   the nodes name
      * @param offset     the offset
      * @param limit      the limit
      * @param orderBy    the orderBy
