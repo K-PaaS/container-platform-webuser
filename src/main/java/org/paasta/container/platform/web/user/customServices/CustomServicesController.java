@@ -58,11 +58,13 @@ public class CustomServicesController {
      * Services detail 페이지 이동(Move Services detail page)
      *
      * @param httpServletRequest the http servlet request
+     * @param serviceName        the service name
      * @return the custom services detail
      */
     @ApiOperation(value = "Services detail 페이지 이동(Move Services detail page)", nickname = "getCustomServicesDetail")
     @GetMapping(value = Constants.URI_SERVICES + "/{serviceName:.+}")
-    public ModelAndView getCustomServicesDetail(HttpServletRequest httpServletRequest) {
+    public ModelAndView getCustomServicesDetail(HttpServletRequest httpServletRequest,
+                                                @PathVariable(value = "serviceName") String serviceName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/detail", new ModelAndView());
     }
 
@@ -71,11 +73,13 @@ public class CustomServicesController {
      * Services event 페이지 이동(Move Services event page)
      *
      * @param httpServletRequest the http servlet request
+     * @param serviceName        the service name
      * @return the custom services event
      */
     @ApiOperation(value = "Services event 페이지 이동(Move Services event page)", nickname = "getCustomServicesDetailEvents")
     @GetMapping(value = Constants.URI_SERVICES + "/{serviceName:.+}/events")
-    public ModelAndView getCustomServicesDetailEvents(HttpServletRequest httpServletRequest) {
+    public ModelAndView getCustomServicesDetailEvents(HttpServletRequest httpServletRequest,
+                                                      @PathVariable(value = "serviceName") String serviceName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/events", new ModelAndView());
     }
 
@@ -84,11 +88,13 @@ public class CustomServicesController {
      * Services yaml 페이지 이동(Move Services yaml page)
      *
      * @param httpServletRequest the http servlet request
+     * @param serviceName        the service name
      * @return the custom services yaml
      */
     @ApiOperation(value = "Services yaml 페이지 이동(Move Services yaml page)", nickname = "getCustomServicesDetailYaml")
     @GetMapping(value = Constants.URI_SERVICES + "/{serviceName:.+}/yaml")
-    public ModelAndView getCustomServicesDetailYaml(HttpServletRequest httpServletRequest) {
+    public ModelAndView getCustomServicesDetailYaml(HttpServletRequest httpServletRequest,
+                                                    @PathVariable(value = "serviceName") String serviceName) {
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/yaml", new ModelAndView());
     }
 
