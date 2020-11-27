@@ -162,7 +162,7 @@ public class PersistentVolumeClaimsController {
     public PersistentVolumeClaims getPersistentVolumeClaims(@PathVariable(value = "cluster") String cluster,
                                                             @PathVariable(value = "namespace") String namespace,
                                                             @PathVariable(value = "persistentVolumeClaimName") String persistentVolumeClaimName) {
-        return persistentVolumeClaimsService.getPersistentVolumeClaims(cluster,namespace, persistentVolumeClaimName);
+        return persistentVolumeClaimsService.getPersistentVolumeClaims(cluster, namespace, persistentVolumeClaimName);
     }
 
 
