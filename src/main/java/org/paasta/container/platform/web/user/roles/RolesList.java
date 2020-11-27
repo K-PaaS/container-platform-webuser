@@ -1,6 +1,7 @@
 package org.paasta.container.platform.web.user.roles;
 
 import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ public class RolesList {
 
     private String resultCode;
     private String resultMessage;
-    private Map<String,Object> metadata;
+    private Map<String, Object> metadata;
     private Map<String, Object> itemMetaData;
     private List<Roles> items;
 

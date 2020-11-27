@@ -31,7 +31,7 @@ public class RolesController {
     /**
      * Instantiates a new roles Roles controller
      *
-     * @param commonService  the common service
+     * @param commonService the common service
      * @param rolesService  the roles service
      */
     @Autowired
@@ -58,7 +58,7 @@ public class RolesController {
      * Roles detail 페이지 이동(Move Roles detail page)
      *
      * @param httpServletRequest the http servlet request
-     * @param roleName the role name
+     * @param roleName           the role name
      * @return the roles detail
      */
     @ApiOperation(value = "Roles detail 페이지 이동(Move Roles detail page)", nickname = "getRolesDetail")
@@ -76,7 +76,7 @@ public class RolesController {
      * Roles event 페이지 이동(Move Roles event page)
      *
      * @param httpServletRequest the http servlet request
-     * @param roleName the role name
+     * @param roleName           the role name
      * @return the roles event
      */
     @ApiOperation(value = "Roles event 페이지 이동(Move Roles event page)", nickname = "getRolesDetailEvents")
@@ -94,7 +94,7 @@ public class RolesController {
      * Roles yaml 페이지 이동(Move Roles yaml page)
      *
      * @param httpServletRequest the http servlet request
-     * @param roleName the role name
+     * @param roleName           the role name
      * @return the roles yaml
      */
     @ApiOperation(value = "Roles yaml 페이지 이동(Move Roles yaml page)", nickname = "getRolesDetailYaml")
@@ -144,13 +144,12 @@ public class RolesController {
     }
 
 
-
     /**
      * Roles 상세 조회(Get Roles detail)
      *
      * @param cluster   the cluster
      * @param namespace the namespace
-     * @param roleName the roles name
+     * @param roleName  the roles name
      * @return the roles detail
      */
     @ApiOperation(value = "Roles 상세 조회(Get Roles detail)", nickname = "getRoles")
@@ -172,7 +171,7 @@ public class RolesController {
      *
      * @param cluster   the cluster
      * @param namespace the namespace
-     * @param roleName the roles name
+     * @param roleName  the roles name
      * @return the roles yaml
      */
     @ApiOperation(value = "Roles YAML 조회(Get Roles yaml)", nickname = "getRolesYaml")

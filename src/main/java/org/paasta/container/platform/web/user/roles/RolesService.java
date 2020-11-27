@@ -43,7 +43,7 @@ public class RolesService {
      * @return the roles list
      */
     RolesList getRolesList(String cluster, String namespace, int offset, int limit, String orderBy, String order, String searchName) {
-        
+
         String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
 
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_ROLES_LIST
