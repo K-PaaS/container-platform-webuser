@@ -1,10 +1,10 @@
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%--
   ReplicaSets detail
   @author kjhoon
   @version 1.0
   @since 2020.08.25
 --%>
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -155,7 +155,7 @@
         replicasetLabel = data.spec.selector.matchLabels;
 
         //set Labels, UID by ReplicaSets details view
-        ownerParamForPodsByReplicaSets = replaceLabels(labels) + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
+        ownerParamForPodsByReplicaSets = selector + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
 
         var containers = data.spec.template.spec.containers;
         for(var i=0; i < containers.length; i++){
