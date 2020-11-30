@@ -305,30 +305,32 @@
 
         if (cpuSum <= -1) {
             cpuSum = '-';
-        } else if (cpuSum > 1000) {
-            var cpuFloat = Number.parseFloat(cpuSum / 1000).toFixed(3);
-            var cpuInt = Number.parseInt(cpuSum / 1000);
+        } else if (cpuSum > (1000*1000)) {
+            var cpuFloat = Number.parseFloat(cpuSum / (1000*1000)).toFixed(2);
+            var cpuInt = Number.parseInt(cpuSum / (1000*1000));
             if (Math.abs(cpuFloat - cpuInt) === 0) {
                 cpuSum = cpuInt;
             } else {
                 cpuSum = cpuFloat;
             }
         } else {
-            cpuSum += 'm';
+            var cpuFloat = Number.parseFloat(cpuSum / 1000).toFixed(2);
+            cpuSum = cpuFloat + 'm';
         }
 
         if (memorySum <= -1) {
             memorySum = '-';
-        } else if (memorySum > 102400) {
-            var memoryFloat = Number.parseFloat(memorySum / 1024).toFixed(3);
-            var memoryInt = Number.parseInt(memorySum / 1024);
+        } else if (memorySum > (1024*1024)) {
+            var memoryFloat = Number.parseFloat(memorySum / (1024*1024)).toFixed(2);
+            var memoryInt = Number.parseInt(memorySum / (1024*1024));
             if (Math.abs(memoryFloat - memoryInt) === 0) {
                 memorySum = memoryInt + 'Gi';
             } else {
                 memorySum = memoryFloat + 'Gi';
             }
         } else {
-            memorySum += 'Mi';
+            var memoryFloat = Number.parseFloat(memorySum / 1024).toFixed(2);
+            memorySum = memoryFloat + 'Mi';
         }
 
         return {
