@@ -137,9 +137,9 @@
                 var namespace = itemList.metadata.namespace;
                 var labels = procSetSelector(itemList.metadata.labels);
                 var replicaSetUid = itemList.metadata.uid;
-
+                var selector = procSetSelector(itemList.spec.selector.matchLabels); // 필수값
                 //set Labels, UID by Deployment details view
-                ownerParamForPodsByReplicaSets = replaceLabels(labels) + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
+                ownerParamForPodsByReplicaSets = selector + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
 
 
                 var creationTimestamp = itemList.metadata.creationTimestamp;

@@ -1,10 +1,10 @@
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%--
   ReplicaSets detail
   @author kjhoon
   @version 1.0
   @since 2020.08.25
 --%>
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -155,7 +155,7 @@
         replicasetLabel = data.spec.selector.matchLabels;
 
         //set Labels, UID by ReplicaSets details view
-        ownerParamForPodsByReplicaSets = replaceLabels(labels) + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
+        ownerParamForPodsByReplicaSets = selector + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
 
         var containers = data.spec.template.spec.containers;
         for(var i=0; i < containers.length; i++){
@@ -253,6 +253,7 @@
         var listLength = items.length;
         var endpoints = "";
         var htmlString = [];
+        var serviceListCount = 0;
 
         // replicaset에서 자동으로 생성되는 hash label은 비교 대상에서 삭제한다.
         if(replicasetLabel["pod-template-hash"] !== undefined){
@@ -266,6 +267,7 @@
                 continue;
             }
 
+            serviceListCount ++;
             serviceName = items[i].metadata.name;
             selector = procSetSelector(items[i].spec.selector);
             endpointsPreString = serviceName + "." + items[i].metadata.namespace + ":";
@@ -313,7 +315,7 @@
 
         }
 
-        if (listLength < 1) {
+        if (serviceListCount < 1) {
             resultHeaderArea.hide();
             resultArea.hide();
             noResultArea.show();
