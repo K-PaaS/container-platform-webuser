@@ -248,71 +248,69 @@
         var resultHeaderArea = $('#resultHeaderAreaForService');
         var noResultArea     = $('#noResultAreaForServices');
         var resultTable      = $('#resultTableForServices');
+
         var items = data.items;
         var listLength = items.length;
         var endpoints = "";
         var htmlString = [];
-        var replicasetLableArray = [];
-
-        replicasetLableArray.push(replicasetLabel);
-
-        for(var key in replicasetLabel) {
-            var tempReplicasetLable = {};
-            tempReplicasetLable[key] = replicasetLabel[key];
-            replicasetLableArray.push(tempReplicasetLable);
-        }
 
         // replicaset에서 자동으로 생성되는 hash label은 비교 대상에서 삭제한다.
+        if(replicasetLabel["pod-template-hash"] !== undefined){
+            delete replicasetLabel["pod-template-hash"];
+        }
 
-        if(replicasetLabel !== null) {
-            if(replicasetLabel["pod-template-hash"] !== undefined){
-                delete replicasetLabel["pod-template-hash"];
+        for (var i = 0; i < listLength; i++) {
+
+            // replicaset 과 service의 spec.selector 를 비교해서 같은 항목의 서비스만 출력하도록 한다.
+            if(!procCompareObj(items[i].spec.selector, replicasetLabel)){
+                continue;
             }
-            for (var i = 0; i < listLength; i++) {
-                // replicaset 과 service의 spec.selector 를 비교해서 같은 항목의 서비스만 출력하도록 한다.
 
-                for(var j = 0 ; j < replicasetLableArray.length ; j++) {
-                    if(procCompareObj(items[i].spec.selector, replicasetLableArray[j])) {
-                        serviceName = items[i].metadata.name;
-                        selector = procSetSelector(items[i].spec.selector);
-                        endpointsPreString = serviceName + "." + items[i].metadata.namespace + ":";
-                        nodePort = items[i].spec.ports.nodePort;
-                        var labels = procSetSelector(items[i].metadata.labels);
-                        specPortsList = items[i].spec.ports;
-                        if (nvl(specPortsList) !== '') {
-                            specPortsListLength = specPortsList.length;
-                            for (var j = 0; j < specPortsListLength; j++) {
-                                nodePort = nvl(specPortsList[j].nodePort, '0');
-                                endpointProtocol = specPortsList[j].protocol;
-                                endpointWithSpecPort = endpointsPreString + specPortsList[j].port + " " + endpointProtocol;
-                                endpointWithNodePort = endpointsPreString + nodePort + " " + endpointProtocol;
-                                endpoints += '<p>' + endpointWithSpecPort + '</p>' + '<p>' + endpointWithNodePort + '</p>';
-                            }
-                        }
-                        //External Endpoints
-                        var externalEndpoints = [];
-                        externalEndpoints = items[i].spec.externalIPs;
-                        if( (externalEndpoints != null) && (externalEndpoints.length > 0) ){
-                            externalEndpoints = externalEndpoints.join('</BR>')
-                        }else{
-                            externalEndpoints = "-";
-                        }
-                        htmlString.push(
-                            "<tr>"
-                            + "<td><span class='green2'><i class='fas fa-check-circle'></i></span> "
-                            + "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.CP_BASE_URL %>/services/"
-                            + serviceName + "\");'>" + serviceName + "</a>"
-                            + "</td>"
-                            + "<td>" + procCreateSpans(labels, "LB") + "</td>"
-                            + "<td>" + items[i].spec.clusterIP + "</td>"
-                            + "<td>" + endpoints + "</td>"
-                            + "<td>" + externalEndpoints + "</td>"
-                            + "<td>" + items[i].metadata.creationTimestamp + "</td>"
-                            + "</tr>");
-                        endpoints = "";
-                    }
+            serviceName = items[i].metadata.name;
+            selector = procSetSelector(items[i].spec.selector);
+            endpointsPreString = serviceName + "." + items[i].metadata.namespace + ":";
+            nodePort = items[i].spec.ports.nodePort;
+
+            var labels = procSetSelector(items[i].metadata.labels);
+            specPortsList = items[i].spec.ports;
+
+            if (nvl(specPortsList) !== '') {
+                specPortsListLength = specPortsList.length;
+
+                for (var j = 0; j < specPortsListLength; j++) {
+                    nodePort = nvl(specPortsList[j].nodePort, '0');
+                    endpointProtocol = specPortsList[j].protocol;
+                    endpointWithSpecPort = endpointsPreString + specPortsList[j].port + " " + endpointProtocol;
+                    endpointWithNodePort = endpointsPreString + nodePort + " " + endpointProtocol;
+
+                    endpoints += '<p>' + endpointWithSpecPort + '</p>' + '<p>' + endpointWithNodePort + '</p>';
                 }
             }
+
+            //External Endpoints
+            var externalEndpoints = [];
+            externalEndpoints = items[i].spec.externalIPs;
+
+            if( (externalEndpoints != null) && (externalEndpoints.length > 0) ){
+                externalEndpoints = externalEndpoints.join('</BR>')
+            }else{
+                externalEndpoints = "-";
+            }
+
+            htmlString.push(
+                "<tr>"
+                + "<td><span class='green2'><i class='fas fa-check-circle'></i></span> "
+                + "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.CP_BASE_URL %>/services/"
+                + serviceName + "\");'>" + serviceName + "</a>"
+                + "</td>"
+                + "<td>" + procCreateSpans(labels, "LB") + "</td>"
+                + "<td>" + items[i].spec.clusterIP + "</td>"
+                + "<td>" + endpoints + "</td>"
+                + "<td>" + externalEndpoints + "</td>"
+                + "<td>" + items[i].metadata.creationTimestamp + "</td>"
+                + "</tr>");
+            endpoints = "";
+
         }
 
         if (listLength < 1) {
@@ -324,13 +322,17 @@
             resultHeaderArea.show();
             resultArea.show();
             resultArea.html(htmlString);
+
             resultTable.tablesorter({
                 sortList: [[5, 1]] // 0 = ASC, 1 = DESC
             });
+
             resultTable.trigger("update");
         }
+
         procSetToolTipForTableTd('resultAreaForService');
         procViewLoading('hide');
+
     };
     // ON LOAD
     $(document.body).ready(function () {
