@@ -125,6 +125,7 @@
 <input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">
+    var ownerParamForPodsByReplicaSets ='';
     var replicasetLabel = ""; // it label variable for Search Service List
     // GET DETAIL
     var getDetail = function() {
@@ -152,6 +153,10 @@
         var replicaSetUid       = data.metadata.uid;
         // 서비스 리스트를 조회하기 위한 replicaset label 참조
         replicasetLabel = data.spec.selector.matchLabels;
+
+        //set Labels, UID by ReplicaSets details view
+        ownerParamForPodsByReplicaSets = replaceLabels(labels) + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
+
         var containers = data.spec.template.spec.containers;
         for(var i=0; i < containers.length; i++){
             images.push(containers[i].image);
@@ -167,7 +172,7 @@
         $('#hiddenNamespace').val(namespace);
         $('#hiddenResourceName').val(replicaSetName);
         getDeploymentsInfo(data);
-        getDetailForPodsList(selector,replicaSetUid);
+        getDetailForPodsList(ownerParamForPodsByReplicaSets, null);
         getServices();
     };
     // GET DEPLOYMENTS INFO
@@ -199,14 +204,23 @@
             return false;
         }
     };
+
     // GET DETAIL FOR PODS LIST
-    var getDetailForPodsList = function(selector,replicaSetUid) {
-        var param = "?selector=" + selector + "&type=replicaSets" + "&ownerReferencesUid="+ replicaSetUid ;
+    var getDetailForPodsList = function(selector, searchName) {
+        var param = "?selector=" + selector ;
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>" + param;
         reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
 
+        if (searchName != null) {
+            reqUrl += "&searchName=" + searchName;
+        }
+
         getPodListUsingRequestURL(reqUrl);
+        procViewLoading('hide');
     };
+
+
+
     // GET SERVICE LIST
     var getServices = function() {
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SERVICES_LIST%>"

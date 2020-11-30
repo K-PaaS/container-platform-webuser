@@ -59,7 +59,8 @@
 <script type="text/javascript" src='<c:url value="/resources/js/highcharts.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/data.js"/>'></script>
 <script type="text/javascript">
-
+    var G_NODE_NAME = '';
+    var ownerParamForPodsByNodes ='';
     // GET NODE
     var getNode = function() {
         var resourceName = '<c:out value="${nodeName}" default="" />';
@@ -85,17 +86,15 @@
             return;
         }
 
-        var nodeName = data.metadata.name;
+        G_NODE_NAME = data.metadata.name;
         var conditions = data.status.conditions;
         $.each(conditions, function(index, condition) {
             condition.lastHeartbeatTime = condition.lastHeartbeatTime.replace(/T/g, ' ').replace(/Z$/g, '');
             condition.lastTransitionTime = condition.lastTransitionTime.replace(/T/g, ' ').replace(/Z$/g, '');
         });
 
-        // SET PODS TABLE
-        var podListReqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_NODE %>'
-            .replace("{cluster:.+}", CLUSTER_NAME).replace('{namespace:.+}', NAME_SPACE).replace('{nodeName:.+}', nodeName);
-        getPodListUsingRequestURL(podListReqUrl);
+        // SET POD'S LIST
+        getDetailForPodsList(ownerParamForPodsByNodes, null);
 
         // SET NODE'S CONDITIONS
         var contents = [];
@@ -131,4 +130,20 @@
     $(document.body).ready(function() {
         getNode();
     });
+</script>
+<script>
+    // GET DETAIL FOR PODS LIST
+    var getDetailForPodsList = function(selector, searchName) {
+        var reqUrl ='<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_NODE %>';
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace('{namespace:.+}', NAME_SPACE).replace('{nodeName:.+}', G_NODE_NAME);
+
+        if (searchName != null) {
+            reqUrl += "?searchName=" + searchName;
+        }
+
+        getPodListUsingRequestURL(reqUrl);
+
+
+    };
+
 </script>

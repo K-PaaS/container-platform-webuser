@@ -402,9 +402,19 @@
 
 
         if (typeof ownerParamForPodsByReplicaSets !== 'undefined') {
+            //search by replicaSets
             getDetailForPodsList(ownerParamForPodsByReplicaSets, G_PODS_LIST_SEARCH_KEYWORD);
         }
+        else if (typeof ownerParamForPodsByServices !== 'undefined') {
+            //search by services
+            getDetailForPodsList(ownerParamForPodsByServices, G_PODS_LIST_SEARCH_KEYWORD);
+        }
+        else if (typeof ownerParamForPodsByNodes !== 'undefined') {
+            //search by nodes
+            getDetailForPodsList(ownerParamForPodsByNodes, G_PODS_LIST_SEARCH_KEYWORD);
+        }
         else {
+            // search by pods
             $("#" + G_PODS_MORE_BTN_ID).css("display", "block");
             getPodsList(0, G_PODS_LIST_LIMIT_COUNT, G_PODS_LIST_SEARCH_KEYWORD);
         }

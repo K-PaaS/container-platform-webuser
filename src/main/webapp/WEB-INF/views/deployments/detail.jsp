@@ -188,7 +188,7 @@
         getReplicaSetsList(ownerParamForReplicaSetsByDeployments ,0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
 
         // get Pods List By Deployment
-        getDetailForPodsList(ownerParamForPodsByReplicaSets);
+        getDetailForPodsList(ownerParamForPodsByReplicaSets, null);
 
     };
 

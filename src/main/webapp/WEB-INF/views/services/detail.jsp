@@ -116,6 +116,8 @@
 
 <script type="text/javascript">
 
+    var ownerParamForPodsByServices ='';
+
     // GET DETAIL
     var getDetail = function() {
         procViewLoading('show');
@@ -214,13 +216,30 @@
 
         procViewLoading('hide');
 
+        ownerParamForPodsByServices = selector ;
+        getDetailForPodsList(ownerParamForPodsByServices, null);
+        getDetailForEndpoints();
+    };
+
+
+
+    // GET DETAIL FOR PODS LIST
+    var getDetailForPodsList = function(selector, searchName) {
         var param = "?selector=" + selector ;
+
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE %>" + param;
         reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE).replace("{serviceName:.+}", "_all");
 
+        if (searchName != null) {
+            reqUrl += "&searchName=" + searchName;
+        }
+
         getPodListUsingRequestURL(reqUrl);
-        getDetailForEndpoints();
+        procViewLoading('hide');
     };
+
+
+
 
 
     // GET DETAIL FOR ENDPOINTS
