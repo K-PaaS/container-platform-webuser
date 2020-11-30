@@ -23,7 +23,7 @@
                                 <col style='width:20%;'>
                                 <col style='width:20%;'>
                                 <col style='width:auto;'>
-                                <col style='width:25%;'>
+                                <col style='width:18%;'>
                             </colgroup>
                             <thead>
                             <tr id="noResultArea" style="display: none;"><td colspan='4'><p class='user_p'>사용자가 존재하지 않습니다.</p></td></tr>
@@ -55,6 +55,7 @@
     var ROLE_SELECT_BOX_HTML;
     var NOT_ASSIGNED_ROLE = "<%= Constants.NOT_ASSIGNED_ROLE%>";
     var NAMESPACE_ADMIN = "<%= Constants.NAMESPACE_ADMIN%>";
+    var DEFAULT_ADMIN_ROLE = "<%= Constants.DEFAULT_ADMIN_ROLE%>";
 
     // GET LIST
     var getUsersList = function() {
@@ -103,16 +104,24 @@
                 checkBox = "<input type='checkbox' name='checkbox_name' style='opacity: 1; position: static'>"
             }
 
-            var selectRole = "<option>" + NOT_ASSIGNED_ROLE + "</option>";
+            var selectRole = "";
 
-            for(var j = 0; j < G_ROLES_LIST.length; j++) {
-                var roleName = G_ROLES_LIST[j].metadata.name;
-                if((NAME_SPACE === G_USERS_LIST[i].roleSetCode) && (NAMESPACE_ADMIN === G_USERS_LIST[i].userType)) {
-                    selectRole  += "<option name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
-                } else if(roleName === G_USERS_LIST[i].roleSetCode) {
-                    selectRole  += "<option selected name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
-                } else {
-                    selectRole  += "<option name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
+            if((NAME_SPACE === G_USERS_LIST[i].cpNamespace) && (NAMESPACE_ADMIN === G_USERS_LIST[i].userType) && (DEFAULT_ADMIN_ROLE === G_USERS_LIST[i].roleSetCode)) {
+                selectRole = "<select disabled='disabled' class='defaultNsRole'><option selected>" + G_USERS_LIST[i].roleSetCode + "</option>";
+            } else {
+                selectRole = "<select class='roleList'><option>" + NOT_ASSIGNED_ROLE + "</option>";
+
+                for(var j = 0; j < G_ROLES_LIST.length; j++) {
+                    var defaultAdminRole = "<%= Constants.DEFAULT_ADMIN_ROLE %>";
+                    var roleName = G_ROLES_LIST[j].metadata.name;
+
+                    if(defaultAdminRole !== roleName) {
+                        if(roleName === G_USERS_LIST[i].roleSetCode) {
+                            selectRole  += "<option selected name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
+                        } else {
+                            selectRole  += "<option name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
+                        }
+                    }
                 }
             }
 
@@ -121,7 +130,7 @@
                 + "<td>" + checkBox + "</td>"
                 + "<td class='userId'>" + G_USERS_LIST[i].userId + "</td>"
                 + "<td>" + G_USERS_LIST[i].serviceAccountName + "</td>"
-                + "<td><select class='roleList'>" + selectRole + "</select></td>"
+                + "<td>" + selectRole + "</select></td>"
                 + "<td>" + G_USERS_LIST[i].created + "</td>"
                 + "</td>"
                 + "</tr>");

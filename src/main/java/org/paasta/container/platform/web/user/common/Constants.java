@@ -18,6 +18,7 @@ public class Constants {
 
     public static final String NOT_ASSIGNED_ROLE = "NOT_ASSIGNED_ROLE";
     public static final String NAMESPACE_ADMIN = "NAMESPACE_ADMIN";
+    public static final String DEFAULT_ADMIN_ROLE = "paas-ta-container-platform-admin-role";
 
     public static final String API_URL = "/api";
     public static final String CP_BASE_URL = "/container-platform";
