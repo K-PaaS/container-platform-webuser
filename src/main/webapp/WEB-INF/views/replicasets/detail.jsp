@@ -253,6 +253,7 @@
         var listLength = items.length;
         var endpoints = "";
         var htmlString = [];
+        var serviceListCount = 0;
 
         // replicaset에서 자동으로 생성되는 hash label은 비교 대상에서 삭제한다.
         if(replicasetLabel["pod-template-hash"] !== undefined){
@@ -266,6 +267,7 @@
                 continue;
             }
 
+            serviceListCount ++;
             serviceName = items[i].metadata.name;
             selector = procSetSelector(items[i].spec.selector);
             endpointsPreString = serviceName + "." + items[i].metadata.namespace + ":";
@@ -313,7 +315,7 @@
 
         }
 
-        if (listLength < 1) {
+        if (serviceListCount < 1) {
             resultHeaderArea.hide();
             resultArea.hide();
             noResultArea.show();
