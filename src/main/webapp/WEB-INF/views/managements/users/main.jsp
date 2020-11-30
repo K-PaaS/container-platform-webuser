@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
-    <div class="cluster_tabs_user_config clearfix">
+    <div class="cluster_tabs_user_config clearfix" style="width: 100%">
         <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="updateUsersRolePage();">설정</button>
     </div>
     <div class="cluster_content01 row two_line two_view">
