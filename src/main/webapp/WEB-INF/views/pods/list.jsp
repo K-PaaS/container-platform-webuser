@@ -283,7 +283,11 @@
 
                     if (resource.cpu.indexOf('m') > 0) {
                         cpuSum += Number(resource.cpu.substring(0, resource.cpu.length - 1));
-                    } else {
+                    }
+                    else if (resource.cpu.indexOf('n') > 0) {
+                        cpuSum += Number(resource.cpu.substring(0, resource.cpu.length - 1));
+                    }
+                    else {
                         cpuSum += Number(resource.cpu) * 1000;
                     }
 
@@ -305,17 +309,9 @@
 
         if (cpuSum <= -1) {
             cpuSum = '-';
-        } else if (cpuSum > (1000*1000)) {
-            var cpuFloat = Number.parseFloat(cpuSum / (1000*1000)).toFixed(2);
-            var cpuInt = Number.parseInt(cpuSum / (1000*1000));
-            if (Math.abs(cpuFloat - cpuInt) === 0) {
-                cpuSum = cpuInt;
-            } else {
-                cpuSum = cpuFloat;
-            }
         } else {
-            var cpuFloat = Number.parseFloat(cpuSum / 1000).toFixed(2);
-            cpuSum = cpuFloat + 'm';
+            var cpuFloat = Number.parseFloat(cpuSum / (1000*1000));
+            cpuSum = Math.ceil(cpuFloat).toFixed(2) + 'm';
         }
 
         if (memorySum <= -1) {
