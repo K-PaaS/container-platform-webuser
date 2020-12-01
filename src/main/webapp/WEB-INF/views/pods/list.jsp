@@ -256,8 +256,8 @@
         }
         var restartCountSum = 0;
         for (var i = 0; i < containerStatuses.length; i++) {
-            if ('' !== nvl(containerStatuses.restartCount)) {
-                restartCountSum += containerStatuses.restartCount;
+            if ('' !== nvl(containerStatuses[i].restartCount)) {
+                restartCountSum += containerStatuses[i].restartCount;
             }
         }
 
