@@ -101,9 +101,6 @@
                 <div class="custom-access-title fa-pull-left">
                     <p>3. Cluster 등록</p>
                 </div>
-                <div class="custom-access-title-right fa-pull-right">
-                    <button type="button" class="btns colors4" onclick="return downloadCrtToken();">Download certificate file</button>
-                </div>
             </div>
             <div class="clearfix"></div>
             <div class="custom-access-contents-wrap">
@@ -112,7 +109,7 @@
                 </div>
                 <div class="custom-access-contents">
                     <div class="fa-pull-left" id="cpClusterForLinux">
-                        <p>kubectl config set-cluster \${CP_SERVICE_CLUSTER_NAME} --embed-certs=true --server=\${CP_SERVICE_CLUSTER_SERVER} --certificate-authority=[DOWNLOADED FILE PATH]</p>
+                        <p>kubectl config set-cluster \${CP_SERVICE_CLUSTER_NAME} --server=\${CP_SERVICE_CLUSTER_SERVER} --insecure-skip-tls-verify</p>
                     </div>
                     <div class="fa-pull-right">
                         <i class="fas fa-copy custom-access-copy-button" about="cpClusterForLinux"></i>
@@ -123,7 +120,7 @@
                 </div>
                 <div class="custom-access-contents">
                     <div class="fa-pull-left" id="cpClusterForWindows">
-                        <p>kubectl config set-cluster %CP_SERVICE_CLUSTER_NAME% --embed-certs=true --server=%CP_SERVICE_CLUSTER_SERVER% --certificate-authority=[DOWNLOADED FILE PATH]</p>
+                        <p>kubectl config set-cluster %CP_SERVICE_CLUSTER_NAME% --server=%CP_SERVICE_CLUSTER_SERVER% --insecure-skip-tls-verify</p>
                     </div>
                     <div class="fa-pull-right">
                         <i class="fas fa-copy custom-access-copy-button" about="cpClusterForWindows"></i>
@@ -245,7 +242,7 @@
             <div class="custom-access-contents-wrap">
                 <div class="custom-access-contents">
                     <div class="fa-pull-left" id="cpResourceCheck">
-                        <p>kubectl get all --insecure-skip-tls-verify</p>
+                        <p>kubectl get all</p>
                     </div>
                     <div class="fa-pull-right">
                         <i class="fas fa-copy custom-access-copy-button" about="cpResourceCheck"></i>
