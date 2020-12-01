@@ -43,8 +43,13 @@
 
 
     $("#createBtn").on('click', function () {
-        var code = "<p class='account_modal_p'>Resource를 등록하시겠습니까?</p>";
-        procSetLayerPopup('Resource 등록', code, '확인', '취소', 'x', 'createCommonResource()', null, null);
+        var yamlTextVal = $("#yamlText").val().trim();
+        if(yamlTextVal.length < 1) {
+            procAlertMessage("<%=Constants.NO_VALUE_INPUT%>");}
+        else {
+            var code = "<p class='account_modal_p'>Resource를 등록하시겠습니까?</p>";
+            procSetLayerPopup('Resource 등록', code, '확인', '취소', 'x', 'createCommonResource()', null, null);
+        }
     });
 
     var createCommonResource = function () {

@@ -88,8 +88,14 @@
 
     $("#updateBtn").on('click', function (event) {
 
-        var code = "<p class='account_modal_p'>Resource를 수정하시겠습니까?</p>";
-        procSetLayerPopup('Resource 수정', code, '확인', '취소', 'x', 'updateCommonResource()', null, null);
+        var yamlTextVal = $("#common_update_textarea").val().trim();
+
+        if(yamlTextVal.length < 1) {
+            procAlertMessage("<%=Constants.NO_VALUE_INPUT%>");}
+        else {
+            var code = "<p class='account_modal_p'>Resource를 수정하시겠습니까?</p>";
+            procSetLayerPopup('Resource 수정', code, '확인', '취소', 'x', 'updateCommonResource()', null, null);
+        }
     });
 
     //Update Resource Func

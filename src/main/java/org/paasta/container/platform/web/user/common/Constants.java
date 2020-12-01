@@ -137,6 +137,7 @@ public class Constants {
 
     public static final String REDIRECT_VIEW = "redirect:";
 
+    public static final String NO_VALUE_INPUT = "입력된 값이 없습니다.";
 
     private Constants() {
         throw new IllegalStateException();
