@@ -127,8 +127,7 @@ public class Constants {
     public static final String URI_API_COMMON_RESOURCE_DELETE = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/{resourceKind:.+}/{resourceName:.+}";
 
     //Private Registry
-    public static final String URI_API_PRIVATE_REGISTRY_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/privateRegistry/{repositoryName:.+}";
-
+    public static final String URI_API_PRIVATE_REGISTRY_DETAIL = "/privateRegistry/{imageName:.+}";
 
     public static final Integer OVERVIEW_LIMIT_COUNT = 5;
     public static final Integer DEFAULT_LIMIT_COUNT = 10;

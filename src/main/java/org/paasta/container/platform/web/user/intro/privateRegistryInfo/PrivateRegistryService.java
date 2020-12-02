@@ -26,16 +26,12 @@ public class PrivateRegistryService {
     /**
      * PrivateRegistry 상세 조회(Get PrivateRegistry detail)
      *
-     * @param cluster        the cluster
-     * @param namespace      the namespace
-     * @param repositoryName the repositoryName
+     * @param imageName the imageName
      * @return the private registry
      */
-    public PrivateRegistry getPrivateRegistry(String cluster, String namespace, String repositoryName) {
+    public PrivateRegistry getPrivateRegistry(String imageName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_PRIVATE_REGISTRY_DETAIL
-                        .replace("{cluster:.+}", cluster)
-                        .replace("{namespace:.+}", namespace)
-                        .replace("{repositoryName:.+}", repositoryName)
+                        .replace("{imageName:.+}", imageName)
                 , HttpMethod.GET, null, PrivateRegistry.class);
     }
 

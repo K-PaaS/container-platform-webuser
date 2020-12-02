@@ -58,7 +58,6 @@ public class PrivateRegistryInfoController {
     public ModelAndView getIntroAccessInfo(HttpServletRequest httpServletRequest) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("privateRegistryImageName", propertyService.getPrivateRegistryImageName());
-        mv.addObject("privateRegistryUrl", propertyService.getPrivateRegistryUrl());
 
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/privateRegistryInfo", mv);
     }
@@ -67,22 +66,16 @@ public class PrivateRegistryInfoController {
     /**
      * Private Registry 조회(Get Private Registry)
      *
-     * @param cluster        the cluster
-     * @param namespace      the namespace
-     * @param repositoryName the repositoryName
+     * @param imageName the imageName
      * @return the private registry
      */
     @ApiOperation(value = " Private Registry 조회(Get Private Registry)", nickname = "getPrivateRegistry")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "repositoryName", value = "레파지토리 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "imageName", value = "이미지 명", required = true, dataType = "string", paramType = "path"),
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_PRIVATE_REGISTRY_DETAIL)
     @ResponseBody
-    public PrivateRegistry getPrivateRegistry(@PathVariable("cluster") String cluster,
-                                              @PathVariable("namespace") String namespace,
-                                              @PathVariable("repositoryName") String repositoryName) {
-        return privateRegistryService.getPrivateRegistry(cluster, namespace, repositoryName);
+    public PrivateRegistry getPrivateRegistry(@PathVariable("imageName") String imageName) {
+        return privateRegistryService.getPrivateRegistry(imageName);
     }
 }

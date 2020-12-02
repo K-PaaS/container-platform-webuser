@@ -1,9 +1,10 @@
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %><%--
+<%--
   Private Registry Info
   @author kjhoon
   @version 1.0
   @since 2020.09.07
 --%>
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="content">
@@ -159,15 +160,11 @@
 
 <script type="text/javascript">
     var G_GUIDE_DOCKER_IMAGE_NAME;
-    var G_GUIDE_CLUSTER_URI;
 
     var getRegistryInfo = function () {
         procViewLoading('show');
-        G_GUIDE_DOCKER_IMAGE_NAME = '<c:out value="${privateRegistryImageName}" />';
-        G_GUIDE_CLUSTER_URI = '<c:out value="${privateRegistryUrl}" />';
 
         $('.dockerImageName').html(G_GUIDE_DOCKER_IMAGE_NAME);
-        $('.cpMasterUrl').html(G_GUIDE_CLUSTER_URI);
         $('.nameSpace').html(NAME_SPACE);
 
         procViewLoading('hide');
@@ -181,26 +178,26 @@
         procSetLayerPopup('알림', resultString, '확인', null, 'x', null, null, null);
     });
 
-    var getDetail = function () {
+    var getPrivateRegistryDetail = function () {
         procViewLoading('show');
-
+        var imageName= '<c:out value="${privateRegistryImageName}" />';
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PRIVATE_REGISTRY_DETAIL %>"
-            .replace("{cluster:.+}", CLUSTER_NAME)
-            .replace("{namespace:.+}", NAME_SPACE)
-            .replace("{repositoryName:.+}", "registry");
-      console.log(reqUrl);
-        procCallAjax(reqUrl, "GET", null, null, callbackGetDetail);
+            .replace("{imageName:.+}", imageName);
+
+        procCallAjax(reqUrl, "GET", null, null, callbackGetPrivateRegistryDetail);
     };
 
-    var callbackGetDetail = function (data) {
-        console.log(data);
+    var callbackGetPrivateRegistryDetail = function (data) {
 
+        var repositoryUrl = data.repositoryUrl;
+        var imageName = data.imageName;
+        var imageVersion = data.imageVersion;
+        G_GUIDE_DOCKER_IMAGE_NAME = repositoryUrl +'/' + imageName + ':' + imageVersion;
     };
 
     // ON LOAD
     $(document.body).ready(function () {
-        getDetail();
+        getPrivateRegistryDetail();
         getRegistryInfo();
-
     });
 </script>
