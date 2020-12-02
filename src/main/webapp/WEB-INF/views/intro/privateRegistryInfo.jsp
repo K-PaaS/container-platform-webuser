@@ -1,4 +1,4 @@
-<%--
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %><%--
   Private Registry Info
   @author kjhoon
   @version 1.0
@@ -62,7 +62,8 @@
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;spec:</p>
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containers:</p>
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: private-registry</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image: <span class="dockerImageName"></span></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image: <span class="dockerImageName"></span>
+                        </p>
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ports:</p>
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- containerPort: 5000</p>
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imagePullSecrets:</p>
@@ -180,9 +181,26 @@
         procSetLayerPopup('알림', resultString, '확인', null, 'x', null, null, null);
     });
 
+    var getDetail = function () {
+        procViewLoading('show');
+
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PRIVATE_REGISTRY_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
+            .replace("{namespace:.+}", NAME_SPACE)
+            .replace("{repositoryName:.+}", "registry");
+      console.log(reqUrl);
+        procCallAjax(reqUrl, "GET", null, null, callbackGetDetail);
+    };
+
+    var callbackGetDetail = function (data) {
+        console.log(data);
+
+    };
 
     // ON LOAD
     $(document.body).ready(function () {
+        getDetail();
         getRegistryInfo();
+
     });
 </script>

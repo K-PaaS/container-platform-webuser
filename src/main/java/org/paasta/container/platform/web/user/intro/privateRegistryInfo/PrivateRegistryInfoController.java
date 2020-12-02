@@ -1,6 +1,8 @@
 package org.paasta.container.platform.web.user.intro.privateRegistryInfo;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
@@ -8,6 +10,8 @@ import org.paasta.container.platform.web.user.common.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,16 +30,20 @@ public class PrivateRegistryInfoController {
     private static final String VIEW_URL = "/intro";
     private final CommonService commonService;
     private final PropertyService propertyService;
+    private final PrivateRegistryService privateRegistryService;
 
     /**
-     * Instantiates a new Access info controller
-     * @param commonService     the common service
-     * @param propertyService the property service
+     * Instantiates a private registry controller
+     *
+     * @param commonService          the common service
+     * @param propertyService        the property service
+     * @param privateRegistryService the private registry service
      */
     @Autowired
-    public PrivateRegistryInfoController(CommonService commonService, PropertyService propertyService) {
+    public PrivateRegistryInfoController(CommonService commonService, PropertyService propertyService, PrivateRegistryService privateRegistryService) {
         this.commonService = commonService;
         this.propertyService = propertyService;
+        this.privateRegistryService = privateRegistryService;
     }
 
 
@@ -56,4 +64,25 @@ public class PrivateRegistryInfoController {
     }
 
 
+    /**
+     * Private Registry 조회(Get Private Registry)
+     *
+     * @param cluster        the cluster
+     * @param namespace      the namespace
+     * @param repositoryName the repositoryName
+     * @return the private registry
+     */
+    @ApiOperation(value = " Private Registry 조회(Get Private Registry)", nickname = "getPrivateRegistry")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "string", paramType = "path"),
+            @ApiImplicitParam(name = "repositoryName", value = "레파지토리 명", required = true, dataType = "string", paramType = "path"),
+    })
+    @GetMapping(value = Constants.API_URL + Constants.URI_API_PRIVATE_REGISTRY_DETAIL)
+    @ResponseBody
+    public PrivateRegistry getPrivateRegistry(@PathVariable("cluster") String cluster,
+                                              @PathVariable("namespace") String namespace,
+                                              @PathVariable("repositoryName") String repositoryName) {
+        return privateRegistryService.getPrivateRegistry(cluster, namespace, repositoryName);
+    }
 }
