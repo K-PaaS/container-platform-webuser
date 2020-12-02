@@ -64,13 +64,14 @@
                         <col style='width:30%;'>
                     </colgroup>
                     <thead>
-                    <tr id="resultHeaderArea" class="headerSortFalse">
+                    <tr id="noResultAreaForResourceQuotas" style="display: none"><td colspan='3'><p class='service_p'>생성한 Resource Quotas 가 없습니다.</p></td></tr>
+                    <tr id="resultHeaderAreaForResourceQuotas" class="headerSortFalse">
                         <td>Name</td>
                         <td>Status</td>
                         <td>Created time</td>
                     </tr>
                     </thead>
-                    <tbody id="resultArea">
+                    <tbody id="resultAreaForResourceQuotas">
                     </tbody>
                 </table>
             </div>
@@ -86,7 +87,7 @@
             </div>
             <div class="view_table_wrap">
                 <table class="table_event condition alignL">
-                    <p class="p30">- <strong>Name</strong> : {{items.name}} </p>
+                    <p class="p30" id="nameForLimitRanges">- <strong>Name</strong> : {{items.name}} </p>
                     <colgroup>
                         <col style='width:auto;'>
                         <col style='width:auto;'>
@@ -94,14 +95,15 @@
                         <col style='width:auto;'>
                     </colgroup>
                     <thead>
-                    <tr>
+                    <tr id="noResultAreaForLimitRanges" style="display: none"><td colspan='4'><p class='service_p'>생성한 Limit Ranges 가 없습니다.</p></td></tr>
+                    <tr id="resultHeaderAreaForLimitRanges">
                         <td>Resource Name</td>
                         <td>Resource Type</td>
                         <td>Default Limit</td>
                         <td>Default Request</td>
                     </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody id="resultAreaForLimitRanges"></tbody>
                 </table>
             </div>
         </div>
@@ -159,43 +161,40 @@
     };
 
     var callbackGetResourceQuotaList = function(data) {
-        var resultArea = $('#resultArea');
         var html = $("#quota-template").html();
 
         if (!procCheckValidData(data)) {
-            html = html.replace("<tbody>", "<tbody><tr><p class=service_p'>조회 된 ResourceQuota가 없습니다.</p></tr>");
-
-            $("#detailTab").append(html);
-
             procViewLoading('hide');
             procAlertMessage('ResourceQuotas 목록 조회에 실패하였습니다.', false);
-
             return false;
         }
 
         var trHtml;
+        if (data.items.length >= 1) {
+            for (var i = 0; i < data.items.length; i++) {
+                var htmlRe = "";
 
-        for (var i = 0; i < data.items.length; i++) {
-            var htmlRe = "";
-
-            trHtml = "";
+                trHtml = "";
                 trHtml += "<tr>"
                     + "<td>" + data.items[i].metadata.name + "</td>"
                     + "<td><p>" + JSON.stringify(data.items[i].resourceQuotasStatus) + "</p></td>"
                     + "<td>" + data.items[i].metadata.creationTimestamp + "</td>"
                     + "</tr>";
 
-            htmlRe = html.replace("<tbody id=\"resultArea\">", "<tbody id=\"resultArea\">" + trHtml);
+                htmlRe = html.replace("<tbody id=\"resultAreaForResourceQuotas\">", "<tbody id=\"resultAreaForResourceQuotas\">" + trHtml);
 
-            $("#detailTab").append(htmlRe);
-        }
-        if(G_PVC_LIST_GET_FIRST == true){
-            resultArea.html(htmlRe);
-            resultArea.show();
-            $('.headerSortFalse > td').unbind();
+                $("#detailTab").append(htmlRe);
+
+            }
+        } else {
+            $("#detailTab").append(html);
+
+            $("#resultHeaderAreaForResourceQuotas").hide();
+            $("#resultAreaForResourceQuotas").hide();
+            $("#noResultAreaForResourceQuotas").show();
         }
 
-        procSetToolTipForTableTd('resultArea');
+        procSetToolTipForTableTd('resultAreaForResourceQuotas');
         procViewLoading('hide');
     };
 
@@ -214,42 +213,57 @@
         var html = $("#range-template").html();
 
         if (!procCheckValidData(data)) {
-            html = html.replace("<tbody>", "<tbody><tr><p class=service_p'>조회 된 LimitRange가 없습니다.</p></tr>");
-
-            $("#detailTab").append(html);
-
             procViewLoading('hide');
             procAlertMessage('LimitRanges 목록 조회에 실패하였습니다.', false);
-
             return false;
         }
 
         var trHtml;
 
+        if (data.items.length >= 1) {
+            var countY = 0;
+            for (var key = 0; key < data.items.length; key++) {
 
-        for (var key = 0; key < data.items.length; key++) {
-            var htmlRe = "";
+                var htmlRe = "";
+                trHtml = "";
+                if (data.items[key].checkYn == "Y") {
+                    trHtml += "<tr>"
+                        + "<td>" + data.items[key].resource + "</td>"
+                        + "<td>" + data.items[key].type + "</td>"
+                        + "<td>" + data.items[key].defaultLimit + "</td>"
+                        + "<td>" + data.items[key].defaultRequest + "</td>"
+                        + "</tr>";
 
-            trHtml = "";
-            if (data.items[key].checkYn == "Y") {
-                trHtml += "<tr>"
-                    + "<td>" + data.items[key].resource + "</td>"
-                    + "<td>" + data.items[key].type + "</td>"
-                    + "<td>" + data.items[key].defaultLimit + "</td>"
-                    + "<td>" + data.items[key].defaultRequest + "</td>"
-                    + "</tr>";
+                    htmlRe = html.replace("<tbody id=\"resultAreaForLimitRanges\">", "<tbody id=\"resultAreaForLimitRanges\">" + trHtml);
+                    htmlRe = htmlRe.replace("{{items.name}}", data.items[key].name);
 
-                htmlRe = html.replace("<tbody>", "<tbody>" + trHtml);
-                htmlRe = htmlRe.replace("{{items.name}}", data.items[key].name);
+                    $("#detailTab").append(htmlRe);
+                    countY = countY + 1;
 
-                $("#detailTab").append(htmlRe);
+                } else if (countY == 0) {
+                    $("#detailTab").append(html);
+
+                    $("#nameForLimitRanges").hide();
+                    $("#resultHeaderAreaForLimitRanges").hide();
+                    $("#resultAreaForLimitRanges").hide();
+                    $("#noResultAreaForLimitRanges").show();
+
+                    break;
+                }
             }
-        }
+        } else {
+            $("#detailTab").append(html);
 
+            $("#nameForLimitRanges").hide();
+            $("#resultHeaderAreaForLimitRanges").hide();
+            $("#resultAreaForLimitRanges").hide();
+            $("#noResultAreaForLimitRanges").show();
+        }
 
         procViewLoading('hide');
 
     };
+
     $(document.body).ready(function () {
         getDetail();
         getResourceQuotaList(NAME_SPACE);
