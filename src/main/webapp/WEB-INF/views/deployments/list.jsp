@@ -120,6 +120,8 @@
                 // Set replicas and total Pods are same.
                 var totalPods = spec.replicas;
                 var runningPods = totalPods - status.unavailableReplicas;
+                if(runningPods < 0) {runningPods = 0;}
+
                 var containers = itemList.spec.template.spec.containers;
                 var imageTags = "";
 
