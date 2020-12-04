@@ -58,6 +58,9 @@
                             <c:when test="${(path eq 'services') || (path eq 'users') || (path eq 'roles') || (path eq 'storages')}" >
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}');">${cfn:camelCaseParser(path)}</a></li>
                             </c:when>
+                            <c:when test="${(path eq 'info')}" >
+                                <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}');">My Info</a></li>
+                            </c:when>
                             <c:when test="${(path eq 'common')}" >
                                 <li><a class="cont-parent-link">${cfn:camelCaseParser(path)}</a></li>
                             </c:when>
