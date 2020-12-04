@@ -10,11 +10,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="common/customTag.tld" %>
+<style>
+    #namespacesList {
+        text-overflow: ellipsis;
+        padding : 0 40px 0 10px ;
+        width : 250px;
+    }
+</style>
 <header class="header">
     <div class="logo">
         <a href="javascript:void(0);" onclick="procMovePage('<%= Constants.CP_INIT_URI %>');" class="custom_border_none"><h1><img src="<c:url value="/resources/images/main/logo.png"/>" alt=""/></h1></a>
     </div>
-    <select id="namespacesList" style="width: 200px;" onchange="changeNamespace(this.value)">
+    <select id="namespacesList"  onchange="changeNamespace(this.value)">
     </select>
     <div class="gnb search">
     </div>

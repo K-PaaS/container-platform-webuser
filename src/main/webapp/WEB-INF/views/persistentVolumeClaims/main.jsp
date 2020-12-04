@@ -164,9 +164,9 @@
                 var statusIconHtml = "";
 
                 if(itemStatus.phase === 'Bound') {
-                    statusIconHtml = "<td><span class='green2'><i class='fas fa-check-circle'></i></span> ";
+                    statusIconHtml = "<td><span class='green2 tableTdToolTipFalse'><i class='fas fa-check-circle'></i></span> ";
                 } else {
-                    statusIconHtml = "<td><span class='red2'><i class='fas fa-exclamation-circle'></i></span> ";
+                    statusIconHtml = "<td><span class='red2 tableTdToolTipFalse'><i class='fas fa-exclamation-circle'></i></span> ";
                 }
 
                 htmlString.push(
