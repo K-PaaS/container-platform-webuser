@@ -36,9 +36,9 @@
                             <tr id="noResultArea" style="display: none;"><td colspan='4'><p class='user_p'>사용자가 존재하지 않습니다.</p></td></tr>
                             <tr id="resultHeaderArea">
                                 <td>User ID</td>
-                                <td>권한</td>
-                                <td>생성일</td>
-                                <td>수정일</td>
+                                <td>Authority</td>
+                                <td>Created Time</td>
+                                <td>Modified Time</td>
                             </tr>
                             </thead>
                             <tbody id="resultArea">

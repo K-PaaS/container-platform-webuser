@@ -32,7 +32,7 @@
                                 <td>User ID</td>
                                 <td>Service Account</td>
                                 <td>Role</td>
-                                <td>Created time</td>
+                                <td>Created Time</td>
                             </tr>
                             </thead>
                             <tbody id="resultArea">
