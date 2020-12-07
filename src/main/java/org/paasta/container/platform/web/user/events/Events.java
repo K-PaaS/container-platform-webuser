@@ -17,13 +17,10 @@ public class Events {
 
     private String resultCode;
     private CommonMetaData metadata;
-    //private String action;
     private int count;
-    //private String eventTime;
     private String firstTimestamp;
     private String lastTimestamp;
     private String message;
-    //private String reason;
     private EventSource source;
     private String type;
     private CommonObjectReference involvedObject;

@@ -49,6 +49,7 @@ public class DeploymentsService {
     /**
      * Deployments 상세 조회(Get Deployments detail)
      *
+     * @param cluster    the cluster
      * @param namespace   the namespace
      * @param deploymentName the deployments name
      * @return the deployments detail
@@ -64,6 +65,7 @@ public class DeploymentsService {
     /**
      * Deployments YAML 조회(Get Deployments yaml)
      *
+     * @param cluster    the cluster
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @return the deployments yaml
@@ -79,6 +81,7 @@ public class DeploymentsService {
     /**
      * Deployments 생성(Create Deployments)
      *
+     * @param cluster    the cluster
      * @param namespace the namespace
      * @param yaml the yaml
      * @return return is succeeded
@@ -93,6 +96,7 @@ public class DeploymentsService {
     /**
      * Deployments 수정(Update Deployments)
      *
+     * @param cluster    the cluster
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @param yaml the yaml
@@ -109,6 +113,7 @@ public class DeploymentsService {
     /**
      * Deployments 삭제(Delete Deployments)
      *
+     * @param cluster    the cluster
      * @param namespace the namespace
      * @param deploymentName the deployments name
      * @return return is succeeded

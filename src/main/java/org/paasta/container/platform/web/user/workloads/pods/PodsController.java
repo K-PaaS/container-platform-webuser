@@ -178,7 +178,7 @@ public class PodsController {
     }
 
     /**
-     * Selector에 의한 Pods 목록 조회(Get Pods List By Selector)
+     * Selector 에 의한 Pods 목록 조회(Get Pods List By Selector)
      *
      * @param cluster            the cluster
      * @param namespace          the namespace
@@ -192,7 +192,7 @@ public class PodsController {
      * @param searchName         the searchName
      * @return the pods list
      */
-    @ApiOperation(value = "Selector에 의한 Pods 목록 조회(Get Pods List By Selector)", nickname = "getPodListBySelector")
+    @ApiOperation(value = "Selector 에 의한 Pods 목록 조회(Get Pods List By Selector)", nickname = "getPodListBySelector")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cluster", value = "클러스터 명", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path"),

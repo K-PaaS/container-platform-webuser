@@ -95,7 +95,13 @@ public class ReplicaSetsService {
      * @param namespace          the namespace
      * @param selector           the selector
      * @param type               the type
-     * @param ownerReferencesUid the ownerReferencesUid
+     * @param ownerReferencesName the ownerReferencesName
+     * @param ownerReferencesUid  the ownerReferencesUid
+     * @param offset              the offset
+     * @param limit               the limit
+     * @param orderBy             the orderBy
+     * @param order               the order
+     * @param searchName          the searchName
      * @return the replicaSets list
      */
 

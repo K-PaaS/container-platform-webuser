@@ -56,6 +56,7 @@ public class PersistentVolumeClaimsService {
     /**
      * PersistentVolumeClaims 상세 정보(Get PersistentVolumeClaims detail)
      *
+     * @param cluster    the cluster
      * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return the persistentVolumeClaims detail
@@ -72,6 +73,7 @@ public class PersistentVolumeClaimsService {
     /**
      * PersistentVolumeClaims YAML 조회(Get PersistentVolumeClaims yaml)
      *
+     * @param cluster    the cluster
      * @param namespace                 the namespace
      * @param persistentVolumeClaimName the persistentVolumeClaims name
      * @return the persistentVolumeClaims yaml

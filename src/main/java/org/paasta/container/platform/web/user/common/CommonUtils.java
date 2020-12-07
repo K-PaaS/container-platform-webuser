@@ -22,11 +22,11 @@ import java.util.Map;
 public class CommonUtils {
 
     /**
-     * 요청 파라미터들의 빈값 또는 null값 확인을 하나의 메소드로 처리할 수 있도록 생성한 메소드
-     * 요청 파라미터 중 빈값 또는 null값인 파라미터가 있는 경우, false를 리턴
+     * 요청 파라미터들의 빈값 또는 null 값 확인을 하나의 메소드로 처리할 수 있도록 생성한 메소드
+     * 요청 파라미터 중 빈값 또는 null 값인 파라미터가 있는 경우, false 를 리턴
      *
      * @param params the string
-     * @return boolean
+     * @return the boolean
      */
     public static boolean paramCheck(String... params) {
         return Arrays.stream(params).allMatch(param -> null != param && !param.equals(""));
@@ -34,7 +34,7 @@ public class CommonUtils {
 
 
     /**
-     * 요청 파라미터들 중 빈 값 또는 null인 파라미터를 추출
+     * 요청 파라미터들 중 빈 값 또는 null 인 파라미터를 추출
      *
      * @param obj the Object
      * @return the List<String>
@@ -94,6 +94,7 @@ public class CommonUtils {
      *
      * @param request
      * @param name the name of cookie
+     * @return the String
      */
     public static String getCookie(HttpServletRequest request, String name) {
 
@@ -134,6 +135,7 @@ public class CommonUtils {
      * @param orderBy
      * @param order
      * @param searchName
+     * @return the String
      */
     public static String makeResourceListParamQuery(int offset, int limit, String orderBy, String order, String searchName) {
         String param = "?offset=" + offset + "&limit=" + limit + "&orderBy=" + orderBy + "&order=" + order;

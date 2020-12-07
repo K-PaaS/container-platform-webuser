@@ -34,6 +34,13 @@ public class PodsService {
      * @param cluster    the cluster
      * @param namespace the namespace
      * @param selector  the selector
+     * @param type the type
+     * @param ownerReferencesUid the ownerReferencesUid
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the pods list
      */
     PodsList getPodListBySelector(String cluster, String namespace, String selector,String type, String ownerReferencesUid,
@@ -75,6 +82,11 @@ public class PodsService {
      * @param cluster   the cluster
      * @param namespace the namespace
      * @param nodeName  the node name
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the pods list
      */
     PodsList getPodListNamespaceByNode(String cluster, String namespace, String nodeName,int offset, int limit, String orderBy, String order, String searchName) {
