@@ -1,9 +1,9 @@
 <%--
   Login Page
 
-  author: kjhoon
-  version: 1.0
-  Date: 2020.09.22
+  @author kjhoon
+  @version 1.0
+  @since 2020.09.22
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>

@@ -1,5 +1,5 @@
 <%--
-  Default layout
+  Empty layout
 
   @author kjhoon
   @version 1.0

@@ -1,8 +1,9 @@
 <%--
   Nodes details
-  author: jjy
-  version: 1.0
-  since: 2020-09-17
+
+  @author jjy
+  @version 1.0
+  @since 2020.09.17
 --%>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>

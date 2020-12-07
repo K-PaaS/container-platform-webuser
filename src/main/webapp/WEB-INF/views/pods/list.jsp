@@ -1,5 +1,6 @@
 <%--
-  Pods list (only included-usage)
+  Pods list
+
   @author kjhoon
   @version 1.0
   @since 2020.09.01

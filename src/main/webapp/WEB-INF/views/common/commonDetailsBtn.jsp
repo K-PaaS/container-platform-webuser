@@ -1,9 +1,9 @@
 <%--
-  Footer
+  common Detail Resource Button
 
-  author: hrjin
-  version: 1.0
-  since: 2020.09.15
+  @author hrjin
+  @version 1.0
+  @since 2020.09.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>

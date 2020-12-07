@@ -1,5 +1,5 @@
 <%--
-  Common Syntax Highlighter
+  Loading Spinner
 
   @author kjhoon
   @version 1.0

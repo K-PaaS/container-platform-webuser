@@ -1,8 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  author: hrjin
-  version: 1.0
-  Date: 2020.09.15
+  Resource Create
+
+  @author hrjin
+  @version 1.0
+  @since 2020.09.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>

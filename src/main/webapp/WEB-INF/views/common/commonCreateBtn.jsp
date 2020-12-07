@@ -1,9 +1,9 @@
 <%--
   common Create Resource Button
 
-  author: hrjin
-  version: 1.0
-  since: 2020.09.15
+  @author hrjin
+  @version 1.0
+  @since 2020.09.15
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>

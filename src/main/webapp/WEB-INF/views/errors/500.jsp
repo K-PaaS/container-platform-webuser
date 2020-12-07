@@ -1,10 +1,9 @@
 <%--
   500 error page
 
-  Created by IntelliJ IDEA.
-  author: hrjin
-  version: 1.0
-  Date: 2020.11.13
+  @author hrjin
+  @version 1.0
+  @since 2020.11.13
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

@@ -1,9 +1,9 @@
 <%--
   Deployments list
+
   @author kjhoon
   @version 1.0
   @since 2020.09.03
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
