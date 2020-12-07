@@ -29,13 +29,15 @@
                             <colgroup>
                                 <col style='width:auto;'>
                                 <col style='width:25%;'>
-                                <col style='width:25%;'>
-                                <col style='width:25%;'>
+                                <col style='width:15%;'>
+                                <col style='width:20%;'>
+                                <col style='width:20%;'>
                             </colgroup>
                             <thead>
                             <tr id="noResultArea" style="display: none;"><td colspan='4'><p class='user_p'>사용자가 존재하지 않습니다.</p></td></tr>
                             <tr id="resultHeaderArea">
                                 <td>User ID</td>
+                                <td>Role</td>
                                 <td>Authority</td>
                                 <td>Created Time</td>
                                 <td>Modified Time</td>
@@ -53,6 +55,8 @@
 
 <script type="text/javascript">
     var G_USERS_LIST;
+
+    var nsAdminAuth = "<%= Constants.NAMESPACE_ADMIN %>";
 
     // GET LIST
     var getUsersList = function() {
@@ -98,11 +102,17 @@
         for (var i = 0; i < listLength; i++) {
             userId = items[i].userId;
 
+            var authority = "User";
+            if(items[i].userType === nsAdminAuth) {
+                authority = "Administrator";
+            }
+
             if ((nvl(searchKeyword) === "") || userId.indexOf(searchKeyword) > -1) {
                 htmlString.push(
                     "<tr>"
                     + "<td class='userId'>" + items[i].userId + "</td>"
                     + "<td>" + items[i].roleSetCode + "</td>"
+                    + "<td>" + authority + "</td>"
                     + "<td>" + items[i].created + "</td>"
                     + "<td>" + items[i].lastModified + "</td>"
                     + "</tr>");
