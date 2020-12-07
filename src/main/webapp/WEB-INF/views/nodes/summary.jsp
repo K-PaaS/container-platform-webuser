@@ -110,8 +110,6 @@
 
         if (contents.length > 0) {
             $('#conditionResultArea').html(contents);
-            podNotFound.hide();
-            podsTableHeader.show();
             conditionsNotFound.hide();
             conditionsTableHeader.show();
         } else {
