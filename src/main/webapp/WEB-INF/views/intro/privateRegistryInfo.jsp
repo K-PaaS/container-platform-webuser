@@ -52,6 +52,7 @@
                         <p>kind: Deployment</p>
                         <p>metadata:</p>
                         <p>&nbsp;&nbsp;name: private-registry</p>
+                        <p>&nbsp;&nbsp;namespace: <span class="nameSpace"></span></p>
                         <p>spec:</p>
                         <p>&nbsp;&nbsp;selector:</p>
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;matchLabels:</p>
@@ -121,6 +122,7 @@
                         <p>kind: Service</p>
                         <p>metadata:</p>
                         <p>&nbsp;&nbsp;name: private-registry</p>
+                        <p>&nbsp;&nbsp;namespace: <span class="nameSpace"></span></p>
                         <p>spec:</p>
                         <p>&nbsp;&nbsp;type: NodePort</p>
                         <p>&nbsp;&nbsp;selector:</p>
