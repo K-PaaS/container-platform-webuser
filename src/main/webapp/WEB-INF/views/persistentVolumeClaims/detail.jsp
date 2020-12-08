@@ -13,7 +13,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${persistentVolumeClaimName}"/></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -87,13 +87,13 @@
                     </div>
                 </div>
             </li>
-            <!-- Details 끝 -->
+            <!-- Details 끝 (Details end)-->
             <li class="cluster_fifth_box maB50">
                 <jsp:include page="../common/commonDetailsBtn.jsp"/>
             </li>
         </ul>
     </div>
-    <!-- Details  끝 -->
+    <!-- Details  끝 (Details end)-->
 </div>
 
 <input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />

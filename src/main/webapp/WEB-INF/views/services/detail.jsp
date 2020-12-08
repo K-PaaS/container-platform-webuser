@@ -13,7 +13,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${serviceName}"/></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Services Details 시작 -->
+    <!-- Services Details 시작 (Services Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT10">
             <li class="cluster_second_box">
@@ -104,7 +104,7 @@
             </li>
         </ul>
     </div>
-    <!-- Services Details 끝 -->
+    <!-- Services Details 끝 (Services Details end)-->
 </div>
 <input type="hidden" id="requestServiceName" name="requestServiceName" value="<c:out value='${serviceName}' default='' />" />
 <input type="hidden" id="hiddenMasterUrl" name="hiddenMasterUrl" value="" />
@@ -194,7 +194,7 @@
         $('#resultInternalEndpointsArea').html(nvl(endpoints, '-'));
 
 
-        //hidden값 추가
+        //hidden 값 추가 (Add hidden value)
         $('#hiddenNamespace').val(namespace);
         $('#hiddenResourceName').val(serviceName);
 

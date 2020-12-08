@@ -57,7 +57,7 @@
 
     var G_REPLICA_SETS_LIST;
 
-    // Overview 통계용 데이터
+    // Overview 통계용 데이터 (Statistics Data for Overview)
     var G_REPLICA_SETS_LIST_LENGTH = 0;
     var G_REPLICA_SETS_TOTAL_CNT = 0;
     var G_REPLICA_SETS_CHART_RUNNING_CNT = 0;
@@ -138,7 +138,7 @@
                 var namespace = itemList.metadata.namespace;
                 var labels = procSetSelector(itemList.metadata.labels);
                 var replicaSetUid = itemList.metadata.uid;
-                var selector = procSetSelector(itemList.spec.selector.matchLabels); // 필수값
+                var selector = procSetSelector(itemList.spec.selector.matchLabels); // 필수값 (Required value)
                 //set Labels, UID by Deployment details view
                 ownerParamForPodsByReplicaSets = selector + "&type=replicaSets&ownerReferencesUid=" + replicaSetUid;
 
@@ -152,10 +152,10 @@
                     imageTags += '<p>' + containers[i].image + '</p>';
                 }
 
-                //이벤트 관련 추가 START
+                //이벤트 관련 추가 START (Event related additional START)
                 procAddPodsEvent(itemList, itemList.spec.selector.matchLabels);
 
-                // Overview 통계용 전역 데이터 셋팅
+                // Overview 통계용 전역 데이터 셋팅 (Global Data Setting for Overview Statistics)
                 if (itemList.type == "normal") {
                     G_REPLICA_SETS_CHART_RUNNING_CNT += 1;
                 } else if (itemList.type == "Warning") {
@@ -168,7 +168,7 @@
                 var statusIconHtml;
                 var statusMessageHtml = [];
 
-                if (itemList.type == 'Warning') { // [Warning]과 [Warning] 외 두 가지 상태로 분류
+                if (itemList.type == 'Warning') { // [Warning]과 [Warning] 외 두 가지 상태로 분류 (Classifying into two states)
                     statusIconHtml = "<span class='red2 tableTdToolTipFalse'><i class='fas fa-exclamation-circle'></i> </span>";
                     $.each(itemList.message, function (index, eventMessage) {
                         statusMessageHtml += "<p class='red2 custom-content-overflow'>" + eventMessage + "</p>";
@@ -177,7 +177,7 @@
                 } else {
                     statusIconHtml = "<span class='green2 tableTdToolTipFalse'><i class='fas fa-check-circle'></i> </span>";
                 }
-                //이벤트 관련 추가 END
+                //이벤트 관련 추가 END (Additional End Related to Events)
 
                 htmlString.push(
                     "<tr>"

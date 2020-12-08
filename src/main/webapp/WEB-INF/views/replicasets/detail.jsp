@@ -14,10 +14,10 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span><c:out value="${replicaSetName}"/></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
-            <!-- Details 시작 -->
+            <!-- Details 시작 (Details start)-->
             <li class="cluster_first_box">
                 <div class="sortable_wrap">
                     <div class="sortable_top">
@@ -74,13 +74,13 @@
                     </div>
                 </div>
             </li>
-            <!-- Details 끝 -->
-            <!-- Pods 시작 -->
+            <!-- Details 끝 (Details end)-->
+            <!-- Pods 시작 (Pods start)-->
             <li class="cluster_third_box">
                 <jsp:include page="../pods/list.jsp"/>
             </li>
-            <!-- Pods 끝 -->
-            <!-- Services 시작 -->
+            <!-- Pods 끝 (Pods end)-->
+            <!-- Services 시작 (Services start)-->
             <li class="cluster_fourth_box maB50">
                 <div class="sortable_wrap">
                     <div class="sortable_top">
@@ -113,7 +113,7 @@
                     </div>
                 </div>
             </li>
-            <!-- Services 끝 -->
+            <!-- Services 끝 (Services end) -->
             <li class="cluster_fifth_box maB50">
                 <jsp:include page="../common/commonDetailsBtn.jsp"/>
             </li>
@@ -149,10 +149,10 @@
         var labels              = procSetSelector(data.metadata.labels);
         var annotations         = data.metadata.annotations;
         var creationTimestamp   = data.metadata.creationTimestamp;
-        var selector            = procSetSelector(data.spec.selector.matchLabels); // 필수값
+        var selector            = procSetSelector(data.spec.selector.matchLabels); // 필수값 (Required value)
         var images              = [];
         var replicaSetUid       = data.metadata.uid;
-        // 서비스 리스트를 조회하기 위한 replicaset label 참조
+        // 서비스 리스트를 조회하기 위한 replicaset label 참조 (Reference replicaset label for service List)
         replicasetLabel = data.spec.selector.matchLabels;
 
         //set Labels, UID by ReplicaSets details view
@@ -256,14 +256,14 @@
         var htmlString = [];
         var serviceListCount = 0;
 
-        // replicaset에서 자동으로 생성되는 hash label은 비교 대상에서 삭제한다.
+        // replica set 에서 자동으로 생성되는 hash label 은 비교 대상에서 삭제 (Hash label in replica set is deleted from comparison)
         if(replicasetLabel["pod-template-hash"] !== undefined){
             delete replicasetLabel["pod-template-hash"];
         }
 
         for (var i = 0; i < listLength; i++) {
 
-            // replicaset 과 service의 spec.selector 를 비교해서 같은 항목의 서비스만 출력하도록 한다.
+            // replicaset 과 service 의 spec.selector 를 비교해서 같은 항목의 서비스만 출력 (Output only services of the same item)
             if(!procCompareObj(items[i].spec.selector, replicasetLabel)){
                 continue;
             }

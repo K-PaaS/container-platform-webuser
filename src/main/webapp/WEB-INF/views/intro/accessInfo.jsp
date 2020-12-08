@@ -339,7 +339,7 @@
     };
 
 
-    // user 의 token 값 가져오기
+    // user 의 token 값 가져오기 (Get token value of user)
     var getAccessToken = function () {
         procViewLoading('show');
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SECRETS_DETAIL %>"

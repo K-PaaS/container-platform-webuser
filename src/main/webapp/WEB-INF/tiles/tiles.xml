@@ -45,12 +45,12 @@
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/>
     </definition>
 
-    <!-- 레이아웃을 적용하지 않은 화면-->
+    <!-- 레이아웃을 적용하지 않은 화면 (vies without layout)-->
     <definition name="layout.empty" template="/WEB-INF/views/common/emptyLayout.jsp">
         <put-attribute name="body" value=""/>
     </definition>
 
-    <!-- 레이아웃 미적용 -->
+    <!-- 레이아웃 미적용 (without layout)-->
     <definition name="/common/unauthorized" extends="layout.empty">
         <put-attribute name="body" value="/WEB-INF/views/common/unauthorized.jsp"/>
     </definition>

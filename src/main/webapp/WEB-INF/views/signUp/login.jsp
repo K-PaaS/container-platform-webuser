@@ -69,7 +69,7 @@
 </script>
 <script>
 
-    //ID 저장 시 Alert 띄우기
+    //ID 저장 시 Alert 띄우기 (Call Alert when saving ID)
     $("#rememberMe").click(function (e) {
         if ($(this).is(":checked")) {
             if (!confirm("공용 PC에서 로그인정보를 저장할 경우, 타인에게 노출될 위험이 있습니다. 아이디를 저장하시겠습니까?")) {
@@ -78,20 +78,20 @@
         }
     });
 
-   // 사용자 등록페이지 이동
+   // 사용자 등록페이지 이동 (Move User registration page)
     $("#registerBtn").on('click', function (event) {
         procMovePage('/signUp');
     });
 
 
-    // Enter Key 입력 시 로그인 버튼 이벤트 실행
+    // Enter Key 입력 시 로그인 버튼 이벤트 실행 (Run login button event when Enter Key is entered)
     $("#password").keyup(function (event) {
         if (event.keyCode === 13) {
             $("#loginBtn").click();
         }
     });
 
-    // 로그인 요청
+    // 로그인 요청 (Login Request)
     $("#loginBtn").on('click', function (event) {
 
         var userId = $("#userId").val();

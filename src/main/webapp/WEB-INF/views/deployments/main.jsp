@@ -11,7 +11,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Deployments 시작 -->
+    <!-- Deployments 시작 (Deployments start)-->
     <div class="cluster_content02 row two_line two_view harf_view" style="display: block;">
         <ul class="maT30">
             <li class="cluster_first_box maB50">
@@ -19,7 +19,7 @@
             </li>
         </ul>
     </div>
-    <!-- Deployments 끝 -->
+    <!-- Deployments 끝 (Deployments end)-->
 </div>
 
 <script type="text/javascript">

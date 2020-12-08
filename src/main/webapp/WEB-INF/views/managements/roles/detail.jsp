@@ -25,7 +25,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${roleName}"/></h1>
     <jsp:include page="../../common/contentsTab.jsp"/>
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -67,8 +67,7 @@
                     </div>
                 </div>
             </li>
-            <!-- Details 끝 -->
-            <!-- Rules 시작 -->
+            <!-- Rules 시작 (Rules start)-->
             <li class="cluster_third_box maB50">
                 <div class="sortable_wrap">
                     <div class="sortable_top">
@@ -101,13 +100,13 @@
                     </div>
                 </div>
             </li>
-            <!-- Rules 끝 -->
+            <!-- Rules 끝 (Rules end)-->
             <li class="cluster_fifth_box maB50">
                     <button id="beforeBtn" class="colors4 common-btn pull-right" title="beforeBtn" onclick="beforeBtn();">이전</button>
             </li>
         </ul>
     </div>
-    <!-- Details  끝 -->
+    <!-- Details 끝 (Details end)-->
 </div>
 <input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
 <input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="roles" />
@@ -156,7 +155,6 @@
         $('#hiddenResourceName').val(roleName);
 
 
-        //ruls table data set
         setRulesDetail(rules);
     };
 

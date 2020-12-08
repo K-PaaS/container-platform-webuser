@@ -108,7 +108,7 @@
             if ((nvl(searchKeyword) === "") || roleName.indexOf(searchKeyword) > -1) {
                 var namespace = metadata.namespace;
 
-                // 라벨이 없는 경우도 있음.
+                // 라벨이 없는 경우도 있음 (Without labels)
                 var labels = procSetSelector(metadata.labels);
                 var annotations = procSetAnnotations(metadata.annotations);
                 var creationTimestamp = metadata.creationTimestamp;

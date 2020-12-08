@@ -231,10 +231,10 @@
 
     // ON LOAD
     $(document.body).ready(function () {
-        // k8s에서 롤 목록 조회
+        // k8s에서 롤 목록 조회 (Get Roles List from k8s)
         getRolesList();
 
-        // DB에 있는 전체 user 목록 조회
+        // DB에 있는 전체 user 목록 조회 (Get all user List from DB)
         getUsersList();
 
     });

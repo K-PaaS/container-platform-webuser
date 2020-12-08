@@ -50,7 +50,7 @@
             </li>
         </ul>
     </div>
-    <!-- Events 끝 -->
+    <!-- Events 끝 (Events end) -->
 </div>
 
 

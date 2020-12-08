@@ -10,10 +10,10 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Overview 시작-->
+    <!-- Overview 시작 (Overview start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
-            <!-- 그래프 시작 -->
+            <!-- 그래프 시작 (Graph start)-->
             <li class="cluster_first_box">
                 <div class="sortable_wrap">
                     <div class="sortable_top">
@@ -31,27 +31,27 @@
                     <div style="clear:both;"></div>
                 </div>
             </li>
-            <!-- 그래프 끝 -->
-            <!-- Deployments 시작 -->
+            <!-- 그래프 끝 (Graph end)-->
+            <!-- Deployments 시작 (Deployments start)-->
             <li class="cluster_third_box">
                 <jsp:include page="../deployments/list.jsp"/>
             </li>
-            <!-- Deployments 끝 -->
+            <!-- Deployments 끝 (Deployments end)-->
 
-            <!-- Pods 시작 -->
+            <!-- Pods 시작 (Pods start)-->
             <li class="cluster_third_box">
                 <jsp:include page="../pods/list.jsp"/>
             </li>
-            <!-- Pods 끝 -->
+            <!-- Pods 끝 (Pods end)-->
 
-            <!-- Replica Sets 시작 -->
+            <!-- Replica Sets 시작 (Replica Sets start)-->
             <li class="cluster_fourth_box maB50">
                 <jsp:include page="../replicasets/list.jsp"/>
             </li>
-            <!-- Replica Sets 끝 -->
+            <!-- Replica Sets 끝 (Replica Sets end)-->
         </ul>
     </div>
-    <!-- Overview 끝 -->
+    <!-- Overview 끝 (Overview end)-->
 
 </div>
 

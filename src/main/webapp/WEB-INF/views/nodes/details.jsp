@@ -15,7 +15,7 @@
 
     <jsp:include page="../common/contentsTab.jsp"/>
 
-    <!-- Nodes Details 시작-->
+    <!-- Nodes Details 시작 (Nodes Details start)-->
     <div class="cluster_content02 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -122,6 +122,7 @@
             </li>
         </ul>
     </div>
+    <!-- Nodes Details 끝 (Nodes Details end)-->
 </div>
 <script type="text/javascript">
 

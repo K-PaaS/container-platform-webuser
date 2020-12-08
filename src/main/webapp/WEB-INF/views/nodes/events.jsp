@@ -27,4 +27,4 @@
         getList();
     });
 </script>
-<!-- NodeEvents 끝 -->
+<!-- Node Events 끝 (Node Events end)-->

@@ -12,11 +12,11 @@
     <jsp:include page="../common/contentsTab.jsp"/>
     <div class="cluster_content01 row two_line two_view">
         <ul>
-            <!-- Replica Sets 시작 -->
+            <!-- Replica Sets 시작 (Replica Sets start) -->
             <li class="cluster_fourth_box maB50">
                 <jsp:include page="./list.jsp"/>
             </li>
-            <!-- Replica Sets 끝 -->
+            <!-- Replica Sets 끝(Replica Sets end) -->
         </ul>
     </div>
 </div>

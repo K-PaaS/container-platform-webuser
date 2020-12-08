@@ -15,7 +15,7 @@
     <!-- Intro 시작-->
     <div class="cluster_content01 row two_line two_view">
         <ul id="detailTab">
-            <!-- Namespace 시작-->
+            <!-- Namespaces 시작 (Namespaces start)-->
             <li>
                 <div class="sortable_wrap">
                     <div class="sortable_top">
@@ -48,9 +48,9 @@
             </li>
         </ul>
     </div>
-    <!-- Intro 끝 -->
 </div>
-<!--ResourceQuota-->
+<!-- Namespaces 끝 (Namespaces end)-->
+<!--Resource Quotas 시작 (Resource Quotas start)-->
 <div id="quota-template" style="display:none;">
     <li class="cluster_second_box">
         <div class="sortable_wrap">
@@ -79,7 +79,8 @@
         </div>
     </li>
 </div>
-<!--LimitRange-->
+<!--Resource Quotas 끝 (Resource Quotas end)-->
+<!--Limit Ranges 시작 (Limit Ranges start)-->
 <div id="range-template" style="display:none;">
     <li class="cluster_third_box">
         <div class="sortable_wrap">
@@ -110,7 +111,8 @@
         </div>
     </li>
 </div>
-
+<!--Limit Ranges 끝 (Limit Ranges end)-->
+<!-- Intro 끝 (Intro end)-->
 <script type="text/javascript">
 
     var G_PVC_LIST_GET_FIRST = true;

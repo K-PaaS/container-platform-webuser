@@ -13,7 +13,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${deploymentName}"/></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -79,23 +79,23 @@
                     </div>
                 </div>
             </li>
-            <!-- Details 끝 -->
-            <!-- Replica Set 시작 -->
+            <!-- Details 끝 (Details end)-->
+            <!-- Replica Set 시작 (Replica Set start)-->
             <li class="cluster_third_box">
                 <jsp:include page="../replicasets/list.jsp"/>
             </li>
-            <!-- Replica Set 끝 -->
-            <!-- Pods 시작 -->
+            <!-- Replica Sets 끝 (Replica Sets end)-->
+            <!-- Pods 시작 (Pods start)-->
             <li class="cluster_third_box maB50">
                 <jsp:include page="../pods/list.jsp"/>
             </li>
-            <!-- Pods 끝 -->
+            <!-- Pods 끝 (Pods end)-->
             <li class="cluster_fifth_box maB50">
                 <jsp:include page="../common/commonDetailsBtn.jsp"/>
             </li>
         </ul>
     </div>
-    <!-- Details  끝 -->
+    <!-- Details 끝 (Details end)-->
 </div>
 <input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
 <input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="deployments" />

@@ -288,7 +288,7 @@
 <script type="text/javascript">
     // ON LOAD
     $(document.body).ready(function () {
-        // 기존 탭클릭 이벤트 남아있는 부분 제거
+        // 기존 탭클릭 이벤트 남아있는 부분 제거 (remove existing tabClick events)
         $('.cluster_tabs li').off('click');
     });
 

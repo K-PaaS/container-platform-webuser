@@ -70,22 +70,22 @@
             msg = "아이디를 입력하세요.";
             manCheck = true;
         }
-        // user id 정규식 검사
+        // user id 정규식 검사 (user id regular expression check)
         if(!manCheck && commonUtils.regexId(userId)) {
             msg = "User ID는 최대 253자 내의 영문 소문자 또는 숫자로 시작하고 끝나야 하며, 특수문자는 - 또는 . 만 사용 가능합니다.";
             manCheck = true;
         }
-        // 비밀번호
+        // 비밀번호 (password)
         if (!manCheck && commonUtils.isBlank(password)) {
             msg = "비밀번호를 입력하세요.";
             manCheck = true;
         }
-        // 비밀번호 정규식 검사
+        // 비밀번호 정규식 검사 (password regular expression check)
         if (!manCheck && commonUtils.regexPwd(password)) {
             msg = "비밀번호는 영문으로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~40자 이내로 사용 가능합니다.";
             manCheck = true;
         }
-        // 비밀번호 확인
+        // 비밀번호 확인 (Confirm Password)
         if (!manCheck && commonUtils.isBlank($("#passwordConfirm").val())) {
             msg = "비밀번호를 확인해주세요.";
             manCheck = true;
@@ -95,19 +95,19 @@
             manCheck = true;
         }
 
-        // 메일주소
+        // 메일주소 (Email Address)
         if (!manCheck && commonUtils.isBlank(email)) {
             msg = "메일 주소를 입력하세요.";
             manCheck = true;
         }
 
-        // 메일주소
+        // 메일주소 (Email Address)
         if (!manCheck && commonUtils.regexEmail(email)) {
             msg = "이메일 형식이 올바르지 않습니다.";
             manCheck = true;
         }
 
-        // 알림 노출
+        // 알림 노출 (alert exposure)
         if(manCheck) {
             procAlertMessage(msg);
             return;

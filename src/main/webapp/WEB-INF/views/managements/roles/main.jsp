@@ -10,7 +10,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
-    <!-- Roles 시작 -->
+    <!-- Roles 시작 (Roles start)-->
     <div class="cluster_content02 row two_line two_view harf_view" style="display: block;">
         <ul class="maT30">
             <li class="cluster_first_box maB50">
@@ -18,7 +18,7 @@
             </li>
         </ul>
     </div>
-    <!-- Roles 끝 -->
+    <!-- Roles 끝 (Roles end)-->
 </div>
 
 <script type="text/javascript">

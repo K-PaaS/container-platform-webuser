@@ -12,7 +12,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <span id="title"></span></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view">
         <ul id="detailTab" class="maT30">
             <li>
@@ -47,10 +47,10 @@
             </li>
         </ul>
     </div>
-    <!-- Details 끝 -->
+    <!-- Details 끝 (Details end)-->
 </div>
 
-<!--ResourceQuota-->
+<!--Resource Quotas 시작 (Resource Quotas start)-->
 <div id="quota-template" style="display:none;">
     <li class="cluster_second_box">
         <div class="sortable_wrap">
@@ -79,7 +79,8 @@
         </div>
     </li>
 </div>
-<!--LimitRange-->
+<!--Resource Quotas 끝 (Resource Quotas end)-->
+<!--Limit Ranges 시작 (Limit Ranges start)-->
 <div id="range-template" style="display:none;">
     <li class="cluster_third_box">
         <div class="sortable_wrap">
@@ -110,7 +111,7 @@
         </div>
     </li>
 </div>
-
+<!--Limit Ranges 끝 (Limit Ranges end)-->
 <script type="text/javascript">
 
     var G_PVC_LIST_GET_FIRST = true;

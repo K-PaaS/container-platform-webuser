@@ -14,7 +14,7 @@
 
     <jsp:include page="../common/contentsTab.jsp"/>
 
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -75,8 +75,8 @@
                     </div>
                 </div>
             </li>
-            <!-- Details 끝 -->
-            <!-- Containers 시작 -->
+            <!-- Details 끝 (Details end)-->
+            <!-- Containers 시작 (Containers start)-->
             <li class="cluster_third_box maB50">
                 <div class="sortable_wrap">
                     <div class="sortable_top">
@@ -107,13 +107,13 @@
                     </div>
                 </div>
             </li>
-            <!-- Containers 끝 -->
+            <!-- Containers 끝 (Containers end)-->
             <li class="cluster_fifth_box maB50">
                 <jsp:include page="../common/commonDetailsBtn.jsp"/>
             </li>
         </ul>
     </div>
-    <!-- Details  끝 -->
+    <!-- Details 끝 (Details end)-->
 </div>
 
 <input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
@@ -192,7 +192,7 @@
         var containerMap = getContainerMap(containers, status.containerStatuses, nvl(status.phase, 'Unknown'));
         var listCount = 0;
 
-        //<%-- Container 정보에 대한 Table Form 시작 --%>
+        //<%-- Container 정보에 대한 Table Form 시작 (start Table Form for Container info)--%>
         var containerDetailHtml =
             '<div><table class="table_detail alignL"> \
                 <colgroup><col style="*"><col style="*"></colgroup> \

@@ -59,7 +59,7 @@
 
     var G_PODS_LIST;
 
-    // Overview 통계용 데이터
+    // Overview 통계용 데이터 (Statistics Data for Overview)
     var G_PODS_LIST_LENGTH = 0;
     var G_PODS_CHART_RUNNING_CNT = 0;
     var G_PODS_CHART_FAILED_CNT = 0;

@@ -85,10 +85,10 @@
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}/${pathArray[2]}');">${cfn:camelCaseParser('private registry')}</a></li>
                             </c:when>
                             <c:when test="${pathArray[1] eq 'services'}" >
-                                <%-- service는 탭메뉴 없음. 1 depth만 표시 --%>
+                                <%-- service는 탭메뉴 없음.(service does not have tabmenu) 1 depth만 표시 (Show only 1 dept) --%>
                             </c:when>
                             <c:when test="${pathArray[1] eq 'storages'}" >
-                                <%-- storages 는 탭메뉴 없음. 1 depth만 표시 --%>
+                                <%-- storages 는 탭메뉴 없음.(storages does not have tabmenu) 1 depth만 표시 (Show only 1 dept--%>
                             </c:when>
                             <c:when test="${pathArray[2] eq 'namespaces'}" >
                                 <%-- namespaces main : Detail --%>
@@ -139,39 +139,39 @@
     };
 
 
-    // 로그아웃 시 쿠키 제거
+    // 로그아웃 시 쿠키 제거 (Remove cookies on Logout)
     var logout = function() {
         deleteCookie(cookieName);
         procMovePage('/logout');
     };
 
 
-    // cookie 삭제
+    // cookie 삭제 (Delete cookie)
     var deleteCookie = function (cookieName) {
         $.removeCookie(cookieName, { path: '/' });
     };
 
 
-    // cookie 처음 값은 namespace 목록의 첫 번째 값으로 1시간 셋팅
+    // cookie 처음 값은 namespace 목록의 첫 번째 값으로 1시간 셋팅 (Set 1 hour as namespace first value)
     var checkChkCookie = function(cookieName) {
         var cookieValue = $.cookie(cookieName);
 
         var hour = new Date();
-        hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간
+        hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간 (1 hour)
 
-        // 쿠키 없을 때
+        // 쿠키 없을 때 (When cookie is not exist)
         if(cookieValue == null || cookieValue === "" || cookieValue === "undefined") {
             $.cookie(cookieName, namespacesList[0], { expires: hour, path: '/' });
         }
         cookieValue = $.cookie(cookieName);
 
-        // 페이지 이동 시에도 selected 고정
+        // 페이지 이동 시에도 selected 고정 (Fixed selected)
         $("#namespacesList option[value='" + cookieValue + "']").attr('selected', 'selected');
         NAME_SPACE = cookieValue;
 
     };
 
-    // namespace change 후에 cookie 값 갱신
+    // namespace change 후에 cookie 값 갱신 (Update cookie after namespace change)
     var changeNamespace = function(value) {
         deleteCookie(cookieName);
         var hour = new Date();

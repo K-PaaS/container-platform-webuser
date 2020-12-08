@@ -114,10 +114,10 @@
 
             if ((nvl(searchKeyword) === "") || deployName.indexOf(searchKeyword) > -1) {
                 var namespace = metadata.namespace;
-                // 라벨이 없는 경우도 있음.
+                // 라벨이 없는 경우도 있음(Without labels)
                 var labels = procSetSelector(metadata.labels);
                 var creationTimestamp = metadata.creationTimestamp;
-                // Set replicas and total Pods are same.
+                // Set replicas and total Pods are same
                 var totalPods = spec.replicas;
                 var runningPods = totalPods - status.unavailableReplicas;
                 if(runningPods < 0) {runningPods = 0;}
@@ -129,12 +129,12 @@
                     imageTags += '<p>' + containers[i].image + '</p>';
                 }
 
-                procAddPodsEvent(itemList, itemList.spec.selector.matchLabels); // 이벤트 추가
+                procAddPodsEvent(itemList, itemList.spec.selector.matchLabels); // 이벤트 추가 (add Event)
 
                 var statusIconHtml;
                 var statusMessageHtml = [];
 
-                if (itemList.type == 'Warning') { // [Warning]과 [Warning] 외 두 가지 상태로 분류
+                if (itemList.type == 'Warning') { // [Warning]과 [Warning] 외 두 가지 상태로 분류 (Classifying into two states)
                     statusIconHtml = "<span class='red2 tableTdToolTipFalse'><i class='fas fa-exclamation-circle'></i> </span>";
                     $.each(itemList.message, function (index, eventMessage) {
                         statusMessageHtml += "<p class='red2 custom-content-overflow'>" + eventMessage + "</p>";
@@ -177,11 +177,6 @@
             resultHeaderArea.show();
             resultArea.html(htmlString);
             resultArea.show();
-
-    /*        resultTable.tablesorter({
-                sortList: [[4, 1]] // 0 = ASC, 1 = DESC
-            });
-     */
             resultTable.tablesorter();
             resultTable.trigger("update");
             $('.headerSortFalse > td').unbind();
