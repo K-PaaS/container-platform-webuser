@@ -18,6 +18,12 @@ public class UsersValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UsersValidator.class);
 
+    /**
+     * 로그인 요청한 User의 Browser 및 IP 정보 추가(Add User's Browser, IP info)
+     *
+     * @param req  the req
+     * @param user the user
+     */
     public void getUsersValidate(HttpServletRequest req, Users user) {
 
         try{
@@ -32,6 +38,13 @@ public class UsersValidator {
         }
     }
 
+
+    /**
+     * Browser 정보 조회(Get Browser info)
+     *
+     * @param req the req
+     * @return the string
+     */
     protected String getBrowserInfo(HttpServletRequest req) {
         String browser = null;
         try {
@@ -59,6 +72,13 @@ public class UsersValidator {
         return browser;
     }
 
+
+    /**
+     * Local 서버 IP 조회(Get Local Server Ip info)
+     *
+     * @param req the req
+     * @return the string
+     */
     protected String getLocalServerIp(HttpServletRequest req) {
         String clientIp = null;
         try {

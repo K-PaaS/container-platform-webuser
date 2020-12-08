@@ -208,6 +208,13 @@ public class RestTemplateService {
     }
 
 
+    /**
+     * Cookie에서 Access token 조회(Get Access Token from cookie)
+     *
+     * @param request the request
+     * @param name    the name
+     * @return the string
+     */
     public static String getAccessToken(HttpServletRequest request, String name) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
