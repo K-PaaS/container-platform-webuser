@@ -83,7 +83,7 @@ public class AspectService {
 
 
     /**
-     * Controller 호출 시 Acess Token 존재 유무 판별
+     * Controller 호출 시 Access Token 존재 유무 판별
      * <p>
      * Cookies 내 Access Token 미존재인 경우 로그아웃 처리
      *
