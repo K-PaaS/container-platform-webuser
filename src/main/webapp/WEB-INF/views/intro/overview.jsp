@@ -85,7 +85,7 @@
     <li class="cluster_third_box">
         <div class="sortable_wrap">
             <div class="sortable_top">
-                <p>Limit Range</p>
+                <p>Limit Ranges</p>
             </div>
             <div class="view_table_wrap">
                 <table class="table_event condition alignL">
