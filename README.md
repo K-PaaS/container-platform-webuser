@@ -1,4 +1,4 @@
-# paas-ta-container-platform-webuser
+# PaaS-TA 컨테이너 플랫폼 WEB USER
 
 PaaS-TA에서 제공하는 컨테이너 플랫폼 사용을 쉽게 하기 위하여 제공하는 사용자 포털 웹 애플리케이션입니다.
 
