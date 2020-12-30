@@ -5,7 +5,7 @@
   @version 1.0
   @since 2020.09.07
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel='stylesheet' type='text/css' href='<c:url value="/resources/css/jquery-ui-resourcequotas.min.css"/>'>
@@ -65,7 +65,9 @@
                         <col style='width:30%;'>
                     </colgroup>
                     <thead>
-                    <tr id="noResultAreaForResourceQuotas" style="display: none"><td colspan='3'><p class='service_p'>생성한 Resource Quotas 가 없습니다.</p></td></tr>
+                    <tr id="noResultAreaForResourceQuotas" style="display: none">
+                        <td colspan='3'><p class='service_p'>생성한 Resource Quotas 가 없습니다.</p></td>
+                    </tr>
                     <tr id="resultHeaderAreaForResourceQuotas" class="headerSortFalse">
                         <td>Name</td>
                         <td>Status</td>
@@ -97,7 +99,9 @@
                         <col style='width:auto;'>
                     </colgroup>
                     <thead>
-                    <tr id="noResultAreaForLimitRanges" style="display: none"><td colspan='4'><p class='service_p'>생성한 Limit Ranges 가 없습니다.</p></td></tr>
+                    <tr id="noResultAreaForLimitRanges" style="display: none">
+                        <td colspan='4'><p class='service_p'>생성한 Limit Ranges 가 없습니다.</p></td>
+                    </tr>
                     <tr id="resultHeaderAreaForLimitRanges">
                         <td>Resource Name</td>
                         <td>Resource Type</td>
@@ -117,7 +121,7 @@
 
     var G_PVC_LIST_GET_FIRST = true;
 
-    var getDetail = function() {
+    var getDetail = function () {
         procViewLoading('show');
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_DETAIL %>"
@@ -128,7 +132,7 @@
     };
 
 
-    var callbackGetDetail = function(data) {
+    var callbackGetDetail = function (data) {
         var noResultAreaForNameSpaceDetails = $("#noResultAreaForNameSpaceDetails");
         var resultAreaForNameSpaceDetails = $("#resultAreaForNameSpaceDetails");
 
@@ -153,7 +157,7 @@
     };
 
 
-    var getResourceQuotaList = function(namespace) {
+    var getResourceQuotaList = function (namespace) {
         procViewLoading('show');
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS %>"
@@ -163,7 +167,7 @@
         procCallAjax(reqUrl, "GET", null, null, callbackGetResourceQuotaList);
     };
 
-    var callbackGetResourceQuotaList = function(data) {
+    var callbackGetResourceQuotaList = function (data) {
         var html = $("#quota-template").html();
 
         if (!procCheckValidData(data)) {
@@ -202,17 +206,17 @@
     };
 
 
-    var getLimitRangeList = function(namespace) {
+    var getLimitRangeList = function (namespace) {
         procViewLoading('show');
 
-        var reqUrl =  "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_LIMIT_RANGES %>"
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NAME_SPACES_LIMIT_RANGES %>"
             .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", namespace);
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetLimitRangeList);
     };
 
-    var callbackGetLimitRangeList = function(data) {
+    var callbackGetLimitRangeList = function (data) {
         var html = $("#range-template").html();
 
         if (!procCheckValidData(data)) {
@@ -223,10 +227,18 @@
 
         var trHtml;
 
-        if (data.items.length >= 1) {
-            var countY = 0;
-            for (var key = 0; key < data.items.length; key++) {
+        dataLength = data.items.length;
+        yCount = 0;
 
+        for (var key = 0; key < data.items.length; key++) {
+            if (data.items[key].checkYn == "Y") {
+                yCount++;
+            }
+        };
+
+
+        if (yCount > 0) {
+            for (var key = 0; key < data.items.length; key++) {
                 var htmlRe = "";
                 trHtml = "";
                 if (data.items[key].checkYn == "Y") {
@@ -241,17 +253,7 @@
                     htmlRe = htmlRe.replace("{{items.name}}", data.items[key].name);
 
                     $("#detailTab").append(htmlRe);
-                    countY = countY + 1;
 
-                } else if (countY == 0) {
-                    $("#detailTab").append(html);
-
-                    $("#nameForLimitRanges").hide();
-                    $("#resultHeaderAreaForLimitRanges").hide();
-                    $("#resultAreaForLimitRanges").hide();
-                    $("#noResultAreaForLimitRanges").show();
-
-                    break;
                 }
             }
         } else {
@@ -261,11 +263,13 @@
             $("#resultHeaderAreaForLimitRanges").hide();
             $("#resultAreaForLimitRanges").hide();
             $("#noResultAreaForLimitRanges").show();
+
         }
 
         procViewLoading('hide');
 
-    };
+    }
+
 
     $(document.body).ready(function () {
         getDetail();

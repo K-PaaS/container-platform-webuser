@@ -206,7 +206,7 @@
         procCallAjax(reqUrl, "GET", null, null, callbackGetLimitRangeList);
     };
 
-    var callbackGetLimitRangeList = function(data) {
+    var callbackGetLimitRangeList = function (data) {
         var html = $("#range-template").html();
 
         if (!procCheckValidData(data)) {
@@ -217,10 +217,18 @@
 
         var trHtml;
 
-        if (data.items.length >= 1) {
-            var countY = 0;
-            for (var key = 0; key < data.items.length; key++) {
+        dataLength = data.items.length;
+        yCount = 0;
 
+        for (var key = 0; key < data.items.length; key++) {
+            if (data.items[key].checkYn == "Y") {
+                yCount++;
+            }
+        };
+
+
+        if (yCount > 0) {
+            for (var key = 0; key < data.items.length; key++) {
                 var htmlRe = "";
                 trHtml = "";
                 if (data.items[key].checkYn == "Y") {
@@ -235,17 +243,7 @@
                     htmlRe = htmlRe.replace("{{items.name}}", data.items[key].name);
 
                     $("#detailTab").append(htmlRe);
-                    countY = countY + 1;
 
-                } else if (countY == 0) {
-                    $("#detailTab").append(html);
-
-                    $("#nameForLimitRanges").hide();
-                    $("#resultHeaderAreaForLimitRanges").hide();
-                    $("#resultAreaForLimitRanges").hide();
-                    $("#noResultAreaForLimitRanges").show();
-
-                    break;
                 }
             }
         } else {
@@ -255,11 +253,12 @@
             $("#resultHeaderAreaForLimitRanges").hide();
             $("#resultAreaForLimitRanges").hide();
             $("#noResultAreaForLimitRanges").show();
+
         }
 
         procViewLoading('hide');
 
-    };
+    }
 
     $(document.body).ready(function () {
         getDetail();
