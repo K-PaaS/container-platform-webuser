@@ -118,12 +118,19 @@
                 }
             }
 
+
+            var selectboxHtml =  "<td><select class='roleList'>" + selectRole + "</select></td>";
+
+            if((NAME_SPACE === G_USERS_LIST[i].cpNamespace) && (NAMESPACE_ADMIN === G_USERS_LIST[i].userType)) {
+                var selectboxHtml = "<td><select disabled='disabled' class='roleList'>" + selectRole + "</select></td>";
+            }
+
             htmlString.push(
                 "<tr>"
                 + "<td>" + checkBox + "</td>"
                 + "<td class='userId'>" + G_USERS_LIST[i].userId + "</td>"
                 + "<td>" + G_USERS_LIST[i].serviceAccountName + "</td>"
-                + "<td><select class='roleList'>" + selectRole + "</select></td>"
+                +  selectboxHtml
                 + "<td>" + G_USERS_LIST[i].created + "</td>"
                 + "</td>"
                 + "</tr>");
