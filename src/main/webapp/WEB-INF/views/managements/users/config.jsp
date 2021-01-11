@@ -111,9 +111,7 @@
 
             for(var j = 0; j < G_ROLES_LIST.length; j++) {
                 var roleName = G_ROLES_LIST[j].metadata.name;
-                if((NAME_SPACE === G_USERS_LIST[i].roleSetCode) && (NAMESPACE_ADMIN === G_USERS_LIST[i].userType)) {
-                    selectRole  += "<option name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
-                } else if(roleName === G_USERS_LIST[i].roleSetCode) {
+                 if((NAME_SPACE === G_USERS_LIST[i].cpNamespace) && (roleName === G_USERS_LIST[i].roleSetCode)) {
                     selectRole  += "<option selected name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
                 } else {
                     selectRole  += "<option name='roleSelect' value='" + roleName + "'" + "id='role" + j + "'>" + roleName + "</option>";
