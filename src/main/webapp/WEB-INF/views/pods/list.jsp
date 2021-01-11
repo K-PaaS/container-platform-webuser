@@ -400,7 +400,13 @@
         G_PODS_LIST_LIMIT_COUNT = setResourceListLimitCount();
 
 
-        if (typeof ownerParamForPodsByReplicaSets !== 'undefined') {
+        if (typeof ownerParamForPodsByWorkloadsOverview !== 'undefined') {
+            //search by workloads overview
+            $("#" + G_PODS_MORE_BTN_ID).css("display", "block");
+            getPodsList(0, G_PODS_LIST_LIMIT_COUNT, G_PODS_LIST_SEARCH_KEYWORD);
+
+        }
+        else if (typeof ownerParamForPodsByReplicaSets !== 'undefined') {
             //search by replicaSets
             getDetailForPodsList(ownerParamForPodsByReplicaSets, G_PODS_LIST_SEARCH_KEYWORD);
         }

@@ -66,6 +66,8 @@
     var G_REPLICA_SETS_CHART_RUNNING_RATIO = 0;
     var G_REPLICA_SETS_CHART_FAILED_RATIO = 0;
 
+    var ownerParamForPodsByWorkloadsOverview ='';
+
     // ON LOAD
     $(window).bind("load", function () {
         getOverview();
