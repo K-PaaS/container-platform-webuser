@@ -176,7 +176,7 @@
                     '<tr>'
                     + statusIconHtml
                     + '<a href="javascript:void(0);" onclick="procMovePage(\'<%= Constants.URI_STORAGES %>/' + persistentVolumeClaimName + '\');">' + persistentVolumeClaimName + '</a></td>'
-                    + '<td><p>' + procCreateSpans(labels, "LB") + '</p></td>'
+                    + '<td>' + procCreateSpans(labels) + '</td>'
                     + '<td><p>' + nvl(specCollection, '-') + '</p></td>'
                     + '<td>' + nvl(itemStatus.phase, '-') + "</td>"
                     + '<td>' + itemsMetadata.creationTimestamp + '</td>'
