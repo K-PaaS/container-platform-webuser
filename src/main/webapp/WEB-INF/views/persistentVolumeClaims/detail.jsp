@@ -165,7 +165,7 @@
         $('#volumeName').html(volumeName);
         $('#volumeMode').html(volumeMode);
         $('#capacity').html(capacity);
-        $('#storageClassName').html(storageClassName);
+        $('#storageClassName').html(nvl(storageClassName, '-'));
         $('#status').html(status);
 
         //hidden값 추가
