@@ -180,7 +180,7 @@
 
         NAME_SPACE = value;
 
-        location.reload();
+        procMovePage('<%=Constants.URI_INTRO_OVERVIEW%>');
     };
 
     $(document.body).ready(function () {
