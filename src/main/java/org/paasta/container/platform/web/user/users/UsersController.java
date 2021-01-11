@@ -310,6 +310,7 @@ public class UsersController {
         CommonUtils.removeCookies(response, cpUserId);
         CommonUtils.removeCookies(response, Constants.CP_USER_METADATA_KEY);
         CommonUtils.removeCookies(response, Constants.CP_SELECTED_NAMESPACE_KEY);
+        CommonUtils.removeCookies(response, Constants.CP_CLUSTER_NAME_KEY);
 
         ModelAndView model = new ModelAndView();
         model.setViewName(Constants.REDIRECT_VIEW + "/login");
