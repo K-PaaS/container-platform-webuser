@@ -146,10 +146,13 @@ public class UsersController {
             @ApiImplicitParam(name = "users", value = "유저 정보 목록", required = true, dataType = "List<Users>", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_CONFIG)
-    public ResultStatus modifyUsersConfig(@PathVariable(value = "cluster") String cluster,
+    public ResultStatus modifyUsersConfig(HttpServletRequest httpServletRequest,
+                                          @PathVariable(value = "cluster") String cluster,
                                           @PathVariable(value = "namespace") String namespace,
                                           @RequestBody List<Users> users) {
-        return usersService.modifyUsersConfig(cluster, namespace, users);
+
+        String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
+        return usersService.modifyUsersConfig(cluster, namespace, users, userId);
     }
 
 
@@ -166,9 +169,12 @@ public class UsersController {
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST)
-    public UsersList getUsersList(@PathVariable(value = "cluster") String cluster,
+    public UsersList getUsersList(HttpServletRequest httpServletRequest,
+                                  @PathVariable(value = "cluster") String cluster,
                                   @RequestParam(name = "namespace") String namespace) {
-        return usersService.getUsersList(cluster, namespace);
+
+        String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
+        return usersService.getUsersList(cluster, namespace, userId);
     }
 
     /**

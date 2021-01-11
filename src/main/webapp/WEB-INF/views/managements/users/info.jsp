@@ -69,6 +69,7 @@
         var param = {
             "userId": $("#userId").val(),
             "password": $("#password").val(),
+            "passwordConfirm": $("#passwordConfirm").val(),
             "email": $("#email").val(),
             "description": $("#desc").val()
         };

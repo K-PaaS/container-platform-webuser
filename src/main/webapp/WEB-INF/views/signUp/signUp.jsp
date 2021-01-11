@@ -61,6 +61,7 @@
         var userId = $("#userId").val();
         var password = $("#password").val();
         var email = $("#email").val();
+        var passwordConfirm = $("#passwordConfirm").val();
 
         var manCheck = false;
         var msg = "";
@@ -117,6 +118,7 @@
         var userListParam = {
             "userId": userId,
             "password": password,
+            "passwordConfirm": passwordConfirm,
             "email": email
         };
 

@@ -46,8 +46,8 @@
     </div>
 </div>
 <div class="common-cu center">
-    <button id="saveBtn" type="button" class="colors8 common-btn" style="margin-right: 20px;">저장</button>
-    <button id="cancel" type="button" class="colors5 common-btn" onclick="cancelBtn();">이전</button>
+    <button id="saveBtn" type="button" class="colors8 common-btn" style="margin-right: 20px; display: none;">저장</button>
+    <button id="cancel" type="button" class="colors5 common-btn" style="display: none;" onclick="cancelBtn();">이전</button>
 </div>
 
 <script type="text/javascript">
@@ -76,6 +76,8 @@
             return false;
         }
 
+        $("#saveBtn").css( "display", "inline");
+        $("#cancel").css( "display", "inline");
         G_USERS_LIST = data.items;
 
         procViewLoading('hide');
@@ -105,7 +107,7 @@
                 checkBox = "<input type='checkbox' name='checkbox_name' style='opacity: 1; position: static'>"
             }
 
-            var selectRole = "<option>" + NOT_ASSIGNED_ROLE + "</option>";
+            var selectRole = "";
 
             for(var j = 0; j < G_ROLES_LIST.length; j++) {
                 var roleName = G_ROLES_LIST[j].metadata.name;

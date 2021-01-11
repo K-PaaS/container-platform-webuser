@@ -30,6 +30,8 @@ public class Users {
             message = "비밀번호는 영문으로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~40자 이내로 사용 가능합니다.")
     private String password;
 
+    private String passwordConfirm;
+
     @NotBlank(message = "이메일은 필수 입력 값입니다.")
     @Email(message = "이메일 형식에 맞지 않습니다.")
     private String email;
@@ -50,5 +52,6 @@ public class Users {
     private String lastModified;
     private String browser;
     private String clientIp;
+
 
 }

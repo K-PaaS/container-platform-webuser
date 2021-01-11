@@ -136,7 +136,7 @@ public class Constants {
     public static final String CP_USER_METADATA_KEY ="cp-user-metadata";
     public static final String CP_SELECTED_NAMESPACE_KEY ="cp-user-selected-ns";
     public static final String REMAIN_ITEM_COUNT_KEY = "remainingItemCount";
-    public static final String CP_CLUSTER_NAME_KEY ="cp-cluster-name";
+    public static final String CP_CLUSTER_NAME_KEY ="cp-user-cluster-name";
 
     public static final String REDIRECT_VIEW = "redirect:";
 

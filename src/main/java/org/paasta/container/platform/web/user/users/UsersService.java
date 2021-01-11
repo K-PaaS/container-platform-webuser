@@ -99,11 +99,15 @@ public class UsersService {
      *
      * @param cluster   the cluster
      * @param namespace the namespace
+     * @param userId    the user Id
      * @return the users list
      */
-    public UsersList getUsersList(String cluster, String namespace) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST.replace("{cluster:.+}", cluster)
-                + "?namespace=" + namespace, HttpMethod.GET, null, UsersList.class);
+    public UsersList getUsersList(String cluster, String namespace, String userId) {
+
+        String param = "?namespace=" + namespace + "&userId=" + userId;
+
+        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_LIST.replace("{cluster:.+}", cluster) + param,
+                HttpMethod.GET, null, UsersList.class);
     }
 
 
@@ -130,9 +134,12 @@ public class UsersService {
      * @param users     the users
      * @return the resultStatus
      */
-    public ResultStatus modifyUsersConfig(String cluster,String namespace, List<Users> users) {
+    public ResultStatus modifyUsersConfig(String cluster,String namespace, List<Users> users, String userId) {
+
+        String param = "?userId="+ userId;
+
         return restTemplateService.send(TARGET_CP_API, URI_API_USERS_CONFIG
                 .replace("{cluster:.+}", cluster)
-                .replace("{namespace:.+}", namespace), HttpMethod.PUT, users, ResultStatus.class);
+                .replace("{namespace:.+}", namespace) + param, HttpMethod.PUT, users, ResultStatus.class);
     }
 }
