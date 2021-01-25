@@ -12,7 +12,7 @@
 <div class="update-content">
         <div class="update_wrap" style="border: solid 2px; border-color:#e7eaec;">
             <div class="form-icon">
-                <img class="update-form-image" src="/resources/images/main/logo_56x56.png">
+                <img  src="/resources/images/main/logo_60x48.png" style ="display: block; margin: 0 auto 30px;">
             </div>
             <div class="form-group">
                 <input type="text" class="update-form" id="userId" placeholder="User Id" maxlength="12" value="${user.userId}" disabled>

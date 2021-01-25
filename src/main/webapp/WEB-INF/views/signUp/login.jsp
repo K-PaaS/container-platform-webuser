@@ -29,7 +29,7 @@
 <div id="loginDiv">
     <form name="frm" action="/login" method="post" enctype="text/plain" id="loginForm">
         <div class="form-icon">
-            <img class="panel-image" src="/resources/images/main/logo_56x56.png">
+            <img  src="/resources/images/main/logo_60x48.png" style="margin-bottom: 15px;">
             <h4>Container Platform Login</h4>
         </div>
         <div class="form-group">

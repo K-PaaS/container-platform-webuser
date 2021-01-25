@@ -24,7 +24,7 @@
 <div class="registration-form">
     <form name="frm" action="/register" method="post" enctype="text/plain">
         <div class="form-icon">
-            <img  class="panel-image" src="/resources/images/main/logo_56x56.png" style="width: 100px; height: 100px;">
+            <img  src="/resources/images/main/logo_60x48.png" style="margin-bottom: 10px">
             <h4 style="margin-top: 20px;">Container Platform Sign Up</h4>
         </div>
         <div class="form-group">
