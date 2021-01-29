@@ -1,5 +1,6 @@
 <%--
   Services yaml
+
   @author kjhoon
   @version 1.0
   @since 2020.08.27
@@ -18,6 +19,7 @@
         var resourceName = "<c:out value='${serviceName}' default='' />";
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SERVICES_YAML %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{serviceName:.+}", resourceName);
 

@@ -1,8 +1,9 @@
 <%--
   Nodes summary
-  author: jjy
-  version: 1.0
-  since: 2020-09-17
+
+  @author jjy
+  @version 1.0
+  @since 2020.09.17
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
@@ -59,11 +60,14 @@
 <script type="text/javascript" src='<c:url value="/resources/js/highcharts.js"/>'></script>
 <script type="text/javascript" src='<c:url value="/resources/js/data.js"/>'></script>
 <script type="text/javascript">
-
+    var G_NODE_NAME = '';
+    var ownerParamForPodsByNodes ='';
     // GET NODE
     var getNode = function() {
         var resourceName = '<c:out value="${nodeName}" default="" />';
-        var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_NODES_LIST %>'.replace('{nodeName:.+}', resourceName);
+        var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_NODES_LIST %>'
+            .replace("{cluster:.+}", CLUSTER_NAME)
+            .replace('{nodeName:.+}', resourceName);
 
         procCallAjax(reqUrl, 'GET', null, null, callbackGetNodeSummary);
     };
@@ -79,21 +83,19 @@
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Nodes 상세 조회에 실패하였습니다.', false);
             return;
         }
 
-        var nodeName = data.metadata.name;
+        G_NODE_NAME = data.metadata.name;
         var conditions = data.status.conditions;
         $.each(conditions, function(index, condition) {
             condition.lastHeartbeatTime = condition.lastHeartbeatTime.replace(/T/g, ' ').replace(/Z$/g, '');
             condition.lastTransitionTime = condition.lastTransitionTime.replace(/T/g, ' ').replace(/Z$/g, '');
         });
 
-        // SET PODS TABLE
-        var podListReqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_NODE %>'
-            .replace('{namespace:.+}', NAME_SPACE).replace('{nodeName:.+}', nodeName);
-        getPodListUsingRequestURL(podListReqUrl);
+        // SET POD'S LIST
+        getDetailForPodsList(ownerParamForPodsByNodes, null);
 
         // SET NODE'S CONDITIONS
         var contents = [];
@@ -109,8 +111,6 @@
 
         if (contents.length > 0) {
             $('#conditionResultArea').html(contents);
-            podNotFound.hide();
-            podsTableHeader.show();
             conditionsNotFound.hide();
             conditionsTableHeader.show();
         } else {
@@ -129,4 +129,20 @@
     $(document.body).ready(function() {
         getNode();
     });
+</script>
+<script>
+    // GET DETAIL FOR PODS LIST
+    var getDetailForPodsList = function(selector, searchName) {
+        var reqUrl ='<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_NODE %>';
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace('{namespace:.+}', NAME_SPACE).replace('{nodeName:.+}', G_NODE_NAME);
+
+        if (searchName != null) {
+            reqUrl += "?searchName=" + searchName;
+        }
+
+        getPodListUsingRequestURL(reqUrl);
+
+
+    };
+
 </script>

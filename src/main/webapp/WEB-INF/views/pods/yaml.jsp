@@ -1,5 +1,6 @@
 <%--
   Pods yaml
+
   @author kjhoon
   @version 1.0
   @since 2020.09.01
@@ -16,7 +17,9 @@
         var resourceName = '<c:out value="${podName}" default="" />';
 
         var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_PODS_YAML %>'
-            .replace('{namespace:.+}', NAME_SPACE).replace('{podName:.+}', resourceName);
+            .replace("{cluster:.+}", CLUSTER_NAME)
+            .replace('{namespace:.+}', NAME_SPACE)
+            .replace('{podName:.+}', resourceName);
 
         procGetCommonDetailYaml(reqUrl, resourceName);
     };

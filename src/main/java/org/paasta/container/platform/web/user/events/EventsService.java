@@ -19,7 +19,7 @@ public class EventsService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Events service.
+     * Instantiates a new Events service
      *
      * @param restTemplateService the rest template service
      */
@@ -27,26 +27,29 @@ public class EventsService {
     public EventsService(RestTemplateService restTemplateService) {this.restTemplateService = restTemplateService;}
 
     /**
-     * Events 목록을 조회한다.
+     * Events 목록 조회(Get Events list)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace Name
      * @param resourceUid the resource Uid
+     * @param type the type
      * @return the events list
      */
-    EventsList getEventsList(String namespace, String resourceUid, String type) {
+    EventsList getEventsList(String cluster, String namespace, String resourceUid, String type) {
         if(type != null) {
-            return restTemplateService.send(Constants.TARGET_CP_API, "/namespaces/"+namespace+"/events/resources/"+resourceUid+"?type="+type, HttpMethod.GET, null, EventsList.class);
+            return restTemplateService.send(Constants.TARGET_CP_API, "/clusters/" + cluster + "/namespaces/" + namespace + "/events/resources/" + resourceUid + "?type=" + type, HttpMethod.GET, null, EventsList.class);
         }
-        return restTemplateService.send(Constants.TARGET_CP_API, "/namespaces/"+namespace+"/events/resources/"+resourceUid, HttpMethod.GET, null, EventsList.class);
+        return restTemplateService.send(Constants.TARGET_CP_API, "/clusters/" + cluster + "/namespaces/" + namespace + "/events/resources/" + resourceUid, HttpMethod.GET, null, EventsList.class);
     }
 
     /**
-     * Events 목록을 조회한다.(for namespace)
+     * Events 목록을 조회(Get Events namespace)
      *
+     * @param cluster   the cluster
      * @param namespace the namespace Name
      * @return the events list
      */
-    EventsList getNamespaceEventsList(String namespace) {
-        return restTemplateService.send(Constants.TARGET_CP_API, "/namespaces/"+namespace+"/events", HttpMethod.GET, null, EventsList.class);
+    EventsList getNamespaceEventsList(String cluster, String namespace) {
+        return restTemplateService.send(Constants.TARGET_CP_API, "/clusters/" + cluster + "/namespaces/" + namespace + "/events", HttpMethod.GET, null, EventsList.class);
     }
 }

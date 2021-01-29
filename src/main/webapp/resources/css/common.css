@@ -202,7 +202,6 @@ header.account{height:76px;}
 .cWrap_table table span{font-size: 14px; font-family: 'Nanum Gothic'; padding:0 23px; position: relative; top:10px; color:#8a8c99; font-weight:300;}
 .cWrapDot:before{content:"·"; color:#333440; padding-right:6px;}
 
-/*20180320*/
 .detail_bottom{background:#fff; padding-bottom:30px;}
 .detail_bottom table{width:95%; margin:0 auto; font-size:14px; color:#808487;}
 .detail_bottom table td:nth-child(1),
@@ -405,9 +404,9 @@ nav .tit{ height: 61px; line-height: 61px; text-align: center; color:#454545; fo
 #lnbimg9{ width: 50px; height: 50px; background-image: url('../../resources/images/main/lnb_9.png');}
 
 /* 내계정 */
-#lnbimg10{ width: 36px; height: 43px; background-image: url('../../resources/images/main/lnb_10.png');}
-#lnbimg11{ width: 46px; height: 44px; background-image: url('../../resources/images/main/lnb_11.png');}
-#lnbimg12{ width: 44px; height: 46px; background-image: url('../../resources/images/main/lnb_12.png');}
+#lnbimg10{ width: 50px; height: 50px; background-image: url('../../resources/images/main/lnb_9.png');}
+#lnbimg11{ width: 36px; height: 43px; background-image: url('../../resources/images/main/lnb_10.png');}
+#lnbimg12{ width: 46px; height: 44px; background-image: url('../../resources/images/main/lnb_11.png');}
 #lnbimg13{ width: 42px; height: 48px; background-image: url('../../resources/images/main/lnb_13.png');}
 
 .nav_1d li > dl > dt > div{background-position: center top; }
@@ -564,7 +563,7 @@ table.variable .H180{height: 180px; vertical-align: top;}
 .viwe_temp{text-align: center;background:#f0f2f2; width: 100%; height: 300px; border-radius:5px;}
 .viwe_temp p.temp{line-height:300px;}
 
-.service_p{text-align: center; color:#8a8c99; font-size: 16px; padding:40px 0; line-height:37px; }
+.service_p{text-align: center; color:#8a8c99; font-size: 16px;  padding : 10px 0 40px 0 ; }
 .table_wrap .nocondition{width: 98%;}
 .nocondition tbody tr{border: none; text-align: left;}
 .nocondition tbody tr:nth-child(odd){background:none;}
@@ -1168,9 +1167,7 @@ body.email h4{color:#293133;}
 	.organization_table{width:100%; float:none;}
 	.organization_table:nth-child(2){float:none; margin-left:0; margin-top:30px;}
 	.organization_table .btns6{min-width:172px;}
-	/* 20180323 수정 */
 	.organization_table .btns6{min-width:auto;}
-		/*180621 스타일 수정*/
 	.app_per .servName{max-width:calc(100% - 150px);}
 }
 
@@ -1244,14 +1241,13 @@ body.email h4{color:#293133;}
 	/* 서비스 */
 	.services_wrap{margin-left:0; margin-right:0;}
 
-	/*18-04-05 추가*/
 	.org_box > div:nth-child(1){width:100% !important;}
 	.org_box > div:nth-child(1) input{width:100%}
 	.org_box > div:nth-child(1) p{padding-top:5px}
 	.org_box > div:nth-child(2){display:none}
 	.org_box > div:nth-child(3){clear:both;width:100%  !important;;line-height:26px;font-size:14px;padding-top:30px}
 
-		/*180621 스타일 수정*/
+
 	.app_per .servName{max-width:calc(100% - 150px);}
 }
 @media all and (max-width: 1650px) {
@@ -1260,21 +1256,21 @@ body.email h4{color:#293133;}
 	.space_select_dv li select{width:100% !important}
 	.space_list > li{width:calc(50% - 20px) !important;margin-bottom:20px}
 
-		/*180621 스타일 수정*/
+
 	.app_per .servName{max-width:calc(100% - 150px);}
 }
 
 @media all and (max-width: 700px) {
 	.space_list > li{width:calc(100% - 20px) !important;margin-bottom:20px}
 
-		/*180621 스타일 수정*/
+
 	.app_per .servName{max-width:calc(100% - 150px);}
 }
 
 
 
 
-/*모니터링 추가 : 18-04-03*/
+/*모니터링 추가*/
 .monitor_tabs{font-size:16px;margin:30px 0 0 0;position:relative;}
 .monitor_tabs li{float:left;height:51px;text-align:center;line-height:50px;cursor:pointer}
 .monitor_tabs_on{border-bottom:0;border-top:2px solid #357f94;border-left:2px solid #357f94;;border-right:2px solid #357f94;background:#f0f2f2;height:53px !important;font-weight:bold;color:#357f94}
@@ -1326,7 +1322,7 @@ body.email h4{color:#293133;}
 .monitor_second_box{margin-top:1.6%;margin-left:0;float:left;width:100%}
 }
 
-/*조직 추가 : 18-04-04*/
+/*조직 추가*/
 .org_wrap{background:url('../../resources/images/org/org_bg.gif')no-repeat #f0f2f2 right 77px;height:100%}
 .org{background:#f0f2f2;}
 .ns{width:100%}
@@ -1342,7 +1338,7 @@ body.email h4{color:#293133;}
 .org_tbl_wrap thead td{font-weight:bold}
 .org_tables_noline{border:0 !important}
 
-/*공간 추가 : 18-04-04*/
+/*공간 추가*/
 .dashboard_ui{margin-top:76px;background:#fff;width:100%;height:110px;box-shadow:0 1px 3px rgba(0,0,0,0.15);-webkit-box-shadow:0 1px 3px rgba(0,0,0,0.15);-moz-box-shadow:0 0 10px 0 rgba(33,33,33,.2);-o-box-shadow:0 0 10px 0 rgba(33,33,33,.2);-ms-box-shadow:0 0 10px 0 rgba(33,33,33,.2);}
 .dashboard_ui_container{width:calc(100% - 40px);margin:0 auto}
 .space_title{font-size:15px;font-weight:bold;padding-top:15px;text-align:left}
@@ -1429,7 +1425,7 @@ body.email h4{color:#293133;}
 .space_pop_container{padding:40px 15px}
 }
 
-/*180409 alert layer 추가*/
+/*alert layer 추가*/
 .alertOn, .alertOn:hover, .alertOn:active {display:block; width:100%; line-height:30px; text-decoration:none !important; margin-top:30px;}
 body.error_b{background:#f0f2f2;}
 .errorWrap{width: 440px; margin: 0 auto; text-align: center; position: relative;}
@@ -1438,17 +1434,17 @@ body.error_b{background:#f0f2f2;}
 
 .alertLayer.moveAlert{-webkit-transform:translateY(90px);transform:translateY(90px);}
 
-/*180601 error page 추가*/
+/*error page 추가*/
 .space_alert_img.error{margin-top:150px;}
 .space_title3.error{margin-top:70px; text-align:center;}
 .space_txt.error{color:808487;font-size:18px;}
 .errorOn, .errorOn:hover, .errorOn:active{display:block; width:200px;height:50px;font-size:20px;line-height:50px;text-align:center;margin:80px auto 0;border-radius:3px;}
 
-/*180725 스타일 추가*/
+/*스타일 추가*/
 .title_anchor{color:#293133;}/*폰트 색상 유지*/
 .title_anchor:hover{border-bottom:1px solid #000;}/*hover시 밑줄 추가*/
 
-/*180725 dashboard.html*/
+/*dashboard.html*/
 .alignL{text-align:left !important;}
 
 .custom_url_1{width:30%;padding:0 5px;height:32px;}

@@ -12,7 +12,7 @@
             <div class="modal-content">
                 <!-- header -->
                 <div class="modal-header">
-                    <!-- 닫기(x) 버튼 -->
+                    <!-- 닫기(x) 버튼 (Close Button)-->
                     <button type="button" class="close" data-dismiss="modal"><span id="commonLayerPopupCloseButton">×</span></button>
                     <!-- header title -->
                     <h4 class="modal-title"><span id="commonLayerPopupTitle">-</span></h4>

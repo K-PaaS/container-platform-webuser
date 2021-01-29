@@ -10,47 +10,72 @@
  * @author jjy
  * @since 2020.09.03
  */
-var procCallAjax = function(reqUrl, reqMethod, param, preFunc, callback) {
+var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
     var reqData = "";
+    var contentTypeValue = 'application/json';
     if (param != null) {
         reqData = param;
     }
+
+    if (preFunc != null && preFunc === true) {
+        contentTypeValue = 'text/plain';
+    }
+
     $.ajax({
         url: reqUrl,
         method: reqMethod,
         data: reqData,
         dataType: 'json',
         async: false,
-        contentType: "application/json",
-        beforeSend: function(xhr){
+        contentType: contentTypeValue,
+        beforeSend: function (xhr) {
             // preFunc
             //xhr.setRequestHeader(_csrf_header, _csrf_token);
             // CONTAINER-PLATFORM-API Ajax request header setting
             xhr.setRequestHeader("X-Container-Platform-Ajax-call", "true");
         },
-        success: function(data) {
-
-            if(data.resultCode == "FAIL"){
+        success: function (data) {
+            if (data.resultCode == "FAIL") {
                 procViewLoading('hide');
-                procAlertMessage();
-            }else{
+
+                if (data.resultMessage == "TOKEN_FAILED") {
+                    location.href = "/logout";
+                    return false;
+                }
+
+                if (preFunc == 'ENDPOINTS') {
+                    return false;
+                }
+
+                if (data.resultMessage == "Not Found") {
+                    procMovePage("/errors");
+                    return false;
+                }
+
+                procAlertMessage(data.detailMessage);
+            } else {
                 callback(data);
             }
 
         },
-        error: function(jqXHR, exception) {
-            console.log("jqXHR.status::::"+jqXHR.status+" exception:::"+exception);
+        error: function (jqXHR, exception) {
+            console.log("jqXHR.status::::" + jqXHR.status + " exception:::" + exception);
             procViewLoading('hide');
 
-            if(jqXHR.status == 401){
+            if (jqXHR.status == 401) {
                 procAlertMessage('API unauthorized.', false);
-            }else if (jqXHR.status == 500){
-                procAlertMessage();
+            } else if (jqXHR.status == 500) {
+                procAlertMessage('Internal Server Error.', false);
             }
         },
-        complete : function(data) {
+        complete: function (data) {
             // SKIP
             console.log("COMPLETE :: data :: ", data);
+
+            var responseJSON = data.responseJSON;
+            if(reqMethod === "GET" && responseJSON.resultCode === "FAIL") {
+                procAlertMessage(responseJSON.resultMessage);
+            }
         }
     });
 };
@@ -84,13 +109,13 @@ var procSetSelector = function (requestMapString) {
 
 /**
  * 문자열이 빈 문자열인지 체크하여 빈값("") 또는 기본 문자열을 반환한다.
- * @param str
+ * @param str           : 체크할 문자열
  */
-function nvl(str, defaultStr){
-    if(str == "undefined" || str === undefined || str == "null" || str === null || str == ""){
-        if(defaultStr === undefined){
+function nvl(str, defaultStr) {
+    if (str == "undefined" || str === undefined || str == "null" || str === null || str == "") {
+        if (defaultStr === undefined) {
             str = "";
-        }else{
+        } else {
             str = defaultStr;
         }
     }
@@ -99,8 +124,8 @@ function nvl(str, defaultStr){
 
 // SET MENU CURSOR
 var procSetMenuCursor = function () {
-    var leftMenuList = ["intro", "workloads", "services", "storages", "users", "roles"];
-    var headerMenuList = ["users", "roles"];
+    var leftMenuList = ["intro", "workloads", "services", "storages", "info", "users", "roles"];
+    var headerMenuList = ["info", "users", "roles"];
     var leftMenuListLength = leftMenuList.length;
     var calledMenu = leftMenuList[0];
 
@@ -126,7 +151,7 @@ var procSetMenuCursor = function () {
 
 
 // SET SORT LIST
-var procSetSortList = function(resultTableString, buttonObject, key) {
+var procSetSortList = function (resultTableString, buttonObject, key) {
     $(buttonObject).toggleClass('sort');
 
     var resultTable = $('#' + resultTableString);
@@ -158,20 +183,29 @@ var procCheckValidData = function (data) {
     }
 };
 
-var procViewLoading = function(type) {
+var timeout = null;
+var procViewLoading = function (type) {
     var dashboardWrap = $("#dashboardWrap");
     var loader = $("#loadingSpinner");
+
+    if (timeout != null) {
+        clearTimeout(timeout);
+        timeout = null;
+    }
 
     if (type === 'show') {
         loader.show().gSpinner();
     } else {
         dashboardWrap.show();
-        setTimeout(function(){
-            loader.gSpinner("hide").hide();
-        }, 1000);
+
+        timeout = setTimeout(() => gSpinnerHide(loader) ,1000);
     }
 };
 
+var gSpinnerHide = function (loader) {
+    timeout = null;
+    loader.gSpinner("hide").hide();
+};
 
 var procAlertMessage = function (value, result) {
     var messageValue = '시스템 에러가 발생했습니다.';
@@ -197,8 +231,8 @@ var procAlertMessage = function (value, result) {
 
 /**
  * 해당 리소스에 이벤트 데이터를 추가한다.
- * @param targetObject
- * @param selector
+ * @param targetObject   : 해당 리소스의 리스트 JSON Object
+ * @param selector       : 연관된 POD를 조회하기 위한 SELECTOR
  * @description
  *    해당 리소스(replicaSet, deployment)에 연관된 POD명을 조회하여,
  *    해당 POD의 이벤트를 조회후,
@@ -209,37 +243,37 @@ var procAlertMessage = function (value, result) {
  *
  *    ex) procAddPodsEvent(itemList, itemList.spec.selector.matchLabels); // event Data added to 'itemList'
  *
- * @author jjy
- * @since 2020.09.03
  */
-var procAddPodsEvent = function(targetObject, selector) {
+var procAddPodsEvent = function (targetObject, selector) {
 
     selector = procSetSelector(selector);
 
     // 기존 리스트 데이터에 event.type, event.message 추가
     var eventType = 'normal';
     var eventMessage = [];
+    var param = "?selector=" + selector ;
 
-    var reqPodsUrl = URI_API_PODS_RESOURCES
-        .replace("{namespace:.+}", NAME_SPACE)
-        .replace("{selector:.+}", selector);
-    procCallAjax(reqPodsUrl, "GET", null, null, function(podsData){
+    var reqPodsUrl = URI_API_PODS_RESOURCES + param;
+    reqPodsUrl = reqPodsUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
+
+    procCallAjax(reqPodsUrl, "GET", null, null, function (podsData) {
         $.each(podsData.items, function (index, itemList) {
             var podsName = itemList.metadata.uid;
             var podPhase = nvl(itemList.status.phase).toLowerCase();
 
             // 해당조건일시 이벤트에서 제외
-            if(podPhase == "running" || podPhase.includes("succeeded") || podPhase == "terminated"){
+            if (podPhase == "running" || podPhase.includes("succeeded") || podPhase == "terminated") {
                 return true;  // continue;
             }
 
             var reqEventsUrl = URI_API_EVENTS_LIST
+                .replace("{cluster:.+}", CLUSTER_NAME)
                 .replace("{namespace:.+}", NAME_SPACE)
                 .replace("{resourceUid:.+}", podsName);
-            procCallAjax(reqEventsUrl, "GET", null, null, function(eventData){
+            procCallAjax(reqEventsUrl, "GET", null, null, function (eventData) {
                 $.each(eventData.items, function (index, eData) {
                     var eType = eData.type;
-                    if(eType == 'Warning' && !(eventMessage.indexOf(eData.message) > -1) ){
+                    if (eType == 'Warning' && !(eventMessage.indexOf(eData.message) > -1)) {
                         eventType = eType;
                         eventMessage.push(eData.message);
                     }
@@ -310,7 +344,7 @@ var procSetToolTipAttributes = function (tagObject) {
 
 // CREATE SPANS FOR LABELS, ANNOTATIONS
 var procCreateSpans = function (data, type) {
-    if( !data || data == "null") {
+    if (!data || data == "null") {
         return "-";
     }
     var datas = data.replace(/=/g, ':').split(',');
@@ -334,7 +368,8 @@ var procCreateSpans = function (data, type) {
 
 // SET LAYER POPUP
 var procSetLayerPopup = function (reqTitle, reqContents, reqSuccess, reqCancel, reqClose, reqSuccessCallback, reqCancelCallback, reqCloseCallback) {
-    $('.modal-backdrop').remove();
+    //$('.modal-backdrop').hide();
+    $("#commonLayerPopup").modal("show");
 
     var commonLayerPopupSuccessButton = $('#commonLayerPopupSuccessButton');
     var commonLayerPopupCancelButton = $('#commonLayerPopupCancelButton');
@@ -375,7 +410,7 @@ var procSetLayerPopup = function (reqTitle, reqContents, reqSuccess, reqCancel, 
     $('#commonLayerPopupTitle').html(nvl(reqTitle, '알림'));
     $('#commonLayerPopupContents').html(nvl(reqContents, '정상 처리되었습니다.'));
 
-    $("#commonLayerPopup").modal("show");
+
 
 };
 
@@ -416,7 +451,7 @@ var procSetAnnotations = function (extAnnotations) {
     var applyKey = 'kubectl.kubernetes.io/last-applied-configuration'
     var applyValue = nvl(annotations[applyKey]);
     if (applyValue !== '') {
-        tempStr = '<span class="bg_blue" onclick="procSetAnnotationLayerpop(this)" '
+        tempStr = '<span class="bg_blue tableTdToolTipFalse" onclick="procSetAnnotationLayerpop(this)" '
             + 'data-title="' + applyKey + '" data-content=' + applyValue + '>'
             + '<a>' + applyKey + '</a></span>';
         delete annotations[applyKey];
@@ -427,11 +462,13 @@ var procSetAnnotations = function (extAnnotations) {
         tempStr += ' ' + procCreateSpans(annotationsString, 'NOT_LB');
     }
 
+
+
     return nvl(tempStr, '-');
 };
 
 // CONTENT SETTING FOR POP-UP MODAL
-var procSetAnnotationLayerpop = function(eventElement) {
+var procSetAnnotationLayerpop = function (eventElement) {
     var select = $(eventElement);
     var title = JSON.stringify(select.data('title')).replace(/^"|"$/g, '');
     var content = JSON.stringify(select.data('content')).replace(/^"|"$/g, '');
@@ -441,42 +478,40 @@ var procSetAnnotationLayerpop = function(eventElement) {
 
 /**
  * 객체의 값을 비교한다.
- * @param object
- * @param object
+ * @param object   : 대상 Object 1
+ * @param object   : 대상 Object 2
  * @description
  *    label 비교용으로 사용
  *    ex use) procCompareObj( {"app":"wordpress","tier":"front"},{"tier":"front", "app":"wordpress"} )  => true
  *
- * @author jjy
- * @since 2020.09.03
  */
-var procCompareObj = function( a, b ){
+var procCompareObj = function (a, b) {
     var type = typeof a, i, j;
-    if( type == "object" ){
-        if( a === null ){
+    if (type == "object") {
+        if (a === null) {
             return a === b;
-        }else if( Array.isArray(a) ){
-            if( !Array.isArray(b) || a.length != b.length ){
+        } else if (Array.isArray(a)) {
+            if (!Array.isArray(b) || a.length != b.length) {
                 return false;
             }
-            for( i = 0, j = a.length ; i < j ; i++ ){
-                if(!procCompareObj(a[i], b[i])){
+            for (i = 0, j = a.length; i < j; i++) {
+                if (!procCompareObj(a[i], b[i])) {
                     return false;
                 }
             }
             return true;
-        }else{ //일반 오브젝트인 경우
+        } else { //일반 오브젝트인 경우
 
             // b의 키 갯수를 카운트 한다.
             j = 0;
-            for( i in b ){
-                if( b.hasOwnProperty(i) ) j++;
+            for (i in b) {
+                if (b.hasOwnProperty(i)) j++;
             }
 
             //a의 각 키와 비교하면서 카운트를 제거한다.
-            for( i in a ){
-                if( a.hasOwnProperty(i) ){
-                    if( !procCompareObj( a[i], b[i] ) ) return false;
+            for (i in a) {
+                if (a.hasOwnProperty(i)) {
+                    if (!procCompareObj(a[i], b[i])) return false;
                     j--;
                 }
             }
@@ -487,6 +522,161 @@ var procCompareObj = function( a, b ){
     return a === b;
 };
 
-var procCreateMovePageAnchorTag = function(movePageUrl, content) {
+var procCreateMovePageAnchorTag = function (movePageUrl, content) {
     return '<a href="javascript:void(0);" onclick="procMovePage(\'' + movePageUrl + '\');">' + content + '</a>';
 };
+
+var commonUtils = {
+    isEmpty: function (object) {
+        if (object == undefined || object == null) {
+            return true;
+        }
+        return false;
+    },
+    isBlank: function (value) {
+        if (value == undefined || value == null || value == "") {
+            return true;
+        }
+        return false;
+    },
+    contains: function (contents, findString) {
+        if (this.isBlank(contents) || this.isBlank(findString)) {
+            return false;
+        }
+        return contents.includes(findString);
+    },
+    regexId: function (value) {
+        var re = /^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/g; // 아이디가 적합한지 검사할 정규식
+        if (!re.test(value)) {
+            return true;
+        }
+    },
+    regexPwd: function (value) {
+        var re = /^[a-zA-Z]+(?=.*\d)(?=.*[-$@$!%*#?&])[a-zA-Z\d-$@$!%*#?&]{3,39}$/g; // 패스워드가 적합한지 검사할 정규식
+        if (!re.test(value)) {
+            return true;
+        }
+    },
+    regexEmail: function (value) {
+        var re = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일이 적합한지 검사할 정규식
+        if (!re.test(value)) {
+            return true;
+        }
+    }
+};
+
+
+var makeResourceListParamQuery = function (offset, limit, searchName) {
+
+    var param = "?offset=" + offset + "&limit=" + limit;
+    if (searchName != null) {
+        param += "&searchName=" + searchName;
+    }
+    return param;
+};
+
+
+var resourceListMoreBtnDisplay = function (remainItemCountKey, data, buttonID) {
+
+    if (data.hasOwnProperty("itemMetaData")) {
+        var itemMetaData = data.itemMetaData;
+
+        if (itemMetaData != null) {
+            if (data.itemMetaData.hasOwnProperty(remainItemCountKey)) {
+
+                var remainingItemCount = data.itemMetaData.remainingItemCount;
+                if (remainingItemCount <= 0) {
+                    $('#' + buttonID).css("display", "none");
+                }
+            }
+        }
+    }
+
+};
+
+var setResourceListLimitCount = function () {
+
+    var limitCount = 0;
+    if (typeof IS_OVERVIEW_VIEW !== 'undefined') {
+        //OVERVIEW
+        limitCount = OVERVIEW_LIMIT_COUNT;
+    } else {
+        limitCount = DEFAULT_LIMIT_COUNT;
+    }
+    return limitCount;
+}
+
+var getNamespaceListByMetaData = function(metadata) {
+    var namespaceLIst = [];
+    for(i=0; i<metadata.length; i++) {
+        namespaceLIst.push(metadata[i].namespace);
+    }
+    return namespaceLIst;
+}
+
+var getUserTypeByMetaData = function(metadata, namespace){
+
+    var userType = '';
+    for(i=0; i<metadata.length; i++) {
+        if(metadata[i].namespace == namespace ) {
+            userType = metadata[i].userType;
+        }
+    }
+    return userType;
+
+}
+
+// SET TOOL TIP FOR TABLE TD FOR CONDITION
+var procSetToolTipForTableTdByCondition = function (tableObjectString) {
+    if (nvl(tableObjectString) === '') {
+        return false;
+    }
+
+    var tableObject = $('#' + tableObjectString + ' tr');
+
+    tableObject.each(function () {
+        var tdTags = $(this).find('td');
+        var aTags,
+            spanTags;
+
+        if (tdTags != null) {
+            aTags = $(this).find('a');
+            spanTags = $(this).find('span');
+
+            if(aTags != null) {
+                aTags.each(function () {
+                    if (nvl(aTags) !== '') {
+                        procSetToolTipAttributes($(this));
+                    }
+                });
+
+            }
+            else {
+                spanTags.each(function () {
+                    if (nvl(spanTags) !== '') {
+                        procSetToolTipAttributes($(this));
+                    }
+                }); }
+        }
+    });
+
+    // TOOL TIP
+    $('[data-toggle="tooltip"]').tooltip();
+};
+
+
+var replaceLabels = function (data) {
+    return JSON.stringify(data).replace(/"/g, '').replace(/=/g, '%3D');
+};
+
+
+// 버튼 다중 클릭 방지
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+    if(doubleSubmitFlag){
+        return doubleSubmitFlag;
+    }else{
+        doubleSubmitFlag = true;
+        return false;
+    }
+}

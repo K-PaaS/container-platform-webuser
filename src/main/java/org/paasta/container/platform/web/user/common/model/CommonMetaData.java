@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ListMeta Model 클래스
+ * Common Meta Model 클래스
  *
  * @author jjy
  * @version 1.0

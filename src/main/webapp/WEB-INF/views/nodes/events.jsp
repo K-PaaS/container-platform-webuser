@@ -1,8 +1,9 @@
 <%--
   Nodes events
- author: jjy
-  version: 1.0
-  since: 2020-09-17
+
+  @author jjy
+  @version 1.0
+  @since 2020.09.17
 --%>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -16,7 +17,7 @@
         var resourceName = '<c:out value="${nodeName}" default="" />';
 
         var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_EVENTS_LIST %>'
-            .replace('{namespace:.+}', NAME_SPACE).replace('{resourceUid:.+}', resourceName + '?type=node');
+            .replace("{cluster:.+}", CLUSTER_NAME).replace('{namespace:.+}', NAME_SPACE).replace('{resourceUid:.+}', resourceName + '?type=node');
 
         procGetCommonEventsList(reqUrl, resourceName);
     };
@@ -26,4 +27,4 @@
         getList();
     });
 </script>
-<!-- NodeEvents 끝 -->
+<!-- Node Events 끝 (Node Events end)-->

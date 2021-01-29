@@ -11,7 +11,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <span id="commonYamlViewTitle"> - </span></h1>
     <jsp:include page="../common/contentsTab.jsp" flush="true"/>
-    <!-- YAML 시작-->
+    <!-- YAML 시작 (YAML start)-->
     <div class="cluster_content03 row two_line two_view harf_view custom_display_block">
         <ul class="maT30">
             <li>
@@ -29,7 +29,7 @@
             </li>
         </ul>
     </div>
-    <!-- YAML 끝 -->
+    <!-- YAML 끝 (YAML end)-->
 </div>
 
 <%--SyntexHighlighter--%>
@@ -51,7 +51,7 @@
     var callbackProcGetCommonDetailYaml = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Yaml 조회에 실패하였습니다.', false);
             return false;
         }
 

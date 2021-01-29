@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * CustomInterceptor 클래스
+ * Custom Interceptor 클래스
  *
  * @author jjy
  * @version 1.0

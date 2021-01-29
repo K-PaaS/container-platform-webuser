@@ -5,6 +5,8 @@ import org.paasta.container.platform.web.user.common.model.CommonMetaData;
 import org.paasta.container.platform.web.user.common.model.CommonSpec;
 import org.paasta.container.platform.web.user.common.model.CommonStatus;
 
+import java.util.Map;
+
 /**
  * ReplicaSets Model 클래스
  *
@@ -17,10 +19,12 @@ public class ReplicaSets {
 
     private String resultCode;
     private String resultMessage;
+    private String nextActionUrl;
 
     private CommonMetaData metadata;
     private CommonSpec spec;
     private CommonStatus status;
 
+    private Map<String, Object> source;
     private String sourceTypeYaml;
 }

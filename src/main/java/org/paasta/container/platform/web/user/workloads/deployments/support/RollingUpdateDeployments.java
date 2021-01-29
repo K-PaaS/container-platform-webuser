@@ -3,7 +3,7 @@ package org.paasta.container.platform.web.user.workloads.deployments.support;
 import lombok.Data;
 
 /**
- * RollingUpdateDeployments
+ * Rolling Update Deployments
  *
  * @author jjy
  * @version 1.0

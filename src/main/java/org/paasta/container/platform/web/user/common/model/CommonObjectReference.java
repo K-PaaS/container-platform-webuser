@@ -3,7 +3,7 @@ package org.paasta.container.platform.web.user.common.model;
 import lombok.Data;
 
 /**
- * ObjectReference Model 클래스
+ * Common Object Reference Model 클래스
  *
  * @author jjy
  * @version 1.0

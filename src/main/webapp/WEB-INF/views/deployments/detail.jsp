@@ -1,8 +1,9 @@
 <%--
-  Deployments detail
-  @author kjhoon
+  Deployment main
+
+  @author hrjin
   @version 1.0
-  @since 2020.09.03
+  @since 2020.09.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,7 +13,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${deploymentName}"/></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -78,37 +79,50 @@
                     </div>
                 </div>
             </li>
-            <!-- Details 끝 -->
-            <!-- Replica Set 시작 -->
+            <!-- Details 끝 (Details end)-->
+            <!-- Replica Set 시작 (Replica Set start)-->
             <li class="cluster_third_box">
                 <jsp:include page="../replicasets/list.jsp"/>
             </li>
-            <!-- Replica Set 끝 -->
-            <!-- Pods 시작 -->
+            <!-- Replica Sets 끝 (Replica Sets end)-->
+            <!-- Pods 시작 (Pods start)-->
             <li class="cluster_third_box maB50">
                 <jsp:include page="../pods/list.jsp"/>
             </li>
-            <!-- Pods 끝 -->
+            <!-- Pods 끝 (Pods end)-->
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
-    <!-- Details  끝 -->
+    <!-- Details 끝 (Details end)-->
 </div>
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="deployments" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">
+    var ownerParamForReplicaSetsByDeployments ='';
 
     var getDetail = function() {
         procViewLoading('show');
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_DEPLOYMENTS_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{deploymentName:.+}", "<c:out value='${deploymentName}'/>");
         procCallAjax(reqUrl, "GET", null, null, callbackGetDeployments);
     };
 
     // GET DETAIL FOR PODS LIST
-    var getDetailForPodsList = function(selector) {
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>"
-            .replace("{namespace:.+}", NAME_SPACE)
-            .replace("{selector:.+}", selector);
+    var getDetailForPodsList = function(selector, searchName) {
+        var param = "?selector=" + selector ;
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR %>" + param;
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE);
+
+        if (searchName != null) {
+            reqUrl += "&searchName=" + searchName;
+        }
+
         getPodListUsingRequestURL(reqUrl);
         procViewLoading('hide');
     };
@@ -116,16 +130,18 @@
     var callbackGetDeployments = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Deployments 상세 조회에 실패하였습니다.', false);
             return false;
         }
+
 
         var metadata = data.metadata;
         var spec = data.spec;
         var status = data.status;
 
         var deployName = metadata.name;
-        var namespace = NAME_SPACE;
+        var namespace = data.metadata.namespace;
+        var deploymentsUid = data.metadata.uid;
         var labels = procSetSelector(metadata.labels);
         var annotations = metadata.annotations;
         var creationTimestamp = metadata.creationTimestamp;
@@ -165,14 +181,18 @@
         $('#rollingUpdateStrategy').html(rollingUpdateStrategy);
         $('#status').html(replicaStatus);
 
-        getReplicaSetsList(replaceLabels(selector));
-        getDetailForPodsList(replaceLabels(selector));
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(deployName);
+
+       // get ReplicaSets List By Deployment
+        ownerParamForReplicaSetsByDeployments = replaceLabels(selector) + "&type=deployments&ownerReferencesUid="+deploymentsUid+"&ownerReferencesName="+deployName ;
+        getReplicaSetsList(ownerParamForReplicaSetsByDeployments ,0, <%= Constants.DEFAULT_LIMIT_COUNT %>, null);
+
+        // get Pods List By Deployment
+        getDetailForPodsList(ownerParamForPodsByReplicaSets, null);
 
     };
 
-    var replaceLabels = function (data) {
-        return JSON.stringify(data).replace(/"/g, '').replace(/=/g, '%3D');
-    };
 
     $(document.body).ready(function () {
         getDetail();

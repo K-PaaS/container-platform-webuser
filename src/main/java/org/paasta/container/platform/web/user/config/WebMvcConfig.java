@@ -27,10 +27,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
         registry.addResourceHandler("/resources/css/fonts/**").addResourceLocations("/resources/css/fonts/").setCacheControl(CacheControl.maxAge(86400, TimeUnit.SECONDS));
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     /**
-     * View resolver view resolver.
+     * View resolver view resolver
      *
      * @return the view resolver
      */
@@ -44,19 +46,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return viewResolver;
     }
 
-    /**
-     * Custom interceptor custom interceptor.
-     *
-     * @return the custom interceptor
-     */
-//    @Bean
-//    CustomInterceptor customInterceptor() {
-//        return new CustomInterceptor();
-//    }
-//
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(customInterceptor());
-//    }
 
 }

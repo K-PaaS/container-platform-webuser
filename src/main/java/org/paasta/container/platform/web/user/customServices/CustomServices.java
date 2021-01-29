@@ -17,6 +17,7 @@ class CustomServices {
 
     private String resultCode;
     private String resultMessage;
+    private String nextActionUrl;
 
     private CommonMetaData metadata;
     private CommonSpec spec;

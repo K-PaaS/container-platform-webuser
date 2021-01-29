@@ -18,7 +18,7 @@ import java.util.Map;
 public class CommonService {
 
     /**
-     * Sets path variables.
+     * Sets path variables
      *
      * @param httpServletRequest the http servlet request
      * @param viewName           the view name
@@ -59,15 +59,15 @@ public class CommonService {
 
 
     /**
-     * The enum Path variables list.
+     * The enum Path variables list
      */
     enum PathVariablesList {
         /**
-         * Path service name path variables list.
+         * Path service name path variables list
          */
         PATH_SERVICE_NAME("serviceName"),
         /**
-         * Path variables id path variables list.
+         * Path variables id path variables list
          */
         PATH_VARIABLES_ID("id");
 
@@ -80,27 +80,27 @@ public class CommonService {
 
 
     /**
-     * The enum Parameters list.
+     * The enum Parameters list
      */
     enum ParametersList {
         /**
-         * Parameters id parameters list.
+         * Parameters id parameters list
          */
         PARAMETERS_ID("id"),
         /**
-         * Parameters name parameters list.
+         * Parameters name parameters list
          */
         PARAMETERS_NAME("name"),
         /**
-         * Parameters page parameters list.
+         * Parameters page parameters list
          */
         PARAMETERS_PAGE("page"),
         /**
-         * Parameters size parameters list.
+         * Parameters size parameters list
          */
         PARAMETERS_SIZE("size"),
         /**
-         * Parameters sort parameters list.
+         * Parameters sort parameters list
          */
         PARAMETERS_SORT("sort");
 

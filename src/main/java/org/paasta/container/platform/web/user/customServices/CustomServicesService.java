@@ -1,5 +1,6 @@
 package org.paasta.container.platform.web.user.customServices;
 
+import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,36 +20,50 @@ public class CustomServicesService {
     private final RestTemplateService restTemplateService;
 
     /**
-     * Instantiates a new Custom services service.
+     * Instantiates a new Custom services service
      *
      * @param restTemplateService the rest template service
      */
     @Autowired
-    public CustomServicesService(RestTemplateService restTemplateService) {this.restTemplateService = restTemplateService;}
+    public CustomServicesService(RestTemplateService restTemplateService) {
+        this.restTemplateService = restTemplateService;
+    }
 
 
     /**
-     * Services 목록을 조회한다.
+     * Services 목록 조회(Get Services list)
      *
-     * @param namespace the namespace
+     * @param cluster    the cluster
+     * @param namespace  the namespace
+     * @param offset     the offset
+     * @param limit      the limit
+     * @param orderBy    the orderBy
+     * @param order      the order
+     * @param searchName the searchName
      * @return the custom services list
      */
-    CustomServicesList getCustomServicesList(String namespace) {
+    CustomServicesList getCustomServicesList(String cluster, String namespace, int offset, int limit, String orderBy, String order, String searchName) {
+
+        String param = CommonUtils.makeResourceListParamQuery(offset, limit, orderBy, order, searchName);
+
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_LIST
-                        .replace("{namespace:.+}", namespace),
-                HttpMethod.GET, null, CustomServicesList.class);
+                        .replace("{cluster:.+}", cluster)
+                        .replace("{namespace:.+}", namespace) + param
+                , HttpMethod.GET, null, CustomServicesList.class);
     }
 
 
     /**
-     * Services 상세 정보를 조회한다.
+     * Services 상세 조회(Get Services detail)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
-     * @param serviceName the service name
-     * @return the custom services
+     * @param serviceName the services name
+     * @return the custom services detail
      */
-    CustomServices getCustomServices(String namespace, String serviceName) {
+    CustomServices getCustomServices(String cluster, String namespace, String serviceName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_DETAIL
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{serviceName:.+}", serviceName),
                 HttpMethod.GET, null, CustomServices.class);
@@ -56,17 +71,69 @@ public class CustomServicesService {
 
 
     /**
-     * Services YAML을 조회한다.
+     * Services YAML 조회(Get Services yaml)
      *
+     * @param cluster     the cluster
      * @param namespace   the namespace
-     * @param serviceName the service name
+     * @param serviceName the services name
      * @return the custom services yaml
      */
-    CustomServices getCustomServicesYaml(String namespace, String serviceName) {
+    CustomServices getCustomServicesYaml(String cluster, String namespace, String serviceName) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_YAML
+                        .replace("{cluster:.+}", cluster)
                         .replace("{namespace:.+}", namespace)
                         .replace("{serviceName:.+}", serviceName),
                 HttpMethod.GET, null, CustomServices.class);
+    }
+
+    /**
+     * Services 생성(Create Services)
+     *
+     * @param cluster   the cluster
+     * @param namespace the namespace
+     * @param yaml      the yaml
+     * @return return is succeeded
+     */
+    public Object createCustomServices(String cluster, String namespace, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_CREATE
+                        .replace("{cluster:.+}", cluster)
+                        .replace("{namespace:.+}", namespace),
+                HttpMethod.POST, yaml, Object.class, "application/yaml");
+    }
+
+
+    /**
+     * Services 수정(Update Services)
+     *
+     * @param cluster     the cluster
+     * @param namespace   the namespace
+     * @param serviceName the services name
+     * @param yaml        the yaml
+     * @return return is succeeded
+     */
+    public Object updateCustomServices(String cluster, String namespace, String serviceName, String yaml) {
+        return restTemplateService.sendYaml(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_UPDATE
+                        .replace("{cluster:.+}", cluster)
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{serviceName:.+}", serviceName),
+                HttpMethod.PUT, yaml, Object.class, "application/yaml");
+    }
+
+
+    /**
+     * Services 삭제(Delete Services)
+     *
+     * @param cluster     the cluster
+     * @param namespace   the namespace
+     * @param serviceName the services name
+     * @return return is succeeded
+     */
+    public Object deleteCustomServices(String cluster, String namespace, String serviceName) {
+        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_SERVICES_DELETE
+                        .replace("{cluster:.+}", cluster)
+                        .replace("{namespace:.+}", namespace)
+                        .replace("{serviceName:.+}", serviceName),
+                HttpMethod.DELETE, null, Object.class);
     }
 
 }

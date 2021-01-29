@@ -3,7 +3,7 @@ package org.paasta.container.platform.web.user.common;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
- * CustomTag 클래스
+ * Custom Tag 클래스
  *
  * @author jjy
  * @version 1.0
@@ -12,7 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 public class CustomTag extends SimpleTagSupport {
 
     /**
-     * Camel Case로 되어 있는 것을 분리해준다
+     * Camel Case 로 되어 있는 것 분리
      * ex) hyerinTest -> Hyerin Test
      * @param str
      * @return String

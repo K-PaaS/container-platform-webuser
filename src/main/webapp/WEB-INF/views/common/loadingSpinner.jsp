@@ -1,5 +1,5 @@
 <%--
-  Common Syntax Highlighter
+  Loading Spinner
 
   @author kjhoon
   @version 1.0
@@ -14,7 +14,6 @@
 <script type="text/javascript">
     // ON LOAD
     $(document.body).ready(function () {
-        procViewLoading('show');
     });
 
 </script>

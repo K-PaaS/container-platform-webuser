@@ -10,10 +10,24 @@
 <nav style="height: 90%;">
     <div class="scroll_style">
         <ul class="nav_1d cp_nav">
+            <li id="left-menu-info" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">
+                <dl>
+                    <dt>
+                        <div id="lnbimg10" class="">
+
+                        </div>
+                    </dt>
+                    <dd>
+                        <p>
+                            My Info
+                        </p>
+                    </dd>
+                </dl>
+            </li>
             <li id="left-menu-users" onclick="procMovePage('<%= Constants.URI_USERS %>');">
                 <dl>
                     <dt>
-                        <div id="lnbimg10" class="lefticos">
+                        <div id="lnbimg11" class="lefticos">
 
                         </div>
                     </dt>
@@ -27,7 +41,7 @@
             <li id="left-menu-roles" onclick="procMovePage('<%= Constants.URI_ROLES %>');">
                 <dl>
                     <dt>
-                        <div id="lnbimg11" class="">
+                        <div id="lnbimg12" class="">
 
                         </div>
                     </dt>

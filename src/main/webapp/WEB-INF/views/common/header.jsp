@@ -10,13 +10,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="common/customTag.tld" %>
+<style>
+    #namespacesList {
+        text-overflow: ellipsis;
+        padding : 0 40px 0 10px ;
+        width : 250px;
+    }
+</style>
 <header class="header">
     <div class="logo">
         <a href="javascript:void(0);" onclick="procMovePage('<%= Constants.CP_INIT_URI %>');" class="custom_border_none"><h1><img src="<c:url value="/resources/images/main/logo.png"/>" alt=""/></h1></a>
     </div>
+    <select id="namespacesList"  onchange="changeNamespace(this.value)">
+    </select>
     <div class="gnb search">
     </div>
 
+    <ul class="right_nav">
+        <li>
+            <div class="btn-group">
+                <button href="#" class="dropdown-toggle user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </button>
+                <div id="r_user" class="dropdown-menu">
+                    <ul class="cp-user" style="width: 150px;">
+                        <li id="header-menu-info"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">My info</a></li>
+                        <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
+                        <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
+                        <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logout();">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
     <div class="header_bottom">
         <p class="tit">Container Platform</p>
         <span class="nav_toggle">
@@ -32,6 +57,12 @@
                         <c:choose>
                             <c:when test="${(path eq 'services') || (path eq 'users') || (path eq 'roles') || (path eq 'storages')}" >
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}');">${cfn:camelCaseParser(path)}</a></li>
+                            </c:when>
+                            <c:when test="${(path eq 'info')}" >
+                                <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}');">My Info</a></li>
+                            </c:when>
+                            <c:when test="${(path eq 'common')}" >
+                                <li><a class="cont-parent-link">${cfn:camelCaseParser(path)}</a></li>
                             </c:when>
                             <c:otherwise>
                                 <c:choose>
@@ -54,10 +85,10 @@
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}/${pathArray[2]}');">${cfn:camelCaseParser('private registry')}</a></li>
                             </c:when>
                             <c:when test="${pathArray[1] eq 'services'}" >
-                                <%-- service는 탭메뉴 없음. 1 depth만 표시 --%>
+                                <%-- service는 탭메뉴 없음.(service does not have tabmenu) 1 depth만 표시 (Show only 1 dept) --%>
                             </c:when>
                             <c:when test="${pathArray[1] eq 'storages'}" >
-                                <%-- storages 는 탭메뉴 없음. 1 depth만 표시 --%>
+                                <%-- storages 는 탭메뉴 없음.(storages does not have tabmenu) 1 depth만 표시 (Show only 1 dept--%>
                             </c:when>
                             <c:when test="${pathArray[2] eq 'namespaces'}" >
                                 <%-- namespaces main : Detail --%>
@@ -66,6 +97,8 @@
                             <c:when test="${pathArray[2] eq 'nodes'}" >
                                 <%-- nodes main : summary --%>
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}/${pathArray[2]}/${pathArray[3]}/summary');"> ${cfn:camelCaseParser(path)}</a></li>
+                            </c:when>
+                            <c:when test="${(path eq 'resource')}" >
                             </c:when>
                             <c:otherwise>
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}/${pathArray[2]}');">${cfn:camelCaseParser(path)}</a></li>
@@ -83,3 +116,77 @@
         </div>
     </div>
 </header>
+<input type="hidden" id="chkValue" name="chkValue">
+<script type="text/javascript" src='<c:url value="/resources/js/jquery.cookie.js"/>'></script>
+<script type="text/javascript">
+
+    var NAME_SPACE;
+    var cookieName = '<%= Constants.CP_SELECTED_NAMESPACE_KEY %>';
+
+    var getNamespacesList = function() {
+        var html = "";
+
+        if(namespace === null || namespace === "" || namespace === undefined) {
+            console.log("token expired.....");
+            return procMovePage('/logout');
+        }
+
+        for (var i = 0; i < namespacesList.length; i++) {
+            html += "<option value='" + namespacesList[i] + "'" + "id='ns" + i + "'>" + namespacesList[i] + "</option>";
+        };
+
+        $("#namespacesList").html(html);
+    };
+
+
+    // 로그아웃 시 쿠키 제거 (Remove cookies on Logout)
+    var logout = function() {
+        deleteCookie(cookieName);
+        procMovePage('/logout');
+    };
+
+
+    // cookie 삭제 (Delete cookie)
+    var deleteCookie = function (cookieName) {
+        $.removeCookie(cookieName, { path: '/' });
+    };
+
+
+    // cookie 처음 값은 namespace 목록의 첫 번째 값으로 1시간 셋팅 (Set 1 hour as namespace first value)
+    var checkChkCookie = function(cookieName) {
+        var cookieValue = $.cookie(cookieName);
+
+        var hour = new Date();
+        hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간 (1 hour)
+
+        // 쿠키 없을 때 (When cookie is not exist)
+        if(cookieValue == null || cookieValue === "" || cookieValue === "undefined") {
+            $.cookie(cookieName, namespacesList[0], { expires: hour, path: '/' });
+        }
+        cookieValue = $.cookie(cookieName);
+
+        // 페이지 이동 시에도 selected 고정 (Fixed selected)
+        $("#namespacesList option[value='" + cookieValue + "']").attr('selected', 'selected');
+        NAME_SPACE = cookieValue;
+
+    };
+
+    // namespace change 후에 cookie 값 갱신 (Update cookie after namespace change)
+    var changeNamespace = function(value) {
+        deleteCookie(cookieName);
+        var hour = new Date();
+        hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간
+        var changedCookie = $.cookie(cookieName, value, { expires: hour, path : '/' });
+
+        NAME_SPACE = value;
+
+        procMovePage('<%=Constants.URI_INTRO_OVERVIEW%>');
+    };
+
+    $(document.body).ready(function () {
+        getNamespacesList();
+        checkChkCookie(cookieName);
+    });
+
+
+</script>

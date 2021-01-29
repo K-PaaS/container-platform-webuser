@@ -1,8 +1,9 @@
 <%--
   Services detail
+
   @author kjhoon
   @version 1.0
-  @since 2020.08.27
+  @since 2020.09.10
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
@@ -12,7 +13,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${serviceName}"/></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Services Details 시작 -->
+    <!-- Services Details 시작 (Services Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT10">
             <li class="cluster_second_box">
@@ -67,7 +68,7 @@
             <li class="cluster_third_box">
                 <jsp:include page="../pods/list.jsp"/>
             </li>
-            <li class="cluster_fourth_box maB50">
+            <li class="cluster_fourth_box">
                 <div class="sortable_wrap">
                     <div class="sortable_top">
                         <p>Endpoints</p>
@@ -98,22 +99,32 @@
                     </div>
                 </div>
             </li>
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
-    <!-- Services Details 끝 -->
+    <!-- Services Details 끝 (Services Details end)-->
 </div>
 <input type="hidden" id="requestServiceName" name="requestServiceName" value="<c:out value='${serviceName}' default='' />" />
 <input type="hidden" id="hiddenMasterUrl" name="hiddenMasterUrl" value="" />
 <input type="hidden" id="hiddenNodePortUrl" name="hiddenNodePortUrl" value="" />
 
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="services" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
+
+
 <script type="text/javascript">
 
+    var ownerParamForPodsByServices ='';
 
     // GET DETAIL
     var getDetail = function() {
         procViewLoading('show');
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_SERVICES_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{serviceName:.+}", document.getElementById('requestServiceName').value);
 
@@ -125,7 +136,7 @@
     var callbackGetDetail = function(data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Services 상세 조회에 실패하였습니다.', false);
             return false;
         }
 
@@ -182,6 +193,12 @@
         $('#resultClusterIp').html(nvl(dataSpec.clusterIP, '-'));
         $('#resultInternalEndpointsArea').html(nvl(endpoints, '-'));
 
+
+        //hidden 값 추가 (Add hidden value)
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(serviceName);
+
+
         var checkHttpString = 'http://';
 
         // SET URL LINK
@@ -193,21 +210,37 @@
                 var nodePortUrl = checkHttpString + masterUrlArray[0] + ':' + nodePort;
 
                 $('#hiddenNodePortUrl').val(nodePortUrl);
-                //$('#nodePortUrlLinkButton').attr('title', nodePortUrl);
+                $('#nodePortUrlLinkButton').attr('title', nodePortUrl);
                 $('#nodePortUrlLinkWrap').show();
             }
         }
 
         procViewLoading('hide');
 
-        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE %>"
-            .replace("{namespace:.+}", NAME_SPACE)
-            .replace("{serviceName:.+}", "_all")
-            .replace("{selector:.+}", selector);
-
-        getPodListUsingRequestURL(reqUrl);
+        ownerParamForPodsByServices = selector ;
+        getDetailForPodsList(ownerParamForPodsByServices, null);
         getDetailForEndpoints();
     };
+
+
+
+    // GET DETAIL FOR PODS LIST
+    var getDetailForPodsList = function(selector, searchName) {
+        var param = "?selector=" + selector ;
+
+        var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_PODS_LIST_BY_SELECTOR_WITH_SERVICE %>" + param;
+        reqUrl = reqUrl.replace("{cluster:.+}", CLUSTER_NAME).replace("{namespace:.+}", NAME_SPACE).replace("{serviceName:.+}", "_all");
+
+        if (searchName != null) {
+            reqUrl += "&searchName=" + searchName;
+        }
+
+        getPodListUsingRequestURL(reqUrl);
+        procViewLoading('hide');
+    };
+
+
+
 
 
     // GET DETAIL FOR ENDPOINTS
@@ -215,10 +248,11 @@
         procViewLoading('show');
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_ENDPOINTS_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{serviceName:.+}", document.getElementById('requestServiceName').value);
 
-        procCallAjax(reqUrl, "GET", null, null, callbackGetDetailForEndpoints);
+        procCallAjax(reqUrl, "GET", null, "ENDPOINTS", callbackGetDetailForEndpoints);
     };
 
 
@@ -329,6 +363,7 @@
                 procViewLoading('show');
 
                 reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_NODES_LIST %>"
+                    .replace("{cluster:.+}", CLUSTER_NAME)
                     .replace('{nodeName:.+}', nodeNameList[i]);
 
                 procCallAjax(reqUrl, "GET", null, null, callbackGetDetailForNodes);
@@ -358,9 +393,14 @@
     };
 
 
+    // BIND
+    $("#nodePortUrlLinkButton").on("click", function () {
+        window.open($('#hiddenNodePortUrl').val(), '_blank');
+    });
+
+
     // ON LOAD
     $(document.body).ready(function () {
-        //getUserDetail();
         getDetail();
     });
 

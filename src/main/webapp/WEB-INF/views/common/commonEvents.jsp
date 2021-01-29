@@ -24,7 +24,7 @@
                                 <col style=".">
                                 <col style=".">
                                 <col style=".">
-                                <col style=".">
+                                <col style="width:7%">
                                 <col style=".">
                                 <col style=".">
                             </colgroup>
@@ -50,7 +50,7 @@
             </li>
         </ul>
     </div>
-    <!-- Events 끝 -->
+    <!-- Events 끝 (Events end) -->
 </div>
 
 
@@ -69,7 +69,7 @@
     var callbackProcGetCommonEventsList = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Events 목록 조회에 실패하였습니다.', false);
             return false;
         }
 

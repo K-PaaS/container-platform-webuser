@@ -1,6 +1,7 @@
 <%--
   Pods details
-  @author kjhoon
+
+  @author jjy
   @version 1.0
   @since 2020.09.01
 --%>
@@ -9,12 +10,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="content">
-    <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span>
-        <c:out value="${podName}" default="-"/></h1>
+    <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span><c:out value="${podName}" default="-"/></h1>
 
     <jsp:include page="../common/contentsTab.jsp"/>
 
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -75,8 +75,8 @@
                     </div>
                 </div>
             </li>
-            <!-- Details 끝 -->
-            <!-- Containers 시작 -->
+            <!-- Details 끝 (Details end)-->
+            <!-- Containers 시작 (Containers start)-->
             <li class="cluster_third_box maB50">
                 <div class="sortable_wrap">
                     <div class="sortable_top">
@@ -107,11 +107,19 @@
                     </div>
                 </div>
             </li>
-            <!-- Containers 끝 -->
+            <!-- Containers 끝 (Containers end)-->
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
-    <!-- Details  끝 -->
+    <!-- Details 끝 (Details end)-->
 </div>
+
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="pods" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
+
 <script type="text/javascript">
 
     // GET POD'S DETAIL
@@ -119,6 +127,7 @@
         var resourceName = '<c:out value="${podName}" default="" />';
 
         var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_PODS_DETAIL %>'
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace('{namespace:.+}', NAME_SPACE).replace('{podName:.+}', resourceName);
 
         procCallAjax(reqUrl, 'GET', null, null, callbackGetDetail);
@@ -183,7 +192,7 @@
         var containerMap = getContainerMap(containers, status.containerStatuses, nvl(status.phase, 'Unknown'));
         var listCount = 0;
 
-        //<%-- Container 정보에 대한 Table Form 시작 --%>
+        //<%-- Container 정보에 대한 Table Form 시작 (start Table Form for Container info)--%>
         var containerDetailHtml =
             '<div><table class="table_detail alignL"> \
                 <colgroup><col style="*"><col style="*"></colgroup> \
@@ -277,7 +286,7 @@
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Pods 상세 조회에 실패하였습니다.', false);
             return;
         }
 
@@ -329,6 +338,9 @@
             volumeName = '-';
         }
 
+        var podName      = data.metadata.name;
+        var namespace    = data.metadata.namespace;
+
         $('#name').html(data.metadata.name);
         $('#labels').html(procCreateSpans(labels));
         $('#creationTime').html(nvl(data.metadata.creationTimestamp, '-'));
@@ -343,6 +355,10 @@
         createContainerResultArea(data.status, data.spec.containers);
 
         procViewLoading('hide');
+
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(podName);
+
     };
 
     // ON LOAD

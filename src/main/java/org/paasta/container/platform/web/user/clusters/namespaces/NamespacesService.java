@@ -2,7 +2,6 @@ package org.paasta.container.platform.web.user.clusters.namespaces;
 
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.RestTemplateService;
-import org.paasta.container.platform.web.user.managements.ResourceQuotaList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -28,24 +27,16 @@ public class NamespacesService {
     public NamespacesService(RestTemplateService restTemplateService) {this.restTemplateService = restTemplateService;}
 
     /**
-     * Namespaces 상세 정보를 조회한다.
+     * Namespaces 상세 조회(Get Namespaces detail)
      *
+     * @param cluster   the cluster
      * @param namespace the namespaces
-     * @return the Namespaces
+     * @return the namespaces detail
      */
-    Namespaces getNamespaces(String namespace) {
+    Namespaces getNamespaces(String cluster, String namespace) {
         return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_NAME_SPACES_DETAIL
+                .replace("{cluster:.+}", cluster)
                 .replace("{namespace:.+}", namespace), HttpMethod.GET, null, Namespaces.class);
     }
 
-    /**
-     * Namespaces ResourceQuotas 정보를 조회한다.
-     *
-     * @param namespace the namespaces
-     * @return the ResourceQuotaList
-     */
-    ResourceQuotaList getResourceQuotasList(String namespace) {
-        return restTemplateService.send(Constants.TARGET_CP_API, Constants.URI_API_NAME_SPACES_RESOURCE_QUOTAS
-                .replace("{namespace:.+}", namespace), HttpMethod.GET, null, ResourceQuotaList.class);
-    }
 }

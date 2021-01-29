@@ -1,8 +1,9 @@
 <%--
   Nodes details
-  author: jjy
-  version: 1.0
-  since: 2020-09-17
+
+  @author jjy
+  @version 1.0
+  @since 2020.09.17
 --%>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -14,7 +15,7 @@
 
     <jsp:include page="../common/contentsTab.jsp"/>
 
-    <!-- Nodes Details 시작-->
+    <!-- Nodes Details 시작 (Nodes Details start)-->
     <div class="cluster_content02 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -121,6 +122,7 @@
             </li>
         </ul>
     </div>
+    <!-- Nodes Details 끝 (Nodes Details end)-->
 </div>
 <script type="text/javascript">
 
@@ -128,6 +130,7 @@
     var getNode = function() {
         var resourceName = '<c:out value="${nodeName}" default="" />';
         var reqUrl = '<%= Constants.API_URL %><%= Constants.URI_API_NODES_LIST %>'
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace('{nodeName:.+}', resourceName);
 
         procCallAjax(reqUrl, 'GET', null, null, callbackGetNodeDetail);
@@ -144,7 +147,7 @@
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('Nodes 상세 조회에 실패하였습니다.', false);
             return;
         }
 

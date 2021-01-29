@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  author: jjy
-  version: 1.0
-  since: 2020-09-17
-  To change this template use File | Settings | File Templates.
+  PersistentVolumeClaims details
+
+  @author jjy
+  @version 1.0
+  @since 2020.09.17
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
@@ -13,7 +13,7 @@
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${persistentVolumeClaimName}"/></h1>
     <jsp:include page="../common/contentsTab.jsp"/>
-    <!-- Details 시작-->
+    <!-- Details 시작 (Details start)-->
     <div class="cluster_content01 row two_line two_view harf_view">
         <ul class="maT30">
             <li class="cluster_first_box">
@@ -87,11 +87,18 @@
                     </div>
                 </div>
             </li>
-            <!-- Details 끝 -->
+            <!-- Details 끝 (Details end)-->
+            <li class="cluster_fifth_box maB50">
+                <jsp:include page="../common/commonDetailsBtn.jsp"/>
+            </li>
         </ul>
     </div>
-    <!-- Details  끝 -->
+    <!-- Details  끝 (Details end)-->
 </div>
+
+<input type="hidden" id="hiddenNamespace" name="hiddenNamespace" value="" />
+<input type="hidden" id="hiddenResourceKind" name="hiddenResourceKind" value="persistentVolumeClaims" />
+<input type="hidden" id="hiddenResourceName" name="hiddenResourceName" value="" />
 
 <script type="text/javascript">
 
@@ -100,6 +107,7 @@
         procViewLoading('show');
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_STORAGES_DETAIL %>"
+            .replace("{cluster:.+}", CLUSTER_NAME)
             .replace("{namespace:.+}", NAME_SPACE)
             .replace("{persistentVolumeClaimName:.+}", "<c:out value='${persistentVolumeClaimName}'/>");
 
@@ -110,7 +118,7 @@
     var callbackGetPersistentVolumeClaimDetail = function (data) {
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage();
+            procAlertMessage('PersistentVolumeClaims 상세 조회에 실패하였습니다.', false);
             return false;
         }
 
@@ -157,8 +165,12 @@
         $('#volumeName').html(volumeName);
         $('#volumeMode').html(volumeMode);
         $('#capacity').html(capacity);
-        $('#storageClassName').html(storageClassName);
+        $('#storageClassName').html(nvl(storageClassName, '-'));
         $('#status').html(status);
+
+        //hidden값 추가
+        $('#hiddenNamespace').val(namespace);
+        $('#hiddenResourceName').val(persistentVolumeName);
 
         procViewLoading('hide');
     };

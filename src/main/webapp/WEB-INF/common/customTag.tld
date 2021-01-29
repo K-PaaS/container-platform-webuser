@@ -6,19 +6,19 @@
     <description>CommonUtil functions library</description>
     <display-name>CommonUtil functions</display-name>
     <tlib-version>1.1</tlib-version>
-    <!-- 함수 호출 하는 닉네임 -->
+    <!-- 함수 호출 하는 닉네임 (call nick-name)-->
     <short-name>cfn</short-name>
     <!-- <%@ taglib prefix="cfn" uri="common/customTag.tld" %> 여기에 쓸 때 부르는 uri 값 -->
     <uri>common/customTag.tld</uri>
 
     <function>
-        <!-- 함수 설명 -->
+        <!-- 함수 설명 (function description)-->
         <description>카멜케이스를 분리하기</description>
-        <!-- 함수 이름 이 이름으로 호출하게 됨 -->
+        <!-- 함수 이름 이 이름으로 호출하게 됨 (call this name instead of function name)-->
         <name>camelCaseParser</name>
-        <!-- java 파일이 있는 경로 -->
+        <!-- java 파일이 있는 경로 (java file path)-->
         <function-class>org.paasta.container.platform.web.user.common.CustomTag</function-class>
-        <!-- 함수 리턴값 / 함수명 / 파라미터  -->
+        <!-- 함수 리턴값 / 함수명 / 파라미터 (return value/ function name/ parameter) -->
         <function-signature>java.lang.String camelCaseParser(java.lang.String)</function-signature>
         <example>
             ${cfn:camelCaseParser(str)}
