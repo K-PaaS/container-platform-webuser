@@ -1,5 +1,6 @@
 package org.paasta.container.platform.web.user.users;
 
+import org.paasta.container.platform.web.user.common.RequestWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -47,8 +48,9 @@ public class UsersValidator {
      */
     protected String getBrowserInfo(HttpServletRequest req) {
         String browser = null;
+        RequestWrapper requestWrapper = new RequestWrapper(req);
         try {
-            String browserInfo = req.getHeader("User-Agent"); // 사용자 User-Agent 값 얻기
+            String browserInfo = requestWrapper.getHeader("User-Agent"); // 사용자 User-Agent 값 얻기
 
             if (browserInfo != null) {
                 if (browserInfo.indexOf("Trident") > -1) {
@@ -80,12 +82,13 @@ public class UsersValidator {
      * @return the string
      */
     protected String getLocalServerIp(HttpServletRequest req) {
+        RequestWrapper requestWrapper = new RequestWrapper(req);
         String clientIp = null;
         try {
-            clientIp = req.getHeader("HTTP_X_FORWARDED_FOR");
+            clientIp = requestWrapper.getHeader("HTTP_X_FORWARDED_FOR");
             if (null == clientIp || clientIp.length() == 0
                     || clientIp.toLowerCase().equals("unknown")) {
-                clientIp = req.getHeader("REMOTE_ADDR");
+                clientIp = requestWrapper.getHeader("REMOTE_ADDR");
             }
             if (null == clientIp || clientIp.length() == 0
                     || clientIp.toLowerCase().equals("unknown")) {

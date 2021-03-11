@@ -3,7 +3,7 @@ package org.paasta.container.platform.web.user.error;
 import org.paasta.container.platform.web.user.config.NoAuth;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.RequestDispatcher;
@@ -27,7 +27,7 @@ public class CustomErrorController implements ErrorController {
     }
 
     @NoAuth
-    @RequestMapping("/error")
+    @GetMapping("/error")
     public ModelAndView handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         String reqUrl = VIEW_URL + status.toString();

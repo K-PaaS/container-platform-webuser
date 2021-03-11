@@ -95,22 +95,22 @@ public class RestTemplateService {
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
 
-        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", httpMethod, baseUrl, reqUrl, reqHeaders.get(CONTENT_TYPE));
+        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", CommonUtils.loggerReplace(httpMethod), CommonUtils.loggerReplace(baseUrl), CommonUtils.loggerReplace(reqUrl), CommonUtils.loggerReplace(reqHeaders.get(CONTENT_TYPE)));
 
         ResponseEntity<T> resEntity = null;
 
         try {
             resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
             if (resEntity.getBody() != null) {
-                LOGGER.info("Response Type: {}", resEntity.getBody().getClass());
-                LOGGER.info(resEntity.getBody().toString());
+                LOGGER.info("Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
+                LOGGER.info(CommonUtils.loggerReplace(resEntity.getBody().toString()));
             } else {
                 LOGGER.info("Response Type: {}", "response body is null");
             }
 
             return resEntity.getBody();
         } catch (HttpStatusCodeException exception) {
-            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", reqUrl, exception.getRawStatusCode(), exception.getMessage());
+            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", CommonUtils.loggerReplace(reqUrl), CommonUtils.loggerReplace(exception.getRawStatusCode()), CommonUtils.loggerReplace(exception.getMessage()));
 
             for (CommonStatusCode code : CommonStatusCode.class.getEnumConstants()) {
                 if (code.getCode() == exception.getRawStatusCode()) {
@@ -150,22 +150,22 @@ public class RestTemplateService {
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
 
-        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", httpMethod, baseUrl, reqUrl, reqHeaders.get(CONTENT_TYPE));
+        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", CommonUtils.loggerReplace(httpMethod), CommonUtils.loggerReplace(baseUrl), CommonUtils.loggerReplace(reqUrl), CommonUtils.loggerReplace(reqHeaders.get(CONTENT_TYPE)));
 
         ResponseEntity<T> resEntity = null;
 
         try {
             resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
             if (resEntity.getBody() != null) {
-                LOGGER.info("Response Type: {}", resEntity.getBody().getClass());
-                LOGGER.info(resEntity.getBody().toString());
+                LOGGER.info("Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
+                LOGGER.info(CommonUtils.loggerReplace(resEntity.getBody().toString()));
             } else {
                 LOGGER.info("Response Type: {}", "response body is null");
             }
 
             return resEntity.getBody();
         } catch (HttpStatusCodeException exception) {
-            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", reqUrl, exception.getRawStatusCode(), exception.getMessage());
+            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", CommonUtils.loggerReplace(reqUrl), CommonUtils.loggerReplace(exception.getRawStatusCode()), CommonUtils.loggerReplace(exception.getMessage()));
 
             for (CommonStatusCode code : CommonStatusCode.class.getEnumConstants()) {
                 if (code.getCode() == exception.getRawStatusCode()) {

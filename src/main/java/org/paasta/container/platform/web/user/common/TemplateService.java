@@ -28,7 +28,7 @@ public class TemplateService {
     @Autowired
     public TemplateService(Configuration configuration) {
         this.configuration = configuration;
-        logger.info( "freemaker.Configuration : {}", this.configuration.toString());
+        logger.info( "freemaker.Configuration : {}", CommonUtils.loggerReplace(this.configuration.toString()));
     }
 
     /**
@@ -41,7 +41,7 @@ public class TemplateService {
         String yml;
         try {
             yml = FreeMarkerTemplateUtils.processTemplateIntoString(configuration.getTemplate(templateName), model);
-            logger.info("original yml {}",yml);
+            logger.info("original yml {}",CommonUtils.loggerReplace(yml));
         } catch (Exception e) {
             logger.error( "Occured unexpected exception...", e );
             return null;
