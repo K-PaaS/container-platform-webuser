@@ -5,6 +5,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.paasta.container.platform.web.user.login.LoginService;
+import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public class AspectService {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private LoginService loginService;
 
     @Value("${access.cp-token}")
     private String cpToken;
@@ -86,8 +91,8 @@ public class AspectService {
 
     /**
      * Controller 호출 시 Access Token 존재 유무 판별
-     * <p>
-     * Cookies 내 Access Token 미존재인 경우 로그아웃 처리
+     *
+     * Redis 내 사용자 Access Token 미존재인 경우 로그아웃 처리
      *
      * @param joinPoint
      * @return the object
@@ -98,16 +103,27 @@ public class AspectService {
 
         ModelAndView model = new ModelAndView();
         String accessToken = null;
+        UsersLoginMetaData usersLoginMetaData = new UsersLoginMetaData();
 
-        accessToken = CommonUtils.getCookie(request, cpToken);
+        try {
 
-        if (accessToken == null) {
+            usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+            accessToken = usersLoginMetaData.getAccessToken();
+        }
+        catch(NullPointerException e) {
+            model.setViewName(Constants.REDIRECT_VIEW + Constants.URI_UNAUTHORIZED);
+            return model;
+        }
+
+
+        if (accessToken.isEmpty() || accessToken == null) {
             LOGGER.warn("================================================================================");
             LOGGER.warn("## Move to UNAUTHORIZED VIEW :: Access Token does not exist");
             LOGGER.warn("================================================================================");
             model.setViewName(Constants.REDIRECT_VIEW + Constants.URI_UNAUTHORIZED);
             return model;
         }
+
 
         return joinPoint.proceed();
     }

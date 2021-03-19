@@ -5,8 +5,9 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
-import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
+import org.paasta.container.platform.web.user.login.LoginService;
+import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -32,20 +33,23 @@ public class AccessTokenController {
     private String cpUserId;
 
     private static final String VIEW_URL = "/intro";
+
     private final CommonService commonService;
     private final AccessTokenService accessTokenService;
-
+    private final LoginService loginService;
 
     /**
      * Instantiates a new Access Token controller
      *
      * @param commonService
      * @param accessTokenService
+     * @param loginService
      */
     @Autowired
-    public AccessTokenController(CommonService commonService, AccessTokenService accessTokenService) {
+    public AccessTokenController(CommonService commonService, AccessTokenService accessTokenService, LoginService loginService) {
         this.commonService = commonService;
         this.accessTokenService = accessTokenService;
+        this.loginService = loginService;
     }
 
 
@@ -59,7 +63,10 @@ public class AccessTokenController {
     @ApiOperation(value = "Intro access info 페이지 이동(Move Intro access info page)", nickname = "getIntroAccessInfo")
     @GetMapping(value = Constants.URI_INTRO_ACCESS_INFO)
     public ModelAndView getIntroAccessInfo(HttpServletRequest httpServletRequest) {
-        String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
+
+        UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+        String userId = usersLoginMetaData.getUserId();
+
         ModelAndView mv = new ModelAndView();
         mv.addObject("userId", userId);
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/accessInfo", mv);
