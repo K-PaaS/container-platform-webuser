@@ -11,6 +11,13 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
+/**
+ * RedisConfig 클래스
+ *
+ * @author kjhoon
+ * @version 1.0
+ * @since 2021.03.15
+ */
 @Configuration
 @EnableRedisRepositories
 public class RedisConfig {

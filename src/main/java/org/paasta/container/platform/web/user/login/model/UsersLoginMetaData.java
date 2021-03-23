@@ -6,6 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+/**
+ * Users Login MetaData Model 클래스
+ *
+ * @author kjhoon
+ * @version 1.0
+ * @since 2021.03.15
+ **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

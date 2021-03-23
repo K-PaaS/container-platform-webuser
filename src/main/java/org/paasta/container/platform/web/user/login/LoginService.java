@@ -20,6 +20,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Login Service 클래스
+ *
+ * @author kjhoon
+ * @version 1.0
+ * @since 2021.03.16
+ **/
 @Service
 public class LoginService {
 
@@ -32,7 +40,7 @@ public class LoginService {
     }
 
     /**
-     * Users 로그인 메타정보 Redis 저장 (Create Users Login Meta-Information By Redis)
+     * Users 로그인 메타정보 Redis 저장 (Create Users Login Meta-Information in Redis)
      *
      * @param usersLoginMetaData the UsersLoginData
      * @return the UsersLoginData
@@ -43,7 +51,7 @@ public class LoginService {
     }
 
     /**
-     * Users 로그인 메타정보 Redis 조회 (Get Users Login Meta-Information By Redis)
+     * Users 로그인 메타정보 Redis 조회 (Get Users Login Meta-Information in Redis)
      *
      * @param userId the userId
      * @return the UsersLoginMetaData
@@ -54,7 +62,7 @@ public class LoginService {
 
 
     /**
-     * Users 로그인 메타정보 Redis 수정 (Update Users Login Meta-Information By Redis)
+     * Users 로그인 메타정보 Redis 수정 (Update Users Login Meta-Information in Redis)
      *
      * @param usersLoginMetaData the usersLoginMetaData
      * @return the UsersLoginMetaData
@@ -65,7 +73,7 @@ public class LoginService {
     }
 
     /**
-     * Users 로그인 메타정보 Redis 삭제 (Delete Users Login Meta-Information By Redis)
+     * Users 로그인 메타정보 Redis 삭제 (Delete Users Login Meta-Information in Redis)
      *
      * @param userId the userId
      */
@@ -75,7 +83,7 @@ public class LoginService {
 
 
     /**
-     * 전체 Users 로그인 메타정보 Redis 조회(Get All Users Login Meta-Information By Redis)
+     * 전체 Users 로그인 메타정보 Redis 조회(Get All Users Login Meta-Information in Redis)
      *
      * @return the Map
      */
@@ -85,11 +93,10 @@ public class LoginService {
 
 
     /**
-     * Users 로그인 권한 인증 처리 (Users Login Authentication Processing)
+     * Users 로그인 권한 인증 처리 (Users Login Permission Authentication Processing)
      *
      * @param users        the Users
      * @param resultStatus the ResultStatus
-     * @return the void
      */
     public void userAuthenticationHandler(Users users, ResultStatus resultStatus) {
 
@@ -116,7 +123,7 @@ public class LoginService {
 
 
     /**
-     * 현재 로그인된 Users 메타 정보 조회 (Get currently logged in user Meta-Information)
+     * 현재 로그인된 Users 메타 정보 조회 (Get Login Meta-Information of currently logged in users)
      *
      * @return the UsersLoginMetaData
      */
@@ -126,9 +133,8 @@ public class LoginService {
 
         try {
             userId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        }
-        catch (NullPointerException e) {
-            return null ;
+        } catch (NullPointerException e) {
+            return null;
         }
 
         return getUsersLoginMetaData(userId);
@@ -136,9 +142,9 @@ public class LoginService {
 
 
     /**
-     * 현재 로그인된 Users 인증정보 변경 (Update currently logged in user Auth-Information)
+     * 현재 로그인된 Users 인증정보 변경 (Update the currently logged in user auth-Information)
      *
-     * @return the UsersLoginMetaData
+     * @param users the Users
      */
     public void updateAuthenticationUser(Users users) {
         List<SimpleGrantedAuthority> roles = Arrays.asList(new SimpleGrantedAuthority(Constants.DEFAULT_AUTH));
@@ -154,7 +160,7 @@ public class LoginService {
     /**
      * Users 로그아웃 처리 (Users Log-Out Process)
      *
-     * @return the UsersLoginMetaData
+     * @param session the HttpSession
      */
     public void userLogoutHandler(HttpSession session) {
 
@@ -179,7 +185,6 @@ public class LoginService {
 
 
     }
-
 
 
 }

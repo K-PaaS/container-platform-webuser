@@ -8,6 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Map;
 
+/**
+ * Login Repository Impl 클래스
+ *
+ * @author kjhoon
+ * @version 1.0
+ * @since 2021.03.16
+ **/
 @Repository
 public class LoginRepositoryImpl implements LoginRepository {
 

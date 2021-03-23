@@ -277,8 +277,8 @@ public class UsersController {
     /**
      * Users 로그인(Post Users login)
      *
-     * @param users    the users
-     * @param request  the request
+     * @param users   the users
+     * @param request the request
      * @return the resultStatus
      */
     @ApiOperation(value = "Users 로그인(Post Users login)", nickname = "loginUser")
@@ -366,7 +366,7 @@ public class UsersController {
 
         ResultStatus resultStatus = usersService.updateUsers(cluster, userId, users);
 
-        if(resultStatus.getResultCode().equals(Constants.RESULT_STATUS_SUCCESS)) {
+        if (resultStatus.getResultCode().equals(Constants.RESULT_STATUS_SUCCESS)) {
             loginService.updateAuthenticationUser(users);
         }
 
@@ -375,12 +375,12 @@ public class UsersController {
 
 
     /**
-     * Users 선택한 네임스페이스 변경 (Modify the Selected Namespace Value)
+     * Users 선택한 네임스페이스 변경 (Modify the Selected Namespace)
      *
      * @param namespace namespace
-     * @return the UsersLoginMetaData
+     * @return the resultStatus
      */
-    @ApiOperation(value = "Users 선택한 네임스페이스 변경 (Modify the Selected Namespace Value )", nickname = "UpdateSelectedNamespace")
+    @ApiOperation(value = "Users 선택한 네임스페이스 변경 (Modify the Selected Namespace)", nickname = "UpdateSelectedNamespace")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
     })
@@ -404,12 +404,12 @@ public class UsersController {
 
 
     /**
-     * Users 비밀번호 검증 (Verify that the password is correct)
+     * Users 비밀번호 검증 (Users password verification)
      *
      * @param users the users
      * @return the resultStatus
      */
-    @ApiOperation(value = "Users 비밀번호 검증 (Verify that the password is correct)", nickname = "verifyPassword")
+    @ApiOperation(value = "Users 비밀번호 검증 (Users password verification)", nickname = "verifyPassword")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "users", value = "유저 정보", required = true, dataType = "Users", paramType = "body")
     })

@@ -90,9 +90,9 @@ public class AspectService {
 
 
     /**
-     * Controller 호출 시 Access Token 존재 유무 판별
+     * Controller 호출 시 Access Token 존재 유무 판별 (Check the presence or absence of an access token on before controller access)
      *
-     * Redis 내 사용자 Access Token 미존재인 경우 로그아웃 처리
+     * Redis 내 해당 사용자 Access Token 미존재인 경우 unauthorized 페이지로 이동
      *
      * @param joinPoint
      * @return the object
