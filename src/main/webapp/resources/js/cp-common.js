@@ -39,7 +39,7 @@ var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
                 procViewLoading('hide');
 
                 if (data.resultMessage == "TOKEN_FAILED") {
-                    location.href = "/logout";
+                    location.href = "/logout?timeout=true";
                     return false;
                 }
 

@@ -150,7 +150,10 @@ public class Constants {
     public static final String NO_VALUE_INPUT = "입력된 값이 없습니다.";
     public static final String EMPTY_VALUE ="-";
 
-    public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/logout"};
+    public static final String CHECK_TRUE = "true";
+    public static final String CHECK_FALSE = "false";
+
+    public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/common/tokenExpired", "/logout"};
 
     private Constants() {
         throw new IllegalStateException();

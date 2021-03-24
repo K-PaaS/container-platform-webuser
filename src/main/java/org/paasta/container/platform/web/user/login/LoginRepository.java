@@ -2,8 +2,6 @@ package org.paasta.container.platform.web.user.login;
 
 import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 
-import java.util.Map;
-
 /**
  * Login Repository 클래스
  *
@@ -14,8 +12,6 @@ import java.util.Map;
 public interface LoginRepository {
 
     void save(UsersLoginMetaData usersLoginMetaData);
-
-    Map<String, UsersLoginMetaData> findAll();
 
     UsersLoginMetaData findByUserId(String userId);
 

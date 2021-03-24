@@ -18,8 +18,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-
 
 /**
  * Login Service 클래스
@@ -81,15 +79,6 @@ public class LoginService {
         loginRepository.delete(userId);
     }
 
-
-    /**
-     * 전체 Users 로그인 메타정보 Redis 조회(Get All Users Login Meta-Information in Redis)
-     *
-     * @return the Map
-     */
-    public Map<String, UsersLoginMetaData> getAllUsersLoginMetaData() {
-        return loginRepository.findAll();
-    }
 
 
     /**

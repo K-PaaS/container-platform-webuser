@@ -75,4 +75,8 @@
         <put-attribute name="body" value="/WEB-INF/views/errors/500.jsp" />
     </definition>
 
+    <definition name="/common/tokenExpired" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/common/tokenExpired.jsp"/>
+    </definition>
+
 </tiles-definitions>

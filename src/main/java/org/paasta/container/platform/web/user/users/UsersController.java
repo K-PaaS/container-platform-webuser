@@ -311,11 +311,18 @@ public class UsersController {
     @ApiOperation(value = "Users 로그아웃(Get Users logout)", nickname = "logout")
     @NoAuth
     @GetMapping(value = Constants.URI_LOGOUT)
-    public ModelAndView logout(HttpSession session) {
+    public ModelAndView logout(HttpSession session,
+                               @RequestParam(required = false, defaultValue = Constants.CHECK_FALSE) String timeout) {
 
         loginService.userLogoutHandler(session);
 
         ModelAndView model = new ModelAndView();
+
+        //토큰 만료로 인한 자동 로그아웃의 경우 처리
+        if(timeout.toLowerCase().equals(Constants.CHECK_TRUE)) {
+            model.setViewName(Constants.REDIRECT_VIEW + "/common/tokenExpired");
+            return model;
+        }
         model.setViewName(Constants.REDIRECT_VIEW + "/login");
         return model;
     }

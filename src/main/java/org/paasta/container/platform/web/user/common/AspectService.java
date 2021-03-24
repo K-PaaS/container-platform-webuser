@@ -104,6 +104,7 @@ public class AspectService {
         ModelAndView model = new ModelAndView();
         String accessToken = null;
         UsersLoginMetaData usersLoginMetaData = new UsersLoginMetaData();
+        String tokenExpiredRedirectView = Constants.REDIRECT_VIEW + Constants.URI_LOGOUT + "?timeout=" + Constants.CHECK_TRUE;
 
         try {
 
@@ -111,7 +112,7 @@ public class AspectService {
             accessToken = usersLoginMetaData.getAccessToken();
         }
         catch(NullPointerException e) {
-            model.setViewName(Constants.REDIRECT_VIEW + Constants.URI_UNAUTHORIZED);
+            model.setViewName(tokenExpiredRedirectView);
             return model;
         }
 
@@ -120,7 +121,7 @@ public class AspectService {
             LOGGER.warn("================================================================================");
             LOGGER.warn("## Move to UNAUTHORIZED VIEW :: Access Token does not exist");
             LOGGER.warn("================================================================================");
-            model.setViewName(Constants.REDIRECT_VIEW + Constants.URI_UNAUTHORIZED);
+            model.setViewName(tokenExpiredRedirectView);
             return model;
         }
 
