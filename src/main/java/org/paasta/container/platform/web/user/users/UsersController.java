@@ -320,7 +320,7 @@ public class UsersController {
 
         //토큰 만료로 인한 자동 로그아웃의 경우 처리
         if(timeout.toLowerCase().equals(Constants.CHECK_TRUE)) {
-            model.setViewName(Constants.REDIRECT_VIEW + "/common/tokenExpired");
+            model.setViewName(Constants.REDIRECT_VIEW + "/common/error/unauthorized");
             return model;
         }
         model.setViewName(Constants.REDIRECT_VIEW + "/login");

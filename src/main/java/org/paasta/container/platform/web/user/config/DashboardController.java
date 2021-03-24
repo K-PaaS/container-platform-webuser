@@ -34,18 +34,4 @@ public class DashboardController {
     }
 
 
-    /**
-     * 토큰 만료로 인한 자동 로그아웃 안내 페이지로 이동(Move to auto logout page by token expired)
-     *
-     * @return the view
-     */
-    @ApiOperation(value = "토큰 만료로 인한 자동 로그아웃 안내 페이지로 이동(Move to auto logout page by token expired)", nickname = "pageTokenExpired")
-    @NoAuth
-    @GetMapping(value = "/common/tokenExpired")
-    public ModelAndView pageTokenExpired() {
-        ModelAndView model = new ModelAndView();
-
-        model.setViewName("/common/tokenExpired");
-        return model;
-    }
 }

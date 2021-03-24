@@ -153,7 +153,7 @@ public class Constants {
     public static final String CHECK_TRUE = "true";
     public static final String CHECK_FALSE = "false";
 
-    public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/common/tokenExpired", "/logout"};
+    public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/logout"};
 
     private Constants() {
         throw new IllegalStateException();
