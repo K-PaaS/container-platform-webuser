@@ -5,21 +5,24 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
-import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
+import org.paasta.container.platform.web.user.common.MessageConstant;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.paasta.container.platform.web.user.config.NoAuth;
+import org.paasta.container.platform.web.user.login.LoginService;
+import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -41,6 +44,7 @@ public class UsersController {
     private static final String BASE_URL = "/managements/users";
     private final UsersService usersService;
     private final CommonService commonService;
+    private final LoginService loginService;
 
     @Value("${access.cp-token}")
     private String cpToken;
@@ -52,9 +56,10 @@ public class UsersController {
     UsersValidator userValidator;
 
     @Autowired
-    public UsersController(UsersService usersService, CommonService commonService) {
+    public UsersController(UsersService usersService, CommonService commonService, LoginService loginService) {
         this.usersService = usersService;
         this.commonService = commonService;
+        this.loginService = loginService;
     }
 
     /**
@@ -146,12 +151,13 @@ public class UsersController {
             @ApiImplicitParam(name = "users", value = "유저 정보 목록", required = true, dataType = "List<Users>", paramType = "body")
     })
     @PutMapping(value = Constants.API_URL + Constants.URI_API_USERS_CONFIG)
-    public ResultStatus modifyUsersConfig(HttpServletRequest httpServletRequest,
-                                          @PathVariable(value = "cluster") String cluster,
+    public ResultStatus modifyUsersConfig(@PathVariable(value = "cluster") String cluster,
                                           @PathVariable(value = "namespace") String namespace,
                                           @RequestBody List<Users> users) {
 
-        String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
+        UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+        String userId = usersLoginMetaData.getUserId();
+
         return usersService.modifyUsersConfig(cluster, namespace, users, userId);
     }
 
@@ -169,11 +175,12 @@ public class UsersController {
             @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "query")
     })
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_LIST)
-    public UsersList getUsersList(HttpServletRequest httpServletRequest,
-                                  @PathVariable(value = "cluster") String cluster,
+    public UsersList getUsersList(@PathVariable(value = "cluster") String cluster,
                                   @RequestParam(name = "namespace") String namespace) {
 
-        String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
+        UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+        String userId = usersLoginMetaData.getUserId();
+
         return usersService.getUsersList(cluster, namespace, userId);
     }
 
@@ -240,21 +247,24 @@ public class UsersController {
     /**
      * 로그인 페이지 이동(Move login page)
      *
-     * @param request  the request
-     * @param response the response
      * @return the view
      */
     @ApiOperation(value = "로그인 페이지 이동(Move login page)", nickname = "loginView")
     @NoAuth
     @GetMapping("/login")
-    public ModelAndView loginView(HttpServletRequest request,
-                                  HttpServletResponse response) {
+    public ModelAndView loginView() {
 
+        UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
         String userToken = null;
-        userToken = CommonUtils.getCookie(request, cpToken);
-
         ModelAndView model = new ModelAndView();
         model.setViewName(Constants.URI_LOGIN);
+
+        try {
+            userToken = usersLoginMetaData.getAccessToken();
+        } catch (NullPointerException e) {
+            return model;
+        }
+
 
         if (userToken != null) {
             model.setViewName(Constants.REDIRECT_VIEW + Constants.URI_INTRO_OVERVIEW);
@@ -267,9 +277,8 @@ public class UsersController {
     /**
      * Users 로그인(Post Users login)
      *
-     * @param users    the users
-     * @param request  the request
-     * @param response the response
+     * @param users   the users
+     * @param request the request
      * @return the resultStatus
      */
     @ApiOperation(value = "Users 로그인(Post Users login)", nickname = "loginUser")
@@ -280,15 +289,13 @@ public class UsersController {
     @NoAuth
     @ResponseBody
     public ResultStatus loginUser(@RequestBody Users users,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) {
+                                  HttpServletRequest request) {
 
         userValidator.getUsersValidate(request, users);
         ResultStatus rs = usersService.loginUser(users);
 
         if (rs.getResultCode().equals(Constants.RESULT_STATUS_SUCCESS)) {
-            CommonUtils.addCookies(response, cpToken, rs.getToken());
-            CommonUtils.addCookies(response, cpUserId, rs.getUserId());
+            loginService.userAuthenticationHandler(users, rs);
         }
 
         return rs;
@@ -298,21 +305,24 @@ public class UsersController {
     /**
      * Users 로그아웃(Get Users logout)
      *
-     * @param response the response
+     * @param session the HttpSession
      * @return the view
      */
     @ApiOperation(value = "Users 로그아웃(Get Users logout)", nickname = "logout")
     @NoAuth
     @GetMapping(value = Constants.URI_LOGOUT)
-    public ModelAndView logout(HttpServletResponse response) {
+    public ModelAndView logout(HttpSession session,
+                               @RequestParam(required = false, defaultValue = Constants.CHECK_FALSE) String timeout) {
 
-        CommonUtils.removeCookies(response, cpToken);
-        CommonUtils.removeCookies(response, cpUserId);
-        CommonUtils.removeCookies(response, Constants.CP_USER_METADATA_KEY);
-        CommonUtils.removeCookies(response, Constants.CP_SELECTED_NAMESPACE_KEY);
-        CommonUtils.removeCookies(response, Constants.CP_CLUSTER_NAME_KEY);
+        loginService.userLogoutHandler(session);
 
         ModelAndView model = new ModelAndView();
+
+        //토큰 만료로 인한 자동 로그아웃의 경우 처리
+        if(timeout.toLowerCase().equals(Constants.CHECK_TRUE)) {
+            model.setViewName(Constants.REDIRECT_VIEW + "/common/error/unauthorized");
+            return model;
+        }
         model.setViewName(Constants.REDIRECT_VIEW + "/login");
         return model;
     }
@@ -326,13 +336,18 @@ public class UsersController {
     @ApiOperation(value = "Users 마이 페이지로 이동(Move Users my page)", nickname = "getUserInfoMain")
     @GetMapping(value = Constants.URI_USERS_INFO)
     public ModelAndView getUserInfoMain(HttpServletRequest httpServletRequest) throws UnsupportedEncodingException {
-        String userId = CommonUtils.getCookie(httpServletRequest, cpUserId);
-        String selectedNs = CommonUtils.getCookie(httpServletRequest, Constants.CP_SELECTED_NAMESPACE_KEY);
-        String cluster = CommonUtils.getCookie(httpServletRequest, Constants.CP_CLUSTER_NAME_KEY);
+
+        UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+
+        String userId = usersLoginMetaData.getUserId();
+        String selectedNs = usersLoginMetaData.getSelectedNamespace();
+        String cluster = usersLoginMetaData.getClusterName();
 
         Users user = usersService.getUsers(cluster, selectedNs, userId);
+
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);
+
         return commonService.setPathVariables(httpServletRequest, BASE_URL + "/info", mv);
     }
 
@@ -355,6 +370,66 @@ public class UsersController {
     public ResultStatus updateUsers(@PathVariable(value = "cluster") String cluster,
                                     @PathVariable(value = "userId") String userId,
                                     @RequestBody Users users) {
-        return usersService.updateUsers(cluster, userId, users);
+
+        ResultStatus resultStatus = usersService.updateUsers(cluster, userId, users);
+
+        if (resultStatus.getResultCode().equals(Constants.RESULT_STATUS_SUCCESS)) {
+            loginService.updateAuthenticationUser(users);
+        }
+
+        return resultStatus;
     }
+
+
+    /**
+     * Users 선택한 네임스페이스 변경 (Modify the Selected Namespace)
+     *
+     * @param namespace namespace
+     * @return the resultStatus
+     */
+    @ApiOperation(value = "Users 선택한 네임스페이스 변경 (Modify the Selected Namespace)", nickname = "UpdateSelectedNamespace")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "namespace", value = "네임스페이스 명", required = true, dataType = "String", paramType = "path")
+    })
+    @GetMapping(value = Constants.URI_UPDATE_SELECTED_NAMESPACE)
+    @ResponseBody
+    public ResultStatus UpdateSelectedNamespace(@PathVariable(value = "namespace") String namespace) {
+
+        UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+        usersLoginMetaData.setSelectedNamespace(namespace);
+
+        UsersLoginMetaData usersLoginMetaDataNew = loginService.updateUsersLoginMetaData(usersLoginMetaData);
+
+        if (usersLoginMetaDataNew.getSelectedNamespace().isEmpty() || usersLoginMetaDataNew.getSelectedNamespace() == null) {
+            return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_FAIL).detailMessage(MessageConstant.NAMESPACE_CHANGE_FAILED).build();
+        }
+
+        return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_SUCCESS)
+                .detailMessage(MessageConstant.NAMESPACE_CHANGE_SUCCEEDED).userId(usersLoginMetaDataNew.getUserId()).build();
+
+    }
+
+
+    /**
+     * Users 비밀번호 검증 (Users password verification)
+     *
+     * @param users the users
+     * @return the resultStatus
+     */
+    @ApiOperation(value = "Users 비밀번호 검증 (Users password verification)", nickname = "verifyPassword")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "users", value = "유저 정보", required = true, dataType = "Users", paramType = "body")
+    })
+    @PostMapping(value = Constants.URI_USERS_VERIFY_PASSWORD)
+    @ResponseBody
+    public ResultStatus verifyPassword(@RequestBody Users users) {
+
+        String credentials = (String) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+
+        if (users.getPassword().equals(credentials)) {
+            return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_SUCCESS).build();
+        }
+        return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_FAIL).detailMessage(MessageConstant.INVALID_PASSWORD).build();
+    }
+
 }

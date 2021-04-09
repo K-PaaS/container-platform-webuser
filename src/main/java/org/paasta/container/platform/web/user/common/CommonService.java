@@ -30,7 +30,8 @@ public class CommonService {
         Object pathVariablesObject;
         String pathVariablesKey;
 
-        Map<String, String[]> parametersMap = httpServletRequest.getParameterMap();
+        RequestWrapper requestWrapper = new RequestWrapper(httpServletRequest);
+        Map<String, String[]> parametersMap = requestWrapper.getParameterMap();
         String[] parametersObject;
         String parametersKey;
 

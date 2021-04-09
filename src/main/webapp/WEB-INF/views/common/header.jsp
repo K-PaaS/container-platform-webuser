@@ -21,7 +21,7 @@
     <div class="logo">
         <a href="javascript:void(0);" onclick="procMovePage('<%= Constants.CP_INIT_URI %>');" class="custom_border_none"><h1><img src="<c:url value="/resources/images/main/logo.png"/>" alt=""/></h1></a>
     </div>
-    <select id="namespacesList"  onchange="changeNamespace(this.value)">
+    <select id="namespacesList"  onchange="changeSelectedNamespace(this.value)">
     </select>
     <div class="gnb search">
     </div>
@@ -36,7 +36,7 @@
                         <li id="header-menu-info"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">My info</a></li>
                         <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
                         <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
-                        <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logout();">Logout</a></li>
+                        <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logoutHandler();">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -121,13 +121,12 @@
 <script type="text/javascript">
 
     var NAME_SPACE;
-    var cookieName = '<%= Constants.CP_SELECTED_NAMESPACE_KEY %>';
 
     var getNamespacesList = function() {
         var html = "";
 
         if(namespace === null || namespace === "" || namespace === undefined) {
-            console.log("token expired.....");
+            console.log("Namespace list does not exist...token expired...");
             return procMovePage('/logout');
         }
 
@@ -139,54 +138,58 @@
     };
 
 
-    // 로그아웃 시 쿠키 제거 (Remove cookies on Logout)
-    var logout = function() {
-        deleteCookie(cookieName);
-        procMovePage('/logout');
-    };
+    // 초기 네임스페이스 값은 namespace 목록의 첫 번째 값으로 셋팅 (Set namespace init value)
+    var initSelectedNamespace = function() {
 
+        var selectedNamespace = current_select_ns;
 
-    // cookie 삭제 (Delete cookie)
-    var deleteCookie = function (cookieName) {
-        $.removeCookie(cookieName, { path: '/' });
-    };
+        // 선택된 네임스페이스가 없을 때 (When selected namespace is not exist)
+        if(selectedNamespace == null || selectedNamespace === "" || selectedNamespace === "undefined" || selectedNamespace === "null") {
 
-
-    // cookie 처음 값은 namespace 목록의 첫 번째 값으로 1시간 셋팅 (Set 1 hour as namespace first value)
-    var checkChkCookie = function(cookieName) {
-        var cookieValue = $.cookie(cookieName);
-
-        var hour = new Date();
-        hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간 (1 hour)
-
-        // 쿠키 없을 때 (When cookie is not exist)
-        if(cookieValue == null || cookieValue === "" || cookieValue === "undefined") {
-            $.cookie(cookieName, namespacesList[0], { expires: hour, path: '/' });
+            var reqUrl = "<%= Constants.URI_UPDATE_SELECTED_NAMESPACE%>".replace("{namespace:.+}", namespacesList[0]);
+            procCallAjax(reqUrl, "GET", null, null, callbackUpdateSelectedNamespace);
+            selectedNamespace =  namespacesList[0];
         }
-        cookieValue = $.cookie(cookieName);
 
         // 페이지 이동 시에도 selected 고정 (Fixed selected)
-        $("#namespacesList option[value='" + cookieValue + "']").attr('selected', 'selected');
-        NAME_SPACE = cookieValue;
+        $("#namespacesList option[value='" + selectedNamespace + "']").attr('selected', 'selected');
+        NAME_SPACE = selectedNamespace;
 
     };
 
-    // namespace change 후에 cookie 값 갱신 (Update cookie after namespace change)
-    var changeNamespace = function(value) {
-        deleteCookie(cookieName);
-        var hour = new Date();
-        hour.setTime(hour.getTime() + (3600 * 1000)); // 1시간
-        var changedCookie = $.cookie(cookieName, value, { expires: hour, path : '/' });
+    // 네임스페이스 변경 시 변경된 값 반영 (Update selected namespace value after namespace change)
+    var changeSelectedNamespace = function(value) {
 
+        var reqUrl = "<%= Constants.URI_UPDATE_SELECTED_NAMESPACE%>".replace("{namespace:.+}", value);
+        procCallAjax(reqUrl, "GET", null, null, callbackUpdateSelectedNamespace);
         NAME_SPACE = value;
 
         procMovePage('<%=Constants.URI_INTRO_OVERVIEW%>');
     };
 
+
+    var callbackUpdateSelectedNamespace = function(data) {
+
+    }
+
+
     $(document.body).ready(function () {
         getNamespacesList();
-        checkChkCookie(cookieName);
+        initSelectedNamespace();
     });
+
+
+    var logoutHandler =function(){
+        var code = "<p class='account_modal_p'>로그아웃 하시겠습니까?</p>";
+        procSetLayerPopup('로그아웃', code, '확인', '취소', 'x', 'logout()', null, null);
+
+    }
+
+    // 로그아웃 처리 (Logout Process)
+    var logout = function() {
+        procMovePage('/logout');
+    };
+
 
 
 </script>

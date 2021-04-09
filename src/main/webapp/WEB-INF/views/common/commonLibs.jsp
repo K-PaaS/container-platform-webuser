@@ -7,6 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.paasta.container.platform.web.user.login.LoginService" %>
+<%@ page import="org.springframework.web.servlet.support.RequestContextUtils" %>
+<%@ page import="org.paasta.container.platform.web.user.login.model.UsersLoginMetaData" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
@@ -42,6 +46,13 @@
 <script type="text/javascript" src='<c:url value="/resources/js/cp-common.js"/>'></script>
 <script type="text/javascript">
 
+ <%
+ApplicationContext applicationContext = RequestContextUtils.findWebApplicationContext(request);
+LoginService loginService = (LoginService) applicationContext.getBean(Constants.CP_LOGIN_SERVICE_BEAN);
+
+UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+%>
+
     var RESULT_STATUS_SUCCESS  = "<%= Constants.RESULT_STATUS_SUCCESS %>";
     var RESULT_STATUS_FAIL     = "<%= Constants.RESULT_STATUS_FAIL %>";
     var URI_API_EVENTS_LIST    = "<%= Constants.API_URL %><%= Constants.URI_API_EVENTS_LIST %>";
@@ -51,15 +62,14 @@
     var OVERVIEW_LIMIT_COUNT = "<%= Constants.OVERVIEW_LIMIT_COUNT %>";
     var DEFAULT_LIMIT_COUNT = "<%= Constants.DEFAULT_LIMIT_COUNT %>";
 
-    var cp_user_metadata =$.cookie("<%= Constants.CP_USER_METADATA_KEY %>");
-    var current_select_ns = $.cookie("<%= Constants.CP_SELECTED_NAMESPACE_KEY %>");
-    cp_user_metadata = JSON.parse(cp_user_metadata);
+    var cp_user_metadata = <%= usersLoginMetaData.getUserMetaData() %>;
+    var current_select_ns ="<%= usersLoginMetaData.getSelectedNamespace() %>";
+    var CLUSTER_NAME = "<%= usersLoginMetaData.getClusterName() %>";
 
     var namespace = getNamespaceListByMetaData(cp_user_metadata);
     var current_user_type = getUserTypeByMetaData(cp_user_metadata, current_select_ns) ;
     var namespacesList = namespace;
 
-    var CLUSTER_NAME = $.cookie("<%= Constants.CP_CLUSTER_NAME_KEY %>");
 
 </script>
 

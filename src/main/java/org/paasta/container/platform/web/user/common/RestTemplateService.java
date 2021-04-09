@@ -2,6 +2,8 @@ package org.paasta.container.platform.web.user.common;
 
 import org.paasta.container.platform.web.user.common.model.CommonStatusCode;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
+import org.paasta.container.platform.web.user.login.LoginService;
+import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 
@@ -33,12 +33,16 @@ public class RestTemplateService {
     private final String commonApiBase64Authorization;
     private final RestTemplate restTemplate;
     private final PropertyService propertyService;
+    private final LoginService loginService;
+
     private String base64Authorization;
     private String baseUrl;
     private HttpServletRequest request;
 
     @Value("${access.cp-token}")
     private String tokenName;
+
+
 
     public void setTokenName(String tokenName) {
         this.tokenName = tokenName;
@@ -54,6 +58,7 @@ public class RestTemplateService {
      * @param commonApiAuthorizationPassword the common api authorization password
      * @param restTemplate                   the rest template
      * @param propertyService                the property service
+     * @param loginService                the login service
      * @param request                        the HttpServletRequest
      */
     @Autowired
@@ -63,9 +68,11 @@ public class RestTemplateService {
                                @Value("${commonApi.authorization.password}") String commonApiAuthorizationPassword,
                                RestTemplate restTemplate,
                                PropertyService propertyService,
+                               LoginService loginService,
                                HttpServletRequest request) {
         this.restTemplate = restTemplate;
         this.propertyService = propertyService;
+        this.loginService = loginService;
         this.request = request ;
         cpApiBase64Authorization = "Bearer ";
         commonApiBase64Authorization = "Basic "
@@ -95,22 +102,22 @@ public class RestTemplateService {
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
 
-        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", httpMethod, baseUrl, reqUrl, reqHeaders.get(CONTENT_TYPE));
+        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", CommonUtils.loggerReplace(httpMethod), CommonUtils.loggerReplace(baseUrl), CommonUtils.loggerReplace(reqUrl), CommonUtils.loggerReplace(reqHeaders.get(CONTENT_TYPE)));
 
         ResponseEntity<T> resEntity = null;
 
         try {
             resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
             if (resEntity.getBody() != null) {
-                LOGGER.info("Response Type: {}", resEntity.getBody().getClass());
-                LOGGER.info(resEntity.getBody().toString());
+                LOGGER.info("Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
+                LOGGER.info(CommonUtils.loggerReplace(resEntity.getBody().toString()));
             } else {
                 LOGGER.info("Response Type: {}", "response body is null");
             }
 
             return resEntity.getBody();
         } catch (HttpStatusCodeException exception) {
-            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", reqUrl, exception.getRawStatusCode(), exception.getMessage());
+            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", CommonUtils.loggerReplace(reqUrl), CommonUtils.loggerReplace(exception.getRawStatusCode()), CommonUtils.loggerReplace(exception.getMessage()));
 
             for (CommonStatusCode code : CommonStatusCode.class.getEnumConstants()) {
                 if (code.getCode() == exception.getRawStatusCode()) {
@@ -150,22 +157,22 @@ public class RestTemplateService {
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
 
-        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", httpMethod, baseUrl, reqUrl, reqHeaders.get(CONTENT_TYPE));
+        LOGGER.info("<T> T send :: Request : {} {} : {}, Content-Type: {}", CommonUtils.loggerReplace(httpMethod), CommonUtils.loggerReplace(baseUrl), CommonUtils.loggerReplace(reqUrl), CommonUtils.loggerReplace(reqHeaders.get(CONTENT_TYPE)));
 
         ResponseEntity<T> resEntity = null;
 
         try {
             resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
             if (resEntity.getBody() != null) {
-                LOGGER.info("Response Type: {}", resEntity.getBody().getClass());
-                LOGGER.info(resEntity.getBody().toString());
+                LOGGER.info("Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
+                LOGGER.info(CommonUtils.loggerReplace(resEntity.getBody().toString()));
             } else {
                 LOGGER.info("Response Type: {}", "response body is null");
             }
 
             return resEntity.getBody();
         } catch (HttpStatusCodeException exception) {
-            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", reqUrl, exception.getRawStatusCode(), exception.getMessage());
+            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", CommonUtils.loggerReplace(reqUrl), CommonUtils.loggerReplace(exception.getRawStatusCode()), CommonUtils.loggerReplace(exception.getMessage()));
 
             for (CommonStatusCode code : CommonStatusCode.class.getEnumConstants()) {
                 if (code.getCode() == exception.getRawStatusCode()) {
@@ -194,7 +201,7 @@ public class RestTemplateService {
         // CONTAINER PLATFORM API
         if (Constants.TARGET_CP_API.equals(reqApi)) {
             apiUrl = propertyService.getCpApiUrl();
-            authorization = cpApiBase64Authorization + getAccessToken(request, tokenName);
+            authorization = cpApiBase64Authorization + getAccessToken();
         }
 
         // COMMON API
@@ -209,21 +216,23 @@ public class RestTemplateService {
 
 
     /**
-     * Cookie에서 Access token 조회(Get Access Token from cookie)
+     * 현재 사용자 Access token 조회(Get Current User Access Token)
      *
-     * @param request the request
-     * @param name    the name
      * @return the string
      */
-    public static String getAccessToken(HttpServletRequest request, String name) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(name)) {
-                    return cookie.getValue();
-                }
-            }
-        }
-        return null;
+    public String getAccessToken() {
+
+       UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+       String accessToken = null;
+
+       try {
+           accessToken = usersLoginMetaData.getAccessToken();
+       }
+       catch (NullPointerException e) {
+
+           return null;
+       }
+
+      return accessToken;
     }
 }

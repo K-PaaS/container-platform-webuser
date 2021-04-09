@@ -60,6 +60,11 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-web"
 	compile "org.springframework.boot:spring-boot-starter-aop"
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	compile "org.springframework.boot:spring-boot-starter-security"
+	compile "org.springframework.boot:spring-boot-starter-data-redis"
+	compile "org.springframework.boot:spring-boot-starter-validation"
+	compile group: 'org.json', name: 'json', version: '20210307'
+	
 	runtime "mysql:mysql-connector-java:8.0.11"
 	compile("io.springfox:springfox-swagger2:${swaggerVersion}") {
 		exclude module: 'swagger-annotations'

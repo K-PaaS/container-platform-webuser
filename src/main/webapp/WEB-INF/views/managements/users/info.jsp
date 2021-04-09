@@ -18,20 +18,20 @@
                 <input type="text" class="update-form" id="userId" placeholder="User Id" maxlength="12" value="${user.userId}" disabled>
             </div>
             <div class="form-group">
-                <input type="password" class="update-form" id="currentPassword" placeholder="Current Password" maxlength="40">
+                <input type="password" class="update-form" id="currentPassword" placeholder="현재 비밀번호 (Current password)" maxlength="40">
             </div>
             <div class="form-group">
-                <input type="password" class="update-form" id="password" placeholder="Password" maxlength="40">
+                <input type="password" class="update-form" id="password" placeholder="신규 비밀번호 (New password) " maxlength="40">
             </div>
             <div class="form-group">
-                <input type="password" class="update-form" id="passwordConfirm" placeholder="Password Confirm">
+                <input type="password" class="update-form" id="passwordConfirm" placeholder="신규 비밀번호 확인 (Confirm password)">
                 <span class="update_info_box" id="chkNotice" style="font-size: large; font-variant: small-caps;"></span>
             </div>
             <div class="form-group">
-                <input type="text" class="update-form" id="email" placeholder="E-mail" maxlength="50" value="${user.email}">
+                <input type="text" class="update-form" id="email" placeholder="이메일 (E-mail)" maxlength="50" value="${user.email}">
             </div>
             <div class="form-group">
-                <input type="text" class="update-form" id="desc" placeholder="Description" maxlength="50" value="${user.description}">
+                <input type="text" class="update-form" id="desc" placeholder="설명 (Description)" maxlength="50" value="${user.description}">
             </div>
             <div class="empty-margin">
             </div>
@@ -55,7 +55,9 @@
         var loginObj = {userId: userId, password: password};
         var loginJson = JSON.stringify(loginObj);
 
-        procCallAjax("/login", "POST", loginJson, false, createUpdateUserInfo);
+        var reqUrl = "<%= Constants.URI_USERS_VERIFY_PASSWORD %>";
+
+       procCallAjax(reqUrl, "POST", loginJson, false, createUpdateUserInfo);
     };
 
     var createUpdateUserInfo = function () {

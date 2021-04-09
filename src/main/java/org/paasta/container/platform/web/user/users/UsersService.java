@@ -87,10 +87,17 @@ public class UsersService {
      * @return the user detail
      */
     public Users getUsers(String cluster, String namespace, String userId) {
-        return restTemplateService.send(TARGET_CP_API, URI_API_USERS_DETAIL
+         Users users = restTemplateService.send(TARGET_CP_API, URI_API_USERS_DETAIL
                 .replace("{cluster:.+}", cluster)
                 .replace("{namespace:.+}", namespace)
                 .replace("{userId:.+}", userId), HttpMethod.GET, null, Users.class);
+
+         users.setClusterToken(Constants.EMPTY_VALUE);
+         users.setSaToken(Constants.EMPTY_VALUE);
+         users.setPassword(Constants.EMPTY_VALUE);
+
+
+        return users;
     }
 
 

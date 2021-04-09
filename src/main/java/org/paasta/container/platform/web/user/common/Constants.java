@@ -28,6 +28,10 @@ public class Constants {
     public static final String URI_CLUSTER_NAMESPACES = "/container-platform/clusters/namespaces";
 
 
+    public static final String DEFAULT_AUTH = "ROLE_USER";
+    public static final String CP_USER_LOGIN_METADATA_REDIS_KEY = "CP_USER_LOGIN_METADATA";
+    public static final String CP_LOGIN_SERVICE_BEAN = "loginService";
+
     // DASHBOARD URI
     public static final String URI_UNAUTHORIZED ="/common/error/unauthorized";
     public static final String URI_LOGOUT ="/logout";
@@ -51,7 +55,8 @@ public class Constants {
     public static final String URI_USERS_INFO = "/container-platform/info";
 
     public static final String URI_ROLES = "/container-platform/roles";
-
+    public static final String URI_UPDATE_SELECTED_NAMESPACE = "/container-platform/update/selectedNamespace/{namespace:.+}";
+    public static final String URI_USERS_VERIFY_PASSWORD = "/container-platform/check/password";
     // API URI
     public static final String URL_API_LOGIN = "/login?isAdmin=false";
     public static final String URI_API_NAME_SPACES_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}";
@@ -103,6 +108,8 @@ public class Constants {
     public static final String URI_API_USERS_INFO = "/clusters/{cluster:.+}/users/{userId:.+}";
     public static final String URI_API_USERS_CONFIG = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/users";
 
+
+
     public static final String URI_API_ENDPOINTS_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/endpoints/{serviceName:.+}";
 
     public static final String URI_API_EVENTS_LIST = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/events/resources/{resourceUid:.+}";
@@ -141,6 +148,12 @@ public class Constants {
     public static final String REDIRECT_VIEW = "redirect:";
 
     public static final String NO_VALUE_INPUT = "입력된 값이 없습니다.";
+    public static final String EMPTY_VALUE ="-";
+
+    public static final String CHECK_TRUE = "true";
+    public static final String CHECK_FALSE = "false";
+
+    public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/logout"};
 
     private Constants() {
         throw new IllegalStateException();

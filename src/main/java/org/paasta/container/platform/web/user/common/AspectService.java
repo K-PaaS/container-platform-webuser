@@ -5,6 +5,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.paasta.container.platform.web.user.login.LoginService;
+import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Aspect Service 클래스
@@ -36,6 +39,9 @@ public class AspectService {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private LoginService loginService;
+
     @Value("${access.cp-token}")
     private String cpToken;
 
@@ -46,7 +52,7 @@ public class AspectService {
      */
     @Before("execution(* org.paasta.container.platform..*Service.*(..))")
     public void onBeforeLogServiceAccess(JoinPoint joinPoint) {
-        LOGGER.warn("######## ON BEFORE SERVICE ACCESS :: {}", joinPoint);
+        LOGGER.warn("######## ON BEFORE SERVICE ACCESS :: {}", CommonUtils.loggerReplace(joinPoint.toString()));
     }
 
 
@@ -57,24 +63,25 @@ public class AspectService {
      */
     @Before("execution(* org.paasta.container.platform..*Controller.*(..))")
     public void onBeforeLogControllerAccess(JoinPoint joinPoint) {
-        LOGGER.warn("#### DASHBOARD :: ON BEFORE CONTROLLER ACCESS :: {}", joinPoint);
+        LOGGER.warn("#### DASHBOARD :: ON BEFORE CONTROLLER ACCESS :: {}", CommonUtils.loggerReplace(joinPoint));
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        RequestWrapper requestWrapper = new RequestWrapper(request);
 
-        LOGGER.warn("## Entering in Method:  {}", joinPoint.getSignature().getName());
-        LOGGER.warn("## Class Name:  {}", joinPoint.getSignature().getDeclaringTypeName());
-        LOGGER.warn("## Arguments:  {}", Arrays.toString(joinPoint.getArgs()));
+        LOGGER.warn("## Entering in Method:  {}", CommonUtils.loggerReplace(joinPoint.getSignature().getName()));
+        LOGGER.warn("## Class Name:  {}", CommonUtils.loggerReplace(joinPoint.getSignature().getDeclaringTypeName()));
+        LOGGER.warn("## Arguments:  {}",  CommonUtils.loggerReplace(Stream.of(joinPoint.getArgs()).map(String::valueOf).collect(Collectors.joining(", "))));
         LOGGER.warn("## Target class:  {}", joinPoint.getTarget().getClass().getName());
 
         if (null != request) {
-            LOGGER.warn("## Request Path info:  {}", request.getServletPath());
+            LOGGER.warn("## Request Path info:  {}", CommonUtils.loggerReplace(request.getServletPath()));
             LOGGER.warn("## Method Type:  {}", request.getMethod());
             LOGGER.warn("================================================================================");
             LOGGER.warn("Start Header Section of request");
             Enumeration headerNames = request.getHeaderNames();
             while (headerNames.hasMoreElements()) {
                 String headerName = (String) headerNames.nextElement();
-                String headerValue = request.getHeader(headerName);
-                LOGGER.warn("  Header Name: {} || Header Value: {}", headerName, headerValue);
+                String headerValue = requestWrapper.getHeader(headerName);
+                LOGGER.warn("  Header Name: {} || Header Value: {}", CommonUtils.loggerReplace(headerName), CommonUtils.loggerReplace(headerValue));
             }
             LOGGER.warn("End Header Section of request");
             LOGGER.warn("================================================================================");
@@ -83,9 +90,9 @@ public class AspectService {
 
 
     /**
-     * Controller 호출 시 Access Token 존재 유무 판별
-     * <p>
-     * Cookies 내 Access Token 미존재인 경우 로그아웃 처리
+     * Controller 호출 시 Access Token 존재 유무 판별 (Check the presence or absence of an access token on before controller access)
+     *
+     * Redis 내 해당 사용자 Access Token 미존재인 경우 unauthorized 페이지로 이동
      *
      * @param joinPoint
      * @return the object
@@ -96,16 +103,28 @@ public class AspectService {
 
         ModelAndView model = new ModelAndView();
         String accessToken = null;
+        UsersLoginMetaData usersLoginMetaData = new UsersLoginMetaData();
+        String tokenExpiredRedirectView = Constants.REDIRECT_VIEW + Constants.URI_LOGOUT + "?timeout=" + Constants.CHECK_TRUE;
 
-        accessToken = CommonUtils.getCookie(request, cpToken);
+        try {
 
-        if (accessToken == null) {
+            usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+            accessToken = usersLoginMetaData.getAccessToken();
+        }
+        catch(NullPointerException e) {
+            model.setViewName(tokenExpiredRedirectView);
+            return model;
+        }
+
+
+        if (accessToken.isEmpty() || accessToken == null) {
             LOGGER.warn("================================================================================");
             LOGGER.warn("## Move to UNAUTHORIZED VIEW :: Access Token does not exist");
             LOGGER.warn("================================================================================");
-            model.setViewName(Constants.REDIRECT_VIEW + Constants.URI_UNAUTHORIZED);
+            model.setViewName(tokenExpiredRedirectView);
             return model;
         }
+
 
         return joinPoint.proceed();
     }
