@@ -48,7 +48,7 @@ metadata:
   namespace: default
 spec:
   ports:
-  - nodePort: 32091
+  - nodePort: 32191
     port: 8091
     protocol: TCP
     targetPort: 8091
@@ -119,7 +119,7 @@ metadata:
   namespace: default
 spec:
   ports:
-  - nodePort: 32079
+  - nodePort: 32179
     port: 6379
     protocol: TCP
     targetPort: 6379
