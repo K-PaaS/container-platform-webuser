@@ -35,7 +35,7 @@ spec:
         - name: REDIS_PASSWORD
           value: "password"
       imagePullSecrets:
-        - name: paasta-cp-secret
+        - name: cp-secret
       nodeSelector:
         kubernetes.io/hostname: paasta-cp-cluster-2   
 ---
