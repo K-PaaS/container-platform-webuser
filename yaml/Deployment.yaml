@@ -17,19 +17,19 @@ spec:
     spec:
       containers:
       - name: webuser
-        image: $REGISTRY_HARBOR_URL/container-platform/container-platform-webuser:$BUILD_NUMBER
+        image: $REGISTRY_HARBOR_URL/$PROJECT_NAME/$IMAGE_NAME:$BUILD_NUMBER
         imagePullPolicy: Always
         ports:
         - containerPort: 8091
         env:
         - name: K8S_IP
-          value: "10.100.2.41"                                           
+          value: "${K8S_URL}"                                           
         - name: CONTAINER_PLATFORM_COMMON_API_URL
           value: "common-api-deployment.default.svc.cluster.local:3334"
         - name: CONTAINER_PLATFORM_API_URL
           value: "api-deployment.default.svc.cluster.local:3333"
         - name: REDIS_HOST
-          value: "10.100.2.15"                                       
+          value: "${REDIS_URL}"                                       
         - name: REDIS_PORT
           value: "32079"
         - name: REDIS_PASSWORD
