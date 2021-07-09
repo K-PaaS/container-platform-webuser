@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Users Login MetaData Model 클래스
@@ -23,5 +24,7 @@ public class UsersLoginMetaData implements Serializable {
     private String userMetaData;
     private String selectedNamespace;
     private String clusterName;
+    private List<UsersLoginMetaDataItem> userMetaDataList;
+    private String active;
 
 }

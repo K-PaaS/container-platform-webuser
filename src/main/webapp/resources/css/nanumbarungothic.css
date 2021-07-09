@@ -84,6 +84,11 @@
        url(./fonts/NanumGothic-Bold.ttf) format('truetype');
 }
 
+
+
+@font-face{font-family:'Apple SD Gothic Neo'; src:url('./fonts/AppleSDGothicNeoM.ttf')}
+@font-face{font-family:'Apple SD Gothic Neo B'; src:url('./fonts/AppleSDGothicNeoB.ttf')}
+@font-face{font-family:'Apple SD Gothic Neo L'; src:url('./fonts/AppleSDGothicNeoL.ttf')}
 /*
 @font-face{font-family:'Open Sans';font-style:normal;font-weight:400;src:url(./fonts/openSans/OpenSans-Regular.eot);src:local(※),url(./fonts/openSans/OpenSans-Regular.eot?iefix) format('embedded-opentype'),url(./fonts/openSans/OpenSans-Regular.woff2) format('woff2'),url(./fonts/openSans/OpenSans-Regular.woff) format('woff');}
 @font-face{font-family:'Open Sans';font-style:normal;font-weight:700;src:url(./fonts/openSans/OpenSans-Bold.eot);src:local(※),url(./fonts/openSans/OpenSans-Bold.eot?iefix) format('embedded-opentype'),url(./fonts/openSans/OpenSans-Bold.woff2) format('woff2'),url(./fonts/openSans/OpenSans-Bold.woff) format('woff');}

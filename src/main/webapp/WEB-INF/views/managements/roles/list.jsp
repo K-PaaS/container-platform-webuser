@@ -42,7 +42,8 @@
             <tbody id="rolesListArea"></tbody>
         </table>
     </div>
-    <div><button id="rolesMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
+    <div class="resourceMoreDetailWrapDiv">
+        <button id="rolesMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
 </div>
 
 
@@ -116,7 +117,7 @@
                 htmlString.push('<tr>' +
                     '<td>' + "<a href='javascript:void(0);' onclick='procMovePage(\"<%= Constants.URI_ROLES %>/" + roleName + "\");'>" + roleName + '</a>' + '</td>' +
                     '<td>' + procCreateSpans(labels, "LB") + '</td>' +
-                    '<td>' + annotations + '</td>' +
+                    '<td style="white-space: normal !important;">' + annotations + '</td>' +
                     '<td>' + creationTimestamp + '</td>' +
                     '</tr>');
 

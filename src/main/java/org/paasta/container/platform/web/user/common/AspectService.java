@@ -7,11 +7,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.paasta.container.platform.web.user.login.LoginService;
 import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
+import org.paasta.container.platform.web.user.security.DashboardAuthenticationDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -89,45 +91,44 @@ public class AspectService {
     }
 
 
-    /**
-     * Controller 호출 시 Access Token 존재 유무 판별 (Check the presence or absence of an access token on before controller access)
-     *
-     * Redis 내 해당 사용자 Access Token 미존재인 경우 unauthorized 페이지로 이동
+
+/**
+     * 활성화된 사용자인지 판별 (Check if user account is active)
      *
      * @param joinPoint
      * @return the object
      * @throws Throwable
      */
     @Around("execution(* org.paasta.container.platform..*Controller.*(..))" + "&& !@annotation(org.paasta.container.platform.web.user.config.NoAuth)")
-    public Object accessTokenCheckAspect(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object inactiveUserAccessCheckAspect(ProceedingJoinPoint joinPoint) throws Throwable {
 
         ModelAndView model = new ModelAndView();
-        String accessToken = null;
-        UsersLoginMetaData usersLoginMetaData = new UsersLoginMetaData();
-        String tokenExpiredRedirectView = Constants.REDIRECT_VIEW + Constants.URI_LOGOUT + "?timeout=" + Constants.CHECK_TRUE;
+        String inactiveUserRedirectView = Constants.REDIRECT_VIEW + Constants.URI_INACTIVE_USER_ACCESS;
+
+        UsersLoginMetaData usersLoginMetaData = null;
 
         try {
+            DashboardAuthenticationDetails authUserDetails = ((DashboardAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails());
+            usersLoginMetaData = authUserDetails.getUsersLoginMetaData();
 
-            usersLoginMetaData = loginService.getAuthenticationUserMetaData();
-            accessToken = usersLoginMetaData.getAccessToken();
+            if(usersLoginMetaData.getActive().equals(Constants.CHECK_N)) {
+                LOGGER.warn("================================================================================");
+                LOGGER.warn("## REDIRECT INACTIVE VIEW :: THE USER [" + CommonUtils.loggerReplace(authUserDetails.getUserid())+ "] IS INACTIVE");
+                LOGGER.warn("================================================================================");
+
+                model.setViewName(inactiveUserRedirectView);
+                return model;
+            }
+
         }
-        catch(NullPointerException e) {
-            model.setViewName(tokenExpiredRedirectView);
+        catch(Exception e) {
+            model.setViewName(Constants.REDIRECT_VIEW + "/error/403");
             return model;
         }
-
-
-        if (accessToken.isEmpty() || accessToken == null) {
-            LOGGER.warn("================================================================================");
-            LOGGER.warn("## Move to UNAUTHORIZED VIEW :: Access Token does not exist");
-            LOGGER.warn("================================================================================");
-            model.setViewName(tokenExpiredRedirectView);
-            return model;
-        }
-
 
         return joinPoint.proceed();
     }
+
 
 
 }

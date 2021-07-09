@@ -65,6 +65,7 @@ UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaDa
     var cp_user_metadata = <%= usersLoginMetaData.getUserMetaData() %>;
     var current_select_ns ="<%= usersLoginMetaData.getSelectedNamespace() %>";
     var CLUSTER_NAME = "<%= usersLoginMetaData.getClusterName() %>";
+    var CP_USER_ID = "<%= usersLoginMetaData.getUserId() %>";
 
     var namespace = getNamespaceListByMetaData(cp_user_metadata);
     var current_user_type = getUserTypeByMetaData(cp_user_metadata, current_select_ns) ;

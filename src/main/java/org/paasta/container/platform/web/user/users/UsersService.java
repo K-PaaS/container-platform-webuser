@@ -30,7 +30,7 @@ public class UsersService {
     }
 
     /**
-     * Users 회원가입(Post Users sign up)
+     * Users 등록(Post Users sign up)
      *
      * @param users the users
      * @return the resultStatus
@@ -149,4 +149,24 @@ public class UsersService {
                 .replace("{cluster:.+}", cluster)
                 .replace("{namespace:.+}", namespace) + param, HttpMethod.PUT, users, ResultStatus.class);
     }
+
+
+    /**
+     * 사용자 User Id 등록 여부 확인(Check for registered User Id)
+     *
+     * @param cluster   the cluster
+     * @param namespace the namespace
+     * @param userId    the userId
+     * @return the user detail
+     */
+    public ResultStatus checkRegisteredUser(String cluster, String namespace, String userId) {
+        ResultStatus resultStatus = restTemplateService.send(TARGET_CP_API, URI_API_USERS_CHECK_REGISTER
+                .replace("{cluster:.+}", cluster)
+                .replace("{namespace:.+}", namespace)
+                .replace("{userId:.+}", userId), HttpMethod.GET, null, ResultStatus.class);
+
+        return resultStatus;
+    }
+
+
 }

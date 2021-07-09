@@ -46,7 +46,7 @@
             <tbody id="deploymentsListArea"></tbody>
         </table>
     </div>
-    <div>
+    <div class="resourceMoreDetailWrapDiv">
         <button id="deploymentsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button>
     </div>
 </div>

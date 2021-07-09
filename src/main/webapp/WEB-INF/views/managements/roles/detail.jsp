@@ -77,10 +77,10 @@
                         <table class="table_event condition alignL service-lh" id="resultTableForRules">
                             <colgroup>
                                 <col style='width:auto;'>
-                                <col style='width:25%;'>
-                                <col style='width:25%;'>
-                                <col style='width:15%;'>
-                                <col style='width:15%;'>
+                                <col style='width:20%;'>
+                                <col style='width:20%;'>
+                                <col style='width:20%;'>
+                                <col style='width:20%;'>
                             </colgroup>
                             <thead>
                             <tr id="noRuleListResultArea" style="display: none;">

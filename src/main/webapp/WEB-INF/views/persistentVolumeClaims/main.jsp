@@ -57,10 +57,11 @@
                             </tr>
                             </tbody>
                         </table>
+                        <div class="resourceMoreDetailWrapDiv">
+                            <button id="pvcMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
                     </div>
                 </div>
             </li>
-            <div><button id="pvcMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
         </ul>
     </div>
 </div>

@@ -10,7 +10,7 @@
 <nav style="height: 90%;">
     <div class="scroll_style">
         <ul class="nav_1d cp_nav">
-            <li id="left-menu-info" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">
+           <%-- <li id="left-menu-info" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">
                 <dl>
                     <dt>
                         <div id="lnbimg10" class="">
@@ -23,7 +23,7 @@
                         </p>
                     </dd>
                 </dl>
-            </li>
+            </li>--%>
             <li id="left-menu-users" onclick="procMovePage('<%= Constants.URI_USERS %>');">
                 <dl>
                     <dt>

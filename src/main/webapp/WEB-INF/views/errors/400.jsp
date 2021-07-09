@@ -1,9 +1,9 @@
 <%--
-  Unauthorized
+  403 error page
 
-  @author kjhoon
+  @author hrjin
   @version 1.0
-  @since 2020.08.21
+  @since 2020.11.13
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -19,19 +19,17 @@
             <div class="panel" style="">
                 <div class="panel-heading" style="">
                     <div>
-                        <img class="panel-image" src="<c:url value="/resources/images/main/logo.png"/>"
-                             style="width: 60px; height: 48px;">
+                        <img  class="panel-image" src="/resources/images/main/logo.png" style="width: 60px; height: 48px;">
                         <span class="header-title" style=""> Container Platform </span>
                     </div>
                 </div>
 
                 <div class="panel-body" style="">
-                    <span style="">페이지를 볼 수 있는 권한이 없습니다.</span>
+                    <span style="">요청이 올바르지 않습니다.</span>
                     <hr/>
                     <div class="form-group">
                         <button type="button" id="pageBtn" onclick="location.href='/'">메인화면으로 이동</button>
                     </div>
-
                 </div>
             </div>
         </div>

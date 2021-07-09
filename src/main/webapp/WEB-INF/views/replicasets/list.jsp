@@ -48,7 +48,7 @@
             </tbody>
         </table>
     </div>
-    <div>
+    <div class="resourceMoreDetailWrapDiv">
         <button id="replicaSetsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button>
     </div>
 </div>

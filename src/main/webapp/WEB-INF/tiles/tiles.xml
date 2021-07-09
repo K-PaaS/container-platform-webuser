@@ -63,6 +63,14 @@
         <put-attribute name="body" value="/WEB-INF/views/signUp/login.jsp" />
     </definition>
 
+    <definition name="/errors/400" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/errors/400.jsp" />
+    </definition>
+
+    <definition name="/errors/401" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/errors/401.jsp" />
+    </definition>
+
     <definition name="/errors/403" extends="layout.empty">
         <put-attribute name="body" value="/WEB-INF/views/errors/403.jsp" />
     </definition>
@@ -74,5 +82,14 @@
     <definition name="/errors/500" extends="layout.empty">
         <put-attribute name="body" value="/WEB-INF/views/errors/500.jsp" />
     </definition>
+
+    <definition name="/errors/sessionout" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/errors/sessionout.jsp" />
+    </definition>
+
+    <definition name="/errors/inactive" extends="layout.empty">
+        <put-attribute name="body" value="/WEB-INF/views/errors/inactive.jsp" />
+    </definition>
+
 
 </tiles-definitions>

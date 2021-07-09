@@ -1,5 +1,8 @@
 package org.paasta.container.platform.web.user.common;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Constants 클래스
  *
@@ -107,6 +110,7 @@ public class Constants {
     public static final String URI_API_USERS_DETAIL = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/users/{userId:.+}";
     public static final String URI_API_USERS_INFO = "/clusters/{cluster:.+}/users/{userId:.+}";
     public static final String URI_API_USERS_CONFIG = "/clusters/{cluster:.+}/namespaces/{namespace:.+}/users";
+    public static final String URI_API_USERS_CHECK_REGISTER = "/check/clusters/{cluster:.+}/namespaces/{namespace:.+}/users/{userId:.+}";
 
 
 
@@ -152,6 +156,23 @@ public class Constants {
 
     public static final String CHECK_TRUE = "true";
     public static final String CHECK_FALSE = "false";
+
+    public static final String LOGIN_TOKEN_EXPIRED = "TOKEN_EXPIRED";
+    public static final String LOGIN_INACTIVE_USER = "INACTIVE_USER";
+    public static final String LOGIN_USER_ALREADY_REGISTERED = "USER_ALREADY_REGISTERED";
+    public static final String LOGIN_FAIL = "LOGIN_FAILED";
+    public static final String USER_NOT_REGISTERED_IN_KEYCLOAK = "USER_NOT_REGISTERED_IN_KEYCLOAK";
+
+
+    public static final List<String> LOGIN_UNAUTHORIZED_MESSAGE =   Arrays.asList(new String[]{LOGIN_FAIL, USER_NOT_REGISTERED_IN_KEYCLOAK});
+
+    public static final String URI_API_REFRESH_TOKEN = "/refreshtoken";
+    public static final String URI_INACTIVE_USER_ACCESS = "/inactive";
+    public static final String URI_SESSION_OUT = "/sessionout";
+
+    public static final String CHECK_Y = "Y";
+    public static final String CHECK_N = "N";
+
 
     public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/logout"};
 

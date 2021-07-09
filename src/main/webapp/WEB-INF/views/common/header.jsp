@@ -16,6 +16,19 @@
         padding : 0 40px 0 10px ;
         width : 250px;
     }
+    #usernameDiv{
+        color : #fff;
+        padding : 0 10px;
+        font-size: 17px;
+        margin-top: 3px;
+    }
+    #usernameDiv:hover{
+        opacity: 0.8;
+    }
+
+    .r_user_li a{
+        border : 1px solid transparent;
+    }
 </style>
 <header class="header">
     <div class="logo">
@@ -27,16 +40,17 @@
     </div>
 
     <ul class="right_nav">
+        <li style="width: auto;"><div id="usernameDiv"></div></li>
         <li>
             <div class="btn-group">
                 <button href="#" class="dropdown-toggle user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div id="r_user" class="dropdown-menu">
                     <ul class="cp-user" style="width: 150px;">
-                        <li id="header-menu-info"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">My info</a></li>
-                        <li id="header-menu-users"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
-                        <li id="header-menu-roles"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
-                        <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logoutHandler();">Logout</a></li>
+                        <!-- <li id="header-menu-info"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">My info</a></li> -->
+                        <li id="header-menu-users" class="r_user_li"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
+                        <li id="header-menu-roles" class="r_user_li"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
+                        <!-- <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logoutHandler();">Logout</a></li> -->
                     </ul>
                 </div>
             </div>
@@ -59,7 +73,7 @@
                                 <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}');">${cfn:camelCaseParser(path)}</a></li>
                             </c:when>
                             <c:when test="${(path eq 'info')}" >
-                                <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}');">My Info</a></li>
+                               <%-- <li><a class="cont-parent-link" href="javascript:void(0);" onclick="procMovePage('/${pathArray[0]}/${pathArray[1]}');">My Info</a></li>--%>
                             </c:when>
                             <c:when test="${(path eq 'common')}" >
                                 <li><a class="cont-parent-link">${cfn:camelCaseParser(path)}</a></li>
@@ -173,9 +187,14 @@
     }
 
 
+    var setUserIdHeader = function(){
+        $("#usernameDiv").text(CP_USER_ID);
+    }
+
     $(document.body).ready(function () {
         getNamespacesList();
         initSelectedNamespace();
+        setUserIdHeader();
     });
 
 

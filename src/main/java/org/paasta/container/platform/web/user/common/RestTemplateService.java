@@ -109,6 +109,17 @@ public class RestTemplateService {
         try {
             resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
             if (resEntity.getBody() != null) {
+
+                if(resEntity.getBody().toString().contains(Constants.LOGIN_TOKEN_EXPIRED)) {
+                    LOGGER.info("######## REST_TEMPLATE_SERVICE SEND::: API TOKEN EXPIRED...REFRESH TOKEN IS REQUIRED");
+                    // refresh token 가져온 후 사용자 토큰 업데이트
+                    refreshToken(Constants.TARGET_CP_API, HttpMethod.GET, null, ResultStatus.class);
+                    // header 업데이트
+                    HttpEntity<Object> updateReqEntity = updateRequestEntity(reqApi, bodyObject, MediaType.APPLICATION_JSON_VALUE);
+                    // api 재요청
+                    resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, updateReqEntity, responseType);
+                }
+
                 LOGGER.info("Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
                 LOGGER.info(CommonUtils.loggerReplace(resEntity.getBody().toString()));
             } else {
@@ -164,6 +175,17 @@ public class RestTemplateService {
         try {
             resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, reqEntity, responseType);
             if (resEntity.getBody() != null) {
+
+                if(resEntity.getBody().toString().contains(Constants.LOGIN_TOKEN_EXPIRED)) {
+                    LOGGER.info("######## REST_TEMPLATE_SERVICE SEND YAML::: API TOKEN EXPIRED...REFRESH TOKEN IS REQUIRED");
+                    // refresh token 가져온 후 사용자 토큰 업데이트
+                    refreshToken(Constants.TARGET_CP_API, HttpMethod.GET, null, ResultStatus.class);
+                    // header 업데이트
+                    HttpEntity<Object> updateReqEntity = updateRequestEntity(reqApi, bodyObject, contentType);
+                    // api 재요청
+                    resEntity = restTemplate.exchange(baseUrl + reqUrl, httpMethod, updateReqEntity, responseType);
+                }
+
                 LOGGER.info("Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
                 LOGGER.info(CommonUtils.loggerReplace(resEntity.getBody().toString()));
             } else {
@@ -235,4 +257,102 @@ public class RestTemplateService {
 
       return accessToken;
     }
+
+///// Refresh Token
+
+    /**
+     * sendRefreshToken t
+     *
+     * @param <T>          the type parameter
+     * @param reqApi       the req api
+     * @param httpMethod   the http method
+     * @param bodyObject   the body object
+     * @param responseType the response type
+     * @return the t
+     */
+    public <T> T sendRefreshToken(String reqApi, HttpMethod httpMethod, Object bodyObject, Class<T> responseType) {
+
+        setApiUrlAuthorization(reqApi);
+
+        HttpHeaders reqHeaders = new HttpHeaders();
+        reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
+        reqHeaders.add(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        reqHeaders.add("isRefreshToken", "true");
+
+        HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
+        ResponseEntity<T> resEntity = null;
+
+        try {
+            resEntity = restTemplate.exchange(baseUrl + Constants.URI_API_REFRESH_TOKEN, httpMethod, reqEntity, responseType);
+            if (resEntity.getBody() != null) {
+                LOGGER.info("Response Type: {}", CommonUtils.loggerReplace(resEntity.getBody().getClass()));
+                LOGGER.info(CommonUtils.loggerReplace(resEntity.getBody().toString()));
+            } else {
+                LOGGER.info("Response Type: {}", "response body is null");
+            }
+
+            return resEntity.getBody();
+        } catch (HttpStatusCodeException exception) {
+            LOGGER.info("HttpStatusCodeException API Call URL : {}, errorCode : {}, errorMessage : {}", CommonUtils.loggerReplace(Constants.URI_API_REFRESH_TOKEN), CommonUtils.loggerReplace(exception.getRawStatusCode()), CommonUtils.loggerReplace(exception.getMessage()));
+
+            for (CommonStatusCode code : CommonStatusCode.class.getEnumConstants()) {
+                if (code.getCode() == exception.getRawStatusCode()) {
+                    return (T) new ResultStatus(Constants.RESULT_STATUS_FAIL, exception.getStatusText(), code.getCode(), code.getMsg());
+                }
+            }
+
+        } catch (Exception e) {
+            return (T) new ResultStatus(Constants.RESULT_STATUS_FAIL, e.getMessage(), CommonStatusCode.INTERNAL_SERVER_ERROR.getCode(), CommonStatusCode.INTERNAL_SERVER_ERROR.getMsg());
+        }
+
+        return resEntity.getBody();
+
+    }
+
+
+    /**
+     * 현재 사용자 Token 업데이트 (Get Current User Refresh Token)
+     *
+     * @return the string
+     */
+    public <T> void refreshToken(String reqApi, HttpMethod httpMethod, Object bodyObject, Class<T> responseType) {
+        LOGGER.info("###############################################################");
+        LOGGER.info("GET REFRESH TOKEN");
+        LOGGER.info("###############################################################");
+        try {
+            // refreshToken 받아오기
+            ResultStatus resultStatus  =  (ResultStatus) sendRefreshToken(reqApi, httpMethod, bodyObject, responseType);
+
+            // Token 업데이트
+            UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+            usersLoginMetaData.setAccessToken(resultStatus.getToken());
+            loginService.updateAuthenticationUserMetaData(usersLoginMetaData);
+        }
+        catch(Exception e) {
+            LOGGER.info("##### EXCEPTION IN REFRESH TOKEN GET...");
+        }
+
+    }
+
+
+
+    /**
+     * HttpEntity 값 업데이트 (Update HttpEntity)
+     *
+     * @return the HttpEntity<Object>
+     */
+    public  HttpEntity<Object>  updateRequestEntity(String reqApi, Object bodyObject, String contentType) {
+        setApiUrlAuthorization(reqApi);
+
+        HttpHeaders reqHeaders = new HttpHeaders();
+        reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
+        reqHeaders.add(CONTENT_TYPE, contentType);
+
+        HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
+        return reqEntity;
+    }
+
+
+
+
 }

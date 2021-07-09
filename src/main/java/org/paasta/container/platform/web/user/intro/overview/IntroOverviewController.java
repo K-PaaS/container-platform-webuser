@@ -5,8 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.config.NoAuth;
+import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
+import org.paasta.container.platform.web.user.security.DashboardAuthenticationDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,7 +49,7 @@ public class IntroOverviewController {
     @GetMapping("/")
     @NoAuth
     public RedirectView indexView() {
-        return new RedirectView("/login");
+        return new RedirectView(Constants.URI_INTRO_OVERVIEW);
     }
 
     /**
@@ -59,6 +61,8 @@ public class IntroOverviewController {
     @ApiOperation(value = "Intro overview 페이지 이동(Move Intro overview page)", nickname = "getIntroOverview")
     @GetMapping(value = Constants.URI_INTRO_OVERVIEW)
     public ModelAndView getIntroOverview(HttpServletRequest httpServletRequest) {
+
+        UsersLoginMetaData usersLoginMetaData = ((DashboardAuthenticationDetails) SecurityContextHolder.getContext().getAuthentication().getDetails()).getUsersLoginMetaData();
         return commonService.setPathVariables(httpServletRequest, VIEW_URL + "/overview", new ModelAndView());
     }
 

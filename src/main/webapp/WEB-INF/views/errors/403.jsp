@@ -9,62 +9,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <link rel="stylesheet" href="/resources/css/empty_layout.css">
     <title>PaaS-TA Container Platform User Portal</title>
-    <style>
-        .layer {position:absolute;display:table;top:0;left:0;width:100%;height:100%}
-        .layer .layer_inner{display:table-cell;text-align:center;vertical-align:middle}
-        .layer .content{display:inline-block;background:#fff;width: 28%; margin-top: -100px;}
-        .panel {
-            border: solid 1px #bbb;
-        }
-        .panel-heading {
-            background-color: #2a6575; padding: 20px;
-        }
-
-        .panel-image {
-            vertical-align: middle; margin-left: -20px;
-        }
-        .header-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #dfe3e8;
-            vertical-align:middle;
-            margin-left: 6px;
-        }
-        .panel-body {
-            padding: 40px;
-        }
-        .panel-body span {
-            color: #343942;
-        }
-        hr {
-            margin-top: 20px;
-            margin-bottom: 20px;
-            border: 0;
-            border-top: 1px solid #ccc;
-        }
-        #pageBtn {
-            background-color: white;
-            border: 2px solid #e7e7e7;
-            color: black;
-            padding: 5px 38px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            transition-duration: 0.4s;
-            cursor: pointer;
-        }
-
-        #pageBtn:hover {
-            background-color: #e7e7e7;
-        }
-
-        #pageBtn:focus {
-            outline: 0;
-        }
-    </style>
 </head>
 <body>
 <div class="layer">
@@ -82,7 +28,7 @@
                     <span style="">페이지를 볼 수 있는 권한이 없습니다.</span>
                     <hr/>
                     <div class="form-group">
-                        <button type="button" id="pageBtn" onclick="location.href='/logout'">메인화면으로 이동</button>
+                        <button type="button" id="pageBtn" onclick="location.href='/'">메인화면으로 이동</button>
                     </div>
                 </div>
             </div>

@@ -21,6 +21,9 @@ public class PropertyService {
     @Value("${cp.cluster-name}")
     private String cpClusterName;
 
+    @Value("${cp.defaultNamespace}")
+    private String cpDefaultNamespace;
+
     @Value("${cpApi.url}")
     private String cpApiUrl;
 

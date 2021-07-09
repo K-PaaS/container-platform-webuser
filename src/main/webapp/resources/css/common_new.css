@@ -49,10 +49,10 @@ a:hover{border-bottom:1px solid #154c94;color:#154c94;font-weight:bold;}
 /* Clusters Overview */
 .cluster_tabs{font-size:16px;margin:30px 0 0 0;position:relative;}
 .cluster_tabs li{float:left;height:51px;text-align:center;line-height:50px;cursor:pointer}
-.cluster_tabs_on{border-bottom:0;border-top:2px solid #357f94;border-left:2px solid #357f94;;border-right:2px solid #357f94;background:#f0f2f2;height:53px !important;font-weight:bold;color:#357f94}
+.cluster_tabs_on{border-bottom:0;border-top:2px solid #292d37;border-left:2px solid #292d37;;border-right:2px solid #292d37;background:#f0f2f2;height:53px !important;font-weight:bold;color:#292d37}
 .cluster_tabs_right{background:#fff;;border-top:1px solid #e6e6e6;border-right:1px solid #e6e6e6}
 .cluster_tabs_left{background:#fff;;border-top:1px solid #e6e6e6;border-left:1px solid #e6e6e6}
-.cluster_tabs_line{border-top:2px solid #357f94;position:absolute;top:51px;left:0;width:100%;z-index:-1}
+.cluster_tabs_line{border-top:2px solid #292d37;position:absolute;top:51px;left:0;width:100%;z-index:-1}
 .cluster_content01,.cluster_content02,.cluster_content03,.cluster_content04{width:100%;font-size:14px;}
 .cluster_content02,.cluster_content03,.cluster_content04{display:none;}
 .cluster_sel_container{width:462px}

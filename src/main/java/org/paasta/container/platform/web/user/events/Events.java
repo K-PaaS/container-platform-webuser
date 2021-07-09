@@ -16,6 +16,8 @@ import org.paasta.container.platform.web.user.common.model.CommonObjectReference
 public class Events {
 
     private String resultCode;
+    private String resultMessage;
+
     private CommonMetaData metadata;
     private int count;
     private String firstTimestamp;

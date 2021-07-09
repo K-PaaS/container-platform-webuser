@@ -4,7 +4,7 @@ metadata:
   name: webuser-deployment
   labels:
     app: webuser
-  namespace: default
+  namespace: cp-dev-namespace
 spec:
   replicas: 1
   selector:
@@ -17,27 +17,21 @@ spec:
     spec:
       containers:
       - name: webuser
-        image: $REGISTRY_HARBOR_URL/$PROJECT_NAME/$IMAGE_NAME:$BUILD_NUMBER
+        image: $REGISTRY_HARBOR_URL/container-platform-new-dev/container-platform-webuser:$BUILD_NUMBER
         imagePullPolicy: Always
         ports:
-        - containerPort: 8091
+        - containerPort: 2091
         env:
         - name: K8S_IP
-          value: "${K8S_URL}"                                           
+          value: K8S_IP
         - name: CONTAINER_PLATFORM_COMMON_API_URL
-          value: "common-api-deployment.default.svc.cluster.local:3334"
+          value: CONTAINER_PLATFORM_COMMON_API_URL
         - name: CONTAINER_PLATFORM_API_URL
-          value: "api-deployment.default.svc.cluster.local:3333"
-        - name: REDIS_HOST
-          value: "${REDIS_URL}"                                       
-        - name: REDIS_PORT
-          value: "32079"
-        - name: REDIS_PASSWORD
-          value: "password"
+          value: CONTAINER_PLATFORM_API_URL
       imagePullSecrets:
-        - name: cp-secret
+        - name: paasta-cp-dev-secret
       nodeSelector:
-        kubernetes.io/hostname: paasta-cp-cluster-2   
+        kubernetes.io/hostname: paasta-cp-cluster-worker-1
 ---
 apiVersion: v1
 kind: Service
@@ -45,84 +39,13 @@ metadata:
   name: webuser-deployment
   labels:
     app: webuser
-  namespace: default
+  namespace: cp-dev-namespace
 spec:
   ports:
-  - nodePort: 32191
-    port: 8091
+  - nodePort: 32702
+    port: 2091
     protocol: TCP
-    targetPort: 8091
+    targetPort: 2091
   selector:
     app: webuser
-  type: NodePort
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cp-redis-config
-data: 
-  redis-config: "requirepass password"
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: redis-deployment
-  labels:
-    app: redis
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: redis
-  template:
-    metadata:
-      labels:
-        app: redis
-    spec:
-      containers:
-      - name: redis
-        image: redis:latest
-        command:
-          - redis-server
-          - "/redis-master/redis.conf"
-        env:
-        - name: MASTER
-          value: "true"
-        ports:
-        - containerPort: 6379
-        resources:
-          limits:
-            cpu: "0.1"
-        volumeMounts:
-        - mountPath: /redis-master-data
-          name: data
-        - mountPath: /redis-master
-          name: config
-      volumes:
-        - name: data
-          emptyDir: {}
-        - name: config
-          configMap:
-            name: cp-redis-config
-            items:
-            - key: redis-config
-              path: redis.conf
-      nodeSelector:
-        kubernetes.io/hostname: paasta-cp-cluster-2   
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis-deployment
-  labels:
-    app: redis
-  namespace: default
-spec:
-  ports:
-  - nodePort: 32179
-    port: 6379
-    protocol: TCP
-    targetPort: 6379
-  selector:
-    app: redis
   type: NodePort

@@ -51,7 +51,7 @@
             </tbody>
         </table>
     </div>
-    <div>
+    <div class="resourceMoreDetailWrapDiv">
         <button id="podsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button>
     </div>
 </div>
