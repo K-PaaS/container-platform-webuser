@@ -5,6 +5,7 @@
   @version 1.0
   @since 2021.06.02
 --%>
+<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -28,6 +29,7 @@
                     <span style="">관리자의 승인이 필요한 사용자입니다.</span>
                     <hr/>
                     <div class="form-group">
+                        <button type="button" id="pageBtn" onclick="location.href='<%= Constants.URI_INACTIVE_USER_ACCESS %><%= Constants.URI_SESSION_OUT %>'">메인화면으로 이동</button>
                     </div>
                 </div>
             </div>

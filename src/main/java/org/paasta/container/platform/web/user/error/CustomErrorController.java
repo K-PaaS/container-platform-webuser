@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  * @since 2020.11.13
  **/
 @Controller
-
 public class CustomErrorController implements ErrorController {
 
     private static final String VIEW_URL = "/errors/";
@@ -48,7 +48,6 @@ public class CustomErrorController implements ErrorController {
         mv.setViewName(VIEW_URL + "sessionout");
 
         return mv;
-
     }
 
 
@@ -58,7 +57,13 @@ public class CustomErrorController implements ErrorController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName(VIEW_URL + "inactive");
         return mv;
+    }
 
+    @NoAuth
+    @GetMapping(Constants.URI_INACTIVE_USER_ACCESS + Constants.URI_SESSION_OUT)
+    public RedirectView inactiveUserSessionOut(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return new RedirectView("/");
     }
 
 
