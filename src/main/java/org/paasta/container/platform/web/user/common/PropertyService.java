@@ -33,5 +33,7 @@ public class PropertyService {
     @Value("${private.registry.imageName}")
     private String privateRegistryImageName;
 
+    @Value("${cp.provider-type:conatiner-platform-standalone}")
+    private String cpProviderType;
 
 }

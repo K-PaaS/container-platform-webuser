@@ -10,6 +10,7 @@ import org.paasta.container.platform.web.user.users.Users;
 import org.paasta.container.platform.web.user.users.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,8 @@ public class DashboardAuthenticationProvider implements AuthenticationProvider {
     private final PropertyService propertyService;
 
 
+    @Autowired
+    private HttpServletRequest request;
 
     public DashboardAuthenticationProvider(UsersService usersService,LoginService loginService, PropertyService propertyService)
     {
@@ -62,12 +66,12 @@ public class DashboardAuthenticationProvider implements AuthenticationProvider {
         DashboardAuthenticationDetails dashboardAuthenticationDetails = (DashboardAuthenticationDetails) details;
         final String userId=dashboardAuthenticationDetails.getUserid();
         final String userAuthId =dashboardAuthenticationDetails.getId();
+        final String serviceInstanceId = request.getParameter(Constants.SERVICEINSTANCE_ID);
+
 
         LOGGER.info("###############################################################");
         LOGGER.info(CommonUtils.loggerReplace("SESSION INFOMATION SETTING [" + name + "]" + " [" + userId + ","+userAuthId+"]" + " [" + authentication.getPrincipal() + "] "));
         LOGGER.info("###############################################################");
-
-
 
 
         // 1. 사용자 계정 생성(KEYCLOAK, CP USER 에 해당 ID, AUTH_ID를 가진 사용자 계정이 이미 등록되어있다면 생성 건너띔, 없다면 생성 진행)
@@ -80,10 +84,18 @@ public class DashboardAuthenticationProvider implements AuthenticationProvider {
             Users newUser = new Users();
             newUser.setUserId(userId);
             newUser.setUserAuthId(userAuthId);
+            newUser.setServiceInstanceId(serviceInstanceId);
+            newUser.setCpProviderType(propertyService.getCpProviderType());
+
             ResultStatus resultStatus =  usersService.registerUser(newUser);
 
             if(resultStatus.getResultCode().equals(Constants.RESULT_STATUS_FAIL)) {
-                if(resultStatus.getResultMessage().equals(Constants.USER_NOT_REGISTERED_IN_KEYCLOAK)) {
+
+                if(resultStatus.getResultMessage().equals(Constants.INVALID_SERVICE_INSTANCE_ID)) {
+                    LOGGER.info("*****[PROVIDER AS SERVICE] SERVICE INSTANCE ID IS NOT VALID.");
+                    throw new InternalAuthenticationServiceException(Constants.INVALID_SERVICE_INSTANCE_ID);
+                }
+                else if(resultStatus.getResultMessage().equals(Constants.USER_NOT_REGISTERED_IN_KEYCLOAK)) {
                     LOGGER.info("***** THIS ACCOUNT IS NOT REGISTERED WITH KEYCLOAK.");
                     throw new InternalAuthenticationServiceException(Constants.USER_NOT_REGISTERED_IN_KEYCLOAK);
                 }

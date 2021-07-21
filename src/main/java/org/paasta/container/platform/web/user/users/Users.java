@@ -53,6 +53,9 @@ public class Users {
     private String lastModified;
     private String browser;
     private String clientIp;
+    private String cpProviderType;
+    private String serviceInstanceId;
+
 
 
 }

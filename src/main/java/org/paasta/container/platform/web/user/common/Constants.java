@@ -162,9 +162,9 @@ public class Constants {
     public static final String LOGIN_USER_ALREADY_REGISTERED = "USER_ALREADY_REGISTERED";
     public static final String LOGIN_FAIL = "LOGIN_FAILED";
     public static final String USER_NOT_REGISTERED_IN_KEYCLOAK = "USER_NOT_REGISTERED_IN_KEYCLOAK";
+    public static final String INVALID_SERVICE_INSTANCE_ID = "INVALID_SERVICE_INSTANCE_ID";
 
-
-    public static final List<String> LOGIN_UNAUTHORIZED_MESSAGE =   Arrays.asList(new String[]{LOGIN_FAIL, USER_NOT_REGISTERED_IN_KEYCLOAK});
+    public static final List<String> LOGIN_UNAUTHORIZED_MESSAGE =  Arrays.asList(new String[]{LOGIN_FAIL, USER_NOT_REGISTERED_IN_KEYCLOAK, INVALID_SERVICE_INSTANCE_ID});
 
     public static final String URI_API_REFRESH_TOKEN = "/refreshtoken";
     public static final String URI_INACTIVE_USER_ACCESS = "/inactive";
@@ -173,6 +173,7 @@ public class Constants {
     public static final String CHECK_Y = "Y";
     public static final String CHECK_N = "N";
 
+    public static final String SERVICEINSTANCE_ID = "serviceInstanceId";
 
     public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/logout"};
 
