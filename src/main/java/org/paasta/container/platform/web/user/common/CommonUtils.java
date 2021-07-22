@@ -102,5 +102,17 @@ public class CommonUtils {
         return str.replaceAll("[\r\n]","");
     }
 
+
+
+    /**
+     * Proc replace null value string
+     *
+     * @param requestString the request string
+     * @return the string
+     */
+    public static String procReplaceNullValue(String requestString) {
+        return (StringUtils.isEmpty(requestString)) ? Constants.EMPTY_VALUE : requestString;
+    }
+
 }
 

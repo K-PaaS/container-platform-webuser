@@ -5,6 +5,7 @@ import org.paasta.container.platform.web.user.config.NoAuth;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -43,8 +44,9 @@ public class CustomErrorController implements ErrorController {
 
     @NoAuth
     @GetMapping(Constants.URI_SESSION_OUT)
-    public ModelAndView sessionout() {
+    public ModelAndView sessionout(@RequestParam(required = false, defaultValue = "") String serviceInstanceId) {
         ModelAndView mv = new ModelAndView();
+        mv.addObject("serviceInstanceId", serviceInstanceId);
         mv.setViewName(VIEW_URL + "sessionout");
 
         return mv;

@@ -28,7 +28,7 @@
                     <span style="">세션이 종료되었습니다.</span>
                     <hr/>
                     <div class="form-group">
-                        <button type="button" id="pageBtn" onclick="location.href='/'">로그인 화면으로 이동</button>
+                        <button type="button" id="pageBtn" onclick="location.href='/?serviceInstanceId=${serviceInstanceId}'">로그인 화면으로 이동</button>
                     </div>
                 </div>
             </div>

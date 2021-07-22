@@ -2,6 +2,7 @@ package org.paasta.container.platform.web.user.config;
 
 
 import org.paasta.container.platform.web.user.common.CustomIntercepterService;
+import org.paasta.container.platform.web.user.login.LoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,16 @@ public class CustomIntercepter extends HandlerInterceptorAdapter {
     @Autowired
     CustomIntercepterService customIntercepterService;
 
+    @Autowired
+    LoginService loginService;
+
+
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
 
 
         String url = request.getRequestURI();
-
 
         if (!(  url.indexOf("/css") >= 0 ||
                 url.indexOf("/images") >= 0 ||
@@ -38,10 +42,12 @@ public class CustomIntercepter extends HandlerInterceptorAdapter {
             boolean isActive = customIntercepterService.isActive();
 
  	        if(!isActive) {
+ 	         String serviceInstanceId = loginService.getAuthenticationUserMetaData().getServiceInstanceId();
 	       	 request.getSession().invalidate();
-                LOGGER.info("#### PREHANDLE :: USER IS INACTIVE");
-	       		 response.sendRedirect("/sessionout");
-	       		 return false;
+	       	 LOGGER.info("#### USER SESSION OUT DUE TO EXPIRATION OF KEYCLOAK SESSION");
+
+	       	 response.sendRedirect("/sessionout?serviceInstanceId=" + serviceInstanceId);
+	       	 return false;
 	        }
       }
 

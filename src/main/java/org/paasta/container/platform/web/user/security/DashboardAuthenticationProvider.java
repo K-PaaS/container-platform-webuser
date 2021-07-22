@@ -129,6 +129,7 @@ public class DashboardAuthenticationProvider implements AuthenticationProvider {
                 LOGGER.info("CP API LOGIN SUCCESSFUL ");
                 LOGGER.info("###############################################################");
                 UsersLoginMetaData usersLoginMetaData = loginService.setAuthDetailsLoginMetaData(resultStatus);
+                usersLoginMetaData.setServiceInstanceId(serviceInstanceId);
                 dashboardAuthenticationDetails.setUsersLoginMetaData(usersLoginMetaData);
             }
             else {

@@ -3,6 +3,7 @@ package org.paasta.container.platform.web.user.login.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.paasta.container.platform.web.user.common.CommonUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,4 +28,11 @@ public class UsersLoginMetaData implements Serializable {
     private List<UsersLoginMetaDataItem> userMetaDataList;
     private String active;
 
+    //provider as service
+    private String serviceInstanceId;
+
+
+    public String getServiceInstanceId() {
+        return CommonUtils.procReplaceNullValue(serviceInstanceId);
+    }
 }
