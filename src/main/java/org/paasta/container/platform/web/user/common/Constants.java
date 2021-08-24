@@ -174,6 +174,7 @@ public class Constants {
     public static final String CHECK_N = "N";
 
     public static final String SERVICEINSTANCE_ID = "serviceInstanceId";
+    public static final String SERVICE_SESSION_REFRESH = "sessionRefresh";
 
     public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/logout"};
 
