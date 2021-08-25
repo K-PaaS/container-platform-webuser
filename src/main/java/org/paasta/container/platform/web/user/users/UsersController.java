@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.paasta.container.platform.web.user.common.CommonService;
 import org.paasta.container.platform.web.user.common.Constants;
+import org.paasta.container.platform.web.user.common.CustomIntercepterService;
 import org.paasta.container.platform.web.user.common.MessageConstant;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.paasta.container.platform.web.user.login.LoginService;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +38,7 @@ public class UsersController {
     private final UsersService usersService;
     private final CommonService commonService;
     private final LoginService loginService;
+    private final CustomIntercepterService customIntercepterService;
 
     @Value("${access.cp-token}")
     private String cpToken;
@@ -47,10 +50,11 @@ public class UsersController {
     UsersValidator userValidator;
 
     @Autowired
-    public UsersController(UsersService usersService, CommonService commonService, LoginService loginService) {
+    public UsersController(UsersService usersService, CommonService commonService, LoginService loginService, CustomIntercepterService customIntercepterService) {
         this.usersService = usersService;
         this.commonService = commonService;
         this.loginService = loginService;
+        this.customIntercepterService = customIntercepterService;
     }
 
 
@@ -216,6 +220,27 @@ public class UsersController {
         return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_SUCCESS)
                 .detailMessage(MessageConstant.NAMESPACE_CHANGE_SUCCEEDED).userId(usersLoginMetaDataNew.getUserId()).build();
 
+    }
+
+
+
+    /**
+     * User 로그아웃 (User Logout)
+     *
+     */
+    @ApiOperation(value = "User 로그아웃 (User Logout)", nickname = "logoutUsers")
+    @GetMapping(value = Constants.URI_LOGOUT)
+    public void logoutUsers(HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            String serviceInstanceId = loginService.getAuthenticationUserMetaData().getServiceInstanceId();
+            customIntercepterService.logout();
+            request.getSession().invalidate();
+            response.sendRedirect("/sessionout?serviceInstanceId=" + serviceInstanceId);
+            return ;
+        }
+       catch (Exception e) {
+       }
     }
 
 }

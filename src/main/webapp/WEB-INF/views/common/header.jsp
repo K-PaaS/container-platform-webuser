@@ -22,13 +22,37 @@
         font-size: 17px;
         margin-top: 3px;
     }
-    #usernameDiv:hover{
-        opacity: 0.8;
+
+    #r_user{
+        margin: 0px !important;
+        padding: 0px !important;
+        background-color: #f9f9f9 !important;
+        top: 76px !important;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
+        border : 1px solid rgba(220,220,220,0.8); !important;
     }
 
-    .r_user_li a{
-        border : 1px solid transparent;
+    #r_user_ul{
+        margin: 0px !important;
+        padding: 0px !important;
+
     }
+    #r_user_ul li:hover {
+        background-color: #f1f1f1 !important;
+    }
+    #r_user_ul li a {
+        color: black !important;
+        margin: 0 20px 0 0  !important;
+        padding: 10px 15px !important;
+        border-bottom: none;
+    }
+    #r_user_ul li a:hover {
+        font-weight: normal !important;
+    }
+    #header-menu-logout{
+        border-top : 1px solid rgba(220,220,220,0.9);
+    }
+
 </style>
 <header class="header">
     <div class="logo">
@@ -46,11 +70,11 @@
                 <button href="#" class="dropdown-toggle user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 </button>
                 <div id="r_user" class="dropdown-menu">
-                    <ul class="cp-user" style="width: 150px;">
+                    <ul id="r_user_ul" class="cp-user" style="width: 150px;">
                         <!-- <li id="header-menu-info"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS_INFO %>');">My info</a></li> -->
                         <li id="header-menu-users" class="r_user_li"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_USERS %>');">Users</a></li>
                         <li id="header-menu-roles" class="r_user_li"><a href="javascript:void(0);" onclick="procMovePage('<%= Constants.URI_ROLES %>');">Roles</a></li>
-                        <!-- <li id="header-menu-logout"><a href="javascript:void(0);" onclick="logoutHandler();">Logout</a></li> -->
+                        <li id="header-menu-logout" class="r_user_li"><a href="javascript:void(0);" onclick="logoutHandler();">Sign Out</a></li>
                     </ul>
                 </div>
             </div>
@@ -199,8 +223,9 @@
 
 
     var logoutHandler =function(){
-        var code = "<p class='account_modal_p'>로그아웃 하시겠습니까?</p>";
-        procSetLayerPopup('로그아웃', code, '확인', '취소', 'x', 'logout()', null, null);
+        var code = "<p class='account_modal_p'>로그아웃 하시겠습니까?</p>" +
+                   "<p class='account_modal_p'>SSO(Single Sign On) 통합 로그아웃이 진행됩니다.</p>";
+        procSetLayerPopup('Sign Out', code, '확인', '취소', 'x', 'logout()', null, null);
 
     }
 
