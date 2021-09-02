@@ -9,7 +9,6 @@ import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.login.LoginService;
 import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 @Api(value = "AccessTokenController v1")
 @Controller
 public class AccessTokenController {
-
-    @Value("${access.cp-user-id}")
-    private String cpUserId;
 
     private static final String VIEW_URL = "/intro";
 

@@ -3,6 +3,7 @@ package org.paasta.container.platform.web.user.security;
 import org.paasta.container.platform.web.user.common.CommonUtils;
 import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.PropertyService;
+import org.paasta.container.platform.web.user.common.RequestWrapper;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.paasta.container.platform.web.user.login.LoginService;
 import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
@@ -64,9 +65,11 @@ public class DashboardAuthenticationProvider implements AuthenticationProvider {
         }
 
         DashboardAuthenticationDetails dashboardAuthenticationDetails = (DashboardAuthenticationDetails) details;
+        RequestWrapper requestWrapper = new RequestWrapper(request);
+
         final String userId=dashboardAuthenticationDetails.getUserid();
         final String userAuthId =dashboardAuthenticationDetails.getId();
-        final String serviceInstanceId = request.getParameter(Constants.SERVICEINSTANCE_ID);
+        final String serviceInstanceId = requestWrapper.getParameter(Constants.SERVICEINSTANCE_ID);
 
 
         LOGGER.info("###############################################################");

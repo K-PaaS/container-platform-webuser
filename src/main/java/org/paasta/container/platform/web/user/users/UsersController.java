@@ -14,7 +14,6 @@ import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
@@ -40,14 +39,6 @@ public class UsersController {
     private final LoginService loginService;
     private final CustomIntercepterService customIntercepterService;
 
-    @Value("${access.cp-token}")
-    private String cpToken;
-
-    @Value("${access.cp-user-id}")
-    private String cpUserId;
-
-    @Autowired
-    UsersValidator userValidator;
 
     @Autowired
     public UsersController(UsersService usersService, CommonService commonService, LoginService loginService, CustomIntercepterService customIntercepterService) {

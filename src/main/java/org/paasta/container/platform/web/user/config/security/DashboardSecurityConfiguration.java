@@ -35,8 +35,6 @@ import org.springframework.web.util.UriComponents;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -226,16 +224,6 @@ public class DashboardSecurityConfiguration {
     @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
     @Autowired
     public OAuth2RestTemplate dashboardRestOperations() {
-
-        try {
-            SSLUtils.turnOffSslChecking();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
-        }
-
-
         return new OAuth2RestTemplate(dashboardProtectedResourceDetails(), dashboardClientContext());
     }
 
