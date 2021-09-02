@@ -1,6 +1,7 @@
 package org.paasta.container.platform.web.user.config;
 
 
+import org.paasta.container.platform.web.user.common.Constants;
 import org.paasta.container.platform.web.user.common.CustomIntercepterService;
 import org.paasta.container.platform.web.user.login.LoginService;
 import org.slf4j.Logger;
@@ -42,11 +43,10 @@ public class CustomIntercepter extends HandlerInterceptorAdapter {
             boolean isActive = customIntercepterService.isActive();
 
  	        if(!isActive) {
- 	         String serviceInstanceId = loginService.getAuthenticationUserMetaData().getServiceInstanceId();
 	       	 request.getSession().invalidate();
 	       	 LOGGER.info("#### USER SESSION OUT DUE TO EXPIRATION OF KEYCLOAK SESSION");
 
-	       	 response.sendRedirect("/sessionout?serviceInstanceId=" + serviceInstanceId);
+	       	 response.sendRedirect(Constants.URI_SESSION_OUT);
 	       	 return false;
 	        }
       }

@@ -1,11 +1,12 @@
 package org.paasta.container.platform.web.user.error;
 
 import org.paasta.container.platform.web.user.common.Constants;
+import org.paasta.container.platform.web.user.common.PropertyService;
 import org.paasta.container.platform.web.user.config.NoAuth;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -23,11 +24,18 @@ import javax.servlet.http.HttpServletRequest;
 public class CustomErrorController implements ErrorController {
 
     private static final String VIEW_URL = "/errors/";
+    private final PropertyService propertyService;
 
     @Override
     public String getErrorPath() {
         return "/error";
     }
+
+    @Autowired
+    public CustomErrorController(PropertyService propertyService) {
+        this.propertyService = propertyService;
+    }
+
 
     @NoAuth
     @GetMapping("/error")
@@ -44,9 +52,12 @@ public class CustomErrorController implements ErrorController {
 
     @NoAuth
     @GetMapping(Constants.URI_SESSION_OUT)
-    public ModelAndView sessionout(@RequestParam(required = false, defaultValue = "") String serviceInstanceId) {
+    public ModelAndView sessionout() {
+
         ModelAndView mv = new ModelAndView();
-        mv.addObject("serviceInstanceId", serviceInstanceId);
+
+        mv.addObject("providerAsStandalone", propertyService.getCpProviderAsStandalone());
+        mv.addObject("providerType", propertyService.getCpProviderType());
         mv.setViewName(VIEW_URL + "sessionout");
 
         return mv;

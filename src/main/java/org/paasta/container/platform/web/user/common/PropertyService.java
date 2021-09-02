@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 @Data
 public class PropertyService {
 
-    @Value("${cp.url}")
+    @Value("${cp.cluster.url}")
     private String cpUrl;
 
-    @Value("${cp.cluster-name}")
+    @Value("${cp.cluster.name}")
     private String cpClusterName;
 
-    @Value("${cp.defaultNamespace}")
+    @Value("${cp.namespace.default}")
     private String cpDefaultNamespace;
 
     @Value("${cpApi.url}")
@@ -33,7 +33,13 @@ public class PropertyService {
     @Value("${private.registry.imageName}")
     private String privateRegistryImageName;
 
-    @Value("${cp.provider-type:conatiner-platform-standalone}")
+    @Value("${cp.provider.id:conatiner-platform-standalone}")
     private String cpProviderType;
+
+    @Value("${cp.provider.type.service}")
+    private String cpProviderAsService;
+
+    @Value("${cp.provider.type.standalone}")
+    private String cpProviderAsStandalone;
 
 }

@@ -233,10 +233,9 @@ public class UsersController {
     public void logoutUsers(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-            String serviceInstanceId = loginService.getAuthenticationUserMetaData().getServiceInstanceId();
             customIntercepterService.logout();
             request.getSession().invalidate();
-            response.sendRedirect("/sessionout?serviceInstanceId=" + serviceInstanceId);
+            response.sendRedirect(Constants.URI_SESSION_OUT);
             return ;
         }
        catch (Exception e) {
