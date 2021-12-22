@@ -11,6 +11,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/empty_layout.css">
+    <script type="text/javascript" src='<c:url value="/resources/js/common_error.js"/>'></script>
     <title>PaaS-TA Container Platform User Portal</title>
 </head>
 <body>

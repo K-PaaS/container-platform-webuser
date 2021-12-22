@@ -10,6 +10,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/empty_layout.css">
+    <script type="text/javascript" src='<c:url value="/resources/js/common_error.js"/>'></script>
     <title>PaaS-TA Container Platform User Portal</title>
 </head>
 <body>
@@ -28,7 +29,7 @@
                     <span style="">페이지를 찾을 수 없습니다.</span>
                     <hr/>
                     <div class="form-group">
-                        <button type="button" id="pageBtn" onclick="location.href='/'">메인화면으로 이동</button>
+                        <button type="button" id="pageBtn" onclick="moveToMainFromEmpty();">메인화면으로 이동</button>
                     </div>
                 </div>
             </div>

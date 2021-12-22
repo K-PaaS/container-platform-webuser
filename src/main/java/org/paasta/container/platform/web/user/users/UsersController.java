@@ -233,4 +233,17 @@ public class UsersController {
        }
     }
 
+
+
+    /**
+     * Users 로그인 메타데이터 조회(Get User login metadata)
+     *
+     * @return the resultStatus
+     */
+    @ApiOperation(value = "Users 로그인 메타데이터 조회(Get User login metadata)", nickname = "getUsersLoginMetadata")
+    @GetMapping(value = Constants.API_URL + Constants.URI_USER_LOGIN_METADATA)
+    public UsersLoginMetaData getUsersLoginMetadata() {
+        UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
+        return usersLoginMetaData;
+    }
 }

@@ -26,9 +26,8 @@ public class CustomErrorController implements ErrorController {
     private static final String VIEW_URL = "/errors/";
     private final PropertyService propertyService;
 
-    @Override
     public String getErrorPath() {
-        return "/error";
+        return "/error/";
     }
 
     @Autowired
@@ -39,14 +38,12 @@ public class CustomErrorController implements ErrorController {
 
     @NoAuth
     @GetMapping("/error")
-    public ModelAndView handleError(HttpServletRequest request) {
+    public RedirectView handleError(HttpServletRequest request) {
+
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        String reqUrl = VIEW_URL + status.toString();
+        String reqUrl = getErrorPath() + status.toString();
 
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName(reqUrl);
-
-        return mv;
+        return new RedirectView(reqUrl);
     }
 
 

@@ -170,6 +170,8 @@ public class Constants {
     public static final String URI_INACTIVE_USER_ACCESS = "/inactive";
     public static final String URI_SESSION_OUT = "/sessionout";
 
+    public static final String URI_USER_LOGIN_METADATA = "/user/loginMetadata";
+
     public static final String CHECK_Y = "Y";
     public static final String CHECK_N = "N";
 

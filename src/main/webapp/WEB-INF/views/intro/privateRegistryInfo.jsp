@@ -14,11 +14,19 @@
     <div class="cluster_content01 row two_line two_view">
         <div class="sortable_wrap custom-sortable_wrap">
             <div class="sortable_top">
-                <p>Private Registry Info</p>
+                <p>Private Repository Info</p>
             </div>
         </div>
         <div class="account_table access">
-            <p>Private Registry 도커 이미지를 Container 상에 배포 및 사용하기 위한 사전 작업 설명 페이지입니다.</p>
+            <p>컨테이너 플랫폼 포털은 Private Repository로 Harbor를 사용하고 있으며, Harbor를 통해 컨테이너 플랫폼 관련 이미지 및 Helm Chart를 관리하고 있습니다.</p>
+             <br>
+             <h4>What is Harbor?</h4>
+              <p>Harbor is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted.</p>
+              <p>Harbor, a CNCF Graduated project, delivers compliance, performance, and interoperability to help you consistently and securely manage artifacts across cloud native compute platforms like Kubernetes and Docker.</p>
+              <br>
+            <p>
+                <a href='javascript:void(0);' onclick="window.open('https://goharbor.io/')">Harbor docs</a>
+            </p>
         </div>
     </div>
     <div class="cluster_tabs clearfix"></div>
@@ -29,145 +37,22 @@
                 <p>How to access</p>
             </div>
         </div>
-        <div class="custom-access-wrap">
-            <div class="custom-access-title-wrap">
-                <div class="custom-access-title">
-                    <p>1. Private Registry Deployment YAML 생성</p>
-                </div>
-            </div>
-            <div class="custom-access-contents-wrap">
-                <div class="custom-access-contents">
-                    <div class="fa-pull-left" id="vimDeploymentYaml">
-                        <p>vim my-private-reg-deployment.yaml</p>
-                    </div>
-                    <div class="fa-pull-right">
-                        <i class="fas fa-copy custom-access-copy-button" about="vimDeploymentYaml"></i>
-                    </div>
-                </div>
-                <div class="maT10"></div>
-                <div class="custom-access-contents">
-                    <div class="fa-pull-left" id="podForPrivateDockerRegistry">
-                        <p>---</p>
-                        <p>apiVersion: apps/v1</p>
-                        <p>kind: Deployment</p>
-                        <p>metadata:</p>
-                        <p>&nbsp;&nbsp;name: private-registry</p>
-                        <p>&nbsp;&nbsp;namespace: <span class="nameSpace"></span></p>
-                        <p>spec:</p>
-                        <p>&nbsp;&nbsp;selector:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;matchLabels:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app: private-registry</p>
-                        <p>&nbsp;&nbsp;replicas: 1</p>
-                        <p>&nbsp;&nbsp;template:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;metadata:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labels:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;app: private-registry</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;spec:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;containers:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: private-registry</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image: <span class="dockerImageName"></span>
-                        </p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ports:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- containerPort: 5000</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;imagePullSecrets:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- name: paasta</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="custom-access-wrap">
+        <div class="custom-access-wrap" style="height: 110px;">
             <div class="custom-access-title">
-                <p>2. Deployment 배포 및 확인</p>
-            </div>
-            <div class="custom-access-contents-wrap">
-                <div class="custom-access-contents">
-                    <div class="fa-pull-left" id="deployCommandKubectl">
-                        <p>kubectl apply -f my-private-reg-deployment.yaml</p>
-                    </div>
-                    <div class="fa-pull-right">
-                        <i class="fas fa-copy custom-access-copy-button" about="deployCommandKubectl"></i>
-                    </div>
-                </div>
-                <div class="maT10"></div>
-                <div class="custom-access-contents">
-                    <div class="fa-pull-left" id="confirmPodCommandKubectl">
-                        <p>kubectl get pods</p>
-                    </div>
-                    <div class="fa-pull-right">
-                        <i class="fas fa-copy custom-access-copy-button" about="confirmPodCommandKubectl"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="custom-access-wrap">
-            <div class="custom-access-title-wrap">
-                <div class="custom-access-title">
-                    <p>3. Private Registry 접근을 위한 Service YAML 생성</p>
-                </div>
-            </div>
-            <div class="custom-access-contents-wrap">
-                <div class="custom-access-contents">
-                    <div class="fa-pull-left" id="vimServiceYaml">
-                        <p>vim my-private-reg-service.yaml</p>
-                    </div>
-                    <div class="fa-pull-right">
-                        <i class="fas fa-copy custom-access-copy-button" about="vimServiceYaml"></i>
-                    </div>
-                </div>
-                <div class="maT10"></div>
-                <div class="custom-access-contents">
-                    <div class="fa-pull-left" id="svcForPrivateDockerRegistry">
-                        <p>---</p>
-                        <p>apiVersion: v1</p>
-                        <p>kind: Service</p>
-                        <p>metadata:</p>
-                        <p>&nbsp;&nbsp;name: private-registry</p>
-                        <p>&nbsp;&nbsp;namespace: <span class="nameSpace"></span></p>
-                        <p>spec:</p>
-                        <p>&nbsp;&nbsp;type: NodePort</p>
-                        <p>&nbsp;&nbsp;selector:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;app: private-registry</p>
-                        <p>&nbsp;&nbsp;ports:</p>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;- port: 5000</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="custom-access-wrap">
-            <div class="custom-access-title">
-                <p>4. Service 생성 및 확인</p>
-            </div>
-            <div class="custom-access-contents-wrap">
-                <div class="custom-access-contents">
-                    <div class="fa-pull-left" id="deployServiceCommandKubectl">
-                        <p>kubectl apply -f my-private-reg-service.yaml</p>
-                    </div>
-                    <div class="fa-pull-right">
-                        <i class="fas fa-copy custom-access-copy-button" about="deployServiceCommandKubectl"></i>
-                    </div>
-                </div>
-                <div class="maT10"></div>
-                <div class="custom-access-contents">
-                    <div class="fa-pull-left" id="confirmServiceCommandKubectl">
-                        <p>kubectl get services</p>
-                    </div>
-                    <div class="fa-pull-right">
-                        <i class="fas fa-copy custom-access-copy-button" about="confirmServiceCommandKubectl"></i>
-                    </div>
-                </div>
-            </div>
+                <p style="color: #292d37"><i class="fas fa-info-circle"></i> Private Repository 접속정보는 운영자에게 문의하시기 바랍니다.</p>
+                <button  id="repoAccessBtn" style="width:160px; margin-top:15px;" class="colors5 common-btn" title="Private Repository 접속" onclick="moveToPrivateRepository();">Private Repository 접속</button>
+             </div>
         </div>
     </div>
     <%--How to access :: END--%>
 </div>
 
 <script type="text/javascript">
-    var G_GUIDE_DOCKER_IMAGE_NAME;
+    var G_PRIVATE_REPOSITORY_URL;
 
     var getRegistryInfo = function () {
         procViewLoading('show');
 
-        $('.dockerImageName').html(G_GUIDE_DOCKER_IMAGE_NAME);
         $('.nameSpace').html(NAME_SPACE);
 
         procViewLoading('hide');
@@ -195,7 +80,7 @@
         var repositoryUrl = data.repositoryUrl;
         var imageName = data.imageName;
         var imageVersion = data.imageVersion;
-        G_GUIDE_DOCKER_IMAGE_NAME = repositoryUrl +'/' + imageName + ':' + imageVersion;
+        G_PRIVATE_REPOSITORY_URL = repositoryUrl;
     };
 
     // ON LOAD
@@ -203,4 +88,8 @@
         getPrivateRegistryDetail();
         getRegistryInfo();
     });
+
+    var moveToPrivateRepository = function () {
+        window.open(G_PRIVATE_REPOSITORY_URL);
+    };
 </script>

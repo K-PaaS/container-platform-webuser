@@ -10,6 +10,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/empty_layout.css">
+    <script type="text/javascript" src='<c:url value="/resources/js/common_error.js"/>'></script>
     <title>PaaS-TA Container Platform User Portal</title>
 </head>
 <body>
@@ -29,7 +30,7 @@
                     <c:if test="${providerType eq providerAsStandalone}">
                         <hr/>
                             <div class="form-group">
-                                <button type="button" id="pageBtn" onclick="location.href='/'">로그인 화면으로 이동</button>
+                                <button type="button" id="pageBtn" onclick="moveToMainFromEmpty();">로그인 화면으로 이동</button>
                             </div>
                     </c:if>
                 </div>
