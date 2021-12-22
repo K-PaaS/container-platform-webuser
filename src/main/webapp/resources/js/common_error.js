@@ -5,7 +5,7 @@ var moveToMainFromEmpty= function() {
         location.href = '/?serviceInstanceId='+ serviceInstanceId;
         return false;
     }
-    location.href=procMovePage("/");
+    location.href= '/';
     return false;
 }
 
