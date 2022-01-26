@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <link rel="stylesheet" href="/resources/css/cp-common.css">
 <div class="update-content">
@@ -18,26 +19,26 @@
                 <input type="text" class="update-form" id="userId" placeholder="User Id" maxlength="12" value="${user.userId}" disabled>
             </div>
             <div class="form-group">
-                <input type="password" class="update-form" id="currentPassword" placeholder="현재 비밀번호 (Current password)" maxlength="40">
+                <input type="password" class="update-form" id="currentPassword" placeholder="Current password" maxlength="40">
             </div>
             <div class="form-group">
-                <input type="password" class="update-form" id="password" placeholder="신규 비밀번호 (New password) " maxlength="40">
+                <input type="password" class="update-form" id="password" placeholder="New password" maxlength="40">
             </div>
             <div class="form-group">
-                <input type="password" class="update-form" id="passwordConfirm" placeholder="신규 비밀번호 확인 (Confirm password)">
+                <input type="password" class="update-form" id="passwordConfirm" placeholder="Confirm password">
                 <span class="update_info_box" id="chkNotice" style="font-size: large; font-variant: small-caps;"></span>
             </div>
             <div class="form-group">
-                <input type="text" class="update-form" id="email" placeholder="이메일 (E-mail)" maxlength="50" value="${user.email}">
+                <input type="text" class="update-form" id="email" placeholder="E-mail" maxlength="50" value="${user.email}">
             </div>
             <div class="form-group">
-                <input type="text" class="update-form" id="desc" placeholder="설명 (Description)" maxlength="50" value="${user.description}">
+                <input type="text" class="update-form" id="desc" placeholder="Description" maxlength="50" value="${user.description}">
             </div>
             <div class="empty-margin">
             </div>
             <div class="common-cu center">
-                <button id="updateBtn" type="button" class="colors8 common-btn" style="margin-right: 20px;">수정</button>
-                <button id="cancel" type="button" class="colors5 common-btn" onclick="cancelBtn();">이전</button>
+                <button id="updateBtn" type="button" class="colors8 common-btn" style="margin-right: 20px;"><spring:message code="M0025" text="수정"/></button>
+                <button id="cancel" type="button" class="colors5 common-btn" onclick="cancelBtn();"><spring:message code="M0028" text="이전"/></button>
             </div>
     </div>
 </div>

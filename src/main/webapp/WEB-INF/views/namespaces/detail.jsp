@@ -8,6 +8,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <link rel='stylesheet' type='text/css' href='<c:url value="/resources/css/jquery-ui-resourcequotas.min.css"/>'>
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <span id="title"></span></h1>
@@ -65,7 +66,7 @@
                         <col style='width:30%;'>
                     </colgroup>
                     <thead>
-                    <tr id="noResultAreaForResourceQuotas" style="display: none"><td colspan='3'><p class='service_p'>생성한 Resource Quotas 가 없습니다.</p></td></tr>
+                    <tr id="noResultAreaForResourceQuotas" style="display: none"><td colspan='3'><p class='service_p'><spring:message code="M0074" text="생성한 Resource Quotas가 없습니다."/></p></td></tr>
                     <tr id="resultHeaderAreaForResourceQuotas" class="headerSortFalse">
                         <td>Name</td>
                         <td>Status</td>
@@ -97,7 +98,7 @@
                         <col style='width:auto;'>
                     </colgroup>
                     <thead>
-                    <tr id="noResultAreaForLimitRanges" style="display: none"><td colspan='4'><p class='service_p'>생성한 Limit Ranges 가 없습니다.</p></td></tr>
+                    <tr id="noResultAreaForLimitRanges" style="display: none"><td colspan='4'><p class='service_p'><spring:message code="M0075" text="생성한 Limit Ranges가 없습니다."/></p></td></tr>
                     <tr id="resultHeaderAreaForLimitRanges">
                         <td>Resource Name</td>
                         <td>Resource Type</td>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Roles List View
 
@@ -30,7 +31,7 @@
             </colgroup>
             <thead>
             <tr id="noResultRolesArea" style="display: none;">
-                <td colspan='4'><p class='service_p'>실행 중인 Roles이 없습니다.</p></td>
+                <td colspan='4'><p class='service_p'><spring:message code="M0082" text="실행 중인 Roles가 없습니다."/></p></td>
             </tr>
             <tr id="resultRolesHeaderArea" class="headerSortFalse">
                 <td>Name</td>
@@ -43,7 +44,7 @@
         </table>
     </div>
     <div class="resourceMoreDetailWrapDiv">
-        <button id="rolesMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
+        <button id="rolesMoreDetailBtn" class="resourceMoreDetailBtn"><spring:message code="M0056" text="더보기(More)"/></button></div>
 </div>
 
 

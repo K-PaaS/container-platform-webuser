@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   common Detail Resource Button
 
@@ -9,9 +10,9 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 
 <div class="common-cu">
-    <button id="deleteBtn" class="colors2 common-btn pull-left" title="deleteBtn">삭제</button>
-    <button id="beforeBtn" class="colors4 common-btn pull-right" title="beforeBtn" onclick="beforeBtn();">이전</button>
-    <button id="updateBtn" class="colors5 common-btn pull-right" title="updateBtn">수정</button>
+    <button id="deleteBtn" class="colors2 common-btn pull-left" title="deleteBtn"><spring:message code="M0026" text="삭제"/></button>
+    <button id="beforeBtn" class="colors4 common-btn pull-right" title="beforeBtn" onclick="beforeBtn();"><spring:message code="M0028" text="이전"/></button>
+    <button id="updateBtn" class="colors5 common-btn pull-right" title="updateBtn"><spring:message code="M0025" text="수정"/></button>
 </div>
 
 <script type="text/javascript">

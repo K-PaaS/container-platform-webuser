@@ -9,6 +9,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <style>
     #createBtn {
         margin-top: -10px;
@@ -49,7 +50,7 @@
                             </colgroup>
                             <thead>
                             <tr id="noResultArea">
-                                <td colspan='6'><p class='service_p'>실행 중인 Service가 없습니다.</p></td>
+                                <td colspan='6'><p class='service_p'><spring:message code="M0115" text="실행 중인 Services가 없습니다."/></p></td>
                             </tr>
                             <tr id="resultHeaderArea" class="headerSortFalse" style="display: none;">
                                 <td>Name</td>
@@ -67,7 +68,7 @@
                             </tbody>
                         </table>
                         <div class="resourceMoreDetailWrapDiv">
-                            <button id="servicesMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button>
+                            <button id="servicesMoreDetailBtn" class="resourceMoreDetailBtn"><spring:message code="M0056" text="더보기(More)"/></button>
                         </div>
                     </div>
                 </div>

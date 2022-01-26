@@ -8,6 +8,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span><c:out value="${podName}" default="-"/></h1>
@@ -91,7 +92,7 @@
                                 <col style='width:15%;'>
                             </colgroup>
                             <tr id="noContainersResultArea" style="display: none;">
-                                <td colspan='6'><p class='service_p'>실행 중인 Container가 없습니다.</p></td>
+                                <td colspan='6'><p class='service_p'><spring:message code="M0111" text="실행 중인 Containers가 없습니다."/></p></td>
                             </tr>
                             <thead id="containersResultHeaderArea">
                             <tr>

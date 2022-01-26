@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/empty_layout.css">
@@ -26,10 +27,10 @@
                 </div>
 
                 <div class="panel-body" style="">
-                    <span style="">사용자 인증에 실패했습니다.</span>
+                    <span style=""><spring:message code="M0058" text="사용자 인증에 실패했습니다."/></span>
                     <hr/>
                     <div class="form-group">
-                        <button type="button" id="pageBtn" onclick="moveToMainFromEmpty();">메인화면으로 이동</button>
+                        <button type="button" id="pageBtn" onclick="moveToMainFromEmpty();"><spring:message code="M0008" text="메인화면으로 이동"/></button>
                     </div>
                 </div>
             </div>

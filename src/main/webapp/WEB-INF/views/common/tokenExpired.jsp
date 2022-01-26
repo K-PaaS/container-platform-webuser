@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>PaaS-TA Container Platform User Portal</title>
@@ -108,10 +109,10 @@
                 </div>
 
                 <div class="panel-body" style="">
-                    <span style="">토큰이 만료되어 자동 로그아웃 되었습니다.</span>
+                    <span style=""><spring:message code="M0052" text="토큰이 만료되어 자동 로그아웃 되었습니다."/></span>
                     <hr/>
                     <div class="form-group">
-                        <button type="button" id="pageBtn" onclick="location.href='/login'">로그인 페이지로 이동</button>
+                        <button type="button" id="pageBtn" onclick="location.href='/login'"><spring:message code="M0053" text="로그인 페이지로 이동"/></button>
                     </div>
 
                 </div>

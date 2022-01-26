@@ -10,6 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="common/customTag.tld" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <style>
     #namespacesList {
         text-overflow: ellipsis;
@@ -242,8 +243,25 @@
 
 
     var logoutHandler =function(){
-        var code = "<p class='account_modal_p'>로그아웃 하시겠습니까?</p>" +
-                   "<p class='account_modal_p'>SSO(Single Sign On) 통합 로그아웃이 진행됩니다.</p>";
+        var u_locale_lang = document.getElementById("u_locale_lang").value;
+            if (u_locale_lang === 'ko') {
+                var logout = '로그아웃 하시겠습니까?';
+                var sso = 'SSO(Single Sign On) 통합 로그아웃이 진행됩니다.';
+                var s_msg_logout = '<spring:message code="M0015" arguments='arg_logout' javaScriptEscape="true" text="로그아웃 하시겠습니까?"/>';
+                var s_msg_sso = '<spring:message code="M0016" arguments='arg_sso' javaScriptEscape="true" text="SSO(Single Sign On) 통합 로그아웃이 진행됩니다."/>';
+                s_msg_logout_lang = s_msg_logout.replace('arg_logout', logout)
+                s_msg_sso_lang = s_msg_sso.replace('arg_sso', sso)
+            } else {
+                var logout = 'Do you want to sign out?';
+                var sso = 'Single Sign On (SSO) integrated sign-out takes place.';
+                var s_msg_logout = '<spring:message code="M0015" arguments='arg_logout' javaScriptEscape="true" text="로그아웃 하시겠습니까?"/>';
+                var s_msg_sso = '<spring:message code="M0016" arguments='arg_sso' javaScriptEscape="true" text="SSO(Single Sign On) 통합 로그아웃이 진행됩니다."/>';
+                s_msg_logout_lang = s_msg_logout.replace('arg_logout', logout)
+                s_msg_sso_lang = s_msg_sso.replace('arg_sso', sso)
+            }
+
+        var code = "<p class='account_modal_p'>" + s_msg_logout_lang + "</p>" +
+                   "<p class='account_modal_p'>" + s_msg_sso_lang + "</p>";
         procSetLayerPopup('Sign Out', code, '확인', '취소', 'x', 'logout()', null, null);
 
     }

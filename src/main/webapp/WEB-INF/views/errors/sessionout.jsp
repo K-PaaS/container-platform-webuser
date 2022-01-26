@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/empty_layout.css">
@@ -26,11 +27,11 @@
                 </div>
 
                 <div class="panel-body" style="">
-                    <span style="">세션이 종료되었습니다.</span>
+                    <span style=""><spring:message code="M0007" text="세션이 종료되었습니다."/></span>
                     <c:if test="${providerType eq providerAsStandalone}">
                         <hr/>
                             <div class="form-group">
-                                <button type="button" id="pageBtn" onclick="moveToMainFromEmpty();">로그인 화면으로 이동</button>
+                                <button type="button" id="pageBtn" onclick="moveToMainFromEmpty();"><spring:message code="M0009" text="로그인 화면으로 이동"/></button>
                             </div>
                     </c:if>
                 </div>

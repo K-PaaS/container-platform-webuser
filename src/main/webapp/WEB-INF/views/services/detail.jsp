@@ -9,6 +9,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${serviceName}"/></h1>
@@ -82,7 +83,7 @@
                                 <col style=".">
                             </colgroup>
                             <thead>
-                            <tr id="noResultAreaForEndpoints"><td colspan='4'><p class='service_p'>조회 된 Endpoint가 없습니다.</p></td></tr>
+                            <tr id="noResultAreaForEndpoints"><td colspan='4'><p class='service_p'><spring:message code="M0120" text="조회 된 Endpoints가 없습니다."/></p></td></tr>
                             <tr id="resultHeaderAreaForEndpoints" style="display: none;">
                                 <td>Host</td>
                                 <td>Ports (Name, Port, Protocol)</td>

@@ -6,11 +6,12 @@
   @since 2020.09.15
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <jsp:include page="header.jsp" flush="true"/>
 <div class="common-cu">
-    <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="createResource();">생성</button>
+    <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="createResource();"><spring:message code="M0024" text="생성"/></button>
 </div>
 
 <input type="hidden" id="hiddenNamespace" value="" />

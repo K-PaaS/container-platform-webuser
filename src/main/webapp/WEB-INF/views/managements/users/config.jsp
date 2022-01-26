@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <div class="cluster_tabs clearfix"></div>
@@ -27,7 +28,7 @@
                                 <col style='width:18%;'>
                             </colgroup>
                             <thead>
-                            <tr id="noResultArea" style="display: none;"><td colspan='4'><p class='user_p'>사용자가 존재하지 않습니다.</p></td></tr>
+                            <tr id="noResultArea" style="display: none;"><td colspan='4'><p class='user_p'><spring:message code="M0086" text="사용자가 존재하지 않습니다."/></p></td></tr>
                             <tr id="resultHeaderArea">
                                 <td></td>
                                 <td>User ID</td>
@@ -46,8 +47,8 @@
     </div>
 </div>
 <div class="common-cu center">
-    <button id="saveBtn" type="button" class="colors8 common-btn" style="margin-right: 20px; display: none;">저장</button>
-    <button id="cancel" type="button" class="colors5 common-btn" style="display: none;" onclick="cancelBtn();">이전</button>
+    <button id="saveBtn" type="button" class="colors8 common-btn" style="margin-right: 20px; display: none;"><spring:message code="M0030" text="저장"/></button>
+    <button id="cancel" type="button" class="colors5 common-btn" style="display: none;" onclick="cancelBtn();"><spring:message code="M0028" text="이전"/></button>
 </div>
 
 <script type="text/javascript">

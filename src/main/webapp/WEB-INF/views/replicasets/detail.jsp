@@ -97,7 +97,7 @@
                                 <col style='width:20%;'>
                             </colgroup>
                             <thead>
-                            <tr id="noResultAreaForServices"><td colspan='6'><p class='service_p'>실행 중인 Service가 없습니다.</p></td></tr>
+                            <tr id="noResultAreaForServices"><td colspan='6'><p class='service_p'><spring:message code="M0115" text="실행 중인 Services가 없습니다."/></p></td></tr>
                             <tr id="resultHeaderAreaForService" style="display: none;">
                                 <td>Name<button class="sort-arrow" onclick="procSetSortList('resultTableForServices', this, '0')"><i class="fas fa-caret-down"></i></button></td>
                                 <td>Labels</td>

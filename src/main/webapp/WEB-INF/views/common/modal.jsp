@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Modal
 
@@ -23,8 +24,8 @@
                 </div>
                 <!-- Footer -->
                 <div class="modal-footer" id="commonLayerPopupFooterWrap" style="display: none;">
-                    <button type="button" class="btns2 colors4" data-dismiss="modal" id="commonLayerPopupSuccessButton">확인</button>
-                    <button type="button" class="btns2 colors5" data-dismiss="modal" id="commonLayerPopupCancelButton" style="display: none;">취소</button>
+                    <button type="button" class="btns2 colors4" data-dismiss="modal" id="commonLayerPopupSuccessButton"><spring:message code="M0022" text="확인"/></button>
+                    <button type="button" class="btns2 colors5" data-dismiss="modal" id="commonLayerPopupCancelButton" style="display: none;"><spring:message code="M0029" text="취소"/></button>
                 </div>
             </div>
         </div>

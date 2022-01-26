@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div class="sortable_wrap">
     <div class="sortable_top">
         <p>Replica Sets</p>
@@ -41,7 +42,7 @@
                 <td>Images</td>
             </tr>
             <tr id="noResultAreaForReplicaSets" style="display: none;">
-                <td colspan='6'><p class='service_p'>실행 중인 ReplicaSet이 없습니다.</p></td>
+                <td colspan='6'><p class='service_p'><spring:message code="M0118" text="실행 중인 ReplicaSets가 없습니다."/></p></td>
             </tr>
             </thead>
             <tbody id="resultAreaForReplicaSets">
@@ -49,7 +50,7 @@
         </table>
     </div>
     <div class="resourceMoreDetailWrapDiv">
-        <button id="replicaSetsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button>
+        <button id="replicaSetsMoreDetailBtn" class="resourceMoreDetailBtn"><spring:message code="M0056" text="더보기(More)"/></button>
     </div>
 </div>
 

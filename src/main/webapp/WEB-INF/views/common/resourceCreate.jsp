@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div class="content">
     <div class="cluster_tabs clearfix"></div>
     <div class="cluster_content01 row two_line two_view">
@@ -15,7 +16,7 @@
             <li>
                 <div class="sortable_wrap">
                     <div class="sortable_top colors10">
-                        <p style="color: white">생성</p>
+                        <p style="color: white"><spring:message code="M0024" text="생성"/></p>
                     </div>
                     <div class="view_table_wrap">
                         <table class="table_event condition">
@@ -25,8 +26,8 @@
                             </tr></tbody></table>
                     </div>
                     <div class="common-cu center">
-                        <button id="createBtn" type="button" class="colors8 common-btn">저장</button>
-                        <button id="cancel" type="button" class="colors5 common-btn" onclick="cancelBtn();">취소</button>
+                        <button id="createBtn" type="button" class="colors8 common-btn"><spring:message code="M0030" text="저장"/></button>
+                        <button id="cancel" type="button" class="colors5 common-btn" onclick="cancelBtn();"><spring:message code="M0029" text="취소"/></button>
                     </div>
                 </div>
             </li>

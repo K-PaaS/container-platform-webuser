@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <style>
 
@@ -84,7 +85,7 @@
                             </colgroup>
                             <thead>
                             <tr id="noRuleListResultArea" style="display: none;">
-                                <td colspan='5'><p class='service_p'>실행 중인 Roles이 없습니다.</p></td>
+                                <td colspan='5'><p class='service_p'><spring:message code="M0082" text="실행 중인 Roles가 없습니다."/></p></td>
                             </tr>
                             <tr id="ruleListResultHeaderArea" class="headerSortFalse">
                                 <td>Resource</td>
@@ -102,7 +103,7 @@
             </li>
             <!-- Rules 끝 (Rules end)-->
             <li class="cluster_fifth_box maB50">
-                    <button id="beforeBtn" class="colors4 common-btn pull-right" title="beforeBtn" onclick="beforeBtn();">이전</button>
+                    <button id="beforeBtn" class="colors4 common-btn pull-right" title="beforeBtn" onclick="beforeBtn();"><spring:message code="M0028" text="이전"/></button>
             </li>
         </ul>
     </div>

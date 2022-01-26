@@ -67,7 +67,7 @@
                     </colgroup>
                     <thead>
                     <tr id="noResultAreaForResourceQuotas" style="display: none">
-                        <td colspan='3'><p class='service_p'>생성한 Resource Quotas 가 없습니다.</p></td>
+                        <td colspan='3'><p class='service_p'><spring:message code="M0074" text="생성한 Resource Quotas가 없습니다."/></p></td>
                     </tr>
                     <tr id="resultHeaderAreaForResourceQuotas" class="headerSortFalse">
                         <td>Name</td>
@@ -101,7 +101,7 @@
                     </colgroup>
                     <thead>
                     <tr id="noResultAreaForLimitRanges" style="display: none">
-                        <td colspan='4'><p class='service_p'>생성한 Limit Ranges 가 없습니다.</p></td>
+                        <td colspan='4'><p class='service_p'><spring:message code="M0075" text="생성한 Limit Ranges가 없습니다."/></p></td>
                     </tr>
                     <tr id="resultHeaderAreaForLimitRanges">
                         <td>Resource Name</td>

@@ -33,7 +33,7 @@
             </colgroup>
             <thead>
             <tr id="noResultDeploymentsArea" style="display: none;">
-                <td colspan='6'><p class='service_p'><spring:message code="M0055" text="Deployment가 없습니다."/></p></td>
+                <td colspan='6'><p class='service_p'><spring:message code="M0055" text="실행 중인 Deployments가 없습니다."/></p></td>
             </tr>
             <tr id="resultDeploymentsHeaderArea" class="headerSortFalse">
                 <td>Name</td>
@@ -48,7 +48,7 @@
         </table>
     </div>
     <div class="resourceMoreDetailWrapDiv">
-        <button id="deploymentsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button>
+        <button id="deploymentsMoreDetailBtn" class="resourceMoreDetailBtn"><spring:message code="M0056" text="더보기(More)"/></button>
     </div>
 </div>
 

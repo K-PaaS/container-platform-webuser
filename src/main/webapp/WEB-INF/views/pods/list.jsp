@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Pods list
 
@@ -34,7 +35,7 @@
             </colgroup>
             <thead>
             <tr id="noPodListResultArea" style="display: none;">
-                <td colspan='8'><p class='service_p'>실행 중인 Pod가 없습니다.</p></td>
+                <td colspan='8'><p class='service_p'><spring:message code="M0113" text="실행 중인 Pods가 없습니다."/></p></td>
             </tr>
             <tr id="podListResultHeaderArea" class="headerSortFalse">
                 <td>Name</td>
@@ -52,7 +53,7 @@
         </table>
     </div>
     <div class="resourceMoreDetailWrapDiv">
-        <button id="podsMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button>
+        <button id="podsMoreDetailBtn" class="resourceMoreDetailBtn"><spring:message code="M0056" text="더보기(More)"/></button>
     </div>
 </div>
 <script type="text/javascript">

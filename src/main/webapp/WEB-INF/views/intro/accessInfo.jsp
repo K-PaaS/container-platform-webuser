@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <jsp:include page="../common/contentsTab.jsp"/>
@@ -51,7 +52,7 @@
             <div class="custom-access-title-wrap">
                 <div class="custom-access-title">
                     <p>1.
-                        <a href='javascript:void(0);' onclick="window.open('https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl')">Kubectl 다운로드 및 설치</a>
+                        <a href='javascript:void(0);' onclick="window.open('https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl')"><spring:message code="M0060" text="Kubectl 다운로드 및 설치"/></a>
                     </p>
                 </div>
             </div>
@@ -59,7 +60,7 @@
         <div class="custom-access-wrap">
             <div class="custom-access-title-wrap">
                 <div class="custom-access-title">
-                    <p>2. 환경 변수 설정</p>
+                    <p>2. <spring:message code="M0061" text="환경 변수 설정"/></p>
                 </div>
             </div>
             <div class="custom-access-contents-wrap">
@@ -100,7 +101,7 @@
         <div class="custom-access-wrap">
             <div class="custom-access-title-wrap">
                 <div class="custom-access-title fa-pull-left">
-                    <p>3. Cluster 등록</p>
+                    <p>3. <spring:message code="M0062" text="Cluster 등록"/></p>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -132,11 +133,11 @@
         <div class="custom-access-wrap">
             <div class="custom-access-title-wrap">
                 <div class="custom-access-title">
-                    <p>4. Credential 등록</p>
+                    <p>4. <spring:message code="M0063" text="Credential 등록"/></p>
                 </div>
             </div>
             <div class="custom-access-title-caution">
-                <p style="color: red;"><i class="fas fa-info-circle"></i> 토큰을 응용 프로그램과 공유 할 때 주의 하십시오. 공용 코드 저장소에 사용자 토큰을 게시하지 마십시오.</p>
+                <p style="color: red;"><i class="fas fa-info-circle"></i><spring:message code="M0064" text="토큰을 응용 프로그램과 공유 할 때 주의 하십시오. 공용 코드 저장소에 사용자 토큰을 게시하지 마십시오."/></p>
             </div>
             <div class="custom-access-contents-wrap">
                 <div class="maT10">
@@ -165,7 +166,7 @@
         </div>
         <div class="custom-access-wrap">
             <div class="custom-access-title">
-                <p>5. Context 설정</p>
+                <p>5. <spring:message code="M0065" text="Context 설정"/></p>
             </div>
             <div class="custom-access-contents-wrap">
                 <div>
@@ -194,7 +195,7 @@
         </div>
         <div class="custom-access-wrap">
             <div class="custom-access-title">
-                <p>6. Context 사용 설정</p>
+                <p>6. <spring:message code="M0066" text="Context 사용 설정"/></p>
             </div>
             <div class="custom-access-contents-wrap">
                 <div>
@@ -223,7 +224,7 @@
         </div>
         <div class="custom-access-wrap">
             <div class="custom-access-title">
-                <p>7. Config 구성 확인</p>
+                <p>7. <spring:message code="M0067" text="Config 구성 확인"/></p>
             </div>
             <div class="custom-access-contents-wrap">
                 <div class="custom-access-contents">
@@ -238,7 +239,7 @@
         </div>
         <div class="custom-access-wrap custom-paB40">
             <div class="custom-access-title">
-                <p>8. Resource 확인</p>
+                <p>8. <spring:message code="M0068" text="Resource 확인"/></p>
             </div>
             <div class="custom-access-contents-wrap">
                 <div class="custom-access-contents">

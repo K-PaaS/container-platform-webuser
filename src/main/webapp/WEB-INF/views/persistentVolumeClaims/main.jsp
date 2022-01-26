@@ -9,6 +9,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <style>
     #createBtn {margin-top : -10px;}
 </style>
@@ -42,7 +43,7 @@
                                 <col style='width:20%;'>
                             </colgroup>
                             <thead>
-                            <tr id="noResultArea"><td colspan='5'><p class='service_p'>생성한 Persistent Volume Claims 이 없습니다.</p></td></tr>
+                            <tr id="noResultArea"><td colspan='5'><p class='service_p'><spring:message code="M0110" text="생성한 Persistent Volume Claims가 없습니다."/></p></td></tr>
                             <tr id="resultHeaderArea" class="headerSortFalse" style="display: none;">
                                 <td>Name</td>
                                 <td>Labels</td>
@@ -58,7 +59,7 @@
                             </tbody>
                         </table>
                         <div class="resourceMoreDetailWrapDiv">
-                            <button id="pvcMoreDetailBtn" class="resourceMoreDetailBtn">더보기(More)</button></div>
+                            <button id="pvcMoreDetailBtn" class="resourceMoreDetailBtn"><spring:message code="M0056" text="더보기(More)"/></button></div>
                     </div>
                 </div>
             </li>

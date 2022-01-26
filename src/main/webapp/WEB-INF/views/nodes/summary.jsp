@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span>
@@ -37,7 +38,7 @@
                             </colgroup>
                             <thead>
                             <tr id="conditionsNotFound" style="display:none;">
-                                <td colspan="6"><p class='service_p'>Node의 Condition 정보가 없습니다.</p></td>
+                                <td colspan="6"><p class='service_p'><spring:message code="M0108" text="Nodes의 Condition 정보가 없습니다."/></p></td>
                             </tr>
                             <tr id="conditionsTableHeader">
                                 <td>Type</td>

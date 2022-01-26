@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <div class="cluster_tabs_user_config clearfix" style="width: 100%">
@@ -35,7 +36,7 @@
                                 <col style='width:20%;'>
                             </colgroup>
                             <thead>
-                            <tr id="noResultArea" style="display: none;"><td colspan='4'><p class='user_p'>사용자가 존재하지 않습니다.</p></td></tr>
+                            <tr id="noResultArea" style="display: none;"><td colspan='4'><p class='user_p'><spring:message code="M0086" text="사용자가 존재하지 않습니다."/></p></td></tr>
                             <tr id="resultHeaderArea">
                                 <td>User ID</td>
                                 <td>Role</td>

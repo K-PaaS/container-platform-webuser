@@ -8,6 +8,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div class="content">
     <jsp:include page="../common/contentsTab.jsp"/>
     <div class="cluster_tabs clearfix"></div>
@@ -18,7 +19,7 @@
             </div>
         </div>
         <div class="account_table access">
-            <p>컨테이너 플랫폼 포털은 Private Repository로 Harbor를 사용하고 있으며, Harbor를 통해 컨테이너 플랫폼 관련 이미지 및 Helm Chart를 관리하고 있습니다.</p>
+            <p><spring:message code="M0079" text="컨테이너 플랫폼 포털은 Private Repository로 Harbor를 사용하고 있으며, Harbor를 통해 컨테이너 플랫폼 관련 이미지 및 Helm Chart를 관리하고 있습니다."/></p>
              <br>
              <h4>What is Harbor?</h4>
               <p>Harbor is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted.</p>
@@ -39,8 +40,8 @@
         </div>
         <div class="custom-access-wrap" style="height: 110px;">
             <div class="custom-access-title">
-                <p style="color: #292d37"><i class="fas fa-info-circle"></i> Private Repository 접속정보는 운영자에게 문의하시기 바랍니다.</p>
-                <button  id="repoAccessBtn" style="width:160px; margin-top:15px;" class="colors5 common-btn" title="Private Repository 접속" onclick="moveToPrivateRepository();">Private Repository 접속</button>
+                <p style="color: #292d37"><i class="fas fa-info-circle"></i><spring:message code="M0080" text="Private Repository 접속정보는 운영자에게 문의하시기 바랍니다."/></p>
+                <button  id="repoAccessBtn" style="width:160px; margin-top:15px;" class="colors5 common-btn" title="Private Repository 접속" onclick="moveToPrivateRepository();"><spring:message code="M0081" text="Private Repository 접속"/></button>
              </div>
         </div>
     </div>

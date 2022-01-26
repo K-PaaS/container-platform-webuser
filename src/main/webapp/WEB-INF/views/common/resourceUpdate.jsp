@@ -9,6 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <div class="content">
@@ -33,9 +34,8 @@
                         </table>
                     </div>
                     <div class="common-cu center">
-                        <button id="updateBtn" type="button" class="colors8 common-btn">수정</button>
-                        <button id="cancelBtn" type="button" class="colors5 common-btn" onclick="cancelBtn();">취소
-                        </button>
+                        <button id="updateBtn" type="button" class="colors8 common-btn"><spring:message code="M0025" text="수정"/></button>
+                        <button id="cancelBtn" type="button" class="colors5 common-btn" onclick="cancelBtn();"><spring:message code="M0029" text="취소"/></button>
                     </div>
                 </div>
             </li>

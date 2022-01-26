@@ -8,6 +8,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/empty_layout.css">
@@ -27,10 +28,10 @@
                 </div>
 
                 <div class="panel-body" style="">
-                    <span style="">관리자의 승인이 필요한 사용자입니다.</span>
+                    <span style=""><spring:message code="M0059" text="관리자의 승인이 필요한 사용자입니다."/></span>
                     <hr/>
                     <div class="form-group">
-                        <button type="button" id="pageBtn" onclick="location.href='<%= Constants.URI_INACTIVE_USER_ACCESS %><%= Constants.URI_SESSION_OUT %>'">메인화면으로 이동</button>
+                        <button type="button" id="pageBtn" onclick="location.href='<%= Constants.URI_INACTIVE_USER_ACCESS %><%= Constants.URI_SESSION_OUT %>'"><spring:message code="M0008" text="메인화면으로 이동"/></button>
                     </div>
                 </div>
             </div>
