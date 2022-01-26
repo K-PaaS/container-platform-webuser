@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div class="sortable_wrap">
     <div class="sortable_top">
         <p>Deployments</p>
@@ -32,7 +33,7 @@
             </colgroup>
             <thead>
             <tr id="noResultDeploymentsArea" style="display: none;">
-                <td colspan='6'><p class='service_p'>실행 중인 Deployment가 없습니다.</p></td>
+                <td colspan='6'><p class='service_p'><spring:message code="M0055" text="Deployment가 없습니다."/></p></td>
             </tr>
             <tr id="resultDeploymentsHeaderArea" class="headerSortFalse">
                 <td>Name</td>

@@ -180,6 +180,12 @@ public class Constants {
 
     public static final String[] PERMIT_PATH = new String[]{"/", "/login", "/signUp", "/register", "/error", "/common/error/unauthorized", "/logout"};
 
+    //LOCALE LANGUAGE
+    public static final String URL_API_LOCALE_LANGUAGE = "/localeLanguage";
+    public static final String URL_API_CHANGE_LOCALE_PARAM = "language";
+    public static final String LANG_KO = "ko";
+    public static final String LANG_EN = "en";
+
     private Constants() {
         throw new IllegalStateException();
     }

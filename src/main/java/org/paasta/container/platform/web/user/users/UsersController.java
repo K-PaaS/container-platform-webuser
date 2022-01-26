@@ -14,11 +14,14 @@ import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -48,7 +51,8 @@ public class UsersController {
         this.customIntercepterService = customIntercepterService;
     }
 
-
+    @Autowired
+    LocaleResolver localeResolver;
 
     /**
      * Users 목록 페이지 이동(Move Users list page)
@@ -245,5 +249,40 @@ public class UsersController {
     public UsersLoginMetaData getUsersLoginMetadata() {
         UsersLoginMetaData usersLoginMetaData = loginService.getAuthenticationUserMetaData();
         return usersLoginMetaData;
+    }
+
+
+    /**
+     * Locale 언어 변경 (Change Locale Language)
+     */
+    @ApiOperation(value = "Locale 언어 변경 (Change Locale Language)", nickname = "changeLocaleLang")
+    @PutMapping(value = Constants.URL_API_LOCALE_LANGUAGE)
+    public void changeLocaleLang(@RequestParam(required = false, name = Constants.URL_API_CHANGE_LOCALE_PARAM, defaultValue = Constants.LANG_EN) String language,
+                                 HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Locale locale = new Locale(language);
+            localeResolver.setLocale(request, response, locale);
+        } catch (Exception e) {
+            LOGGER.info("EXCEPTION OCCURRED IN LOCALE LANGUAGE CHANGE..");
+        }
+    }
+
+
+    /**
+     * Locale 언어 조회 (Get Locale Language)
+     */
+    @ApiOperation(value = "Locale 언어 조회 (Get Locale Language)", nickname = "getLocaleLang")
+    @GetMapping(value = Constants.URL_API_LOCALE_LANGUAGE)
+    public String getLocaleLang() {
+        try {
+            Locale locale = LocaleContextHolder.getLocale();
+            if (locale.toString().equalsIgnoreCase(Constants.LANG_EN)) {
+                return Constants.LANG_EN;
+            }
+        } catch (Exception e) {
+            return Constants.LANG_EN;
+        }
+
+        return Constants.LANG_KO;
     }
 }

@@ -21,6 +21,9 @@ var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
         contentTypeValue = 'text/plain';
     }
 
+    //Locale Language 조회
+    getLocaleLang();
+
     $.ajax({
         url: reqUrl,
         method: reqMethod,
@@ -82,6 +85,43 @@ var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
             }
         }
     });
+
+};
+
+
+
+// Locale Language 조회
+function getLocaleLang(){
+    var request = new XMLHttpRequest();
+    request.open('GET', "/localeLanguage", false);
+    request.setRequestHeader('Content-type', 'application/json');
+
+    request.onreadystatechange = () => {
+        if (request.readyState === XMLHttpRequest.DONE){
+            if(request.status === 200){
+                setSelectValue('u_locale_lang',request.responseText);
+            } else {
+                setSelectValue('u_locale_lang',"en");
+            };
+        };
+    };
+    request.send();
+};
+
+// Locale Language 설정
+function setLocaleLang(reqUrl){
+    var request = new XMLHttpRequest();
+    request.open('PUT', reqUrl, false);
+    request.setRequestHeader('Content-type', 'application/json');
+
+    request.onreadystatechange = () => {
+        if (request.readyState === XMLHttpRequest.DONE){
+            if(request.status === 200){
+                reloadPage();
+            }
+        };
+    };
+    request.send();
 };
 
 

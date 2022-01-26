@@ -52,6 +52,16 @@
     #header-menu-logout{
         border-top : 1px solid rgba(220,220,220,0.9);
     }
+    #u_locale_lang{
+        height: 43px;
+        width: 125px;
+        line-height: initial;
+        font-size: 14px;
+        padding: 0 0 0 10px;
+    }
+    #localeLangDiv {
+        margin: 0 9px;
+    }
 
 </style>
 <header class="header">
@@ -62,8 +72,17 @@
     </select>
     <div class="gnb search">
     </div>
-
     <ul class="right_nav">
+        <li style="width: auto;">
+            <div id="localeLangDiv">
+                <fieldset>
+                    <select name="u_locale_lang" id="u_locale_lang" onchange="changeLocaleLanguage()">
+                        <option value="ko">Korean</option>
+                        <option value="en">English</option>
+                    </select>
+                </fieldset>
+            </div>
+        </li>
         <li style="width: auto;"><div id="usernameDiv"></div></li>
         <li>
             <div class="btn-group">
@@ -234,6 +253,53 @@
         procMovePage('/logout');
     };
 
+    // Locale URL 세팅
+    function changeLocaleLanguage() {
+        var u_locale_lang = document.getElementById("u_locale_lang").value;
+            var reqUrl = "<%= Constants.URL_API_LOCALE_LANGUAGE %>" +"?"+ "<%= Constants.URL_API_CHANGE_LOCALE_PARAM %>" + "=" + u_locale_lang; //=> /localeLanguage?language=ko 또는 en
+        setLocaleLang(reqUrl);
+    }
 
+    function setSelectValue(id, val) {
+        document.getElementById(id).value = val;
+    }
+
+    function reloadPage() {
+        location.reload();
+    }
+
+    // Locale Language 조회
+    function getLocaleLang(){
+        var request = new XMLHttpRequest();
+        request.open('GET', "/localeLanguage", false);
+        request.setRequestHeader('Content-type', 'application/json');
+
+        request.onreadystatechange = () => {
+            if (request.readyState === XMLHttpRequest.DONE){
+                if(request.status === 200){
+                    setSelectValue('u_locale_lang',request.responseText);
+                } else {
+                    setSelectValue('u_locale_lang',"en");
+                };
+            };
+        };
+        request.send();
+    };
+
+    // Locale Language 설정
+    function setLocaleLang(reqUrl){
+        var request = new XMLHttpRequest();
+        request.open('PUT', reqUrl, false);
+        request.setRequestHeader('Content-type', 'application/json');
+
+        request.onreadystatechange = () => {
+            if (request.readyState === XMLHttpRequest.DONE){
+                if(request.status === 200){
+                    reloadPage();
+                }
+            };
+        };
+        request.send();
+    };
 
 </script>

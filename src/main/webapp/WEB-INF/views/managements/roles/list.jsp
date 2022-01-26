@@ -30,7 +30,7 @@
             </colgroup>
             <thead>
             <tr id="noResultRolesArea" style="display: none;">
-                <td colspan='4'><p class='service_p'>실행 중인 Role이 없습니다.</p></td>
+                <td colspan='4'><p class='service_p'>실행 중인 Roles이 없습니다.</p></td>
             </tr>
             <tr id="resultRolesHeaderArea" class="headerSortFalse">
                 <td>Name</td>
