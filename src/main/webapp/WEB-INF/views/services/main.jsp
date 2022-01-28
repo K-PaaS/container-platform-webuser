@@ -101,9 +101,14 @@
 
     // CALLBACK
     var callbackGetServiceList = function (data) {
+
+        var f_srch_services = 'Services 목록 조회에 실패하였습니다.';
+        var s_msg_f_srch_services = '<spring:message code="M0121" arguments='arg_f_srch_services' javaScriptEscape="true" text="Services 목록 조회에 실패하였습니다."/>';
+        s_msg_f_srch_services_lang = s_msg_f_srch_services.replace('arg_f_srch_services', f_srch_services);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Services 목록 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_services_lang, false);
             return false;
         }
 

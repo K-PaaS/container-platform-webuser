@@ -9,6 +9,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <c:out value="${persistentVolumeClaimName}"/></h1>
@@ -116,9 +117,14 @@
 
     // CALLBACK
     var callbackGetPersistentVolumeClaimDetail = function (data) {
+
+        var f_srch_pvc = 'PersistentVolumeClaims 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_pvc= '<spring:message code="M0109" arguments='arg_f_srch_pvc' javaScriptEscape="true" text="PersistentVolumeClaims 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_pvc_lang = s_msg_f_srch_pvc.replace('arg_f_srch_pvc', f_srch_pvc);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('PersistentVolumeClaims 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_pvc_lang, false);
             return false;
         }
 

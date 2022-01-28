@@ -68,9 +68,14 @@
 
     // CALLBACK
     var callbackProcGetCommonEventsList = function (data) {
+
+        var f_srch_ev = 'Events 목록 조회에 실패하였습니다.';
+        var s_msg_f_srch_ev= '<spring:message code="M0042" arguments='arg_f_srch_ev' javaScriptEscape="true" text="Events 목록 조회에 실패하였습니다."/>';
+        s_msg_f_srch_ev_lang = s_msg_f_srch_ev.replace('arg_f_srch_ev', f_srch_ev);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Events 목록 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_ev_lang, false);
             return false;
         }
 

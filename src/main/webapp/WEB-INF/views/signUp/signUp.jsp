@@ -67,45 +67,73 @@
         var manCheck = false;
         var msg = "";
 
+        var ent_id = 'Pods 목록 조회에 실패하였습니다.';
+        var condition_id = 'User ID는 최대 253자 내의 영문 소문자 또는 숫자로 시작하고 끝나야 하며, 특수문자는 - 또는 . 만 사용 가능합니다.';
+        var ent_pwd = '비밀번호를 입력하세요.';
+        var condition_pwd = '비밀번호는 영문으로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~40자 이내로 사용 가능합니다.';
+        var cfm_pwd = '비밀번호를 확인해주세요.';
+        var more_cfm_pwd = '비밀번호를 한 번 더 확인해주세요.';
+        var ent_eamil = '메일 주소를 입력하세요.';
+        var f_eamil = '이메일 형식이 올바르지 않습니다.';
+
+        var s_msg_ent_id= '<spring:message code="M0129" arguments='arg_ent_id' javaScriptEscape="true" text="아이디를 입력하세요."/>';
+        var s_msg_condition_id= '<spring:message code="M0130" arguments='arg_condition_id' javaScriptEscape="true" text="User ID는 최대 253자 내의 영문 소문자 또는 숫자로 시작하고 끝나야 하며, 특수문자는 - 또는 . 만 사용 가능합니다."/>';
+        var s_msg_ent_pwd= '<spring:message code="M0131" arguments='arg_ent_pwd' javaScriptEscape="true" text="비밀번호를 입력하세요."/>';
+        var s_msg_condition_pwd= '<spring:message code="M0132" arguments='arg_condition_pwd' javaScriptEscape="true" text="비밀번호는 영문으로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~40자 이내로 사용 가능합니다."/>';
+        var s_msg_cfm_pwd= '<spring:message code="M0133" arguments='arg_cfm_pwd' javaScriptEscape="true" text="비밀번호를 확인해주세요."/>';
+        var s_msg_more_cfm_pwd= '<spring:message code="M0134" arguments='arg_more_cfm_pwd' javaScriptEscape="true" text="비밀번호를 한 번 더 확인해주세요."/>';
+        var s_msg_ent_eamil= '<spring:message code="M0135" arguments='arg_ent_eamil' javaScriptEscape="true" text="메일 주소를 입력하세요."/>';
+        var s_msg_f_eamil= '<spring:message code="M0136" arguments='arg_f_eamil' javaScriptEscape="true" text="이메일 형식이 올바르지 않습니다."/>';
+
+        s_msg_ent_id_lang = s_msg_ent_id.replace('arg_ent_id', ent_id);
+        s_msg_condition_id_lang = s_msg_condition_id.replace('arg_condition_id', condition_id);
+        s_msg_ent_pwd_lang = s_msg_ent_pwd.replace('arg_ent_pwd', ent_pwd);
+        s_msg_condition_pwd_lang = s_msg_condition_pwd.replace('arg_condition_pwd', condition_pwd);
+        s_msg_cfm_pwd_lang = s_msg_cfm_pwd.replace('arg_cfm_pwd', cfm_pwd);
+        s_msg_more_cfm_pwd_lang = s_msg_more_cfm_pwd.replace('arg_more_cfm_pwd', more_cfm_pwd);
+        s_msg_ent_eamil_lang = s_msg_ent_eamil.replace('arg_ent_eamil', ent_eamil);
+        s_msg_f_eamil_lang = s_msg_f_eamil.replace('arg_f_eamil', f_eamil);
+
+
         // user id
         if (!manCheck && commonUtils.isBlank(userId)) {
-            msg = "아이디를 입력하세요.";
+            msg = s_msg_ent_id_lang;
             manCheck = true;
         }
         // user id 정규식 검사 (user id regular expression check)
         if(!manCheck && commonUtils.regexId(userId)) {
-            msg = "User ID는 최대 253자 내의 영문 소문자 또는 숫자로 시작하고 끝나야 하며, 특수문자는 - 또는 . 만 사용 가능합니다.";
+            msg = s_msg_condition_id_lang;
             manCheck = true;
         }
         // 비밀번호 (password)
         if (!manCheck && commonUtils.isBlank(password)) {
-            msg = "비밀번호를 입력하세요.";
+            msg = s_msg_ent_pwd_lang;
             manCheck = true;
         }
         // 비밀번호 정규식 검사 (password regular expression check)
         if (!manCheck && commonUtils.regexPwd(password)) {
-            msg = "비밀번호는 영문으로 시작하고, 최소 하나 이상의 숫자와 특수 문자를 혼합하여 4~40자 이내로 사용 가능합니다.";
+            msg = s_msg_condition_pwd_lang;
             manCheck = true;
         }
         // 비밀번호 확인 (Confirm Password)
         if (!manCheck && commonUtils.isBlank($("#passwordConfirm").val())) {
-            msg = "비밀번호를 확인해주세요.";
+            msg = s_msg_cfm_pwd_lang;
             manCheck = true;
         }
         if(password !== $('#passwordConfirm').val()){
-            msg = "비밀번호를 한 번 더 확인해주세요.";
+            msg = s_msg_more_cfm_pwd_lang;
             manCheck = true;
         }
 
         // 메일주소 (Email Address)
         if (!manCheck && commonUtils.isBlank(email)) {
-            msg = "메일 주소를 입력하세요.";
+            msg = s_msg_ent_eamil_lang;
             manCheck = true;
         }
 
         // 메일주소 (Email Address)
         if (!manCheck && commonUtils.regexEmail(email)) {
-            msg = "이메일 형식이 올바르지 않습니다.";
+            msg = s_msg_f_eamil_lang;
             manCheck = true;
         }
 
@@ -129,7 +157,12 @@
     });
 
     var callbackRegisterUser = function(data) {
-        procAlertMessage("회원 가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+
+        var join_user = '회원 가입이 완료되었습니다. 로그인 페이지로 이동합니다.';
+        var s_msg_join_user= '<spring:message code="M0137" arguments='arg_join_user' javaScriptEscape="true" text="회원 가입이 완료되었습니다. 로그인 페이지로 이동합니다."/>';
+        s_msg_join_user_lang = s_msg_join_user.replace('arg_join_user', join_user);
+
+        procAlertMessage(s_msg_join_user_lang);
         setTimeout(function(){procMovePage(data.nextActionUrl)}, 1500);
     };
 
@@ -144,13 +177,23 @@
         });
 
         $('#passwordConfirm').keyup(function(){
+
+            var f_pwd = '비밀번호가 일치하지 않습니다.';
+            var cwm_pwd = '비밀번호가 일치합니다.';
+
+            var s_msg_f_pwd= '<spring:message code="M0101" arguments='arg_f_pwd' javaScriptEscape="true" text="비밀번호가 일치하지 않습니다."/>';
+            var s_msg_cwm_pwd= '<spring:message code="M0102" arguments='arg_cwm_pwd' javaScriptEscape="true" text="비밀번호가 일치합니다."/>';
+
+            s_msg_f_pwd_lang = s_msg_f_pwd.replace('arg_f_pwd', f_pwd);
+            s_msg_cwm_pwd_lang = s_msg_cwm_pwd.replace('arg_cwm_pwd', cwm_pwd);
+
             if($('#password').val() != $('#passwordConfirm').val()){
-                $('#chkNotice').html('비밀번호가 일치하지 않습니다.<br>');
+                $('#chkNotice').html(s_msg_f_pwd_lang + '<br>');
                 $('#chkNotice').attr('style', 'color: #f82a2aa3');
                 $('.info_box').show();
 
             } else{
-                $('#chkNotice').html('비밀번호가 일치합니다.');
+                $('#chkNotice').html(s_msg_cwm_pwd_lang);
                 $('#chkNotice').attr('style', 'color: #199894b3');
                 $('.info_box').show();
             }

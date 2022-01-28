@@ -128,13 +128,18 @@
     };
 
     var callbackGetDetail = function(data) {
+
+        var f_srch_namespaces = 'NameSpaces 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_namespaces= '<spring:message code="M0105" arguments='arg_f_srch_namespaces' javaScriptEscape="true" text="NameSpaces 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_namespaces_lang = s_msg_f_srch_namespaces.replace('arg_f_srch_namespaces', f_srch_namespaces);
+
         var noResultAreaForNameSpaceDetails = $("#noResultAreaForNameSpaceDetails");
         var resultAreaForNameSpaceDetails = $("#resultAreaForNameSpaceDetails");
 
         if (!procCheckValidData(data)) {
             noResultAreaForNameSpaceDetails.show();
             procViewLoading('hide');
-            procAlertMessage('Namespaces 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_namespaces_lang, false);
 
             return false;
         }
@@ -160,11 +165,16 @@
     };
 
     var callbackGetResourceQuotaList = function(data) {
+
+        var f_srch_resourceQuotas = 'ResourceQuotas 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_resourceQuotas= '<spring:message code="M0106" arguments='arg_f_srch_resourceQuotas' javaScriptEscape="true" text="ResourceQuotas 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_resourceQuotas_lang = s_msg_f_srch_resourceQuotas.replace('arg_f_srch_resourceQuotas', f_srch_resourceQuotas);
+
         var html = $("#quota-template").html();
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('ResourceQuotas 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_resourceQuotas_lang, false);
             return false;
         }
 
@@ -208,11 +218,16 @@
     };
 
     var callbackGetLimitRangeList = function (data) {
+
+        var f_srch_limitRanges = 'LimitRanges 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_limitRanges= '<spring:message code="M0078" arguments='arg_f_srch_limitRanges' javaScriptEscape="true" text="LimitRanges 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_limitRanges_lang = s_msg_f_srch_limitRanges.replace('arg_f_srch_limitRanges', f_srch_limitRanges);
+
         var html = $("#range-template").html();
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('LimitRanges 목록 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_limitRanges_lang, false);
             return false;
         }
 

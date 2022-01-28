@@ -45,8 +45,24 @@
 <script type="text/javascript">
 
     $("#updateBtn").on('click', function () {
-        var code = "<p class='account_modal_p'>회원 정보를 수정하시겠습니까?</p>";
-        procSetLayerPopup('회원 정보 수정', code, '확인', '취소', 'x', 'validatePassword()', null, null);
+
+        var edit_mbsh_info = '회원 정보 수정';
+        var cfm = '확인';
+        var cxl ='취소';
+        var q_edit_mbsh_info = '회원 정보를 수정하시겠습니까?';
+
+        var s_msg_edit_mbsh_info = '<spring:message code="M0099" arguments='arg_edit_mbsh_info' javaScriptEscape="true" text="회원 정보 수정"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_cxl = '<spring:message code="M0029" arguments='arg_cxl' javaScriptEscape="true" text="취소"/>';
+        var s_msg_q_edit_mbsh_info = '<spring:message code="M0098" arguments='arg_q_edit_mbsh_info' javaScriptEscape="true" text="회원 정보를 수정하시겠습니까?"/>';
+
+        s_msg_edit_mbsh_info_lang = s_msg_edit_mbsh_info.replace('arg_edit_mbsh_info', edit_mbsh_info);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
+        s_msg_q_edit_mbsh_info_lang = s_msg_q_edit_mbsh_info.replace('arg_q_edit_mbsh_info', q_edit_mbsh_info);
+
+        var code = "<p class='account_modal_p'>"+ s_msg_q_edit_mbsh_info_lang +"</p>";
+        procSetLayerPopup(s_msg_edit_mbsh_info_lang, code, s_msg_cfm_lang, s_msg_cxl_lang, 'x', 'validatePassword()', null, null);
     });
 
     var validatePassword = function () {
@@ -82,7 +98,13 @@
 
 
     var callbackUpdateUserInfo = function (data) {
-        procAlertMessage("회원 정보 수정이 완료되었습니다. 이전 페이지로 이동합니다.");
+
+        var edited_mbsh_info = '회원 정보 수정이 완료되었습니다. 이전 페이지로 이동합니다.';
+
+        var s_msg_edited_mbsh_info= '<spring:message code="M0100" arguments='arg_edited_mbsh_info' javaScriptEscape="true" text="회원 정보 수정이 완료되었습니다. 이전 페이지로 이동합니다."/>';
+        s_msg_edited_mbsh_info_lang = s_msg_edited_mbsh_info.replace('arg_edited_mbsh_info', edited_mbsh_info);
+
+        procAlertMessage(s_msg_edited_mbsh_info_lang);
         setTimeout(function(){procMovePage(-1)}, 1500);
 
     };
@@ -101,13 +123,23 @@
         });
 
         $('#passwordConfirm').keyup(function(){
+
+            var f_pwd = '비밀번호가 일치하지 않습니다.';
+            var cwm_pwd = '비밀번호가 일치합니다.';
+
+            var s_msg_f_pwd= '<spring:message code="M0101" arguments='arg_f_pwd' javaScriptEscape="true" text="비밀번호가 일치하지 않습니다."/>';
+            var s_msg_cwm_pwd= '<spring:message code="M0102" arguments='arg_cwm_pwd' javaScriptEscape="true" text="비밀번호가 일치합니다."/>';
+
+            s_msg_f_pwd_lang = s_msg_f_pwd.replace('arg_f_pwd', f_pwd);
+            s_msg_cwm_pwd_lang = s_msg_cwm_pwd.replace('arg_cwm_pwd', cwm_pwd);
+
             if($('#password').val() != $('#passwordConfirm').val()){
-                $('#chkNotice').html('비밀번호가 일치하지 않습니다.<br>');
+                $('#chkNotice').html(s_msg_f_pwd_lang + '<br>');
                 $('#chkNotice').attr('style', 'color: #f82a2aa3');
                 $('.update_info_box').show();
 
             } else{
-                $('#chkNotice').html('비밀번호가 일치합니다.');
+                $('#chkNotice').html(s_msg_cwm_pwd_lang);
                 $('#chkNotice').attr('style', 'color: #199894b3');
                 $('.update_info_box').show();
             }

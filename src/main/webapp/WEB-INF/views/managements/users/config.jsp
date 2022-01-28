@@ -71,9 +71,14 @@
 
     // CALLBACK
     var callbackGetUsersList = function(data) {
+
+        var f_srch_users = '사용자 목록 조회에 실패하였습니다.';
+        var s_msg_f_srch_users= '<spring:message code="M0087" arguments='arg_f_srch_users' javaScriptEscape="true" text="사용자 목록 조회에 실패하였습니다."/>';
+        s_msg_f_srch_users_lang = s_msg_f_srch_users.replace('arg_f_srch_users', f_srch_users);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('사용자 목록 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_users_lang, false);
             return false;
         }
 
@@ -166,8 +171,24 @@
 
     // User namespace include/exclude
     $("#saveBtn").on('click', function () {
-        var code = "<p class='account_modal_p'>사용자 권한 변경을 저장하시겠습니까?</p>";
-        procSetLayerPopup('사용자 권한 변경', code, '확인', '취소', 'x', 'updateUserConfig()', null, null);
+
+        var change_user_per = '사용자 권한 변경';
+        var cfm = '확인';
+        var cxl ='취소';
+        var q_change_user_per = '사용자 권한 변경을 저장하시겠습니까?';
+
+        var s_msg_change_user_per = '<spring:message code="M0089" arguments='arg_change_user_per' javaScriptEscape="true" text="사용자 권한 변경"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_cxl = '<spring:message code="M0029" arguments='arg_cxl' javaScriptEscape="true" text="취소"/>';
+        var s_msg_q_change_user_per = '<spring:message code="M0088" arguments='arg_q_change_user_per' javaScriptEscape="true" text="사용자 권한 변경을 저장하시겠습니까?"/>';
+
+        s_msg_change_user_per_lang = s_msg_change_user_per.replace('arg_change_user_per', change_user_per);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
+        s_msg_q_change_user_per_lang = s_msg_q_change_user_per.replace('arg_q_change_user_per', q_change_user_per);
+
+        var code = "<p class='account_modal_p'>" + s_msg_q_change_user_per_lang + "</p>";
+        procSetLayerPopup(s_msg_change_user_per_lang, code, s_msg_cfm_lang, s_msg_cxl_lang, 'x', 'updateUserConfig()', null, null);
     });
 
 
@@ -201,17 +222,31 @@
 
 
     var callbackUpdateUserConfig = function (data) {
+
+        var change_per = '권한 변경';
+        var cfm = '확인';
         var resultCode = '권한이 정상적으로 변경되었습니다.';
+        var failResultCode = '권한 변경을 실패하였습니다.';
+
+        var s_msg_change_per = '<spring:message code="M0092" arguments='arg_change_per' javaScriptEscape="true" text="권한 변경"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_resultCode = '<spring:message code="M0090" arguments='arg_resultCode' javaScriptEscape="true" text="권한이 정상적으로 변경되었습니다."/>';
+        var s_msg_failResultCode = '<spring:message code="M0091" arguments='arg_failResultCode' javaScriptEscape="true" text="권한 변경을 실패하였습니다."/>';
+
+        s_msg_change_per_lang = s_msg_change_per.replace('arg_change_per', change_per);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_resultCode_lang = s_msg_resultCode.replace('arg_resultCode', resultCode);
+        s_msg_failResultCode_lang = s_msg_failResultCode.replace('arg_failResultCode', failResultCode);
+
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            resultCode = '권한 변경을 실패하였습니다.';
-            procAlertMessage(resultCode);
+            procAlertMessage(s_msg_failResultCode_lang);
             return false;
         } else {
             var nextActionUrl = data.nextActionUrl;
             procViewLoading('hide');
-            procSetLayerPopup('권한 변경', resultCode, '확인', null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
+            procSetLayerPopup(s_msg_change_per_lang, s_msg_resultCode_lang, s_msg_cfm_lang, null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
 
         }
     };

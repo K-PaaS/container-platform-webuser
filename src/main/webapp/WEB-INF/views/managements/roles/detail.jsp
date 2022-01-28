@@ -128,9 +128,13 @@
 
     var callbackGetRoles = function (data) {
 
+        var f_srch_roles = 'Roles 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_roles= '<spring:message code="M0083" arguments='arg_f_srch_roles' javaScriptEscape="true" text="Roles 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_roles_lang = s_msg_f_srch_roles.replace('arg_f_srch_roles', f_srch_roles);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Roles 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_roles_lang, false);
             return false;
         }
 

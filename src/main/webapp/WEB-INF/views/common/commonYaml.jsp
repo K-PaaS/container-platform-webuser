@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <div class="content">
     <h1 class="view-title"><span class="detail_icon"><i class="fas fa-file-alt"></i></span> <span id="commonYamlViewTitle"> - </span></h1>
@@ -49,9 +50,14 @@
 
     // CALLBACK
     var callbackProcGetCommonDetailYaml = function (data) {
+
+        var f_srch_yml = 'Yaml 조회에 실패하였습니다.';
+        var s_msg_f_srch_yml= '<spring:message code="M0043" arguments='arg_f_srch_yml' javaScriptEscape="true" text="Yaml 조회에 실패하였습니다."/>';
+        s_msg_f_srch_yml_lang = s_msg_f_srch_yml.replace('arg_f_srch_yml', f_srch_yml);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Yaml 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_yml_lang, false);
             return false;
         }
 

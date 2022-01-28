@@ -75,6 +75,11 @@
 
     // CALLBACK GET NODE SUMMARY
     var callbackGetNodeSummary = function(data) {
+
+        var f_srch_nodes = 'Nodes 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_nodes= '<spring:message code="M0107" arguments='arg_f_srch_nodes' javaScriptEscape="true" text="Nodes 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_nodes_lang = s_msg_f_srch_nodes.replace('arg_f_srch_nodes', f_srch_nodes);
+
         procViewLoading('show');
 
         var podNotFound = $('#noPodListResultArea');
@@ -84,7 +89,7 @@
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Nodes 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_nodes_lang, false);
             return;
         }
 

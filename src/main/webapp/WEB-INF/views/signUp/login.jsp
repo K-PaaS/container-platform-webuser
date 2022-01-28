@@ -72,8 +72,13 @@
 
     //ID 저장 시 Alert 띄우기 (Call Alert when saving ID)
     $("#rememberMe").click(function (e) {
+
+        var attn_id = '공용 PC에서 로그인정보를 저장할 경우, 타인에게 노출될 위험이 있습니다. 아이디를 저장하시겠습니까?';
+        var s_msg_attn_id= '<spring:message code="M0126" arguments='arg_attn_id' javaScriptEscape="true" text="공용 PC에서 로그인정보를 저장할 경우, 타인에게 노출될 위험이 있습니다. 아이디를 저장하시겠습니까?"/>';
+        s_msg_attn_id_lang = s_msg_attn_id.replace('arg_attn_id', attn_id);
+
         if ($(this).is(":checked")) {
-            if (!confirm("공용 PC에서 로그인정보를 저장할 경우, 타인에게 노출될 위험이 있습니다. 아이디를 저장하시겠습니까?")) {
+            if (!confirm(s_msg_attn_id_lang)) {
                 $("#rememberMe").prop("checked", false);
             }
         }

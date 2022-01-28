@@ -45,12 +45,29 @@
 
 
     $("#createBtn").on('click', function () {
+
         var yamlTextVal = $("#yamlText").val().trim();
+
+        var reg_rsc = 'Resource 등록';
+        var cfm = '확인';
+        var cxl ='취소';
+        var q_reg_rsc = 'Resource를 등록하시겠습니까?';
+
+        var s_msg_reg_rsc = '<spring:message code="M0045" arguments='arg_reg_rsc' javaScriptEscape="true" text="Resource 등록"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_cxl = '<spring:message code="M0029" arguments='arg_cxl' javaScriptEscape="true" text="취소"/>';
+        var s_msg_q_reg_rsc= '<spring:message code="M0044" arguments='arg_q_reg_rsc' javaScriptEscape="true" text="Resource를 등록하시겠습니까?"/>';
+
+        s_msg_reg_rsc_lang = s_msg_reg_rsc.replace('arg_reg_rsc', reg_rsc);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
+        s_msg_q_reg_rsc_lang = s_msg_q_reg_rsc.replace('arg_q_reg_rsc', q_reg_rsc);
+
         if(yamlTextVal.length < 1) {
             procAlertMessage("<%=Constants.NO_VALUE_INPUT%>");}
         else {
-            var code = "<p class='account_modal_p'>Resource를 등록하시겠습니까?</p>";
-            procSetLayerPopup('Resource 등록', code, '확인', '취소', 'x', 'createCommonResource()', null, null);
+            var code = "<p class='account_modal_p'>" + s_msg_q_reg_rsc_lang + "</p>";
+            procSetLayerPopup(s_msg_reg_rsc_lang, code, s_msg_cfm_lang, s_msg_cxl_lang, 'x', 'createCommonResource()', null, null);
         }
     });
 
@@ -75,15 +92,28 @@
     }
 
     var resourceCreate = function(data) {
+
+        var reg_rsc = 'Resource 등록';
+        var cfm = '확인';
         var resultCode = 'Resource가 정상적으로 등록되었습니다.';
+        var failResultCode = 'Resource 등록을 실패하였습니다.';
+
+        var s_msg_reg_rsc = '<spring:message code="M0038" arguments='arg_reg_rsc' javaScriptEscape="true" text="Resource 등록"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_resultCode = '<spring:message code="M0046" arguments='arg_resultCode' javaScriptEscape="true" text="Resource가 정상적으로 등록되었습니다."/>';
+        var s_msg_failResultCode = '<spring:message code="M0047" arguments='arg_failResultCode' javaScriptEscape="true" text="Resource 등록을 실패하였습니다."/>';
+
+        s_msg_reg_rsc_lang = s_msg_reg_rsc.replace('arg_reg_rsc', reg_rsc);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_resultCode_lang = s_msg_resultCode.replace('arg_resultCode', resultCode);
+        s_msg_failResultCode_lang = s_msg_failResultCode.replace('arg_failResultCode', failResultCode);
 
         if (!procCheckValidData(data)) {
-            resultCode = 'Resource 등록을 실패하였습니다.';
-            procAlertMessage(resultCode);
+            procAlertMessage(s_msg_failResultCode_lang);
             return false;
         } else {
             var nextActionUrl = data.nextActionUrl;
-            procSetLayerPopup('Resource 등록', resultCode, '확인', null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
+            procSetLayerPopup(s_msg_reg_rsc_lang, s_msg_resultCode_lang, s_msg_cfm_lang, null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
         }
     };
 

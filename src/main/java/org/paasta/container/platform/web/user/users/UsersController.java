@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -209,11 +210,11 @@ public class UsersController {
         UsersLoginMetaData usersLoginMetaDataNew = loginService.updateAuthenticationUserMetaData(usersLoginMetaData);
 
         if (usersLoginMetaDataNew.getSelectedNamespace().isEmpty() || usersLoginMetaDataNew.getSelectedNamespace() == null) {
-            return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_FAIL).detailMessage(MessageConstant.NAMESPACE_CHANGE_FAILED).build();
+            return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_FAIL).detailMessage(MessageConstant.NAMESPACE_CHANGE_FAILED.getMsg()).build();
         }
 
         return ResultStatus.builder().resultCode(Constants.RESULT_STATUS_SUCCESS)
-                .detailMessage(MessageConstant.NAMESPACE_CHANGE_SUCCEEDED).userId(usersLoginMetaDataNew.getUserId()).build();
+                .detailMessage(MessageConstant.NAMESPACE_CHANGE_SUCCEEDED.getMsg()).userId(usersLoginMetaDataNew.getUserId()).build();
 
     }
 
@@ -267,22 +268,25 @@ public class UsersController {
         }
     }
 
-
     /**
      * Locale 언어 조회 (Get Locale Language)
      */
     @ApiOperation(value = "Locale 언어 조회 (Get Locale Language)", nickname = "getLocaleLang")
     @GetMapping(value = Constants.URL_API_LOCALE_LANGUAGE)
     public String getLocaleLang() {
+
+        LocaleLang localeLang= new LocaleLang(Constants.LANG_EN);
         try {
             Locale locale = LocaleContextHolder.getLocale();
+
             if (locale.toString().equalsIgnoreCase(Constants.LANG_EN)) {
+                localeLang.setULang(Constants.LANG_EN);
                 return Constants.LANG_EN;
             }
         } catch (Exception e) {
             return Constants.LANG_EN;
         }
-
+        localeLang.setULang(Constants.LANG_KO);
         return Constants.LANG_KO;
     }
 }

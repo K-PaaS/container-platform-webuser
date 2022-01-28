@@ -81,9 +81,14 @@
 
     // CALLBACK
     var callbackGetDeploymentsList = function (data) {
+
+        var f_srch_deployments = 'Deployments 목록 조회에 실패하였습니다.';
+        var s_msg_f_srch_deployments = '<spring:message code="M0057" arguments='arg_f_srch_deployments' javaScriptEscape="true" text="Deployments 목록 조회에 실패하였습니다."/>';
+        s_msg_f_srch_deployments_lang = s_msg_f_srch_deployments.replace('arg_f_srch_deployments', f_srch_deployments);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Deployments 목록 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_deployments_lang, false);
             return false;
         }
 

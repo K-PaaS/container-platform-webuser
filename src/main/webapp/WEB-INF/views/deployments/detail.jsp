@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 
 <div class="content">
@@ -128,9 +129,14 @@
     };
 
     var callbackGetDeployments = function (data) {
+
+        var f_srch_deployments = 'Deployments 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_deployments = '<spring:message code="M0054" arguments='arg_f_srch_deployments' javaScriptEscape="true" text="Deployments 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_deployments_lang = s_msg_f_srch_deployments.replace('arg_f_srch_deployments', f_srch_deployments);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Deployments 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_deployments_lang, false);
             return false;
         }
 

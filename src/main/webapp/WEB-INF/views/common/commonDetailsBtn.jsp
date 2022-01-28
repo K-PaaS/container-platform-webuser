@@ -18,8 +18,25 @@
 <script type="text/javascript">
 
     $(document).on("click", "#deleteBtn", function(){
-        var code = "<p class='account_modal_p'>Resource를 삭제하시겠습니까?</p>";
-        procSetLayerPopup('Resource 삭제', code, '확인', '취소', 'x', 'deleteCommonResource();', null, null);
+
+        var del_rsc = 'Resource 삭제';
+        var cfm = '확인';
+        var cxl ='취소';
+        var q_del_rsc = 'Resource를 삭제하시겠습니까?';
+
+        var s_msg_del_rsc = '<spring:message code="M0038" arguments='arg_del_rsc' javaScriptEscape="true" text="Resource 삭제"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_cxl = '<spring:message code="M0029" arguments='arg_cxl' javaScriptEscape="true" text="취소"/>';
+        var s_msg_q_del_rsc= '<spring:message code="M0037" arguments='arg_q_del_rsc' javaScriptEscape="true" text="Resource를 삭제하시겠습니까?"/>';
+
+        s_msg_del_rsc_lang = s_msg_del_rsc.replace('arg_del_rsc', del_rsc);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
+        s_msg_q_del_rsc_lang = s_msg_q_del_rsc.replace('arg_q_del_rsc', q_del_rsc);
+
+        var code = "<p class='account_modal_p'>" + s_msg_q_del_rsc_lang + "</p>";
+
+        procSetLayerPopup(s_msg_del_rsc_lang, code, s_msg_cfm_lang, s_msg_cxl_lang, 'x', 'deleteCommonResource();', null, null);
 
     });
 
@@ -52,16 +69,29 @@
     }
 
     var resourceDelete = function(data) {
+
+        var del_rsc = 'Resource 삭제';
+        var cfm = '확인';
         var resultCode = 'Resource가 정상적으로 삭제되었습니다.';
+        var failResultCode = 'Resource 삭제를 실패하였습니다.';
+
+        var s_msg_del_rsc = '<spring:message code="M0038" arguments='arg_del_rsc' javaScriptEscape="true" text="Resource 삭제"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_resultCode = '<spring:message code="M0039" arguments='arg_resultCode' javaScriptEscape="true" text="Resource가 정상적으로 삭제되었습니다."/>';
+        var s_msg_failResultCode = '<spring:message code="M0040" arguments='arg_failResultCode' javaScriptEscape="true" text="Resource 삭제를 실패하였습니다."/>';
+
+        s_msg_del_rsc_lang = s_msg_del_rsc.replace('arg_del_rsc', del_rsc);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_resultCode_lang = s_msg_resultCode.replace('arg_resultCode', resultCode);
+        s_msg_failResultCode_lang = s_msg_failResultCode.replace('arg_failResultCode', failResultCode);
 
         if (!procCheckValidData(data)) {
-            resultCode = 'Resource 삭제를 실패하였습니다.';
-            procAlertMessage(resultCode);
+            procAlertMessage(s_msg_failResultCode_lang);
             return false;
 
         } else {
             var nextActionUrl = data.nextActionUrl;
-            procSetLayerPopup('Resource 삭제', resultCode, '확인', null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
+            procSetLayerPopup(s_msg_del_rsc_lang, s_msg_resultCode_lang, s_msg_cfm_lang, null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
         }
     };
 

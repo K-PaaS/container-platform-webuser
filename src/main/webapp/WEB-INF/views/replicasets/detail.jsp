@@ -139,9 +139,13 @@
     // CALLBACK
     var callbackGetDetail = function(data) {
 
+        var f_srch_replicaSets = 'ReplicaSets 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_replicaSets= '<spring:message code="M0116" arguments='arg_f_srch_replicaSets' javaScriptEscape="true" text="ReplicaSets 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_replicaSets_lang = s_msg_f_srch_replicaSets.replace('arg_f_srch_replicaSets', f_srch_replicaSets);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('ReplicaSets 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_replicaSets_lang, false);
             return false;
         }
         var replicaSetName      = data.metadata.name;
@@ -199,9 +203,14 @@
     };
     // CALLBACK
     var callbackGetDeploymentsInfo = function(data) {
+
+        var f_srch_deployments = 'Deployments 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_deployments = '<spring:message code="M0054" arguments='arg_f_srch_deployments' javaScriptEscape="true" text="Deployments 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_deployments_lang = s_msg_f_srch_deployments.replace('arg_f_srch_deployments', f_srch_deployments);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Deployments 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_deployments_lang, false);
             return false;
         }
     };
@@ -231,9 +240,14 @@
     };
     // CALLBACK
     var callbackGetServices = function(data) {
+
+        var f_srch_services = 'Services 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_services = '<spring:message code="M0117" arguments='arg_f_srch_services' javaScriptEscape="true" text="Services 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_services_lang = s_msg_f_srch_services.replace('arg_f_srch_services', f_srch_services);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Services 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_services_lang, false);
             return false;
         }
         var serviceName,

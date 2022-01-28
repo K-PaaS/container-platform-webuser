@@ -102,9 +102,14 @@
 
     // CALLBACK
     var callbackGetReplicaSetsList = function (data) {
+
+        var f_srch_replicaSets = 'ReplicaSets 목록 조회에 실패하였습니다.';
+        var s_msg_f_srch_replicaSets= '<spring:message code="M0119" arguments='arg_f_srch_replicaSets' javaScriptEscape="true" text="ReplicaSets 목록 조회에 실패하였습니다."/>';
+        s_msg_f_srch_replicaSets_lang = s_msg_f_srch_replicaSets.replace('arg_f_srch_replicaSets', f_srch_replicaSets);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('ReplicaSets 목록 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_replicaSets_lang, false);
             return false;
         }
 

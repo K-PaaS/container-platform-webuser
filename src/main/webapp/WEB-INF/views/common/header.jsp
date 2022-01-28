@@ -243,26 +243,26 @@
 
 
     var logoutHandler =function(){
-        var u_locale_lang = document.getElementById("u_locale_lang").value;
-            if (u_locale_lang === 'ko') {
-                var logout = '로그아웃 하시겠습니까?';
-                var sso = 'SSO(Single Sign On) 통합 로그아웃이 진행됩니다.';
-                var s_msg_logout = '<spring:message code="M0015" arguments='arg_logout' javaScriptEscape="true" text="로그아웃 하시겠습니까?"/>';
-                var s_msg_sso = '<spring:message code="M0016" arguments='arg_sso' javaScriptEscape="true" text="SSO(Single Sign On) 통합 로그아웃이 진행됩니다."/>';
-                s_msg_logout_lang = s_msg_logout.replace('arg_logout', logout)
-                s_msg_sso_lang = s_msg_sso.replace('arg_sso', sso)
-            } else {
-                var logout = 'Do you want to sign out?';
-                var sso = 'Single Sign On (SSO) integrated sign-out takes place.';
-                var s_msg_logout = '<spring:message code="M0015" arguments='arg_logout' javaScriptEscape="true" text="로그아웃 하시겠습니까?"/>';
-                var s_msg_sso = '<spring:message code="M0016" arguments='arg_sso' javaScriptEscape="true" text="SSO(Single Sign On) 통합 로그아웃이 진행됩니다."/>';
-                s_msg_logout_lang = s_msg_logout.replace('arg_logout', logout)
-                s_msg_sso_lang = s_msg_sso.replace('arg_sso', sso)
-            }
+
+        var logout = '로그아웃 하시겠습니까?';
+        var sso_logout = 'SSO(Single Sign On) 통합 로그아웃이 진행됩니다.';
+        var cfm = '확인';
+        var cxl ='취소';
+
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_cxl = '<spring:message code="M0029" arguments='arg_cxl' javaScriptEscape="true" text="취소"/>';
+        var s_msg_logout = '<spring:message code="M0015" arguments='arg_logout' javaScriptEscape="true" text="로그아웃 하시겠습니까?"/>';
+        var s_msg_sso_logout = '<spring:message code="M0016" arguments='arg_sso_logout' javaScriptEscape="true" text="SSO(Single Sign On) 통합 로그아웃이 진행됩니다."/>';
+
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
+        s_msg_logout_lang = s_msg_logout.replace('arg_logout', logout);
+        s_msg_sso_logout_lang = s_msg_sso_logout.replace('arg_sso', sso_logout);
 
         var code = "<p class='account_modal_p'>" + s_msg_logout_lang + "</p>" +
-                   "<p class='account_modal_p'>" + s_msg_sso_lang + "</p>";
-        procSetLayerPopup('Sign Out', code, '확인', '취소', 'x', 'logout()', null, null);
+                   "<p class='account_modal_p'>" + s_msg_sso_logout_lang + "</p>";
+
+        procSetLayerPopup('Sign Out', code, s_msg_cfm_lang, s_msg_cxl_lang, 'x', 'logout()', null, null);
 
     }
 
@@ -274,8 +274,9 @@
     // Locale URL 세팅
     function changeLocaleLanguage() {
         var u_locale_lang = document.getElementById("u_locale_lang").value;
-            var reqUrl = "<%= Constants.URL_API_LOCALE_LANGUAGE %>" +"?"+ "<%= Constants.URL_API_CHANGE_LOCALE_PARAM %>" + "=" + u_locale_lang; //=> /localeLanguage?language=ko 또는 en
+        var reqUrl = "<%= Constants.URL_API_LOCALE_LANGUAGE %>" +"?"+ "<%= Constants.URL_API_CHANGE_LOCALE_PARAM %>" + "=" + u_locale_lang; //=> /localeLanguage?language=ko 또는 en
         setLocaleLang(reqUrl);
+        setLanguage(u_locale_lang);
     }
 
     function setSelectValue(id, val) {

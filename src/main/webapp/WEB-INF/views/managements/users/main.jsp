@@ -11,7 +11,7 @@
 <%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
 <div class="content">
     <div class="cluster_tabs_user_config clearfix" style="width: 100%">
-        <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="updateUsersRolePage();">설정</button>
+        <button id="createBtn" type="button" class="colors4 common-btn pull-right" onclick="updateUsersRolePage();"><p class='user_p'><spring:message code="M0103" text="설정"/></button>
     </div>
     <div class="cluster_content01 row two_line two_view">
         <ul>
@@ -73,9 +73,14 @@
 
     // CALLBACK
     var callbackGetUsersList = function(data) {
+
+        var f_srch_users = '사용자 목록 조회에 실패하였습니다.';
+        var s_msg_f_srch_users= '<spring:message code="M0087" arguments='arg_f_srch_users' javaScriptEscape="true" text="사용자 목록 조회에 실패하였습니다."/>';
+        s_msg_f_srch_users_lang = s_msg_f_srch_users.replace('arg_f_srch_users', f_srch_users);
+
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('사용자 목록 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_users_lang, false);
             return false;
         }
 
@@ -148,11 +153,13 @@
       var namespaceAdminType = "<%= Constants.NAMESPACE_ADMIN %>";
       var userType = current_user_type;
       var resultCode = '접근할 수 없는 권한입니다.';
+        var s_msg_resultCode= '<spring:message code="M0104" arguments='arg_resultCode' javaScriptEscape="true" text="접근할 수 없는 권한입니다."/>';
+        s_msg_resultCode_lang = s_msg_resultCode.replace('arg_resultCode', resultCode);
 
       if(userType === namespaceAdminType) {
           procMovePage("<%= Constants.URI_USERS_CONFIG %>");
       } else {
-          procAlertMessage(resultCode);
+          procAlertMessage(s_msg_resultCode_lang);
       }
 
     };

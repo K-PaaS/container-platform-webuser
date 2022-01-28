@@ -19,7 +19,7 @@
             <li>
                 <div class="sortable_wrap">
                     <div class="sortable_top colors5">
-                        <p style="color: white">수정</p>
+                        <p style="color: white"><spring:message code="M0025" text="수정"/></p>
                     </div>
                     <div class="view_table_wrap">
                         <table class="table_event condition">
@@ -91,11 +91,26 @@
 
         var yamlTextVal = $("#common_update_textarea").val().trim();
 
+        var edit_rsc = 'Resource 수정';
+        var cfm = '확인';
+        var cxl ='취소';
+        var q_edit_rsc = 'Resource를 수정하시겠습니까?';
+
+        var s_msg_edit_rsc = '<spring:message code="M0049" arguments='arg_edit_rsc' javaScriptEscape="true" text="Resource 수정"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_cxl = '<spring:message code="M0029" arguments='arg_cxl' javaScriptEscape="true" text="취소"/>';
+        var s_msg_q_edit_rsc= '<spring:message code="M0048" arguments='arg_q_edit_rsc' javaScriptEscape="true" text="Resource를 수정하시겠습니까?"/>';
+
+        s_msg_edit_rsc_lang = s_msg_edit_rsc.replace('arg_edit_rsc', edit_rsc);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
+        s_msg_q_edit_rsc_lang = s_msg_q_edit_rsc.replace('arg_q_edit_rsc', q_edit_rsc);
+
         if(yamlTextVal.length < 1) {
             procAlertMessage("<%=Constants.NO_VALUE_INPUT%>");}
         else {
-            var code = "<p class='account_modal_p'>Resource를 수정하시겠습니까?</p>";
-            procSetLayerPopup('Resource 수정', code, '확인', '취소', 'x', 'updateCommonResource()', null, null);
+            var code = "<p class='account_modal_p'>"+ s_msg_q_edit_rsc_lang +"</p>";
+            procSetLayerPopup(s_msg_edit_rsc_lang, code, s_msg_cfm_lang, s_msg_cxl_lang, 'x', 'updateCommonResource()', null, null);
         }
     });
 
@@ -131,16 +146,28 @@
 
     var resourceUpdate = function(data) {
 
+        var edit_rsc = 'Resource 수정';
+        var cfm = '확인';
         var resultCode = 'Resource가 정상적으로 수정되었습니다.';
+        var failResultCode = 'Resource 수정을 실패하였습니다.';
+
+        var s_msg_edit_rsc = '<spring:message code="M0049" arguments='arg_edit_rsc' javaScriptEscape="true" text="Resource 수정"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+        var s_msg_resultCode = '<spring:message code="M0050" arguments='arg_resultCode' javaScriptEscape="true" text="Resource가 정상적으로 수정되었습니다."/>';
+        var s_msg_failResultCode = '<spring:message code="M0051" arguments='arg_failResultCode' javaScriptEscape="true" text="Resource 수정을 실패하였습니다."/>';
+
+        s_msg_edit_rsc_lang = s_msg_edit_rsc.replace('arg_edit_rsc', edit_rsc);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+        s_msg_resultCode_lang = s_msg_resultCode.replace('arg_resultCode', resultCode);
+        s_msg_failResultCode_lang = s_msg_failResultCode.replace('arg_failResultCode', failResultCode);
 
         if (!procCheckValidData(data)) {
-            resultCode = 'Resource 수정을 실패하였습니다.';
-            procAlertMessage(resultCode);
+            procAlertMessage(s_msg_failResultCode_lang);
             return false;
 
         } else {
             var nextActionUrl = data.nextActionUrl;
-            procSetLayerPopup('Resource 수정', resultCode, '확인', null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
+            procSetLayerPopup(s_msg_edit_rsc_lang, s_msg_resultCode_lang, s_msg_cfm_lang, null, 'x', 'procMovePage("' + nextActionUrl + '")', null, null);
         }
     };
 

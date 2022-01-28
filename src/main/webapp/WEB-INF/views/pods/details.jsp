@@ -283,11 +283,16 @@
 
     // CALLBACK GET POD'S DETAIL
     var callbackGetDetail = function(data) {
+
+        var f_srch_pods = 'Pods 상세 조회에 실패하였습니다.';
+        var s_msg_f_srch_pods= '<spring:message code="M0112" arguments='arg_f_srch_pods' javaScriptEscape="true" text="Pods 상세 조회에 실패하였습니다."/>';
+        s_msg_f_srch_pods_lang = s_msg_f_srch_pods.replace('arg_f_srch_pods', f_srch_pods);
+
         procViewLoading('show');
 
         if (!procCheckValidData(data)) {
             procViewLoading('hide');
-            procAlertMessage('Pods 상세 조회에 실패하였습니다.', false);
+            procAlertMessage(s_msg_f_srch_pods_lang, false);
             return;
         }
 

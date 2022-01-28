@@ -47,6 +47,11 @@
     </div>
     <%--How to access :: END--%>
 </div>
+<style>
+    #repoAccessBtn {
+        font-size: 13px;
+    }
+</style>
 
 <script type="text/javascript">
     var G_PRIVATE_REPOSITORY_URL;
@@ -61,10 +66,26 @@
 
     // BIND
     $(".custom-access-copy-button").on("click", function () {
+
+        var cp_scr = '스크립트를 복사했습니다.';
+        var f_cp_scr = '스크립트 복사에 실패했습니다.';
+        var alert ='알림';
+        var cfm = '확인';
+
+        var s_msg_cp_scr = '<spring:message code="M0071" arguments='arg_cp_scr' javaScriptEscape="true" text="스크립트를 복사했습니다."/>';
+        var s_msg_f_cp_scr = '<spring:message code="M0072" arguments='arg_f_cp_scr' javaScriptEscape="true" text="스크립트 복사에 실패했습니다."/>';
+        var s_msg_alert = '<spring:message code="M0073" arguments='arg_alert' javaScriptEscape="true" text="알림"/>';
+        var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
+
+        s_msg_cp_scr_lang = s_msg_cp_scr.replace('arg_cp_scr', cp_scr);
+        s_msg_f_cp_scr_lang = s_msg_f_cp_scr.replace('arg_f_cp_scr', f_cp_scr);
+        s_msg_alert_lang = s_msg_alert.replace('arg_alert', alert);
+        s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
+
         var item = document.getElementById($(this).attr('about'));
         var reqValue = item.innerText || item.textContent;
-        var resultString = (procSetExecuteCommandCopy(reqValue)) ? '스크립트를 복사했습니다.' : '스크립트 복사에 실패했습니다.';
-        procSetLayerPopup('알림', resultString, '확인', null, 'x', null, null, null);
+        var resultString = (procSetExecuteCommandCopy(reqValue)) ? s_msg_cp_scr_lang : s_msg_f_cp_scr_lang;
+        procSetLayerPopup(s_msg_alert_lang, resultString, s_msg_cfm_lang, null, 'x', null, null, null);
     });
 
     var getPrivateRegistryDetail = function () {
