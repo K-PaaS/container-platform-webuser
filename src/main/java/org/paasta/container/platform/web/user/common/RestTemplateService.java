@@ -4,11 +4,13 @@ import org.paasta.container.platform.web.user.common.model.CommonStatusCode;
 import org.paasta.container.platform.web.user.common.model.ResultStatus;
 import org.paasta.container.platform.web.user.login.LoginService;
 import org.paasta.container.platform.web.user.login.model.UsersLoginMetaData;
+import org.paasta.container.platform.web.user.users.LocaleLang;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -29,6 +31,7 @@ public class RestTemplateService {
     private static final Logger LOGGER = LoggerFactory.getLogger(RestTemplateService.class);
     private static final String AUTHORIZATION_HEADER_KEY = "Authorization";
     private static final String CONTENT_TYPE = "Content-Type";
+    private static final String ULANG = "uLang";
     private final String cpApiBase64Authorization;
     private final String commonApiBase64Authorization;
     private final RestTemplate restTemplate;
@@ -38,6 +41,7 @@ public class RestTemplateService {
     private String base64Authorization;
     private String baseUrl;
     private HttpServletRequest request;
+    public LocaleLang localeLang;
 
 
     /**
@@ -90,6 +94,7 @@ public class RestTemplateService {
         HttpHeaders reqHeaders = new HttpHeaders();
         reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
         reqHeaders.add(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        reqHeaders.add(ULANG, localeLang.getULang());
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
 
@@ -156,6 +161,7 @@ public class RestTemplateService {
         HttpHeaders reqHeaders = new HttpHeaders();
         reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
         reqHeaders.add(CONTENT_TYPE, contentType);
+        reqHeaders.add(ULANG, localeLang.getULang());
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
 
@@ -269,6 +275,7 @@ public class RestTemplateService {
         reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
         reqHeaders.add(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         reqHeaders.add("isRefreshToken", "true");
+        reqHeaders.add(ULANG, localeLang.getULang());
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
         ResponseEntity<T> resEntity = null;
