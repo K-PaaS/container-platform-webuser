@@ -79,7 +79,7 @@ var procCallAjax = function (reqUrl, reqMethod, param, preFunc, callback) {
             if(reqMethod === "GET" && responseJSON.resultCode === "FAIL") {
 
                 if(responseJSON.resultMessage == "TOKEN_FAILED") {
-                    procAlertMessage("토큰이 만료되어 자동 로그아웃 되었습니다.");
+                    procAlertMessage("The token expired and you were automatically logged out.");
                 }
                 procAlertMessage(responseJSON.resultMessage);
             }
@@ -215,7 +215,8 @@ var gSpinnerHide = function (loader) {
 };
 
 var procAlertMessage = function (value, result) {
-    var messageValue = '시스템 에러가 발생했습니다.';
+
+    var messageValue = 'A system error has occurred.';
     var alertLayer = $(".alertLayer");
 
     if (nvl(value) !== '') {
@@ -388,7 +389,7 @@ var procSetLayerPopup = function (reqTitle, reqContents, reqSuccess, reqCancel, 
     commonLayerPopupFooterWrap.hide();
 
     if (nvl(reqSuccess) !== '' || nvl(reqCancel) !== '') {
-        commonLayerPopupSuccessButton.html(nvl(reqSuccess, '확인'));
+        commonLayerPopupSuccessButton.html(nvl(reqSuccess, 'Confirm'));
         commonLayerPopupFooterWrap.show();
     }
 
@@ -414,8 +415,8 @@ var procSetLayerPopup = function (reqTitle, reqContents, reqSuccess, reqCancel, 
         commonLayerPopupCloseButton.attr('onclick', reqCloseCallback);
     }
 
-    $('#commonLayerPopupTitle').html(nvl(reqTitle, '알림'));
-    $('#commonLayerPopupContents').html(nvl(reqContents, '정상 처리되었습니다.'));
+    $('#commonLayerPopupTitle').html(nvl(reqTitle, 'alerts'));
+    $('#commonLayerPopupContents').html(nvl(reqContents, 'Processed successfully'));
 
 
 

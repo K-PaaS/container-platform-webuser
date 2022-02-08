@@ -52,19 +52,22 @@
         var cfm = '확인';
         var cxl ='취소';
         var q_reg_rsc = 'Resource를 등록하시겠습니까?';
+        var no_input = '입력된 값이 없습니다.';
 
         var s_msg_reg_rsc = '<spring:message code="M0045" arguments='arg_reg_rsc' javaScriptEscape="true" text="Resource 등록"/>';
         var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
         var s_msg_cxl = '<spring:message code="M0029" arguments='arg_cxl' javaScriptEscape="true" text="취소"/>';
         var s_msg_q_reg_rsc= '<spring:message code="M0044" arguments='arg_q_reg_rsc' javaScriptEscape="true" text="Resource를 등록하시겠습니까?"/>';
+        var s_msg_no_input= '<spring:message code="M0457" arguments='arg_no_input' javaScriptEscape="true" text="입력된 값이 없습니다."/>';
 
         s_msg_reg_rsc_lang = s_msg_reg_rsc.replace('arg_reg_rsc', reg_rsc);
         s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
         s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
         s_msg_q_reg_rsc_lang = s_msg_q_reg_rsc.replace('arg_q_reg_rsc', q_reg_rsc);
+        s_msg_no_input_lang = no_input.replace('arg_no_input', s_msg_no_input);
 
         if(yamlTextVal.length < 1) {
-            procAlertMessage("<%=Constants.NO_VALUE_INPUT%>");}
+            procAlertMessage(s_msg_no_input_lang);}
         else {
             var code = "<p class='account_modal_p'>" + s_msg_q_reg_rsc_lang + "</p>";
             procSetLayerPopup(s_msg_reg_rsc_lang, code, s_msg_cfm_lang, s_msg_cxl_lang, 'x', 'createCommonResource()', null, null);
