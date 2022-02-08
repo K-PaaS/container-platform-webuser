@@ -275,18 +275,15 @@ public class UsersController {
     @GetMapping(value = Constants.URL_API_LOCALE_LANGUAGE)
     public String getLocaleLang() {
 
-        LocaleLang localeLang= new LocaleLang(Constants.LANG_EN);
         try {
             Locale locale = LocaleContextHolder.getLocale();
 
             if (locale.toString().equalsIgnoreCase(Constants.LANG_EN)) {
-                localeLang.setULang(Constants.LANG_EN);
                 return Constants.LANG_EN;
             }
         } catch (Exception e) {
             return Constants.LANG_EN;
         }
-        localeLang.setULang(Constants.LANG_KO);
         return Constants.LANG_KO;
     }
 }

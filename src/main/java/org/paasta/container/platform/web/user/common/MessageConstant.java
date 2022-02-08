@@ -1,8 +1,9 @@
 package org.paasta.container.platform.web.user.common;
 
 
-import org.paasta.container.platform.web.user.users.LocaleLang;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.context.i18n.LocaleContextHolder;
+
+import java.util.Locale;
 
 /**
  * MessageConstant 클래스
@@ -34,15 +35,13 @@ public enum MessageConstant {
     }
 
     public String getMsg() {
-        LocaleLang localeLang = null;
-        String u_lang ="";
+        Locale locale = LocaleContextHolder.getLocale();
         try {
-            localeLang= (LocaleLang) SecurityContextHolder.getContext().getAuthentication().getDetails();
-            u_lang = localeLang.getULang();
+            locale.toString();
         } catch (Exception e) {
             return getEng_msg();
         }
-        if (u_lang.equals(Constants.LANG_KO)) {
+        if (locale.toString().equals(Constants.LANG_KO)) {
             return getKo_msg();
         }
         return getEng_msg();
