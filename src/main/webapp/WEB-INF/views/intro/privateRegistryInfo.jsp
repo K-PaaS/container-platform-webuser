@@ -40,7 +40,7 @@
         </div>
         <div class="custom-access-wrap" style="height: 110px;">
             <div class="custom-access-title">
-                <p style="color: #292d37"><i class="fas fa-info-circle"></i><spring:message code="M0080" text="Private Repository 접속정보는 운영자에게 문의하시기 바랍니다."/></p>
+                <p style="color: #292d37"><i class="fas fa-info-circle"></i>&nbsp;&nbsp;<spring:message code="M0080" text="Private Repository 접속정보는 운영자에게 문의하시기 바랍니다."/></p>
                 <button  id="repoAccessBtn" style="width:160px; margin-top:15px;" class="colors5 common-btn" title="Private Repository 접속" onclick="moveToPrivateRepository();"><spring:message code="M0081" text="Private Repository 접속"/></button>
              </div>
         </div>
@@ -49,6 +49,8 @@
 </div>
 <style>
     #repoAccessBtn {
+        width: 180px !important;
+        height: 40px;
         font-size: 13px;
     }
 </style>

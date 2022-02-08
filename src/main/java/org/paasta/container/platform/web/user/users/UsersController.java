@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -268,22 +267,28 @@ public class UsersController {
         }
     }
 
+
     /**
      * Locale 언어 조회 (Get Locale Language)
      */
     @ApiOperation(value = "Locale 언어 조회 (Get Locale Language)", nickname = "getLocaleLang")
     @GetMapping(value = Constants.URL_API_LOCALE_LANGUAGE)
     public String getLocaleLang() {
-
         try {
             Locale locale = LocaleContextHolder.getLocale();
 
-            if (locale.toString().equalsIgnoreCase(Constants.LANG_EN)) {
-                return Constants.LANG_EN;
+            if (locale.toString().equalsIgnoreCase(Constants.LANG_KO)) {
+                return Constants.LANG_KO;
             }
+
+            if (locale.toString().toLowerCase().startsWith(Constants.LANG_KO_START_WITH)) {
+                return Constants.LANG_KO;
+            }
+
         } catch (Exception e) {
             return Constants.LANG_EN;
         }
-        return Constants.LANG_KO;
+
+        return Constants.LANG_EN;
     }
 }

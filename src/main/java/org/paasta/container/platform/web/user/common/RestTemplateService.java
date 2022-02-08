@@ -91,12 +91,11 @@ public class RestTemplateService {
     public <T> T send(String reqApi, String reqUrl, HttpMethod httpMethod, Object bodyObject, Class<T> responseType) {
 
         setApiUrlAuthorization(reqApi);
-        Locale locale = LocaleContextHolder.getLocale();
 
         HttpHeaders reqHeaders = new HttpHeaders();
         reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
         reqHeaders.add(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        reqHeaders.add(U_LANG, locale.toString());
+        reqHeaders.add(U_LANG, getLocaleLang());
 
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
@@ -160,12 +159,11 @@ public class RestTemplateService {
     public <T> T sendYaml(String reqApi, String reqUrl, HttpMethod httpMethod, Object bodyObject, Class<T> responseType, String contentType) {
 
         setApiUrlAuthorization(reqApi);
-        Locale locale = LocaleContextHolder.getLocale();
 
         HttpHeaders reqHeaders = new HttpHeaders();
         reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
         reqHeaders.add(CONTENT_TYPE, contentType);
-        reqHeaders.add(U_LANG, locale.toString());
+        reqHeaders.add(U_LANG, getLocaleLang());
 
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
@@ -275,13 +273,12 @@ public class RestTemplateService {
     public <T> T sendRefreshToken(String reqApi, HttpMethod httpMethod, Object bodyObject, Class<T> responseType) {
 
         setApiUrlAuthorization(reqApi);
-        Locale locale = LocaleContextHolder.getLocale();
 
         HttpHeaders reqHeaders = new HttpHeaders();
         reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
         reqHeaders.add(CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         reqHeaders.add("isRefreshToken", "true");
-        reqHeaders.add(U_LANG, locale.toString());
+        reqHeaders.add(U_LANG, getLocaleLang());
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
         ResponseEntity<T> resEntity = null;
@@ -347,19 +344,40 @@ public class RestTemplateService {
      */
     public  HttpEntity<Object>  updateRequestEntity(String reqApi, Object bodyObject, String contentType) {
         setApiUrlAuthorization(reqApi);
-        Locale locale = LocaleContextHolder.getLocale();
 
         HttpHeaders reqHeaders = new HttpHeaders();
         reqHeaders.add(AUTHORIZATION_HEADER_KEY, base64Authorization);
         reqHeaders.add(CONTENT_TYPE, contentType);
-        reqHeaders.add(U_LANG, locale.toString());
+        reqHeaders.add(U_LANG, getLocaleLang());
 
         HttpEntity<Object> reqEntity = new HttpEntity<>(bodyObject, reqHeaders);
         return reqEntity;
     }
 
 
+    /**
+     * Locale 언어 조회 (Get Locale Language)
+     *
+     * @return the string
+     */
+    public String getLocaleLang() {
+        try {
+            Locale locale = LocaleContextHolder.getLocale();
 
+            if (locale.toString().equalsIgnoreCase(Constants.LANG_KO)) {
+                return Constants.LANG_KO;
+            }
+
+            if (locale.toString().toLowerCase().startsWith(Constants.LANG_KO_START_WITH)) {
+                return Constants.LANG_KO;
+            }
+
+        } catch (Exception e) {
+            return Constants.LANG_EN;
+        }
+
+        return Constants.LANG_EN;
+    }
 
 }
 
