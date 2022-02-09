@@ -276,7 +276,6 @@
         var u_locale_lang = document.getElementById("u_locale_lang").value;
         var reqUrl = "<%= Constants.URL_API_LOCALE_LANGUAGE %>" +"?"+ "<%= Constants.URL_API_CHANGE_LOCALE_PARAM %>" + "=" + u_locale_lang; //=> /localeLanguage?language=ko 또는 en
         setLocaleLang(reqUrl);
-        setLanguage(u_locale_lang);
     }
 
     function setSelectValue(id, val) {

@@ -106,8 +106,8 @@
         s_msg_edit_rsc_lang = s_msg_edit_rsc.replace('arg_edit_rsc', edit_rsc);
         s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
         s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
-        s_msg_q_edit_rsc_lang = q_edit_rsc.replace('arg_q_edit_rsc', s_msg_q_edit_rsc);
-        s_msg_no_input_lang = no_input.replace('arg_no_input', s_msg_no_input);
+        s_msg_q_edit_rsc_lang = s_msg_q_edit_rsc.replace('arg_q_edit_rsc', q_edit_rsc);
+        s_msg_no_input_lang = s_msg_no_input.replace('arg_no_input', no_input);
 
         if(yamlTextVal.length < 1) {
             procAlertMessage(s_msg_no_input_lang);}

@@ -64,7 +64,7 @@
         s_msg_cfm_lang = s_msg_cfm.replace('arg_cfm', cfm);
         s_msg_cxl_lang = s_msg_cxl.replace('arg_cxl', cxl);
         s_msg_q_reg_rsc_lang = s_msg_q_reg_rsc.replace('arg_q_reg_rsc', q_reg_rsc);
-        s_msg_no_input_lang = no_input.replace('arg_no_input', s_msg_no_input);
+        s_msg_no_input_lang = s_msg_no_input.replace('arg_no_input', no_input);
 
         if(yamlTextVal.length < 1) {
             procAlertMessage(s_msg_no_input_lang);}
@@ -101,7 +101,7 @@
         var resultCode = 'Resource가 정상적으로 등록되었습니다.';
         var failResultCode = 'Resource 등록을 실패하였습니다.';
 
-        var s_msg_reg_rsc = '<spring:message code="M0038" arguments='arg_reg_rsc' javaScriptEscape="true" text="Resource 등록"/>';
+        var s_msg_reg_rsc = '<spring:message code="M0045" arguments='arg_reg_rsc' javaScriptEscape="true" text="Resource 등록"/>';
         var s_msg_cfm = '<spring:message code="M0022" arguments='arg_cfm' javaScriptEscape="true" text="확인"/>';
         var s_msg_resultCode = '<spring:message code="M0046" arguments='arg_resultCode' javaScriptEscape="true" text="Resource가 정상적으로 등록되었습니다."/>';
         var s_msg_failResultCode = '<spring:message code="M0047" arguments='arg_failResultCode' javaScriptEscape="true" text="Resource 등록을 실패하였습니다."/>';
