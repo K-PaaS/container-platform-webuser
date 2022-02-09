@@ -38,6 +38,8 @@
 <input type="hidden" id="hiddenResourceKind" value="<c:out value='${resourceKind}' default='' />" />
 <script type="text/javascript">
 
+    getLocaleLang();
+
     // ON LOAD
     $(document.body).ready(function () {
         procViewLoading('hide');
