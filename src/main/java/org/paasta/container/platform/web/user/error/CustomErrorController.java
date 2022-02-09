@@ -98,7 +98,7 @@ public class CustomErrorController implements ErrorController {
 
     @NoAuth
     @GetMapping("/error/404")
-    public ModelAndView handle400Error() {
+    public ModelAndView handle404Error() {
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName(VIEW_URL + "404");
@@ -111,6 +111,15 @@ public class CustomErrorController implements ErrorController {
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName(VIEW_URL + "401");
+        return mv;
+    }
+
+    @NoAuth
+    @GetMapping("/error/400")
+    public ModelAndView handle400Error() {
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName(VIEW_URL + "400");
         return mv;
     }
 }
