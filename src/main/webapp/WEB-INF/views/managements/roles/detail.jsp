@@ -85,7 +85,7 @@
                             </colgroup>
                             <thead>
                             <tr id="noRuleListResultArea" style="display: none;">
-                                <td colspan='5'><p class='service_p'><spring:message code="M0082" text="실행 중인 Roles가 없습니다."/></p></td>
+                                <td colspan='5'><p class='service_p'><spring:message code="M0082" text="실행 중인 Roles이 없습니다."/></p></td>
                             </tr>
                             <tr id="ruleListResultHeaderArea" class="headerSortFalse">
                                 <td>Resource</td>

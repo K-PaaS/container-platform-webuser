@@ -137,7 +137,7 @@
                 </div>
             </div>
             <div class="custom-access-title-caution">
-                <p style="color: red;"><i class="fas fa-info-circle"></i><spring:message code="M0064" text="토큰을 응용 프로그램과 공유 할 때 주의 하십시오. 공용 코드 저장소에 사용자 토큰을 게시하지 마십시오."/></p>
+                <p style="color: red;"><i class="fas fa-info-circle"></i>&nbsp;&nbsp;<spring:message code="M0064" text="토큰을 응용 프로그램과 공유 할 때 주의 하십시오. 공용 코드 저장소에 사용자 토큰을 게시하지 마십시오."/></p>
             </div>
             <div class="custom-access-contents-wrap">
                 <div class="maT10">
