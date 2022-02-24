@@ -184,7 +184,7 @@ public class UsersController {
     @GetMapping(value = Constants.API_URL + Constants.URI_API_USERS_DETAIL)
     public Users getUsersByNamespace(@PathVariable(value = "cluster") String cluster,
                                      @PathVariable(value = "namespace") String namespace,
-                                     @PathVariable(value = "userId") String userId) {
+                                     @RequestParam(required = false, defaultValue = "") String userId) {
         return usersService.getUsers(cluster, namespace, userId);
     }
 

@@ -310,8 +310,13 @@
 
         var reqUrl = "<%= Constants.API_URL %><%= Constants.URI_API_USERS_DETAIL %>"
             .replace("{cluster:.+}", CLUSTER_NAME)
-            .replace("{namespace:.+}", NAME_SPACE)
-            .replace("{userId:.+}", $("#useId").val());
+            .replace("{namespace:.+}", NAME_SPACE);
+
+        var userId =  $("#useId").val();
+
+        if (userId != null) {
+            reqUrl += "?userId=" + userId;
+        };
 
         procCallAjax(reqUrl, "GET", null, null, callbackGetUser);
     };

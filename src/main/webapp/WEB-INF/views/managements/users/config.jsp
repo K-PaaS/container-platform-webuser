@@ -197,6 +197,7 @@
 
         var checkbox = $('input[name="checkbox_name"]:checked');
 
+        var userId ="";
         var sa = "";
         var role = "";
         var array = [];
@@ -206,10 +207,11 @@
             var tr = checkbox.parent().parent().eq(i);
             var td = tr.children();
 
+            userId = td.eq(1).text();
             sa = td.eq(2).text();
             role = td.eq(3).find('select :selected').text();
 
-            map = makeMap(sa, role);
+            map = makeMap(userId, sa, role);
             array.push(map);
         });
 
@@ -251,8 +253,9 @@
         }
     };
 
-    var makeMap = function (sa, roleName) {
+    var makeMap = function (userId, sa, roleName) {
         var param = {
+            "userId": userId,
             "serviceAccountName": sa,
             "roleSetCode": roleName
         };
