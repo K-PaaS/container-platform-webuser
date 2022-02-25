@@ -22,6 +22,7 @@
         padding : 0 10px;
         font-size: 17px;
         margin-top: 3px;
+        margin-right: 5px;
     }
 
     #r_user{
@@ -55,7 +56,7 @@
     }
     #u_locale_lang{
         height: 43px;
-        width: 125px;
+        width: 110px;
         line-height: initial;
         font-size: 14px;
         padding: 0 0 0 10px;
@@ -74,6 +75,7 @@
     <div class="gnb search">
     </div>
     <ul class="right_nav">
+        <li style="width: auto;"><div id="usernameDiv"></div></li>
         <li style="width: auto;">
             <div id="localeLangDiv">
                 <fieldset>
@@ -84,7 +86,6 @@
                 </fieldset>
             </div>
         </li>
-        <li style="width: auto;"><div id="usernameDiv"></div></li>
         <li>
             <div class="btn-group">
                 <button href="#" class="dropdown-toggle user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
