@@ -49,6 +49,8 @@ ext {
 	httpcoreVersion = '4.4.6'
 }
 
+ext['tomcat.version'] = '9.0.63'
+
 war {
 	archivesBaseName = 'paas-ta-container-platform-webuser'
 }
