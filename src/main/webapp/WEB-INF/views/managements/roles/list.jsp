@@ -7,7 +7,7 @@
   @since 2020.10.13
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 <div class="sortable_wrap">
     <div class="sortable_top">
         <p>Roles</p>

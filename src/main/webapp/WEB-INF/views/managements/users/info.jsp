@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 <link rel="stylesheet" href="/resources/css/cp-common.css">
 <div class="update-content">
         <div class="update_wrap" style="border: solid 2px; border-color:#e7eaec;">

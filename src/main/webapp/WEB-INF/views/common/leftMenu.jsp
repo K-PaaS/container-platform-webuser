@@ -6,7 +6,7 @@
   @since 2020.08.21
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 <nav style="height: 90%;">
     <div class="scroll_style">
         <ul class="nav_1d cp_nav">

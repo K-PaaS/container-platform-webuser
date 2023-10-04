@@ -5,7 +5,7 @@
   @version 1.0
   @since 2020.09.17
 --%>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 

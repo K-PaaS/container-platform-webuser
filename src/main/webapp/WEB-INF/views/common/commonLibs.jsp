@@ -6,11 +6,11 @@
   @since 2020.08.20
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 <%@ page import="org.springframework.context.ApplicationContext" %>
-<%@ page import="org.paasta.container.platform.web.user.login.LoginService" %>
+<%@ page import="org.container.platform.web.user.login.LoginService" %>
 <%@ page import="org.springframework.web.servlet.support.RequestContextUtils" %>
-<%@ page import="org.paasta.container.platform.web.user.login.model.UsersLoginMetaData" %>
+<%@ page import="org.container.platform.web.user.login.model.UsersLoginMetaData" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 

@@ -6,7 +6,7 @@
   @since 2020.09.03
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <div class="sortable_wrap">
     <div class="sortable_top">

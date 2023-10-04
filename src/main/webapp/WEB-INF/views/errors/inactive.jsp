@@ -5,7 +5,7 @@
   @version 1.0
   @since 2021.06.02
 --%>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -13,7 +13,7 @@
 <head>
     <link rel="stylesheet" href="/resources/css/empty_layout.css">
     <script type="text/javascript" src='<c:url value="/resources/js/common_error.js"/>'></script>
-    <title>PaaS-TA Container Platform User Portal</title>
+    <title>K-PaaS Container Platform User Portal</title>
 </head>
 <body>
 <div class="layer">

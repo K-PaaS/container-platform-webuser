@@ -10,7 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-    <title>PaaS-TA Container Platform User Portal</title>
+    <title>K-PaaS Container Platform User Portal</title>
     <style>
         .layer {
             position: absolute;

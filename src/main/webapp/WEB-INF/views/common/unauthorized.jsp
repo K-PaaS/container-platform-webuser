@@ -11,7 +11,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="/resources/css/empty_layout.css">
-    <title>PaaS-TA Container Platform User Portal</title>
+    <title>K-PaaS Container Platform User Portal</title>
 </head>
 <body>
 <div class="layer">

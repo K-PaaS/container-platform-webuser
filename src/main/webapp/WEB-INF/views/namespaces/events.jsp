@@ -6,7 +6,7 @@
   @since 2020.09.07
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="../common/commonEvents.jsp"/>

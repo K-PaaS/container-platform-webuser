@@ -7,7 +7,7 @@
   @since 2020.09.15
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.paasta.container.platform.web.user.common.Constants" %>
+<%@ page import="org.container.platform.web.user.common.Constants" %>
 
 <div class="common-cu">
     <button id="deleteBtn" class="colors2 common-btn pull-left" title="deleteBtn"><spring:message code="M0026" text="삭제"/></button>
